@@ -17,12 +17,11 @@ public:
 class Rep_Payees
 {
 private:
-	Payees payees;
 	std::set<Payees> repository;
 public:
 	Rep_Payees();
-	void add(std::string tag);
-	void remove(std::string tag);
+	void add(std::string name);
+	void remove(std::string name);
 	void print() const;
 };
 

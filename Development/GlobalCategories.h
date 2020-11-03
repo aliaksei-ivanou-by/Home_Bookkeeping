@@ -1,5 +1,5 @@
-#ifndef REPCATEGORIES_H
-#define REPCATEGORIES_H
+#ifndef GLOBALCATEGORIES_H
+#define GLOBALCATEGORIES_H
 
 #include "stdafx.h"
 
@@ -12,17 +12,17 @@ public:
 	Categories(std::string name);
 	std::string get_name() const;
 	void set_name(std::string name);
+	//void add_subcategory();
 };
 
 class Rep_Categories
 {
 private:
-	Categories categories;
 	std::set<Categories> repository;
 public:
 	Rep_Categories();
-	void add(std::string tag);
-	void remove(std::string tag);
+	void add(std::string name);
+	void remove(std::string name);
 	void print() const;
 };
 

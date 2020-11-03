@@ -17,12 +17,11 @@ public:
 class Rep_CurrencyExchangeRates
 {
 private:
-	CurrencyExchangeRates currencyexchangerates;
 	std::set<CurrencyExchangeRates> repository;
 public:
 	Rep_CurrencyExchangeRates();
-	void add(std::string tag);
-	void remove(std::string tag);
+	void add(std::string name);
+	void remove(std::string name);
 	void print() const;
 };
 

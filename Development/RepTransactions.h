@@ -2,23 +2,20 @@
 #define REPTRANSACTIONS_H
 
 #include "stdafx.h"
+#include "BookKeeping.h"
 
-class Transactions
+class Rep_Transactions
 {
 private:
-	std::string Account;
-	std::string TransactionType;
-	std::string TransactionStatus;
-	std::string Description;
-	std::string Payee;
-	double Amount;
-	std::string Currency;
-	std::string Category;
-	std::string SubCategory;
-	std::string Comment;
-	std::string Tag;
+	Rep_Accounts rep_accounts;
+	Rep_Currencies rep_currencies;
+	Rep_Categories rep_categories;
+
 public:
-	void set_tagg(std::string name);
+	Rep_Transactions();
+	void install_default_categories();
+	void install_default_currencies();
+	void install_default_accounts();
 };
 
 #endif

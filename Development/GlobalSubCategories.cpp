@@ -1,4 +1,4 @@
-#include "RepSubCategories.h"
+#include "GlobalSubCategories.h"
 
 SubCategories::SubCategories()
 	: SubCategory_Name{ "" }

@@ -15,18 +15,19 @@ public:
 	Currencies(std::string name, std::string code);
 	Currencies(std::string name, std::string code, bool state);
 	std::string get_name() const;
+	std::string get_code() const;
+	bool get_active() const;
 	void set_name(std::string name);
 };
 
 class Rep_Currencies
 {
 private:
-	Currencies currencies;
 	std::set<Currencies> repository;
 public:
 	Rep_Currencies();
-	void add(std::string currency);
-	void remove(std::string currency);
+	void add(std::string name);
+	void remove(std::string name);
 	void print() const;
 };
 

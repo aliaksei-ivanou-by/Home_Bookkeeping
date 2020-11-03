@@ -40,8 +40,10 @@ void Rep_Accounts::remove(std::string name)
 
 void Rep_Accounts::print() const
 {
+	std::cout << "==========\nAccounts:\n";
 	for (const auto& i : repository)
 	{
-		std::cout << i.get_name() << '\n';
+		std::cout << "\t" << i.get_name() << '\n';
 	}
+	std::cout << "==========\n";
 }

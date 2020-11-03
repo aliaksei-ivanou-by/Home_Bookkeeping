@@ -17,12 +17,11 @@ public:
 class Rep_Tags
 {
 private:
-	Tags tags;
 	std::set<Tags> repository;
 public:
 	Rep_Tags();
-	void add(std::string tag);
-	void remove(std::string tag);
+	void add(std::string name);
+	void remove(std::string name);
 	void print() const;
 };
 

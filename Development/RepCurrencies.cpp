@@ -29,6 +29,16 @@ std::string Currencies::get_name() const
 	return this->Currency_Name;
 }
 
+std::string Currencies::get_code() const
+{
+	return this->Currency_Code;
+}
+
+bool Currencies::get_active() const
+{
+	return this->Currency_Active;
+}
+
 void Currencies::set_name(std::string name)
 {
 	this->Currency_Name = name;
@@ -56,8 +66,11 @@ void Rep_Currencies::remove(std::string name)
 
 void Rep_Currencies::print() const
 {
+	std::cout << "==========\nCurrencies:\n";
+	std::cout << "\tName\tCode\tActive\n";
 	for (const auto& i : repository)
 	{
-		std::cout << i.get_name() << '\n';
+		std::cout << '\t' << i.get_name() << '\t' << i.get_code() << '\t' << i.get_active() << '\n';
 	}
+	std::cout << "==========\n";
 }

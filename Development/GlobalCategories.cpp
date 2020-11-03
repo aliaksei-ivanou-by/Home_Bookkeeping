@@ -1,4 +1,4 @@
-#include "RepCategories.h"
+#include "GlobalCategories.h"
 
 Categories::Categories()
 	: Category_Name{ "" }
@@ -28,20 +28,20 @@ Rep_Categories::Rep_Categories()
 
 void Rep_Categories::add(std::string name)
 {
-	Categories temp(name);
-	repository.insert(temp);
+	repository.insert(name);
 }
 
 void Rep_Categories::remove(std::string name)
 {
-	Categories temp(name);
-	repository.erase(temp);
+	repository.erase(name);
 }
 
 void Rep_Categories::print() const
 {
+	std::cout << "==========\nCategories:\n";
 	for (const auto& i : repository)
 	{
-		std::cout << i.get_name() << '\n';
+		std::cout << "\t" << i.get_name() << '\n';
 	}
+	std::cout << "==========\n";
 }

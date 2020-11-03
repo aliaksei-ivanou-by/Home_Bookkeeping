@@ -17,12 +17,11 @@ public:
 class Rep_Descriptions
 {
 private:
-	Descriptions descriptions;
 	std::set<Descriptions> repository;
 public:
 	Rep_Descriptions();
-	void add(std::string tag);
-	void remove(std::string tag);
+	void add(std::string name);
+	void remove(std::string name);
 	void print() const;
 };
 

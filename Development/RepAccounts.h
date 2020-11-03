@@ -17,12 +17,11 @@ public:
 class Rep_Accounts
 {
 private:
-	Accounts accounts;
 	std::set<Accounts> repository;
 public:
 	Rep_Accounts();
-	void add(std::string tag);
-	void remove(std::string tag);
+	void add(std::string name);
+	void remove(std::string name);
 	void print() const;
 };
 

@@ -1,17 +1,14 @@
-#ifndef BOOKKEEPING_H
-#define BOOKKEEPING_H
+// global
+#include "GlobalTransactionTypes.h"
+#include "GlobalTransactionStatuses.h"
+#include "GlobalCategories.h"
+#include "GlobalSubCategories.h"
 
-// #include "DateTime.h"
+// repositories
 #include "RepAccounts.h"
 #include "RepDescriptions.h"
 #include "RepPayees.h"
 #include "RepCurrencies.h"
 #include "RepCurrencyExchangeRates.h"
-#include "RepCategories.h"
-#include "RepSubCategories.h"
 #include "RepComments.h"
 #include "RepTags.h"
-#include "TransactionTypes.h"
-#include "TransactionStatuses.h"
-
-#endif

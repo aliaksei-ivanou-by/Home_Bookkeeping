@@ -1,9 +1,7 @@
-#ifndef STDAFX_H
-#define STDAFX_H
+#pragma once
 
 #include <iostream>
 #include <string>
 #include <set>
 #include <map>
-
-#endif
+#include <vector>

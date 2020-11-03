@@ -17,12 +17,11 @@ public:
 class Rep_SubCategories
 {
 private:
-	SubCategories subcategories;
 	std::set<SubCategories> repository;
 public:
 	Rep_SubCategories();
-	void add(std::string tag);
-	void remove(std::string tag);
+	void add(std::string name);
+	void remove(std::string name);
 	void print() const;
 };
 
