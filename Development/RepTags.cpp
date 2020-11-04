@@ -38,10 +38,17 @@ void Rep_Tags::remove(std::string name)
 	repository.erase(temp);
 }
 
+std::ostream& operator<<(std::ostream& os, const Tags& i)
+{
+	return os << i.get_name();
+}
+
 void Rep_Tags::print() const
 {
+	std::cout << "==========\nTags:\n";
 	for (const auto& i : repository)
 	{
-		std::cout << i.get_name() << '\n';
+		std::cout << '\t' << i << '\n';
 	}
+	std::cout << "==========\n";
 }

@@ -38,10 +38,17 @@ void Rep_CurrencyExchangeRates::remove(std::string name)
 	repository.erase(temp);
 }
 
+std::ostream& operator<<(std::ostream& os, const CurrencyExchangeRates& i)
+{
+	return os << i.get_name();
+}
+
 void Rep_CurrencyExchangeRates::print() const
 {
+	std::cout << "==========\nCurrency Exchange Rates:\n";
 	for (const auto& i : repository)
 	{
-		std::cout << i.get_name() << '\n';
+		std::cout << '\t' << i << '\n';
 	}
+	std::cout << "==========\n";
 }

@@ -38,10 +38,17 @@ void Rep_Payees::remove(std::string name)
 	repository.erase(temp);
 }
 
+std::ostream& operator<<(std::ostream& os, const Payees& i)
+{
+	return os << i.get_name();
+}
+
 void Rep_Payees::print() const
 {
+	std::cout << "==========\nPayees:\n";
 	for (const auto& i : repository)
 	{
-		std::cout << i.get_name() << '\n';
+		std::cout << '\t' << i << '\n';
 	}
+	std::cout << "==========\n";
 }

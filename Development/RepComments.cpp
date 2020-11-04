@@ -38,10 +38,17 @@ void Rep_Comments::remove(std::string name)
 	repository.erase(temp);
 }
 
+std::ostream& operator<<(std::ostream& os, const Comments& i)
+{
+	return os << i.get_name();
+}
+
 void Rep_Comments::print() const
 {
+	std::cout << "==========\nComments:\n";
 	for (const auto& i : repository)
 	{
-		std::cout << i.get_name() << '\n';
+		std::cout << '\t' << i << '\n';
 	}
+	std::cout << "==========\n";
 }

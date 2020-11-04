@@ -36,12 +36,17 @@ void Rep_Categories::remove(std::string name)
 	repository.erase(name);
 }
 
+std::ostream& operator<<(std::ostream& os, const Categories& i)
+{
+	return os << i.get_name();
+}
+
 void Rep_Categories::print() const
 {
-	std::cout << "==========\nCategories:\n";
+	std::cout << "==========\nCaregories:\n";
 	for (const auto& i : repository)
 	{
-		std::cout << "\t" << i.get_name() << '\n';
+		std::cout << '\t' << i << '\n';
 	}
 	std::cout << "==========\n";
 }

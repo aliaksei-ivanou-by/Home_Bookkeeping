@@ -64,13 +64,17 @@ void Rep_Currencies::remove(std::string name)
 	repository.erase(temp);
 }
 
+std::ostream& operator<<(std::ostream& os, const Currencies& i)
+{
+	return os << i.get_name() << '\t' << i.get_code() << '\t' << i.get_active();
+}
+
 void Rep_Currencies::print() const
 {
 	std::cout << "==========\nCurrencies:\n";
-	std::cout << "\tName\tCode\tActive\n";
 	for (const auto& i : repository)
 	{
-		std::cout << '\t' << i.get_name() << '\t' << i.get_code() << '\t' << i.get_active() << '\n';
+		std::cout << '\t' << i << '\n';
 	}
 	std::cout << "==========\n";
 }

@@ -38,12 +38,17 @@ void Rep_Accounts::remove(std::string name)
 	repository.erase(temp);
 }
 
+std::ostream& operator<<(std::ostream& os, const Accounts& i)
+{
+	return os << i.get_name();
+}
+
 void Rep_Accounts::print() const
 {
 	std::cout << "==========\nAccounts:\n";
 	for (const auto& i : repository)
 	{
-		std::cout << "\t" << i.get_name() << '\n';
+		std::cout << '\t' << i << '\n';
 	}
 	std::cout << "==========\n";
 }

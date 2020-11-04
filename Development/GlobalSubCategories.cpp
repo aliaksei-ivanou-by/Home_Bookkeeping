@@ -38,10 +38,17 @@ void Rep_SubCategories::remove(std::string name)
 	repository.erase(temp);
 }
 
+std::ostream& operator<<(std::ostream& os, const SubCategories& i)
+{
+	return os << i.get_name();
+}
+
 void Rep_SubCategories::print() const
 {
+	std::cout << "==========\nSubCategories:\n";
 	for (const auto& i : repository)
 	{
-		std::cout << i.get_name() << '\n';
+		std::cout << '\t' << i << '\n';
 	}
+	std::cout << "==========\n";
 }
