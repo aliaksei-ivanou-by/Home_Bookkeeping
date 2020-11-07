@@ -12,7 +12,6 @@ public:
 	Categories(std::string name);
 	std::string get_name() const;
 	void set_name(std::string name);
-	//void add_subcategory();
 };
 
 class Rep_Categories

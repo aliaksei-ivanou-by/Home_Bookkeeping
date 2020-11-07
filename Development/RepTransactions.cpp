@@ -10,6 +10,7 @@ Rep_Transactions::Rep_Transactions()
 
 void Rep_Transactions::install_default_categories()
 {
+	std::lock_guard<std::mutex> lg(this->mtx);
 	Rep_Categories categories;
 	this->rep_categories = categories;
 	this->rep_categories.add("Bills");

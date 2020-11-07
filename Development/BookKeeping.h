@@ -1,6 +1,5 @@
 // global
-#include "GlobalTransactionTypes.h"
-#include "GlobalTransactionStatuses.h"
+#include "GlobalTransactionTypesStatuses.h"
 #include "GlobalCategories.h"
 #include "GlobalSubCategories.h"
 
@@ -12,3 +11,4 @@
 #include "RepCurrencyExchangeRates.h"
 #include "RepComments.h"
 #include "RepTags.h"
+#include "RepTransactions.h"
