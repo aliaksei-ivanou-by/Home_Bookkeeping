@@ -17,11 +17,11 @@ private:
 	std::set<Account> repository;
 public:
 	AccountRepository() {}
-	void add(std::string name)
+	void add(Account name)
 	{
 		repository.insert(name);
 	}
-	void remove(std::string name)
+	void remove(Account name)
 	{
 		repository.erase(name);
 	}

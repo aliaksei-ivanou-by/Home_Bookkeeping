@@ -17,11 +17,11 @@ private:
 	std::set<CategorySub> repository;
 public:
 	CategorySubRepository() {}
-	void add(std::string name)
+	void add(CategorySub name)
 	{
 		repository.insert(name);
 	}
-	void remove(std::string name)
+	void remove(CategorySub name)
 	{
 		repository.erase(name);
 	}

@@ -18,50 +18,34 @@
 class TransactionRepository
 {
 private:
-	AccountRepository rep_accounts;
-	CurrencyRepository rep_currencies;
-	CategoryRepository rep_categories;
+	AccountRepository account_repository;
+	CurrencyRepository currency_repository;
+	CategoryRepository category_repository;
 public:
-	TransactionRepository()
+	TransactionRepository() {}
+	void add_account(Account name)
 	{
-		this->install_default_categories();
-		this->install_default_currencies();
-		this->install_default_accounts();
+		this->account_repository.add(name);
+	}
+	void add_currency(Currency name)
+	{
+		this->currency_repository.add(name);
+	}
+	void add_category(Category name)
+	{
+		this->category_repository.add(name);
 	}
 	AccountRepository get_accounts()
 	{
-		return this->rep_accounts;
+		return this->account_repository;
 	}
 	CurrencyRepository get_currencies()
 	{
-		return this->rep_currencies;
+		return this->currency_repository;
 	}
 	CategoryRepository get_categories()
 	{
-		return this->rep_categories;
-	}
-	void install_default_categories()
-	{
-		this->rep_categories.add("Bills");
-		this->rep_categories.add("Financial Expenses");
-		this->rep_categories.add("Housing");
-		this->rep_categories.add("Food & Dining");
-		this->rep_categories.add("Life");
-		this->rep_categories.add("Transportation");
-		this->rep_categories.add("Vehicle");
-		this->rep_categories.add("Shopping");
-	}
-	void install_default_currencies()
-	{
-		this->rep_currencies.add("BYN");
-		this->rep_currencies.add("USD");
-	}
-	void install_default_accounts()
-	{
-		this->rep_accounts.add("BYN Cash");
-		this->rep_accounts.add("BYN Card");
-		this->rep_accounts.add("USD Card");
-		this->rep_accounts.add("USD Cash");
+		return this->category_repository;
 	}
 };
 

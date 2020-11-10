@@ -17,11 +17,11 @@ private:
 	std::set<Payee> repository;
 public:
 	PayeeRepository() {}
-	void add(std::string name)
+	void add(Payee name)
 	{
 		repository.insert(name);
 	}
-	void remove(std::string name)
+	void remove(Payee name)
 	{
 		repository.erase(name);
 	}

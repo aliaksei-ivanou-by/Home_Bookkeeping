@@ -17,11 +17,11 @@ private:
 	std::set<Tag> repository;
 public:
 	TagRepository() {}
-	void add(std::string name)
+	void add(Tag name)
 	{
 		repository.insert(name);
 	}
-	void remove(std::string name)
+	void remove(Tag name)
 	{
 		repository.erase(name);
 	}

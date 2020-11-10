@@ -17,11 +17,11 @@ private:
 	std::set<Currency> repository;
 public:
 	CurrencyRepository() {}
-	void add(std::string name)
+	void add(Currency name)
 	{
 		repository.insert(name);
 	}
-	void remove(std::string name)
+	void remove(Currency name)
 	{
 		repository.erase(name);
 	}

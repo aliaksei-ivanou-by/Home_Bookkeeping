@@ -17,11 +17,11 @@ private:
 	std::set<Description> repository;
 public:
 	DescriptionRepository() {}
-	void add(std::string name)
+	void add(Description name)
 	{
 		repository.insert(name);
 	}
-	void remove(std::string name)
+	void remove(Description name)
 	{
 		repository.erase(name);
 	}

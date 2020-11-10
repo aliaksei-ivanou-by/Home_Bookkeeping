@@ -17,11 +17,11 @@ private:
 	std::set<Comment> repository;
 public:
 	CommentRepository() {}
-	void add(std::string name)
+	void add(Comment name)
 	{
 		repository.insert(name);
 	}
-	void remove(std::string name)
+	void remove(Comment name)
 	{
 		repository.erase(name);
 	}
