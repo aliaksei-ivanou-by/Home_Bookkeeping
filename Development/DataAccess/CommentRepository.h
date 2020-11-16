@@ -25,6 +25,10 @@ public:
 	{
 		repository.erase(name);
 	}
+	std::set<Comment> get_comment_repository() const
+	{
+		return repository;
+	}
 };
 
 #endif

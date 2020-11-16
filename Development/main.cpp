@@ -11,6 +11,7 @@ void Book_Keeping()
 	TransactionRepository r_t;
 	default_transaction_repository(r_t);
 	print_categories(r_t);
+	print_currencies(r_t);
 }
 
 int main()

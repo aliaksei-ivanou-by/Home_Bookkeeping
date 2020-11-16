@@ -25,6 +25,10 @@ public:
 	{
 		repository.erase(name);
 	}
+	std::set<CurrencyRate> get_currencyrate_repository() const
+	{
+		return repository;
+	}
 };
 
 #endif

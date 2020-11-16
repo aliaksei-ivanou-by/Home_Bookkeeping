@@ -25,6 +25,10 @@ public:
 	{
 		repository.erase(name);
 	}
+	std::set<Payee> get_payee_repository() const
+	{
+		return repository;
+	}
 };
 
 #endif

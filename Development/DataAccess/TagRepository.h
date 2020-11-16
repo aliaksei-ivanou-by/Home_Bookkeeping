@@ -25,6 +25,10 @@ public:
 	{
 		repository.erase(name);
 	}
+	std::set<Tag> get_tag_repository() const
+	{
+		return repository;
+	}
 };
 
 #endif

@@ -6,6 +6,7 @@
 #ifndef STDAFX_H
 #include "../include/stdafx.h"
 #endif
+
 class TransactionStatus
 {
 public:
@@ -16,6 +17,13 @@ public:
 		Void,
 		None
 	};
+	status get_transaction_status()
+	{
+		return this->transaction_status;
+	}
+	TransactionStatus() : transaction_status{ TransactionStatus::status::None } {}
+private:
+	status transaction_status;
 };
 
 #endif

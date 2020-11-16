@@ -25,6 +25,10 @@ public:
 	{
 		repository.erase(name);
 	}
+	std::set<Account> get_account_repository() const
+	{
+		return repository;
+	}
 };
 
 #endif

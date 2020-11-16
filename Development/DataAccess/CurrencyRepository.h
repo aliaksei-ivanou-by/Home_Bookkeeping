@@ -25,6 +25,10 @@ public:
 	{
 		repository.erase(name);
 	}
+	std::set<Currency> get_currency_repository() const
+	{
+		return repository;
+	}
 };
 
 #endif

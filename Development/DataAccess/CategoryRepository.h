@@ -25,7 +25,7 @@ public:
 	{
 		repository.erase(name);
 	}
-	std::set<Category> get_categories() const
+	std::set<Category> get_category_repository() const
 	{
 		return repository;
 	}

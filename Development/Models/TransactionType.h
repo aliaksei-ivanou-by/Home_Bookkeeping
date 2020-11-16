@@ -13,9 +13,16 @@ public:
 	enum class type
 	{
 		Income,
-		Expences,
+		Expence,
 		Transfer
 	};
+	type get_transaction_type()
+	{
+		return this->transaction_type;
+	}
+	TransactionType() : transaction_type{ TransactionType::type::Expence } {}
+private:
+	type transaction_type;
 };
 
 #endif

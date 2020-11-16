@@ -59,12 +59,20 @@ void default_transaction_repository(TransactionRepository& transaction_repositor
 
 void print_categories(TransactionRepository& transaction_repository)
 {
-	std::cout << "==========\nCATEGORIES:\n";
-	for (auto i : transaction_repository.get_categories().get_categories())
+	std::cout << "CATEGORIES:\n";
+	for (auto i : transaction_repository.get_categories().get_category_repository())
 	{
 		std::cout << '\t' << i << '\n';
 	}
-	std::cout << "==========\n";
+}
+
+void print_currencies(TransactionRepository& transaction_repository)
+{
+	std::cout << "CURRENCIES:\n";
+	for (auto i : transaction_repository.get_currencies().get_currency_repository())
+	{
+		std::cout << '\t' << i << '\n';
+	}
 }
 
 #endif

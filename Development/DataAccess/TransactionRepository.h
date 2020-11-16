@@ -15,12 +15,14 @@
 #include "../include/DataAccess1.h"
 #endif
 
+#ifndef DATAACCESS2_H
+#include "../include/DataAccess2.h"
+#endif
+
 class TransactionRepository
 {
 private:
-	AccountRepository account_repository;
-	CurrencyRepository currency_repository;
-	CategoryRepository category_repository;
+	std::set<Transaction> repository;
 public:
 	TransactionRepository() {}
 	void add_account(Account name)

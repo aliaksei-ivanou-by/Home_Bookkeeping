@@ -25,6 +25,10 @@ public:
 	{
 		repository.erase(name);
 	}
+	std::set<Description> get_description_repository() const
+	{
+		return repository;
+	}
 };
 
 #endif
