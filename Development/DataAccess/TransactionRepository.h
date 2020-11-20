@@ -22,32 +22,20 @@
 class TransactionRepository
 {
 private:
-	std::set<Transaction> repository;
+	std::multiset<Transaction> repository;
 public:
 	TransactionRepository() {}
-	void add_account(Account name)
+	void add(Transaction name)
 	{
-		this->account_repository.add(name);
+		repository.insert(name);
 	}
-	void add_currency(Currency name)
+	void remove(Transaction name)
 	{
-		this->currency_repository.add(name);
+		repository.erase(name);
 	}
-	void add_category(Category name)
+	std::multiset<Transaction> get_transaction_repository() const
 	{
-		this->category_repository.add(name);
-	}
-	AccountRepository get_accounts()
-	{
-		return this->account_repository;
-	}
-	CurrencyRepository get_currencies()
-	{
-		return this->currency_repository;
-	}
-	CategoryRepository get_categories()
-	{
-		return this->category_repository;
+		return repository;
 	}
 };
 

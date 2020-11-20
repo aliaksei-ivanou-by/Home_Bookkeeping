@@ -7,22 +7,32 @@
 #include "../include/stdafx.h"
 #endif
 
+enum class type
+{
+	Income,
+	Expence,
+	Transfer
+};
+
 class TransactionType
 {
+private:
+	type transaction_type;
 public:
-	enum class type
+	void set_transaction_type(type&& i)
 	{
-		Income,
-		Expence,
-		Transfer
-	};
+		this->transaction_type = i;
+	}
 	type get_transaction_type()
 	{
 		return this->transaction_type;
 	}
-	TransactionType() : transaction_type{ TransactionType::type::Expence } {}
-private:
-	type transaction_type;
+	TransactionType() : transaction_type{ type::Expence } {}
+	friend std::ostream& operator<<(std::ostream& os, const TransactionType& i)
+	{
+		return os << i;
+	}
 };
+
 
 #endif

@@ -7,23 +7,28 @@
 #include "../include/stdafx.h"
 #endif
 
+enum class status
+{
+	Cleared,
+	Reconciled,
+	Void,
+	None
+};
+
 class TransactionStatus
 {
+private:
+	status transaction_status;
 public:
-	enum class status
+	void set_transaction_status(status&& i)
 	{
-		Cleared,
-		Reconciled,
-		Void,
-		None
-	};
-	status get_transaction_status()
+		this->transaction_status = i;
+	}
+	status get_transaction_status() const
 	{
 		return this->transaction_status;
 	}
-	TransactionStatus() : transaction_status{ TransactionStatus::status::None } {}
-private:
-	status transaction_status;
+	TransactionStatus() : transaction_status{ status::None } {}
 };
 
 #endif

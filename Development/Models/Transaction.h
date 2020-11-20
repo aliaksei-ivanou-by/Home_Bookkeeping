@@ -24,14 +24,14 @@ private:
 	Description description;
 	Payee payee;
 	Tag tag;
-	TransactionStatus transaction_status;
-	TransactionType transaction_type;
+	status transaction_status;
+	type transaction_type;
 public:
 	Transaction() = delete;
 	Transaction(Account acc, Category cat, CategorySub cat_sub, 
 		double am, Comment com, Currency cur, 
 		CurrencyRate cur_rate, Description desc, Payee payee, 
-		Tag tag, TransactionStatus tr_st, TransactionType tr_t)
+		Tag tag, status tr_st, type tr_t)
 		: account{ acc },
 		category{ cat },
 		category_sub{ cat_sub },
@@ -45,6 +45,21 @@ public:
 		transaction_status{ tr_st },
 		transaction_type{ tr_t }
 	{}
+	Transaction(Account acc, Category cat, CategorySub cat_sub,
+		double am, Currency cur)
+		: account{ acc },
+		category{ cat },
+		category_sub{ cat_sub },
+		amount{ am },
+		comment{ "" },
+		currency{ cur },
+		currency_rate{ "" },
+		description{ "" },
+		payee{ payee },
+		tag{ tag },
+		transaction_status{ },
+		transaction_type{ }
+	{}
 	Account get_account() const
 	{
 		return this->account;
@@ -56,6 +71,10 @@ public:
 	CategorySub get_category_sub() const
 	{
 		return this->category_sub;
+	}
+	double get_amount() const
+	{
+		return this->amount;
 	}
 	Comment get_comment() const
 	{
@@ -81,11 +100,11 @@ public:
 	{
 		return this->tag;
 	}
-	TransactionStatus get_transaction_status() const
+	status get_transaction_status() const
 	{
 		return this->transaction_status;
 	}
-	TransactionType get_transaction_type() const
+	type get_transaction_type() const
 	{
 		return this->transaction_type;
 	}
@@ -125,11 +144,11 @@ public:
 	{
 		this->tag = tag;
 	}
-	void set_transaction_status(TransactionStatus tr_st)
+	void set_transaction_status(status tr_st)
 	{
 		this->transaction_status = tr_st;
 	}
-	void set_transaction_type(TransactionType tr_t)
+	void set_transaction_type(type tr_t)
 	{
 		this->transaction_type = tr_t;
 	}
@@ -140,9 +159,13 @@ bool operator<(const Transaction& lhs, const Transaction& rhs)
 	return (lhs.get_account() < rhs.get_account()); // change to get_datetime();
 }
 
-std::ostream& operator<<(std::ostream& os, const Tag& i)
+std::ostream& operator<<(std::ostream& os, const Transaction& i)
 {
-	return os << i.get_name();
+	return os << i.get_account() << '\t' <<
+		i.get_category() << '\t' <<
+		i.get_category_sub() << '\t' <<
+		i.get_amount() << ' ' <<
+		i.get_currency().get_name();
 }
 
 #endif

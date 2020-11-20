@@ -29,6 +29,10 @@ public:
 	{
 		return repository;
 	}
+	void set_comment_repository(std::set<Comment>&& comments)
+	{
+		repository = comments;
+	}
 };
 
 #endif
