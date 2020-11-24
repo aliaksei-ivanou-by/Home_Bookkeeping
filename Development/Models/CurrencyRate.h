@@ -10,28 +10,30 @@
 class CurrencyRate
 {
 private:
-	std::string name;
+	std::string currencyRateName;
 public:
-	CurrencyRate() : name{ "" } {}
-	CurrencyRate(std::string name) : name{ name } {}
-	std::string get_name() const
+	CurrencyRate()
+		: currencyRateName{ "" }
+	{}
+	CurrencyRate(std::string currencyRateName)
+		: currencyRateName{ currencyRateName }
+	{}
+	std::string getCurrencyRateName() const
 	{
-		return this->name;
+		return this->currencyRateName;
 	}
-	void set_name(std::string&& name)
+	void setCurrencyRateName(std::string&& currencyRateName)
 	{
-		this->name = name;
+		this->currencyRateName = currencyRateName;
+	}
+	friend bool operator<(const CurrencyRate& leftCurrencyRate, const CurrencyRate& rightCurrencyRate)
+	{
+		return (leftCurrencyRate.getCurrencyRateName()) < (rightCurrencyRate.getCurrencyRateName());
+	}
+	friend std::ostream& operator<<(std::ostream& outputStream, const CurrencyRate& currencyRate)
+	{
+		return outputStream << currencyRate.getCurrencyRateName();
 	}
 };
-
-bool operator<(const CurrencyRate& lhs, const CurrencyRate& rhs)
-{
-	return (lhs.get_name()) < (rhs.get_name());
-}
-
-std::ostream& operator<<(std::ostream& os, const CurrencyRate& i)
-{
-	return os << i.get_name();
-}
 
 #endif

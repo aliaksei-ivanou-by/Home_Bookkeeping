@@ -14,20 +14,25 @@
 class CurrencyRepository
 {
 private:
-	std::set<Currency> repository;
+	std::set<Currency> currencyRepository;
 public:
-	CurrencyRepository() {}
-	void add(Currency name)
+	CurrencyRepository()
+	{}
+	void addCurrency(Currency currency)
 	{
-		repository.insert(name);
+		currencyRepository.insert(currency);
 	}
-	void remove(Currency name)
+	void removeCurrency(Currency currency)
 	{
-		repository.erase(name);
+		currencyRepository.erase(currency);
 	}
-	std::set<Currency> get_currency_repository() const
+	std::set<Currency> getCurrencyRepository() const
 	{
-		return repository;
+		return currencyRepository;
+	}
+	void setCurrencyRepository(std::set<Currency>&& currencies)
+	{
+		currencyRepository = currencies;
 	}
 };
 

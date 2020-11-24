@@ -14,20 +14,25 @@
 class AccountRepository
 {
 private:
-	std::set<Account> repository;
+	std::set<Account> accountRepository;
 public:
-	AccountRepository() {}
-	void add(Account name)
+	AccountRepository()
+	{}
+	void addAccount(Account account)
 	{
-		repository.insert(name);
+		accountRepository.insert(account);
 	}
-	void remove(Account name)
+	void removeAccount(Account account)
 	{
-		repository.erase(name);
+		accountRepository.erase(account);
 	}
-	std::set<Account> get_account_repository() const
+	std::set<Account> getAccountRepository() const
 	{
-		return repository;
+		return accountRepository;
+	}
+	void setAccountRepository(std::set<Account>&& accounts)
+	{
+		accountRepository = accounts;
 	}
 };
 

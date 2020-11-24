@@ -10,28 +10,30 @@
 class Tag
 {
 private:
-	std::string name;
+	std::string tagName;
 public:
-	Tag() : name{ "" } {}
-	Tag(std::string name) : name{ name } {}
-	std::string get_name() const
+	Tag()
+		: tagName{ "" }
+	{}
+	Tag(std::string tagName)
+		: tagName{ tagName }
+	{}
+	std::string getTagName() const
 	{
-		return this->name;
+		return this->tagName;
 	}
-	void set_name(std::string&& name)
+	void setTagName(std::string&& tagName)
 	{
-		this->name = name;
+		this->tagName = tagName;
+	}
+	friend bool operator<(const Tag& leftTag, const Tag& rightTag)
+	{
+		return (leftTag.getTagName()) < (rightTag.getTagName());
+	}
+	friend std::ostream& operator<<(std::ostream& outputStream, const Tag& tag)
+	{
+		return outputStream << tag.getTagName();
 	}
 };
-
-bool operator<(const Tag& lhs, const Tag& rhs)
-{
-	return (lhs.get_name()) < (rhs.get_name());
-}
-
-std::ostream& operator<<(std::ostream& os, const Tag& i)
-{
-	return os << i.get_name();
-}
 
 #endif

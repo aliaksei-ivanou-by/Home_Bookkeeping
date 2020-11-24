@@ -10,28 +10,30 @@
 class Comment
 {
 private:
-	std::string name;
+	std::string commentName;
 public:
-	Comment() : name{ "" } {}
-	Comment(std::string name) : name{ name } {}
-	std::string get_name() const
+	Comment()
+		: commentName{ "" }
+	{}
+	Comment(std::string commentName)
+		: commentName{ commentName }
+	{}
+	std::string getCommentName() const
 	{
-		return this->name;
+		return this->commentName;
 	}
-	void set_name(std::string&& name)
+	void setCommentName(std::string&& commentName)
 	{
-		this->name = name;
+		this->commentName = commentName;
+	}
+	friend bool operator<(const Comment& leftComment, const Comment& rightComment)
+	{
+		return (leftComment.getCommentName()) < (rightComment.getCommentName());
+	}
+	friend std::ostream& operator<<(std::ostream& outputStream, const Comment& comment)
+	{
+		return outputStream << comment.getCommentName();
 	}
 };
-
-bool operator<(const Comment& lhs, const Comment& rhs)
-{
-	return (lhs.get_name()) < (rhs.get_name());
-}
-
-std::ostream& operator<<(std::ostream& os, const Comment& i)
-{
-	return os << i.get_name();
-}
 
 #endif

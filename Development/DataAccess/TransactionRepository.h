@@ -22,20 +22,25 @@
 class TransactionRepository
 {
 private:
-	std::multiset<Transaction> repository;
+	std::multiset<Transaction> transactionRepository;
 public:
-	TransactionRepository() {}
-	void add(Transaction name)
+	TransactionRepository()
+	{}
+	void addTransaction(Transaction transaction)
 	{
-		repository.insert(name);
+		transactionRepository.insert(transaction);
 	}
-	void remove(Transaction name)
+	void removeTransaction(Transaction transaction)
 	{
-		repository.erase(name);
+		transactionRepository.erase(transaction);
 	}
-	std::multiset<Transaction> get_transaction_repository() const
+	std::multiset<Transaction> getTransactionRepository() const
 	{
-		return repository;
+		return transactionRepository;
+	}
+	void setTransactionRepository(std::multiset<Transaction>&& transactions)
+	{
+		transactionRepository = transactions;
 	}
 };
 

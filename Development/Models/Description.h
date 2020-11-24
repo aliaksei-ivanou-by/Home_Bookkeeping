@@ -10,28 +10,30 @@
 class Description
 {
 private:
-	std::string name;
+	std::string descriptionName;
 public:
-	Description() : name{ "" } {}
-	Description(std::string name) : name{ name } {}
-	std::string get_name() const
+	Description()
+		: descriptionName{ "" }
+	{}
+	Description(std::string descriptionName)
+		: descriptionName{ descriptionName }
+	{}
+	std::string getDescriptionName() const
 	{
-		return this->name;
+		return this->descriptionName;
 	}
-	void set_name(std::string&& name)
+	void setDescriptionName(std::string&& descriptionName)
 	{
-		this->name = name;
+		this->descriptionName = descriptionName;
+	}
+	friend bool operator<(const Description& leftDescription, const Description& rightDescription)
+	{
+		return (leftDescription.getDescriptionName()) < (rightDescription.getDescriptionName());
+	}
+	friend std::ostream& operator<<(std::ostream& outputStream, const Description& description)
+	{
+		return outputStream << description.getDescriptionName();
 	}
 };
-
-bool operator<(const Description& lhs, const Description& rhs)
-{
-	return (lhs.get_name()) < (rhs.get_name());
-}
-
-std::ostream& operator<<(std::ostream& os, const Description& i)
-{
-	return os << i.get_name();
-}
 
 #endif

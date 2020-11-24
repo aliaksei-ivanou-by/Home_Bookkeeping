@@ -14,24 +14,25 @@
 class CommentRepository
 {
 private:
-	std::set<Comment> repository;
+	std::set<Comment> commentRepository;
 public:
-	CommentRepository() {}
-	void add(Comment name)
+	CommentRepository()
+	{}
+	void addComment(Comment comment)
 	{
-		repository.insert(name);
+		commentRepository.insert(comment);
 	}
-	void remove(Comment name)
+	void removeComment(Comment comment)
 	{
-		repository.erase(name);
+		commentRepository.erase(comment);
 	}
-	std::set<Comment> get_comment_repository() const
+	std::set<Comment> getCommentRepository() const
 	{
-		return repository;
+		return commentRepository;
 	}
-	void set_comment_repository(std::set<Comment>&& comments)
+	void setCommentRepository(std::set<Comment>&& comments)
 	{
-		repository = comments;
+		commentRepository = comments;
 	}
 };
 

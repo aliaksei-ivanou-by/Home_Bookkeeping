@@ -14,20 +14,25 @@
 class CurrencyRateRepository
 {
 private:
-	std::set<CurrencyRate> repository;
+	std::set<CurrencyRate> currencyRateRepository;
 public:
-	CurrencyRateRepository() {}
-	void add(CurrencyRate name)
+	CurrencyRateRepository()
+	{}
+	void addCurrencyRate(CurrencyRate currencyRate)
 	{
-		repository.insert(name);
+		currencyRateRepository.insert(currencyRate);
 	}
-	void remove(CurrencyRate name)
+	void removeCurrencyRate(CurrencyRate currencyRate)
 	{
-		repository.erase(name);
+		currencyRateRepository.erase(currencyRate);
 	}
-	std::set<CurrencyRate> get_currencyrate_repository() const
+	std::set<CurrencyRate> getCurrencyRateRepository() const
 	{
-		return repository;
+		return currencyRateRepository;
+	}
+	void setCurrencyRateRepository(std::set<CurrencyRate>&& currenciesRate)
+	{
+		currencyRateRepository = currenciesRate;
 	}
 };
 

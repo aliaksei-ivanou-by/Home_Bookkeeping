@@ -10,28 +10,30 @@
 class Payee
 {
 private:
-	std::string name;
+	std::string payeeName;
 public:
-	Payee() : name{ "" } {}
-	Payee(std::string name) : name{ name } {}
-	std::string get_name() const
+	Payee()
+		: payeeName{ "" }
+	{}
+	Payee(std::string payeeName)
+		: payeeName{ payeeName }
+	{}
+	std::string getPayeeName() const
 	{
-		return this->name;
+		return this->payeeName;
 	}
-	void set_name(std::string&& name)
+	void setPayeeName(std::string&& payeeName)
 	{
-		this->name = name;
+		this->payeeName = payeeName;
+	}
+	friend bool operator<(const Payee& leftPayee, const Payee& rightPayee)
+	{
+		return (leftPayee.getPayeeName()) < (rightPayee.getPayeeName());
+	}
+	friend std::ostream& operator<<(std::ostream& outputStream, const Payee& payee)
+	{
+		return outputStream << payee.getPayeeName();
 	}
 };
-
-bool operator<(const Payee& lhs, const Payee& rhs)
-{
-	return (lhs.get_name()) < (rhs.get_name());
-}
-
-std::ostream& operator<<(std::ostream& os, const Payee& i)
-{
-	return os << i.get_name();
-}
 
 #endif

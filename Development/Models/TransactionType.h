@@ -7,7 +7,7 @@
 #include "../include/stdafx.h"
 #endif
 
-enum class type
+enum class TransactionTypeEnum
 {
 	Income,
 	Expence,
@@ -17,22 +17,19 @@ enum class type
 class TransactionType
 {
 private:
-	type transaction_type;
+	TransactionTypeEnum transactionType;
 public:
-	void set_transaction_type(type&& i)
+	TransactionType()
+		: transactionType{ TransactionTypeEnum::Expence }
+	{}
+	void setTransactionType(TransactionTypeEnum&& transactionType)
 	{
-		this->transaction_type = i;
+		this->transactionType = transactionType;
 	}
-	type get_transaction_type()
+	TransactionTypeEnum getTransactionType()
 	{
-		return this->transaction_type;
-	}
-	TransactionType() : transaction_type{ type::Expence } {}
-	friend std::ostream& operator<<(std::ostream& os, const TransactionType& i)
-	{
-		return os << i;
+		return this->transactionType;
 	}
 };
-
 
 #endif

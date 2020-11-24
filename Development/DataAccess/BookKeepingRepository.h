@@ -19,21 +19,21 @@
 #include "../include/DataAccess2.h"
 #endif
 
-class BookKeepingRepository
+class FinanceRepository
 {
 private:
-	TransactionRepository transactions;
-	CategoryRepository categories;
-	CategorySubRepository categories_sub;
-	CommentRepository comments;
-	PayeeRepository payees;
-	AccountRepository accounts;
-	CurrencyRepository currencies;
-	CurrencyRateRepository currencies_rate;
-	DescriptionRepository descriptions;
-	TagRepository tags;
+	TransactionRepository financeRepositoryTransactions;
+	CategoryRepository financeRepositoryCategories;
+	CategorySubRepository financeRepositoryCategoriesSub;
+	CommentRepository financeRepositoryComments;
+	PayeeRepository financeRepositoryPayees;
+	AccountRepository financeRepositoryAccounts;
+	CurrencyRepository financeRepositoryCurrencies;
+	CurrencyRateRepository financeRepositoryCurrenciesRate;
+	DescriptionRepository financeRepositoryDescriptions;
+	TagRepository financeRepositoryTags;
 public:
-	BookKeepingRepository()
+	FinanceRepository()
 	{
 		TransactionRepository();
 		CategoryRepository();
@@ -46,81 +46,81 @@ public:
 		DescriptionRepository();
 		TagRepository();
 	}
-	void add_transaction(Transaction& i)
+	TransactionRepository getTransactions() const
 	{
-		this->transactions.add(i);
+		return this->financeRepositoryTransactions;
 	}
-	TransactionRepository get_transactions() const
+	CategoryRepository getCategories() const
 	{
-		return this->transactions;
+		return this->financeRepositoryCategories;
 	}
-	CategoryRepository get_categories() const
+	CategorySubRepository getCategoriesSub() const
 	{
-		return this->categories;
+		return this->financeRepositoryCategoriesSub;
 	}
-	CategorySubRepository get_categories_sub() const
+	CommentRepository getComments() const
 	{
-		return this->categories_sub;
+		return this->financeRepositoryComments;
 	}
-	CommentRepository get_comments() const
+	PayeeRepository getPayees() const
 	{
-		return this->comments;
+		return this->financeRepositoryPayees;
 	}
-	PayeeRepository get_payees() const
+	AccountRepository getAccounts() const
 	{
-		return this->payees;
+		return this->financeRepositoryAccounts;
 	}
-	AccountRepository get_accounts() const
+	CurrencyRepository getCurrencies() const
 	{
-		return this->accounts;
+		return this->financeRepositoryCurrencies;
 	}
-	CurrencyRepository get_currencies() const
+	CurrencyRateRepository getCurrenciesRate() const
 	{
-		return this->currencies;
+		return this->financeRepositoryCurrenciesRate;
 	}
-	CurrencyRateRepository get_currencies_rate() const
+	DescriptionRepository getDescriptions() const
 	{
-		return this->currencies_rate;
+		return this->financeRepositoryDescriptions;
 	}
-	DescriptionRepository get_descriptions() const
+	TagRepository getTags() const
 	{
-		return this->descriptions;
+		return this->financeRepositoryTags;
 	}
-	TagRepository get_tags() const
+	void addTransaction(Transaction& transaction)
 	{
-		return this->tags;
+		this->financeRepositoryTransactions.addTransaction(transaction);
 	}
-	void add_category(Category cat)
+	void addCategory(Category category)
 	{
-		this->categories.add(cat);
+		this->financeRepositoryCategories.addCategory(category);
 	}
-	void add_category_sub(CategorySub cat_sub)
+	void addCategorySub(CategorySub categorySub)
 	{
-		this->categories_sub.add(cat_sub);
+		this->financeRepositoryCategoriesSub.addCategorySub(categorySub);
 	}
-	void add_currency(Currency cur)
+	void addCurrency(Currency currency)
 	{
-		this->currencies.add(cur);
+		this->financeRepositoryCurrencies.addCurrency(currency);
 	}
-	void add_payee(Payee payee)
+	void addPayee(Payee payee)
 	{
-		this->payees.add(payee);
+		this->financeRepositoryPayees.addPayee(payee);
 	}
-	void add_tag(Tag tag)
+	void addTag(Tag tag)
 	{
-		this->tags.add(tag);
+		this->financeRepositoryTags.addTag(tag);
 	}
-	void add_comment(Comment com)
+	void addComment(Comment comment)
 	{
-		this->comments.add(com);
+		this->financeRepositoryComments.addComment(comment);
 	}
-	void add_description(Description desc)
+	void addDescription(Description description)
 	{
-		this->descriptions.add(desc);
+		this->financeRepositoryDescriptions.addDescription(description);
 	}
-	void add_account(Account acc)
+	void addAccount(Account account)
 	{
-		this->accounts.add(acc);
+		this->financeRepositoryAccounts.addAccount(account);
 	}
 };
 

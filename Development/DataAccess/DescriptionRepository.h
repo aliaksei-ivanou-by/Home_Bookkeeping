@@ -14,20 +14,25 @@
 class DescriptionRepository
 {
 private:
-	std::set<Description> repository;
+	std::set<Description> descriptionRepository;
 public:
-	DescriptionRepository() {}
-	void add(Description name)
+	DescriptionRepository()
+	{}
+	void addDescription(Description description)
 	{
-		repository.insert(name);
+		descriptionRepository.insert(description);
 	}
-	void remove(Description name)
+	void removeDescription(Description description)
 	{
-		repository.erase(name);
+		descriptionRepository.erase(description);
 	}
-	std::set<Description> get_description_repository() const
+	std::set<Description> getDescriptionRepository() const
 	{
-		return repository;
+		return descriptionRepository;
+	}
+	void setDescriptionRepository(std::set<Description>&& descriptions)
+	{
+		descriptionRepository = descriptions;
 	}
 };
 

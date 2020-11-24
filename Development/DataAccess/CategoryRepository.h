@@ -14,20 +14,21 @@
 class CategoryRepository
 {
 private:
-	std::set<Category> repository;
+	std::set<Category> categoryRepository;
 public:
-	CategoryRepository() {}
-	void add(Category name)
+	CategoryRepository()
+	{}
+	void addCategory(Category category)
 	{
-		repository.insert(name);
+		categoryRepository.insert(category);
 	}
-	void remove(Category name)
+	void removeCategory(Category category)
 	{
-		repository.erase(name);
+		categoryRepository.erase(category);
 	}
-	std::set<Category> get_category_repository() const
+	std::set<Category> getCategoryRepository() const
 	{
-		return repository;
+		return categoryRepository;
 	}
 };
 

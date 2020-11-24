@@ -14,20 +14,25 @@
 class PayeeRepository
 {
 private:
-	std::set<Payee> repository;
+	std::set<Payee> payeeRepository;
 public:
-	PayeeRepository() {}
-	void add(Payee name)
+	PayeeRepository()
+	{}
+	void addPayee(Payee payee)
 	{
-		repository.insert(name);
+		payeeRepository.insert(payee);
 	}
-	void remove(Payee name)
+	void removePayee(Payee payee)
 	{
-		repository.erase(name);
+		payeeRepository.erase(payee);
 	}
-	std::set<Payee> get_payee_repository() const
+	std::set<Payee> getPayeeRepository() const
 	{
-		return repository;
+		return payeeRepository;
+	}
+	void setPayeeRepository(std::set<Payee>&& payees)
+	{
+		payeeRepository = payees;
 	}
 };
 

@@ -10,28 +10,30 @@
 class Account
 {
 private:
-	std::string name;
+	std::string accountName;
 public:
-	Account() : name{ "" } {}
-	Account(std::string name) : name{ name } {}
-	std::string get_name() const
+	Account()
+		: accountName{ "" }
+	{}
+	Account(std::string accountName)
+		: accountName{ accountName }
+	{}
+	std::string getAccountName() const
 	{
-		return this->name;
+		return this->accountName;
 	}
-	void set_name(std::string&& name)
+	void setAccountName(std::string&& accountName)
 	{
-		this->name = name;
+		this->accountName = accountName;
+	}
+	friend bool operator<(const Account& leftAccount, const Account& rightAccount)
+	{
+		return (leftAccount.getAccountName()) < (rightAccount.getAccountName());
+	}
+	friend std::ostream& operator<<(std::ostream& outputStream, const Account& account)
+	{
+		return outputStream << account.getAccountName();
 	}
 };
-
-bool operator<(const Account& lhs, const Account& rhs)
-{
-	return (lhs.get_name()) < (rhs.get_name());
-}
-
-std::ostream& operator<<(std::ostream& os, const Account& i)
-{
-	return os << i.get_name();
-}
 
 #endif

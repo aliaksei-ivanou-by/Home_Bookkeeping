@@ -7,7 +7,7 @@
 #include "../include/stdafx.h"
 #endif
 
-enum class status
+enum class TransactionStatusEnum
 {
 	Cleared,
 	Reconciled,
@@ -18,17 +18,19 @@ enum class status
 class TransactionStatus
 {
 private:
-	status transaction_status;
+	TransactionStatusEnum transactionStatus;
 public:
-	void set_transaction_status(status&& i)
+	TransactionStatus()
+		: transactionStatus{ TransactionStatusEnum::None }
+	{}
+	void setTransactionStatus(TransactionStatusEnum&& transactionStatus)
 	{
-		this->transaction_status = i;
+		this->transactionStatus = transactionStatus;
 	}
-	status get_transaction_status() const
+	TransactionStatusEnum getTransactionStatus() const
 	{
-		return this->transaction_status;
+		return this->transactionStatus;
 	}
-	TransactionStatus() : transaction_status{ status::None } {}
 };
 
 #endif

@@ -10,40 +10,56 @@
 class Currency
 {
 private:
-	std::string name;
-	std::string code;
-	bool active;
+	std::string currencyName;
+	std::string currencyCode;
+	bool currencyActive;
 public:
-	Currency() : name{ "" }, code{ "" }, active{ true } {}
-	Currency(std::string name) : name{ name }, code{ "" }, active{ true } {}
-	Currency(std::string name, std::string code) : name{ name }, code{ code }, active{ true } {}
-	Currency(std::string name, std::string code, bool state) : name{ name }, code{ code }, active{ state } {}
-	std::string get_name() const
+	Currency()
+		: currencyName{ "" },
+		currencyCode{ "" },
+		currencyActive{ true }
+	{}
+	Currency(std::string currencyName)
+		: currencyName{ currencyName },
+		currencyCode{ "" },
+		currencyActive{ true }
+	{}
+	Currency(std::string currencyName, std::string currencyCode)
+		: currencyName{ currencyName },
+		currencyCode{ currencyCode },
+		currencyActive{ true }
+	{}
+	Currency(std::string currencyName, std::string currencyCode, bool currencyActive)
+		: currencyName{ currencyName },
+		currencyCode{ currencyCode },
+		currencyActive{ currencyActive }
+	{}
+	std::string getCurrencyName() const
 	{
-		return this->name;
+		return this->currencyName;
 	}
-	std::string get_code() const
+	std::string getCurrencyCode() const
 	{
-		return this->code;
+		return this->currencyCode;
 	}
-	bool get_active() const
+	bool getCurrencyActive() const
 	{
-		return this->active;
+		return this->currencyActive;
 	}
-	void set_name(std::string&& name)
+	void setCurrencyName(std::string&& currencyName)
 	{
-		this->name = name;
+		this->currencyName = currencyName;
+	}
+	friend bool operator<(const Currency& leftCurrency, const Currency& rightCurrency)
+	{
+		return (leftCurrency.getCurrencyName()) < (rightCurrency.getCurrencyName());
+	}
+	friend std::ostream& operator<<(std::ostream& outputStream, const Currency& currency)
+	{
+		return outputStream << currency.getCurrencyName() << '\t' <<
+								currency.getCurrencyCode() << '\t' <<
+								currency.getCurrencyActive();
 	}
 };
-
-bool operator<(const Currency& lhs, const Currency& rhs)
-{
-	return (lhs.get_name()) < (rhs.get_name());
-}
-
-std::ostream& operator<<(std::ostream& os, const Currency& i)
-{
-	return os << i.get_name() << '\t' << i.get_code() << '\t' << i.get_active();
-}
 
 #endif

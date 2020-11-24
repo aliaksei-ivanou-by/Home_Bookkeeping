@@ -14,20 +14,25 @@
 class CategorySubRepository
 {
 private:
-	std::set<CategorySub> repository;
+	std::set<CategorySub> categorySubRepository;
 public:
-	CategorySubRepository() {}
-	void add(CategorySub name)
+	CategorySubRepository()
+	{}
+	void addCategorySub(CategorySub categorySub)
 	{
-		repository.insert(name);
+		categorySubRepository.insert(categorySub);
 	}
-	void remove(CategorySub name)
+	void removeCategorySub(CategorySub categorySub)
 	{
-		repository.erase(name);
+		categorySubRepository.erase(categorySub);
 	}
-	std::set<CategorySub> get_categorysub_repository() const
+	std::set<CategorySub> getCategorySubRepository() const
 	{
-		return repository;
+		return categorySubRepository;
+	}
+	void setCategorySubRepository(std::set<CategorySub>&& categoriesSub)
+	{
+		categorySubRepository = categoriesSub;
 	}
 };
 

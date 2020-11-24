@@ -14,20 +14,25 @@
 class TagRepository
 {
 private:
-	std::set<Tag> repository;
+	std::set<Tag> tagRepository;
 public:
-	TagRepository() {}
-	void add(Tag name)
+	TagRepository()
+	{}
+	void addTag(Tag tag)
 	{
-		repository.insert(name);
+		tagRepository.insert(tag);
 	}
-	void remove(Tag name)
+	void removeTag(Tag tag)
 	{
-		repository.erase(name);
+		tagRepository.erase(tag);
 	}
-	std::set<Tag> get_tag_repository() const
+	std::set<Tag> getTagRepository() const
 	{
-		return repository;
+		return tagRepository;
+	}
+	void setTagRepository(std::set<Tag>&& tags)
+	{
+		tagRepository = tags;
 	}
 };
 

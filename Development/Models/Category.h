@@ -10,28 +10,30 @@
 class Category
 {
 private:
-	std::string name;
+	std::string categoryName;
 public:
-	Category() : name{ "" } {}
-	Category(std::string name) : name{ name } {}
-	std::string get_name() const
+	Category()
+		: categoryName{ "" }
+	{}
+	Category(std::string categoryName)
+		: categoryName{ categoryName }
+	{}
+	std::string getCategoryName() const
 	{
-		return this->name;
+		return this->categoryName;
 	}
-	void set_name(std::string&& name)
+	void setCategoryName(std::string&& categoryName)
 	{
-		this->name = name;
+		this->categoryName = categoryName;
+	}
+	friend bool operator<(const Category& leftCategory, const Category& rightCategory)
+	{
+		return (leftCategory.getCategoryName()) < (rightCategory.getCategoryName());
+	}
+	friend std::ostream& operator<<(std::ostream& outputStream, const Category& category)
+	{
+		return outputStream << category.getCategoryName();
 	}
 };
-
-bool operator<(const Category& lhs, const Category& rhs)
-{
-	return (lhs.get_name()) < (rhs.get_name());
-}
-
-std::ostream& operator<<(std::ostream& os, const Category& i)
-{
-	return os << i.get_name();
-}
 
 #endif

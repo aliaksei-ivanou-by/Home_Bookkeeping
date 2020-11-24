@@ -14,158 +14,156 @@
 class Transaction
 {
 private:
-	Account account;
-	Category category;
-	CategorySub category_sub;
-	double amount;
-	Comment comment;
-	Currency currency;
-	CurrencyRate currency_rate;
-	Description description;
-	Payee payee;
-	Tag tag;
-	status transaction_status;
-	type transaction_type;
+	Account transactionAccount;
+	Category transactionCategory;
+	CategorySub transactionCategorySub;
+	double transactionAmount;
+	Comment transactionComment;
+	Currency transactionCurrency;
+	CurrencyRate transactionCurrencyRate;
+	Description transactionDescription;
+	Payee transactionPayee;
+	Tag transactionTag;
+	TransactionStatus transactionStatus;
+	TransactionType transactionType;
 public:
 	Transaction() = delete;
-	Transaction(Account acc, Category cat, CategorySub cat_sub, 
-		double am, Comment com, Currency cur, 
-		CurrencyRate cur_rate, Description desc, Payee payee, 
-		Tag tag, status tr_st, type tr_t)
-		: account{ acc },
-		category{ cat },
-		category_sub{ cat_sub },
-		amount{ am },
-		comment{ com },
-		currency{ cur },
-		currency_rate{ cur_rate },
-		description{ desc },
-		payee{ payee },
-		tag{ tag },
-		transaction_status{ tr_st },
-		transaction_type{ tr_t }
+	Transaction(Account account, Category category, CategorySub categorySub, 
+		double amount, Comment comment, Currency currency, 
+		CurrencyRate currencyRate, Description description, Payee payee, 
+		Tag tag, TransactionStatus transactionStatus, TransactionType transactionType)
+		: transactionAccount{ account },
+		transactionCategory{ category },
+		transactionCategorySub{ categorySub },
+		transactionAmount{ amount },
+		transactionComment{ comment },
+		transactionCurrency{ currency },
+		transactionCurrencyRate{ currencyRate },
+		transactionDescription{ description },
+		transactionPayee{ payee },
+		transactionTag{ tag },
+		transactionStatus{ transactionStatus },
+		transactionType{ transactionType }
 	{}
-	Transaction(Account acc, Category cat, CategorySub cat_sub,
-		double am, Currency cur)
-		: account{ acc },
-		category{ cat },
-		category_sub{ cat_sub },
-		amount{ am },
-		comment{ "" },
-		currency{ cur },
-		currency_rate{ "" },
-		description{ "" },
-		payee{ payee },
-		tag{ tag },
-		transaction_status{ },
-		transaction_type{ }
+	Transaction(Account account, Category category, CategorySub categorySub,
+		double amount, Currency currency)
+		: transactionAccount{ account },
+		transactionCategory{ category },
+		transactionCategorySub{ categorySub },
+		transactionAmount{ amount },
+		transactionComment{ },
+		transactionCurrency{ currency },
+		transactionCurrencyRate{ },
+		transactionDescription{ },
+		transactionPayee{ },
+		transactionTag{ },
+		transactionStatus{ },
+		transactionType{ }
 	{}
-	Account get_account() const
+	Account getTransactionAccount() const
 	{
-		return this->account;
+		return this->transactionAccount;
 	}
-	Category get_category() const
+	Category getTransactionCategory() const
 	{
-		return this->category;
+		return this->transactionCategory;
 	}
-	CategorySub get_category_sub() const
+	CategorySub getTransactionCategorySub() const
 	{
-		return this->category_sub;
+		return this->transactionCategorySub;
 	}
-	double get_amount() const
+	double getTransactionAmount() const
 	{
-		return this->amount;
+		return this->transactionAmount;
 	}
-	Comment get_comment() const
+	Comment getTransactionComment() const
 	{
-		return this->comment;
+		return this->transactionComment;
 	}
-	Currency get_currency() const
+	Currency getTransactionCurrency() const
 	{
-		return this->currency;
+		return this->transactionCurrency;
 	}
-	CurrencyRate get_currency_rate() const
+	CurrencyRate getTransactionCurrencyRate() const
 	{
-		return this->currency_rate;
+		return this->transactionCurrencyRate;
 	}
-	Description get_description() const
+	Description getTransactionDescription() const
 	{
-		return this->description;
+		return this->transactionDescription;
 	}
-	Payee get_payee() const
+	Payee getTransactionPayee() const
 	{
-		return this->payee;
+		return this->transactionPayee;
 	}
-	Tag get_tag() const
+	Tag getTransactionTag() const
 	{
-		return this->tag;
+		return this->transactionTag;
 	}
-	status get_transaction_status() const
+	TransactionStatus getTransactionStatus() const
 	{
-		return this->transaction_status;
+		return this->transactionStatus;
 	}
-	type get_transaction_type() const
+	TransactionType getTransactionType() const
 	{
-		return this->transaction_type;
+		return this->transactionType;
 	}
-	void set_account(Account acc)
+	void setTransactionAccount(Account account)
 	{
-		this->account = acc;
+		this->transactionAccount = account;
 	}
-	void set_category(Category cat)
+	void setTransactionCategory(Category category)
 	{
-		this->category = cat;
+		this->transactionCategory = category;
 	}
-	void set_category_sub(CategorySub cat_sub)
+	void setTransactionCategorySub(CategorySub categorySub)
 	{
-		this->category_sub = cat_sub;
+		this->transactionCategorySub = categorySub;
 	}
-	void set_comment(Comment com)
+	void setTransactionComment(Comment comment)
 	{
-		this->comment = com;
+		this->transactionComment = comment;
 	}
-	void set_currency(Currency cur)
+	void setTransactionCurrency(Currency currency)
 	{
-		this->currency = cur;
+		this->transactionCurrency = currency;
 	}
-	void set_currency_rate(CurrencyRate cur_rate)
+	void setTransactionCurrencyRate(CurrencyRate currencyRate)
 	{
-		this->currency_rate = cur_rate;
+		this->transactionCurrencyRate = currencyRate;
 	}
-	void set_description(Description desc)
+	void setTransactionDescription(Description description)
 	{
-		this->description = desc;
+		this->transactionDescription = description;
 	}
-	void set_payee(Payee payee)
+	void setTransactionPayee(Payee payee)
 	{
-		this->payee = payee;
+		this->transactionPayee = payee;
 	}
-	void set_tag(Tag tag)
+	void setTransactionTag(Tag tag)
 	{
-		this->tag = tag;
+		this->transactionTag = tag;
 	}
-	void set_transaction_status(status tr_st)
+	void setTransactionTransactionStatus(TransactionStatus transactionStatus)
 	{
-		this->transaction_status = tr_st;
+		this->transactionStatus = transactionStatus;
 	}
-	void set_transaction_type(type tr_t)
+	void setTransactionTransactionTyoe(TransactionType transactionType)
 	{
-		this->transaction_type = tr_t;
+		this->transactionType = transactionType;
+	}
+	friend bool operator<(const Transaction& leftTransaction, const Transaction& rightTransaction)
+	{
+		return (leftTransaction.getTransactionAccount() < rightTransaction.getTransactionAccount());
+	}
+	friend std::ostream& operator<<(std::ostream& outputStream, const Transaction& transaction)
+	{
+		return outputStream << transaction.getTransactionAccount() << '\t' <<
+								transaction.getTransactionCategory() << '\t' <<
+								transaction.getTransactionCategorySub() << '\t' <<
+								transaction.getTransactionAmount() << ' ' <<
+								transaction.getTransactionCurrency().getCurrencyName();
 	}
 };
-
-bool operator<(const Transaction& lhs, const Transaction& rhs)
-{
-	return (lhs.get_account() < rhs.get_account()); // change to get_datetime();
-}
-
-std::ostream& operator<<(std::ostream& os, const Transaction& i)
-{
-	return os << i.get_account() << '\t' <<
-		i.get_category() << '\t' <<
-		i.get_category_sub() << '\t' <<
-		i.get_amount() << ' ' <<
-		i.get_currency().get_name();
-}
 
 #endif
