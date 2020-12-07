@@ -1,10 +1,8 @@
-#ifndef BOOKKEEPINGREPOSITORY_H
-#include "include/DataAccess2.h"
-#endif
-
-#ifndef FUNCTIONS_H
+#include "include/includeDataAccess2.h"
 #include "include/Functions.h"
-#endif
+
+#include "include/stdafx.h"
+#include "include/Graphics.h"
 
 void Book_Keeping()
 {
@@ -28,5 +26,17 @@ void Book_Keeping()
 int main()
 {
 	Book_Keeping();
+	using namespace Graph_lib;
+	Point t1(100, 100);
+	Simple_window win(t1, 600, 400, "Canvas");
+	Graph_lib::Polygon poly;
+	Graph_lib::Smiley sm({300, 300}, 20);
+	win.attach(sm);
+	poly.add(Point(300, 200));
+	poly.add(Point(350, 100));
+	poly.add(Point(400, 200));
+	poly.set_color(Color::red);
+	win.attach(poly);
+	win.wait_for_button();
 	return 0;
 }

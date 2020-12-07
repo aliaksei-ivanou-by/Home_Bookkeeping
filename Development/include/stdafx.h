@@ -1,12 +1,10 @@
 #pragma once
 
-#ifndef STDAFX_H
-#define STDAFX_H
-
 #include <iostream>
 #include <string>
 #include <set>
 #include <map>
 #include <vector>
+#include <fstream>
 
-#endif
+constexpr double pi = 3.14159265;

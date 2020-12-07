@@ -20,11 +20,11 @@ public:
 	{}
 	std::string getCategoryName() const
 	{
-		return this->categoryName;
+		return categoryName;
 	}
 	void setCategoryName(std::string&& categoryName)
 	{
-		this->categoryName = categoryName;
+		categoryName = std::move(categoryName);
 	}
 	friend bool operator<(const Category& leftCategory, const Category& rightCategory)
 	{
