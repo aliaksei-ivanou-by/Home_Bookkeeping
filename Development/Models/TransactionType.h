@@ -15,6 +15,7 @@ private:
 	TransactionTypeEnum transactionType;
 public:
 	TransactionType();
-	void setTransactionType(TransactionTypeEnum&& transactionTypeNew);
+	TransactionType(TransactionTypeEnum transactionTypeForAdd);
+	void setTransactionType(TransactionTypeEnum&& transactionTypeForUpdate);
 	TransactionTypeEnum getTransactionType();
 };

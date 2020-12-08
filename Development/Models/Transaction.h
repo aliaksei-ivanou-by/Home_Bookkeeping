@@ -21,16 +21,16 @@ private:
 public:
 	Transaction() = delete;
 	Transaction(
-		Account transactionAccountNew, Category transactionCategoryNew,
-		CategorySub transactionCategorySubNew, double transactionAmountNew,
-		Comment transactionCommentNew, Currency transactionCurrencyNew,
-		CurrencyRate transactionCurrencyRateNew, Description transactionDescriptionNew,
-		Payee transactionPayeeNew, Tag transactionTagNew,
-		TransactionStatus transactionStatusNew, TransactionType transactionTypeNew);
+		Account transactionAccountForAdd, Category transactionCategoryForAdd,
+		CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+		Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
+		CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
+		Payee transactionPayeeForAdd, Tag transactionTagForAdd,
+		TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd);
 	Transaction(
-		Account transactionAccountNew, Category transactionCategoryNew,
-		CategorySub transactionCategorySubNew, double transactionAmountNew,
-		Currency transactionCurrencyNew);
+		Account transactionAccountForAdd, Category transactionCategoryForAdd,
+		CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+		Currency transactionCurrencyForAdd);
 	Account getTransactionAccount() const;
 	Category getTransactionCategory() const;
 	CategorySub getTransactionCategorySub() const;
@@ -43,17 +43,17 @@ public:
 	Tag getTransactionTag() const;
 	TransactionStatus getTransactionStatus() const;
 	TransactionType getTransactionType() const;
-	void setTransactionAccount(Account&& accountNew);
-	void setTransactionCategory(Category&& categoryNew);
-	void setTransactionCategorySub(CategorySub&& categorySubNew);
-	void setTransactionComment(Comment&& commentNew);
-	void setTransactionCurrency(Currency&& currencyNew);
-	void setTransactionCurrencyRate(CurrencyRate&& currencyRateNew);
-	void setTransactionDescription(Description&& descriptionNew);
-	void setTransactionPayee(Payee&& payeeNew);
-	void setTransactionTag(Tag&& tagNew);
-	void setTransactionTransactionStatus(TransactionStatus&& transactionStatusNew);
-	void setTransactionTransactionTyoe(TransactionType&& transactionTypeNew);
+	void setTransactionAccount(Account&& accountForUpdate);
+	void setTransactionCategory(Category&& categoryForUpdate);
+	void setTransactionCategorySub(CategorySub&& categorySubForUpdate);
+	void setTransactionComment(Comment&& commentForUpdate);
+	void setTransactionCurrency(Currency&& currencyForUpdate);
+	void setTransactionCurrencyRate(CurrencyRate&& currencyRateForUpdate);
+	void setTransactionDescription(Description&& descriptionForUpdate);
+	void setTransactionPayee(Payee&& payeeForUpdate);
+	void setTransactionTag(Tag&& tagForUpdate);
+	void setTransactionTransactionStatus(TransactionStatus&& transactionStatusForUpdate);
+	void setTransactionTransactionTyoe(TransactionType&& transactionTypeForUpdate);
 	friend bool operator<(const Transaction& leftTransaction, const Transaction& rightTransaction);
 	friend std::ostream& operator<<(std::ostream& outputStream, const Transaction& transaction);
 };

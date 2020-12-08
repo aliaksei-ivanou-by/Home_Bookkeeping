@@ -4,8 +4,8 @@ Comment::Comment():
 	commentName{ "" }
 {}
 
-Comment::Comment(std::string commentNameNew):
-	commentName{ commentNameNew }
+Comment::Comment(std::string commentNameForAdd):
+	commentName{ commentNameForAdd }
 {}
 
 std::string Comment::getCommentName() const
@@ -13,9 +13,9 @@ std::string Comment::getCommentName() const
 	return commentName;
 }
 
-void Comment::setCommentName(std::string&& commentNameNew)
+void Comment::setCommentName(std::string&& commentNameForUpdate)
 {
-	commentName = std::move(commentNameNew);
+	commentName = std::move(commentNameForUpdate);
 }
 
 bool operator<(const Comment& leftComment, const Comment& rightComment)

@@ -1,36 +1,36 @@
 #include "Transaction.h"
 
 Transaction::Transaction(
-	Account transactionAccountNew, Category transactionCategoryNew, 
-	CategorySub transactionCategorySubNew, double transactionAmountNew,
-	Comment transactionCommentNew, Currency transactionCurrencyNew,
-	CurrencyRate transactionCurrencyRateNew, Description transactionDescriptionNew,
-	Payee transactionPayeeNew, Tag transactionTagNew,
-	TransactionStatus transactionStatusNew, TransactionType transactionTypeNew):
-	transactionAccount{ transactionAccountNew },
-	transactionCategory{ transactionCategoryNew },
-	transactionCategorySub{ transactionCategorySubNew },
-	transactionAmount{ transactionAmountNew },
-	transactionComment{ transactionCommentNew },
-	transactionCurrency{ transactionCurrencyNew },
-	transactionCurrencyRate{ transactionCurrencyRateNew },
-	transactionDescription{ transactionDescriptionNew },
-	transactionPayee{ transactionPayeeNew },
-	transactionTag{ transactionTagNew },
-	transactionStatus{ transactionStatusNew },
-	transactionType{ transactionTypeNew }
+	Account transactionAccountForAdd, Category transactionCategoryForAdd, 
+	CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+	Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
+	CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
+	Payee transactionPayeeForAdd, Tag transactionTagForAdd,
+	TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd):
+	transactionAccount{ transactionAccountForAdd },
+	transactionCategory{ transactionCategoryForAdd },
+	transactionCategorySub{ transactionCategorySubForAdd },
+	transactionAmount{ transactionAmountForAdd },
+	transactionComment{ transactionCommentForAdd },
+	transactionCurrency{ transactionCurrencyForAdd },
+	transactionCurrencyRate{ transactionCurrencyRateForAdd },
+	transactionDescription{ transactionDescriptionForAdd },
+	transactionPayee{ transactionPayeeForAdd },
+	transactionTag{ transactionTagForAdd },
+	transactionStatus{ transactionStatusForAdd },
+	transactionType{ transactionTypeForAdd }
 {}
 
 Transaction::Transaction(
-	Account transactionAccountNew, Category transactionCategoryNew, 
-	CategorySub transactionCategorySubNew, double transactionAmountNew,
-	Currency transactionCurrencyNew):
-	transactionAccount{ transactionAccountNew },
-	transactionCategory{ transactionCategoryNew },
-	transactionCategorySub{ transactionCategorySubNew },
-	transactionAmount{ transactionAmountNew },
+	Account transactionAccountForAdd, Category transactionCategoryForAdd,
+	CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+	Currency transactionCurrencyForAdd):
+	transactionAccount{ transactionAccountForAdd },
+	transactionCategory{ transactionCategoryForAdd },
+	transactionCategorySub{ transactionCategorySubForAdd },
+	transactionAmount{ transactionAmountForAdd },
 	transactionComment{ },
-	transactionCurrency{ transactionCurrencyNew },
+	transactionCurrency{ transactionCurrencyForAdd },
 	transactionCurrencyRate{ },
 	transactionDescription{ },
 	transactionPayee{ },
@@ -99,59 +99,59 @@ TransactionType Transaction::getTransactionType() const
 	return transactionType;
 }
 
-void Transaction::setTransactionAccount(Account&& accountNew)
+void Transaction::setTransactionAccount(Account&& accountForUpdate)
 {
-	transactionAccount = std::move(accountNew);
+	transactionAccount = std::move(accountForUpdate);
 }
 
-void Transaction::setTransactionCategory(Category&& categoryNew)
+void Transaction::setTransactionCategory(Category&& categoryForUpdate)
 {
-	transactionCategory = std::move(categoryNew);
+	transactionCategory = std::move(categoryForUpdate);
 }
 
-void Transaction::setTransactionCategorySub(CategorySub&& categorySubNew)
+void Transaction::setTransactionCategorySub(CategorySub&& categorySubForUpdate)
 {
-	transactionCategorySub = std::move(categorySubNew);
+	transactionCategorySub = std::move(categorySubForUpdate);
 }
 
-void Transaction::setTransactionComment(Comment&& commentNew)
+void Transaction::setTransactionComment(Comment&& commentForUpdate)
 {
-	transactionComment = std::move(commentNew);
+	transactionComment = std::move(commentForUpdate);
 }
 
-void Transaction::setTransactionCurrency(Currency&& currencyNew)
+void Transaction::setTransactionCurrency(Currency&& currencyForUpdate)
 {
-	transactionCurrency = std::move(currencyNew);
+	transactionCurrency = std::move(currencyForUpdate);
 }
 
-void Transaction::setTransactionCurrencyRate(CurrencyRate&& currencyRateNew)
+void Transaction::setTransactionCurrencyRate(CurrencyRate&& currencyRateForUpdate)
 {
-	transactionCurrencyRate = std::move(currencyRateNew);
+	transactionCurrencyRate = std::move(currencyRateForUpdate);
 }
 
-void Transaction::setTransactionDescription(Description&& descriptionNew)
+void Transaction::setTransactionDescription(Description&& descriptionForUpdate)
 {
-	transactionDescription = std::move(descriptionNew);
+	transactionDescription = std::move(descriptionForUpdate);
 }
 
-void Transaction::setTransactionPayee(Payee&& payeeNew)
+void Transaction::setTransactionPayee(Payee&& payeeForUpdate)
 {
-	transactionPayee = std::move(payeeNew);
+	transactionPayee = std::move(payeeForUpdate);
 }
 
-void Transaction::setTransactionTag(Tag&& tagNew)
+void Transaction::setTransactionTag(Tag&& tagForUpdate)
 {
-	transactionTag = std::move(tagNew);
+	transactionTag = std::move(tagForUpdate);
 }
 
-void Transaction::setTransactionTransactionStatus(TransactionStatus&& transactionStatusNew)
+void Transaction::setTransactionTransactionStatus(TransactionStatus&& transactionStatusForUpdate)
 {
-	transactionStatus = std::move(transactionStatusNew);
+	transactionStatus = std::move(transactionStatusForUpdate);
 }
 
-void Transaction::setTransactionTransactionTyoe(TransactionType&& transactionTypeNew)
+void Transaction::setTransactionTransactionTyoe(TransactionType&& transactionTypeForUpdate)
 {
-	transactionType = std::move(transactionTypeNew);
+	transactionType = std::move(transactionTypeForUpdate);
 }
 
 bool operator<(const Transaction& leftTransaction, const Transaction& rightTransaction)

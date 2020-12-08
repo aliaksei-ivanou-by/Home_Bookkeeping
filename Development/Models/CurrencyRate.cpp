@@ -4,8 +4,8 @@ CurrencyRate::CurrencyRate():
 	currencyRateName{ "" }
 {}
 
-CurrencyRate::CurrencyRate(std::string currencyRateNameNew):
-	currencyRateName{ currencyRateNameNew }
+CurrencyRate::CurrencyRate(std::string currencyRateNameForAdd):
+	currencyRateName{ currencyRateNameForAdd }
 {}
 
 std::string CurrencyRate::getCurrencyRateName() const
@@ -13,9 +13,9 @@ std::string CurrencyRate::getCurrencyRateName() const
 	return currencyRateName;
 }
 
-void CurrencyRate::setCurrencyRateName(std::string&& currencyRateNameNew)
+void CurrencyRate::setCurrencyRateName(std::string&& currencyRateNameForUpdate)
 {
-	currencyRateName = std::move(currencyRateNameNew);
+	currencyRateName = std::move(currencyRateNameForUpdate);
 }
 
 bool operator<(const CurrencyRate& leftCurrencyRate, const CurrencyRate& rightCurrencyRate)

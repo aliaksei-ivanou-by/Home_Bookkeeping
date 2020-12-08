@@ -4,9 +4,13 @@ TransactionStatus::TransactionStatus():
 	transactionStatus{ TransactionStatusEnum::None }
 {}
 
-void TransactionStatus::setTransactionStatus(TransactionStatusEnum&& transactionStatusNew)
+TransactionStatus::TransactionStatus(TransactionStatusEnum transactionStatusToAdd):
+	transactionStatus{ transactionStatusToAdd }
+{}
+
+void TransactionStatus::setTransactionStatus(TransactionStatusEnum&& transactionStatusForUpdate)
 {
-	transactionStatus = std::move(transactionStatusNew);
+	transactionStatus = std::move(transactionStatusForUpdate);
 }
 
 TransactionStatusEnum TransactionStatus::getTransactionStatus() const

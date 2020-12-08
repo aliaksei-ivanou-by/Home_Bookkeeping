@@ -4,8 +4,8 @@ Account::Account():
 	accountName{ "" }
 {}
 
-Account::Account(std::string accountNameNew):
-	accountName{ accountNameNew }
+Account::Account(std::string accountNameForAdd):
+	accountName{ accountNameForAdd }
 {}
 
 std::string Account::getAccountName() const
@@ -13,9 +13,9 @@ std::string Account::getAccountName() const
 	return accountName;
 }
 
-void Account::setAccountName(std::string&& accountNameNew)
+void Account::setAccountName(std::string&& accountNameForUpdate)
 {
-	accountName = std::move(accountNameNew);
+	accountName = std::move(accountNameForUpdate);
 }
 
 bool operator<(const Account& leftAccount, const Account& rightAccount)

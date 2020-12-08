@@ -4,9 +4,13 @@ TransactionType::TransactionType():
 	transactionType{ TransactionTypeEnum::Expence }
 {}
 
-void TransactionType::setTransactionType(TransactionTypeEnum&& transactionTypeNew)
+TransactionType::TransactionType(TransactionTypeEnum transactionTypeForAdd):
+	transactionType{ transactionTypeForAdd }
+{}
+
+void TransactionType::setTransactionType(TransactionTypeEnum&& transactionTypeForUpdate)
 {
-	transactionType = std::move(transactionTypeNew);
+	transactionType = std::move(transactionTypeForUpdate);
 }
 
 TransactionTypeEnum TransactionType::getTransactionType()
