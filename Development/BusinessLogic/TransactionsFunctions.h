@@ -1,27 +1,7 @@
 #pragma once
 
-#ifndef TRANSACTIONSFUNCTIONS_H
-#define TRANSACTIONSFUNCTIONS_H
-
-#ifndef STDAFX_H
 #include "../include/stdafx.h"
-#endif
-
-#ifndef STDAFX_H
-#include "../include/stdafx.h"
-#endif
-
-#ifndef MODELS_H
-#include "../include/Models.h"
-#endif
-
-#ifndef DATAACCESS1_H
-#include "../include/includeDataAccess1.h"
-#endif
-
-#ifndef DATAACCESS2_H
-#include "../include/includeDataAccess2.h"
-#endif
+#include "../include/DataAccess.h"
 
 void default_currencies(FinanceRepository& mainRepository)
 {
@@ -92,5 +72,3 @@ void print_transactions(FinanceRepository& mainRepository)
 		std::cout << '\t' << i << '\n';
 	}
 }
-
-#endif

@@ -1,9 +1,7 @@
 #pragma once
 
 #include "../include/stdafx.h"
-#include "../include/Models.h"
-#include "../include/includeDataAccess1.h"
-#include "../include/includeDataAccess2.h"
+#include "../include/DataAccess.h"
 
 class TransactionRepository
 {

@@ -1,7 +1,7 @@
-#include "include/includeDataAccess2.h"
-#include "include/Functions.h"
-
 #include "include/stdafx.h"
+#include "include/constants.h"
+#include "include/DataAccess.h"
+#include "include/BusinessLogic.h"
 #include "include/Graphics.h"
 
 void Book_Keeping()
