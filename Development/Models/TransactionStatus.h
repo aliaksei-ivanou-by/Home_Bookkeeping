@@ -1,11 +1,6 @@
 #pragma once
 
-#ifndef TRANSACTIONSTATUSE_H
-#define TRANSACTIONSTATUSE_H
-
-#ifndef STDAFX_H
 #include "../include/stdafx.h"
-#endif
 
 enum class TransactionStatusEnum
 {
@@ -20,17 +15,7 @@ class TransactionStatus
 private:
 	TransactionStatusEnum transactionStatus;
 public:
-	TransactionStatus()
-		: transactionStatus{ TransactionStatusEnum::None }
-	{}
-	void setTransactionStatus(TransactionStatusEnum&& transactionStatus)
-	{
-		this->transactionStatus = transactionStatus;
-	}
-	TransactionStatusEnum getTransactionStatus() const
-	{
-		return this->transactionStatus;
-	}
+	TransactionStatus();
+	void setTransactionStatus(TransactionStatusEnum&& transactionStatusNew);
+	TransactionStatusEnum getTransactionStatus() const;
 };
-
-#endif
