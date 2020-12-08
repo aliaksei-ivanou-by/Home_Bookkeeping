@@ -321,4 +321,159 @@ namespace Graph_lib
 		int vbase;
 		double scale;
 	};
+
+	class Lines_window : Window
+	{
+	public:
+		Lines_window(Point xy, int w, int h, const std::string& title);
+	private:
+		Open_polyline lines;
+
+		Button next_button;
+		Button quit_button;
+		In_box next_x;
+		In_box next_y;
+		Out_box xy_out;
+		Menu color_menu;
+		Button cmenu_button;
+		Menu style_menu;
+		Button smenu_button;
+
+		void change(Color c);
+		void change_style(Line_style ls);
+
+		void hide_cmenu();
+		void hide_smenu();
+
+		void red_pressed();
+		void blue_pressed();
+		void black_pressed();
+		void cmenu_pressed();
+		void solid_pressed();
+		void dot_pressed();
+		void dash_pressed();
+		void smenu_pressed();
+		void next();
+		void quit();
+
+		static void cb_red(Address, Address);
+		static void cb_blue(Address, Address);
+		static void cb_black(Address, Address);
+		static void cb_cmenu(Address, Address);
+		static void cb_solid(Address, Address);
+		static void cb_dot(Address, Address);
+		static void cb_dash(Address, Address);
+		static void cb_smenu(Address, Address);
+		static void cb_next(Address, Address);
+		static void cb_quit(Address, Address);
+	};
+
+	class My_window : public Simple_window
+	{
+	public:
+		My_window(Point xy, int w, int h, const std::string& title);
+	private:
+		Button quit_button;
+		static void cb_quit(Address, Address);
+		void quit();
+	};
+
+	class Button_board : public My_window
+	{
+	public:
+		Button_board(Point xy, int w, int h, const std::string& title, int table_row, int table_column);
+	private:
+		std::vector<std::vector<Button*>> buttons;
+		int table_column;
+		int table_row;
+		Out_box xy_out;
+
+		int i = 0;
+		int j = 0;
+
+		std::string select_button();
+		void select_label(std::string);
+	};
+
+	class Image_Button : public My_window
+	{
+	public:
+		Image_Button(Point xy, int w, int h, const std::string& title);
+	private:
+		Button image_btn;
+		Image image;
+
+		static void cb_move(Address, Address);;
+		void move();
+	};
+
+	class MyMenu : public My_window
+	{
+	public:
+		MyMenu(Point xy, int w, int h, const std::string& title);
+	protected:
+		int x;
+		int y;
+		Vector_ref<Shape> figures;
+		void get_position();
+	private:
+		Button clear_btn;
+
+		Menu mymenu;
+
+		In_box x_pos;
+		In_box y_pos;
+
+		void draw_circle();
+		void draw_square();
+		void draw_triangle();
+		void draw_hexagon();
+
+		static void cb_circle(Address, Address);
+		static void cb_square(Address, Address);
+		static void cb_triangle(Address, Address);
+		static void cb_hexagon(Address, Address);
+		static void cb_clear(Address, Address);
+
+		void clear();
+	};
+
+	class MyMenuMove : public MyMenu
+	{
+	public:
+		MyMenuMove(Point xy, int w, int h, const std::string& title);
+	private:
+		Button next_btn;
+
+		void next();
+
+		static void cb_move(Address, Address);
+	};
+
+	class MyLine : public Shape
+	{
+	public:
+		MyLine(Point p1, Point p2);
+		void set_point(int i, Point p);
+	};
+
+	class Clock : public Window, public Shape
+	{
+	public:
+		Clock(Point xy, int w, int h, const std::string& title);
+		void run_clock();
+		static void cb_run_clock(void* clock);
+		int get_seconds();
+		int get_minutes();
+		int get_hours();
+	private:
+		int r;
+		Circle clock;
+		Circle center;
+		MyLine seconds;
+		MyLine minutes;
+		MyLine hours;
+		int w;
+		int h;
+	};
 }

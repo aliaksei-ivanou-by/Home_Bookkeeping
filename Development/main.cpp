@@ -25,18 +25,9 @@ void Book_Keeping()
 
 int main()
 {
-	Book_Keeping();
-	using namespace Graph_lib;
-	Point t1(100, 100);
-	Simple_window win(t1, 600, 400, "Canvas");
-	Graph_lib::Polygon poly;
-	Graph_lib::Smiley sm({300, 300}, 20);
-	win.attach(sm);
-	poly.add(Point(300, 200));
-	poly.add(Point(350, 100));
-	poly.add(Point(400, 200));
-	poly.set_color(Color::red);
-	win.attach(poly);
-	win.wait_for_button();
-	return 0;
+	//Book_Keeping();
+	//Graph_lib::Image_Button win(Point(100, 100), 600, 600, "Image_Button");
+	Clock* clock = new Clock(Point(100, 100), 600, 600, "Clock");
+	Fl::add_timeout(1.0, Clock::cb_run_clock, clock);
+	return gui_main();
 }

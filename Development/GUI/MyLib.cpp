@@ -1,6 +1,17 @@
 #include "../include/stdafx.h"
 #include "../include/FLTK.h"
+#include "../include/Graphics.h"
 #include "MyLib.h"
+
+inline int randint(int max)
+{
+	return rand() % max;
+}
+
+inline int randint(int min, int max)
+{
+	return randint(max - min) + min;
+}
 
 namespace Graph_lib
 {
@@ -1086,5 +1097,480 @@ namespace Graph_lib
 	int Scale::operator()(int v) const
 	{
 		return cbase + (v - vbase) * scale;
+	}
+
+	Lines_window::Lines_window(Point xy, int w, int h, const std::string& title):
+		Window{ xy, w, h, title },
+		next_button{ Point(x_max() - 150, 0), 70, 20, "Next point",
+					[](Address, Address pw) {reference_to<Lines_window>(pw).next(); } },
+		quit_button{ Point(x_max() - 70, 0), 70, 20, "Quit",
+					[](Address, Address pw) {reference_to<Lines_window>(pw).quit(); } },
+		next_x{ Point(x_max() - 310, 0), 50, 20, "next_x:" },
+		next_y{ Point(x_max() - 210, 0), 50, 20, "next_y:" },
+		xy_out{ Point(100, 0), 100, 20, "current (x, y):" },
+		color_menu{ Point(x_max() - 100, 40), 70, 20, Menu::vertical, "color" },
+		cmenu_button{ Point(x_max() - 100, 30), 80, 20, "color_menu", cb_cmenu },
+		style_menu{ Point(x_max() - 200, 40), 70, 20, Menu::vertical, "style" },
+		smenu_button{ Point(x_max() - 200, 30), 80, 20, "style_menu", cb_smenu }
+	{
+		attach(next_button);
+		attach(quit_button);
+		attach(next_x);
+		attach(next_y);
+		attach(xy_out);
+		xy_out.put("no point");
+		color_menu.attach(new Button(Point(0, 0), 0, 0, "red", cb_red));
+		color_menu.attach(new Button(Point(0, 0), 0, 0, "blue", cb_blue));
+		color_menu.attach(new Button(Point(0, 0), 0, 0, "black", cb_black));
+		attach(color_menu);
+		color_menu.hide();
+		attach(cmenu_button);
+		style_menu.attach(new Button(Point(0, 0), 0, 0, "solid", cb_solid));
+		style_menu.attach(new Button(Point(0, 0), 0, 0, "dot", cb_dot));
+		style_menu.attach(new Button(Point(0, 0), 0, 0, "dash", cb_dash));
+		attach(style_menu);
+		style_menu.hide();
+		attach(smenu_button);
+		attach(lines);
+	}
+
+	void Lines_window::cb_red(Address, Address pw)
+	{
+		reference_to<Lines_window>(pw).red_pressed();
+	}
+
+	void Lines_window::cb_blue(Address, Address pw)
+	{
+		reference_to<Lines_window>(pw).blue_pressed();
+	}
+
+	void Lines_window::cb_black(Address, Address pw)
+	{
+		reference_to<Lines_window>(pw).black_pressed();
+	}
+
+	void Lines_window::cb_cmenu(Address, Address pw)
+	{
+		reference_to<Lines_window>(pw).cmenu_pressed();
+	}
+
+	void Lines_window::cb_solid(Address, Address pw)
+	{
+		reference_to<Lines_window>(pw).solid_pressed();
+	}
+
+	void Lines_window::cb_dot(Address, Address pw)
+	{
+		reference_to<Lines_window>(pw).dot_pressed();
+	}
+
+	void Lines_window::cb_dash(Address, Address pw)
+	{
+		reference_to<Lines_window>(pw).dash_pressed();
+	}
+
+	void Lines_window::cb_smenu(Address, Address pw)
+	{
+		reference_to<Lines_window>(pw).smenu_pressed();
+	}
+
+	void Lines_window::cb_next(Address, Address pw)
+	{
+		reference_to<Lines_window>(pw).next();
+	}
+
+	void Lines_window::cb_quit(Address, Address pw)
+	{
+		reference_to<Lines_window>(pw).quit();
+	}
+
+	void Lines_window::red_pressed()
+	{
+		change(Color::red);
+		hide_cmenu();
+	}
+
+	void Lines_window::blue_pressed()
+	{
+		change(Color::blue);
+		hide_cmenu();
+	}
+
+	void Lines_window::black_pressed()
+	{
+		change(Color::black);
+		hide_cmenu();
+	}
+
+	void Lines_window::solid_pressed()
+	{
+		change_style(Line_style(Line_style::solid));
+		hide_smenu();
+	}
+
+	void Lines_window::dot_pressed()
+	{
+		change_style(Line_style(Line_style::dot));
+		hide_smenu();
+	}
+
+	void Lines_window::dash_pressed()
+	{
+		change_style(Line_style(Line_style::dash));
+		hide_smenu();
+	}
+
+	void Lines_window::smenu_pressed()
+	{
+		smenu_button.hide();
+		style_menu.show();
+	}
+
+	void Lines_window::cmenu_pressed()
+	{
+		cmenu_button.hide();
+		color_menu.show();
+	}
+
+	void Lines_window::change(Color c)
+	{
+		lines.set_color(c);
+	}
+
+	void Lines_window::change_style(Line_style ls)
+	{
+		lines.set_style(ls);
+	}
+
+	void Lines_window::hide_cmenu()
+	{
+		color_menu.hide();
+		cmenu_button.show();
+	}
+
+	void Lines_window::hide_smenu()
+	{
+		style_menu.hide();
+		smenu_button.show();
+	}
+
+	void Lines_window::next()
+	{
+		int x = next_x.get_int();
+		int y = next_y.get_int();
+		lines.add(Point(x, y));
+		std::ostringstream ss;
+		ss << '(' << x << ',' << y << ')';
+		xy_out.put(ss.str());
+		redraw();
+	}
+
+	void Lines_window::quit()
+	{
+		hide();
+	}
+
+	My_window::My_window(Point xy, int w, int h, const std::string& title):
+		Simple_window{ xy, w, h, title },
+		quit_button{ Point(x_max() - 70, 30), 70, 20, "Quit", cb_quit }
+	{
+		attach(quit_button);
+	}
+
+	void My_window::cb_quit(Address, Address pw)
+	{
+		reference_to<My_window>(pw).quit();
+	}
+
+	void My_window::quit()
+	{
+		hide();
+	}
+
+	Button_board::Button_board(Point xy, int w, int h, const std::string& title, int t_r, int t_c):
+		My_window{ xy, w, h, title },
+		table_row{ t_r },
+		table_column{ t_c },
+		xy_out{ Point(x_max() - 70, 60), 70, 20, "(x, y)" }
+	{
+		buttons.resize(table_row);
+		for (int i = 0; i < table_row; ++i)
+		{
+			buttons[i].resize(table_column);
+		}
+		for (i = 0; i < table_column; ++i)
+		{
+			Menu* m = new Menu(Point(i * 50, 0), 50, 50, Menu::vertical, "menu");
+			for (j = 0; j < table_row; ++j)
+			{
+				Button* b = new Button(Point(0, 0), 0, 0, std::to_string(j + 1) + "-" + std::to_string(i + 1),
+					[](Address b, Address pw)
+					{
+						std::string str = reference_to<Button_board>(b).select_button();
+						reference_to<Button_board>(pw).select_label(str);
+					}
+				);
+				buttons[j].push_back(b);
+				m->attach(*b);
+			}
+			attach(*m);
+		}
+		attach(xy_out);
+		xy_out.put("no point");
+	}
+
+	std::string Button_board::select_button()
+	{
+		std::cout << "button address = " << this << '\n';
+		std::string str = '(' + std::to_string((*this).x()) + ',' + std::to_string((*this).y()) + ')';
+		return str;
+	}
+
+	void Button_board::select_label(std::string str)
+	{
+		std::cout << "label address = " << this << '\n';
+		xy_out.put(str);
+	}
+
+	Image_Button::Image_Button(Point xy, int w, int h, const std::string& title):
+		My_window{ xy, w, h, title },
+		image_btn{ Point(randint(0, x_max() - 100), randint(0, y_max() - 100)), 100, 100, "", cb_move },
+		image{ image_btn.loc, "snow_cpp.gif" }
+	{
+		attach(image_btn);
+		image.set_mask(Point(100, 100), 100, 100);
+		attach(image);
+	}
+
+	void Image_Button::cb_move(Address, Address pw)
+	{
+		reference_to<Image_Button>(pw).move();
+	}
+
+	void Image_Button::move()
+	{
+		int dx = randint(0, x_max() - 100) - image_btn.loc.x;
+		int dy = randint(0, y_max() - 100) - image_btn.loc.y;
+		image.move(dx, dy);
+		image_btn.move(dx, dy);
+	}
+
+	MyMenu::MyMenu(Point xy, int w, int h, const std::string& title):
+		My_window{ xy, w, h, title },
+		mymenu{ Point(x_max() - 70, 70), 70, 30, Menu::vertical, "figures" },
+		clear_btn{ Point(x_max() - 70, 260), 70, 30, "Clear", cb_clear },
+		x_pos{ Point(x_max() - 70, 200), 70, 30, "x: " },
+		y_pos{ Point(x_max() - 70, 230), 70, 30, "y: " },
+		x{ 0 },
+		y{ 0 }
+	{
+		mymenu.attach(new Button(Point(0, 0), 0, 0, "Circle", cb_circle));
+		mymenu.attach(new Button(Point(0, 0), 0, 0, "Square", cb_square));
+		mymenu.attach(new Button(Point(0, 0), 0, 0, "Triangle", cb_triangle));
+		mymenu.attach(new Button(Point(0, 0), 0, 0, "Hexagon", cb_hexagon));
+		attach(mymenu);
+		attach(x_pos);
+		attach(y_pos);
+		attach(clear_btn);
+	}
+
+	void MyMenu::get_position()
+	{
+		x = x_pos.get_int();
+		y = y_pos.get_int();
+	}
+
+	void MyMenu::draw_circle()
+	{
+		get_position();
+		figures.push_back(new Circle(Point(x, y), 150));
+		attach(figures[figures.size() - 1]);
+		redraw();
+	}
+
+	void MyMenu::draw_square()
+	{
+		get_position();
+		figures.push_back(new Rectangle(Point(x - 150, y - 150), 300, 300));
+		attach(figures[figures.size() - 1]);
+		redraw();
+	}
+
+	void MyMenu::draw_triangle()
+	{
+		get_position();
+		figures.push_back(new Regular_polygon(Point(x, y), 3, 150));
+		attach(figures[figures.size() - 1]);
+		redraw();
+	}
+
+	void MyMenu::draw_hexagon()
+	{
+		get_position();
+		figures.push_back(new Regular_polygon(Point(x, y), 6, 150));
+		attach(figures[figures.size() - 1]);
+		redraw();
+	}
+
+	void MyMenu::cb_circle(Address, Address pw)
+	{
+		reference_to<MyMenu>(pw).draw_circle();
+	}
+
+	void MyMenu::cb_square(Address, Address pw)
+	{
+		reference_to<MyMenu>(pw).draw_square();
+	}
+
+	void MyMenu::cb_triangle(Address, Address pw)
+	{
+		reference_to<MyMenu>(pw).draw_triangle();
+	}
+
+	void MyMenu::cb_hexagon(Address, Address pw)
+	{
+		reference_to<MyMenu>(pw).draw_hexagon();
+	}
+
+	void MyMenu::cb_clear(Address, Address pw)
+	{
+		reference_to<MyMenu>(pw).clear();
+	}
+
+	void MyMenu::clear()
+	{
+		for (int i = 0; i < figures.size(); ++i)
+		{
+			detach(figures[figures.size() - i - 1]);
+		}
+		redraw();
+	}
+
+	MyMenuMove::MyMenuMove(Point xy, int w, int h, const std::string& title):
+		MyMenu{ xy, w, h, title },
+		next_btn{ Point(x_max() - 70, 0), 70, 20, "Next", cb_move }
+	{
+		attach(next_btn);
+	}
+
+	void MyMenuMove::next()
+	{
+		if (figures.size() == 0)
+		{
+			throw("No figures");
+		}
+		int x_old = x;
+		int y_old = y;
+		///////////////
+		// 1
+		std::cout << "Enter new coordinates (x y): \n";
+		std::cin >> x >> y;
+		///////////////
+		// 2
+		//get_position();
+		///////////////
+		int dx = x - x_old;
+		int dy = y - y_old;
+		figures[figures.size() - 1].move(dx, dy);
+		redraw();
+	}
+
+	void MyMenuMove::cb_move(Address, Address pw)
+	{
+		reference_to<MyMenuMove>(pw).next();
+	}
+
+	Clock::Clock(Point xy, int w, int h, const std::string& title):
+		Window{ xy, w, h, title },
+		w{ w },
+		h{ h },
+		r{ w / 2 },
+		clock{ Point(r, r), w * 0.3 },
+		center{ Point(r, r), w * 0.015 },
+		seconds{ Point(w / 2, h / 2),
+			Point(w / 2 + static_cast<int>(sin(get_seconds() * 6 * pi / 180) * w / 4),
+				h / 2 - static_cast<int>(cos(get_seconds() * 6 * pi / 180) * w / 4)) },
+		minutes{ Point(w / 2, h / 2),
+			Point(w / 2 + static_cast<int>(sin(get_minutes() * 6 * pi / 180) * w / 5),
+				h / 2 - static_cast<int>(cos(get_minutes() * 6 * pi / 180) * w / 5)) },
+		hours{ Point(w / 2, h / 2),
+			Point(w / 2 + static_cast<int>(sin(get_hours() * 30 * pi / 180) * w / 6),
+				h / 2 - static_cast<int>(cos(get_hours() * 30 * pi / 180) * w / 6)) }
+	{
+		Point pcenter(w / 2, h / 2);
+		clock.set_style(Line_style(Line_style::Line_style_type::solid, 4));
+		clock.set_fill_color(Color::white);
+		attach(clock);
+
+		center.set_fill_color(Color::black);
+		attach(center);
+
+		seconds.set_style(Line_style(Line_style::dot, 4));
+		seconds.set_color(Color::red);
+		attach(seconds);
+
+		minutes.set_style(Line_style(Line_style::dash, 6));
+		minutes.set_color(Color::blue);
+		attach(minutes);
+		hours.set_style(Line_style(Line_style::solid, 8));
+		hours.set_color(Color::green);
+		attach(hours);
+	}
+
+	void Clock::run_clock()
+	{
+		std::cout << get_hours() << ' ' << get_minutes() << ' ' << get_seconds() << '\n';
+		seconds.set_point(1, Point(w / 2 + static_cast<int>(sin(get_seconds() * 6 * pi / 180) * w / 4),
+			h / 2 - static_cast<int>(cos(get_seconds() * 6 * pi / 180) * w / 4)));
+		minutes.set_point(1, Point(w / 2 + static_cast<int>(sin(get_minutes() * 6 * pi / 180) * w / 5),
+			h / 2 - static_cast<int>(cos(get_minutes() * 6 * pi / 180) * w / 5)));
+		hours.set_point(1, Point(w / 2 + static_cast<int>(sin(get_hours() * 30 * pi / 180) * w / 6),
+			h / 2 - static_cast<int>(cos(get_hours() * 30 * pi / 180) * w / 6)));
+		redraw();
+	}
+
+	void Clock::cb_run_clock(void* clock)
+	{
+		Clock* c = (Clock*)clock;
+		c->run_clock();
+		Fl::repeat_timeout(1.0, Clock::cb_run_clock, clock);
+	}
+
+	int Clock::get_seconds()
+	{
+		struct tm newtime;
+		time_t now = time(0);
+		localtime_s(&newtime, &now);
+		int seconds = newtime.tm_sec;
+		return seconds;
+	}
+
+	int Clock::get_minutes()
+	{
+		struct tm newtime;
+		time_t now = time(0);
+		localtime_s(&newtime, &now);
+		int minutes = newtime.tm_min;
+		return minutes;
+	}
+
+	int Clock::get_hours()
+	{
+		struct tm newtime;
+		time_t now = time(0);
+		localtime_s(&newtime, &now);
+		int hours = newtime.tm_hour;
+		return hours;
+	}
+
+	MyLine::MyLine(Point p1, Point p2)
+	{
+		add(p1);
+		add(p2);
+	}
+
+	void MyLine::set_point(int i, Point p)
+	{
+		Shape::set_point(i, p);
 	}
 }
