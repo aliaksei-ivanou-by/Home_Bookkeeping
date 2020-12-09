@@ -7,6 +7,7 @@ Transaction::Transaction(
 	CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
 	Payee transactionPayeeForAdd, Tag transactionTagForAdd,
 	TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd):
+	transactionTime{},
 	transactionAccount{ transactionAccountForAdd },
 	transactionCategory{ transactionCategoryForAdd },
 	transactionCategorySub{ transactionCategorySubForAdd },
@@ -25,6 +26,7 @@ Transaction::Transaction(
 	Account transactionAccountForAdd, Category transactionCategoryForAdd,
 	CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
 	Currency transactionCurrencyForAdd):
+	transactionTime{},
 	transactionAccount{ transactionAccountForAdd },
 	transactionCategory{ transactionCategoryForAdd },
 	transactionCategorySub{ transactionCategorySubForAdd },
@@ -38,6 +40,11 @@ Transaction::Transaction(
 	transactionStatus{ },
 	transactionType{ }
 {}
+
+Time Transaction::getTransactionTime() const
+{
+	return transactionTime;
+}
 
 Account Transaction::getTransactionAccount() const
 {
@@ -97,6 +104,11 @@ TransactionStatus Transaction::getTransactionStatus() const
 TransactionType Transaction::getTransactionType() const
 {
 	return transactionType;
+}
+
+void Transaction::setTransactionTime(Time&& timeForUpdate)
+{
+	transactionTime = std::move(timeForUpdate);
 }
 
 void Transaction::setTransactionAccount(Account&& accountForUpdate)
@@ -161,7 +173,8 @@ bool operator<(const Transaction& leftTransaction, const Transaction& rightTrans
 
 std::ostream& operator<<(std::ostream& outputStream, const Transaction& transaction)
 {
-	return outputStream << transaction.getTransactionAccount() << '\t' <<
+	return outputStream << transaction.getTransactionTime() << '\t' <<
+		transaction.getTransactionAccount() << '\t' <<
 		transaction.getTransactionCategory() << '\t' <<
 		transaction.getTransactionCategorySub() << '\t' <<
 		transaction.getTransactionAmount() << ' ' <<

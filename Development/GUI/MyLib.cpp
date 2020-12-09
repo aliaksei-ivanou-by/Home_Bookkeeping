@@ -2,6 +2,7 @@
 #include "../include/FLTK.h"
 #include "../include/Graphics.h"
 #include "MyLib.h"
+#include "../include/constants.h"
 
 inline int randint(int max)
 {
@@ -86,11 +87,11 @@ namespace Graph_lib
 	{
 		int diff_x = point(1).x - point(0).x;
 		int diff_y = point(1).y - point(0).y;
-		double angle = atan2(diff_y, diff_x) * 180 / pi;
-		double x1 = point(1).x - cos((angle - delta) * pi / 180) * size;
-		double y1 = point(1).y - sin((angle - delta) * pi / 180) * size;
-		double x2 = point(1).x - cos((angle + delta) * pi / 180) * size;
-		double y2 = point(1).y - sin((angle + delta) * pi / 180) * size;
+		double angle = atan2(diff_y, diff_x) * 180 / PI();
+		double x1 = point(1).x - cos((angle - delta) * PI() / 180) * size;
+		double y1 = point(1).y - sin((angle - delta) * PI() / 180) * size;
+		double x2 = point(1).x - cos((angle + delta) * PI() / 180) * size;
+		double y2 = point(1).y - sin((angle + delta) * PI() / 180) * size;
 		Graph_lib::Polygon head;
 		head.add(point(1));
 		head.add(Point(int(x1), int(y1)));
@@ -188,26 +189,26 @@ namespace Graph_lib
 	}
 	Point Graph_lib::ne(const Graph_lib::Circle& c) // top-right
 	{
-		return Point(c.center().x + c.radius() * cos(315 * pi / 180),
-			c.center().y + c.radius() * sin(315 * pi / 180));
+		return Point(c.center().x + c.radius() * cos(315 * PI() / 180),
+			c.center().y + c.radius() * sin(315 * PI() / 180));
 	}
 
 	Point Graph_lib::se(const Graph_lib::Circle& c) // bottom-right
 	{
-		return Point(c.center().x + c.radius() * cos(45 * pi / 180),
-			c.center().y + c.radius() * sin(45 * pi / 180));
+		return Point(c.center().x + c.radius() * cos(45 * PI() / 180),
+			c.center().y + c.radius() * sin(45 * PI() / 180));
 	}
 
 	Point Graph_lib::sw(const Graph_lib::Circle& c) // bottom-left
 	{
-		return Point(c.center().x + c.radius() * cos(135 * pi / 180),
-			c.center().y + c.radius() * sin(135 * pi / 180));
+		return Point(c.center().x + c.radius() * cos(135 * PI() / 180),
+			c.center().y + c.radius() * sin(135 * PI() / 180));
 	}
 
 	Point Graph_lib::nw(const Graph_lib::Circle& c) // top-left
 	{
-		return Point(c.center().x + c.radius() * cos(225 * pi / 180),
-			c.center().y + c.radius() * sin(225 * pi / 180));
+		return Point(c.center().x + c.radius() * cos(225 * PI() / 180),
+			c.center().y + c.radius() * sin(225 * PI() / 180));
 	}
 
 	Point Graph_lib::n(const Graph_lib::Ellipse& e) // top
@@ -240,26 +241,26 @@ namespace Graph_lib
 	}
 	Point Graph_lib::ne(const Graph_lib::Ellipse& e) // top-right
 	{
-		return Point(e.center().x + e.major() * cos((-45) * pi / 180),
-			e.center().y + e.minor() * sin((-45) * pi / 180));
+		return Point(e.center().x + e.major() * cos((-45) * PI() / 180),
+			e.center().y + e.minor() * sin((-45) * PI() / 180));
 	}
 
 	Point Graph_lib::se(const Graph_lib::Ellipse& e) // bottom-right
 	{
-		return Point(e.center().x + e.major() * cos(45 * pi / 180),
-			e.center().y + e.minor() * sin(45 * pi / 180));
+		return Point(e.center().x + e.major() * cos(45 * PI() / 180),
+			e.center().y + e.minor() * sin(45 * PI() / 180));
 	}
 
 	Point Graph_lib::sw(const Graph_lib::Ellipse& e) // bottom-left
 	{
-		return Point(e.center().x + e.major() * cos(135 * pi / 180),
-			e.center().y + e.minor() * sin(135 * pi / 180));
+		return Point(e.center().x + e.major() * cos(135 * PI() / 180),
+			e.center().y + e.minor() * sin(135 * PI() / 180));
 	}
 
 	Point Graph_lib::nw(const Graph_lib::Ellipse& e) // top-left
 	{
-		return Point(e.center().x + e.major() * cos(225 * pi / 180),
-			e.center().y + e.minor() * sin(225 * pi / 180));
+		return Point(e.center().x + e.major() * cos(225 * PI() / 180),
+			e.center().y + e.minor() * sin(225 * PI() / 180));
 	}
 
 	Box_text::Box_text(Point p, std::string ss)
@@ -281,8 +282,8 @@ namespace Graph_lib
 		add(Point(cc.x + dd, cc.y));
 		for (int a = 360 / n; a < 360; a += 360 / n)
 		{
-			Point p((point(0).x - c.x) * cos(a * pi / 180) - (point(0).y - c.y) * sin(a * pi / 180) + c.x,
-				(point(0).y - c.y) * cos(a * pi / 180) + (point(0).x - c.x) * sin(a * pi / 180) + c.y);
+			Point p((point(0).x - c.x) * cos(a * PI() / 180) - (point(0).y - c.y) * sin(a * PI() / 180) + c.x,
+				(point(0).y - c.y) * cos(a * PI() / 180) + (point(0).x - c.x) * sin(a * PI() / 180) + c.y);
 			add(p);
 		}
 	}
@@ -299,8 +300,8 @@ namespace Graph_lib
 		add(Point(cc.x + dd, cc.y));
 		for (int a = 360 / n; a < 360; a += 360 / n)
 		{
-			Point p((point(0).x - c.x) * cos(a * pi / 180) - (point(0).y - c.y) * sin(a * pi / 180) + c.x,
-				(point(0).y - c.y) * cos(a * pi / 180) + (point(0).x - c.x) * sin(a * pi / 180) + c.y);
+			Point p((point(0).x - c.x) * cos(a * PI() / 180) - (point(0).y - c.y) * sin(a * PI() / 180) + c.x,
+				(point(0).y - c.y) * cos(a * PI() / 180) + (point(0).x - c.x) * sin(a * PI() / 180) + c.y);
 			add(p);
 		}
 	}
@@ -313,12 +314,12 @@ namespace Graph_lib
 	{
 		add(p);
 
-		int x = p.x + cos(angle * pi / 180) * side1;
-		int y = p.y - sin(angle * pi / 180) * side1;
+		int x = p.x + cos(angle * PI() / 180) * side1;
+		int y = p.y - sin(angle * PI() / 180) * side1;
 		add(Point(x, y));
 
-		x = p.x - cos(alpha * pi / 180) * side2;
-		y = p.y - sin(alpha * pi / 180) * side2;
+		x = p.x - cos(alpha * PI() / 180) * side2;
+		y = p.y - sin(alpha * PI() / 180) * side2;
 		add(Point(x, y));
 	}
 
@@ -347,15 +348,15 @@ namespace Graph_lib
 	{
 		add(Point(c.x, c.y - r));
 		add(find_distance(
-			Point((point(0).x - c.x)* cos((r* pi / 180)) - (point(0).y - c.y) * sin((r * pi / 180)) + c.x,
-				(point(0).y - c.y)* cos((r* pi / 180)) + (point(0).x - c.x) * sin((r * pi / 180)) + c.y),
+			Point((point(0).x - c.x)* cos((r* PI() / 180)) - (point(0).y - c.y) * sin((r * PI() / 180)) + c.x,
+				(point(0).y - c.y)* cos((r* PI() / 180)) + (point(0).x - c.x) * sin((r * PI() / 180)) + c.y),
 			c, r));
 		for (int a = 360 / n; a < 360; a += 360 / n)
 		{
-			add(Point((point(0).x - c.x) * cos((a * pi / 180)) - (point(0).y - c.y) * sin((a * pi / 180)) + c.x,
-				(point(0).y - c.y) * cos((a * pi / 180)) + (point(0).x - c.x) * sin((a * pi / 180)) + c.y));
-			Point rp((point(number_of_points() - 1).x - c.x) * cos((180 / n * pi / 180)) - (point(number_of_points() - 1).y - c.y) * sin((180 / n * pi / 180)) + c.x,
-				(point(number_of_points() - 1).y - c.y) * cos((180 / n * pi / 180)) + (point(number_of_points() - 1).x - c.x) * sin((180 / n * pi / 180)) + c.y);
+			add(Point((point(0).x - c.x) * cos((a * PI() / 180)) - (point(0).y - c.y) * sin((a * PI() / 180)) + c.x,
+				(point(0).y - c.y) * cos((a * PI() / 180)) + (point(0).x - c.x) * sin((a * PI() / 180)) + c.y));
+			Point rp((point(number_of_points() - 1).x - c.x) * cos((180 / n * PI() / 180)) - (point(number_of_points() - 1).y - c.y) * sin((180 / n * PI() / 180)) + c.x,
+				(point(number_of_points() - 1).y - c.y) * cos((180 / n * PI() / 180)) + (point(number_of_points() - 1).x - c.x) * sin((180 / n * PI() / 180)) + c.y);
 			add(find_distance(rp, c, r));
 		}
 	}
@@ -624,8 +625,8 @@ namespace Graph_lib
 		add(Point(cc.x + dd, cc.y));
 		for (int a = 360 / n; a < 360; a += 360 / n)
 		{
-			Point p((point(0).x - cen.x) * cos(a * pi / 180) - (point(0).y - cen.y) * sin(a * pi / 180) + cen.x,
-				(point(0).y - cen.y) * cos(a * pi / 180) + (point(0).x - cen.x) * sin(a * pi / 180) + cen.y);
+			Point p((point(0).x - cen.x) * cos(a * PI() / 180) - (point(0).y - cen.y) * sin(a * PI() / 180) + cen.x,
+				(point(0).y - cen.y) * cos(a * PI() / 180) + (point(0).x - cen.x) * sin(a * PI() / 180) + cen.y);
 			add(p);
 		}
 	}
@@ -1488,14 +1489,14 @@ namespace Graph_lib
 		clock{ Point(r, r), w * 0.3 },
 		center{ Point(r, r), w * 0.015 },
 		seconds{ Point(w / 2, h / 2),
-			Point(w / 2 + static_cast<int>(sin(get_seconds() * 6 * pi / 180) * w / 4),
-				h / 2 - static_cast<int>(cos(get_seconds() * 6 * pi / 180) * w / 4)) },
+			Point(w / 2 + static_cast<int>(sin(get_seconds() * 6 * PI() / 180) * w / 4),
+				h / 2 - static_cast<int>(cos(get_seconds() * 6 * PI() / 180) * w / 4)) },
 		minutes{ Point(w / 2, h / 2),
-			Point(w / 2 + static_cast<int>(sin(get_minutes() * 6 * pi / 180) * w / 5),
-				h / 2 - static_cast<int>(cos(get_minutes() * 6 * pi / 180) * w / 5)) },
+			Point(w / 2 + static_cast<int>(sin(get_minutes() * 6 * PI() / 180) * w / 5),
+				h / 2 - static_cast<int>(cos(get_minutes() * 6 * PI() / 180) * w / 5)) },
 		hours{ Point(w / 2, h / 2),
-			Point(w / 2 + static_cast<int>(sin(get_hours() * 30 * pi / 180) * w / 6),
-				h / 2 - static_cast<int>(cos(get_hours() * 30 * pi / 180) * w / 6)) }
+			Point(w / 2 + static_cast<int>(sin(get_hours() * 30 * PI() / 180) * w / 6),
+				h / 2 - static_cast<int>(cos(get_hours() * 30 * PI() / 180) * w / 6)) }
 	{
 		Point pcenter(w / 2, h / 2);
 		clock.set_style(Line_style(Line_style::Line_style_type::solid, 4));
@@ -1520,12 +1521,12 @@ namespace Graph_lib
 	void Clock::run_clock()
 	{
 		std::cout << get_hours() << ' ' << get_minutes() << ' ' << get_seconds() << '\n';
-		seconds.set_point(1, Point(w / 2 + static_cast<int>(sin(get_seconds() * 6 * pi / 180) * w / 4),
-			h / 2 - static_cast<int>(cos(get_seconds() * 6 * pi / 180) * w / 4)));
-		minutes.set_point(1, Point(w / 2 + static_cast<int>(sin(get_minutes() * 6 * pi / 180) * w / 5),
-			h / 2 - static_cast<int>(cos(get_minutes() * 6 * pi / 180) * w / 5)));
-		hours.set_point(1, Point(w / 2 + static_cast<int>(sin(get_hours() * 30 * pi / 180) * w / 6),
-			h / 2 - static_cast<int>(cos(get_hours() * 30 * pi / 180) * w / 6)));
+		seconds.set_point(1, Point(w / 2 + static_cast<int>(sin(get_seconds() * 6 * PI() / 180) * w / 4),
+			h / 2 - static_cast<int>(cos(get_seconds() * 6 * PI() / 180) * w / 4)));
+		minutes.set_point(1, Point(w / 2 + static_cast<int>(sin(get_minutes() * 6 * PI() / 180) * w / 5),
+			h / 2 - static_cast<int>(cos(get_minutes() * 6 * PI() / 180) * w / 5)));
+		hours.set_point(1, Point(w / 2 + static_cast<int>(sin(get_hours() * 30 * PI() / 180) * w / 6),
+			h / 2 - static_cast<int>(cos(get_hours() * 30 * PI() / 180) * w / 6)));
 		redraw();
 	}
 

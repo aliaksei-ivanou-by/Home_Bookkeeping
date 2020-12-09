@@ -6,6 +6,7 @@
 class Transaction
 {
 private:
+	Time transactionTime;
 	Account transactionAccount;
 	Category transactionCategory;
 	CategorySub transactionCategorySub;
@@ -20,8 +21,7 @@ private:
 	TransactionType transactionType;
 public:
 	Transaction() = delete;
-	Transaction(
-		Account transactionAccountForAdd, Category transactionCategoryForAdd,
+	Transaction(Account transactionAccountForAdd, Category transactionCategoryForAdd,
 		CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
 		Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
 		CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
@@ -31,6 +31,7 @@ public:
 		Account transactionAccountForAdd, Category transactionCategoryForAdd,
 		CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
 		Currency transactionCurrencyForAdd);
+	Time getTransactionTime() const;
 	Account getTransactionAccount() const;
 	Category getTransactionCategory() const;
 	CategorySub getTransactionCategorySub() const;
@@ -43,6 +44,7 @@ public:
 	Tag getTransactionTag() const;
 	TransactionStatus getTransactionStatus() const;
 	TransactionType getTransactionType() const;
+	void setTransactionTime(Time&& timeForUpdate);
 	void setTransactionAccount(Account&& accountForUpdate);
 	void setTransactionCategory(Category&& categoryForUpdate);
 	void setTransactionCategorySub(CategorySub&& categorySubForUpdate);

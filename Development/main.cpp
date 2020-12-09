@@ -25,9 +25,6 @@ void Book_Keeping()
 
 int main()
 {
-	//Book_Keeping();
-	//Graph_lib::Image_Button win(Point(100, 100), 600, 600, "Image_Button");
-	Clock* clock = new Clock(Point(100, 100), 600, 600, "Clock");
-	Fl::add_timeout(1.0, Clock::cb_run_clock, clock);
-	return gui_main();
+	Book_Keeping();
+	return 0;
 }
