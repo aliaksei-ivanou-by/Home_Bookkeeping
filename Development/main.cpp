@@ -26,14 +26,7 @@ void Book_Keeping()
 int main()
 {
 	//Book_Keeping();
-	BookkkeepingMainWindow win(Point(100, 100), 600, 600, "Home Bookkeeping");
-	Group table;
-	int start = 10;
-	int delta = 135;
-	table.add(new Box_text(Point(start + delta * 0, 50), "logic error"));					// 1
-	table.set_color(Color::black);
-	table.set_fill_color(Color::blue);
-	win.attach(table);
+	BookkkeepingMainWindow win(Point(100, 100), Fl::w() - 200, Fl::h() - 200, "Home Bookkeeping");
 	win.wait_for_button();
 	return 0;
 }

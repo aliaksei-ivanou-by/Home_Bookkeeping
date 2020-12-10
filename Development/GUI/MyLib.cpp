@@ -267,6 +267,14 @@ namespace Graph_lib
 		: Rectangle(p, ss.length() * 10, 40), text(Point(p.x + 5, p.y + 30), ss)
 	{
 		add(p);
+		set_color(Color::black);
+	}
+
+	Box_text::Box_text(Point p, std::string ss, int ww, int hh)
+		: Rectangle(p, ww, hh), text(Point(p.x + 5, p.y + hh/2), ss)
+	{
+		add(p);
+		set_color(Color::black);
 	}
 
 	void Box_text::draw_lines() const

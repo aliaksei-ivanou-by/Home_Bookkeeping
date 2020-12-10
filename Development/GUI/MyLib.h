@@ -77,6 +77,7 @@ namespace Graph_lib
 	{
 	public:
 		Box_text(Point pp, std::string ss);
+		Box_text(Point pp, std::string ss, int ww, int hh);
 		void draw_lines() const;
 	private:
 		Text text;
