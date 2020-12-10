@@ -26,7 +26,7 @@ void Book_Keeping()
 int main()
 {
 	Book_Keeping();
-	BookkkeepingMainWindow win(Point(100, 100), Fl::w() - 200, Fl::h() - 200, "Home Bookkeeping");
+	Window_Main win(Point(100, 100), Fl::w() - 200, Fl::h() - 200, "Home Bookkeeping");
 	win.wait_for_button();
 	return 0;
 }

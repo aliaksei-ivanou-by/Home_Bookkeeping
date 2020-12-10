@@ -6,10 +6,10 @@
 
 namespace Graph_lib
 {
-	class BookkkeepingMainWindow : public Window
+	class Window_Main : public Window
 	{
 	public:
-		BookkkeepingMainWindow(Point xy, int w, int h, const std::string& title);
+		Window_Main(Point xy, int w, int h, const std::string& title);
 		bool wait_for_button();
 		Button buttonQuit;
 	private:
@@ -90,5 +90,39 @@ namespace Graph_lib
 		void menuFooterExport();
 		void menuFooterSettings();
 		void menuFooterHelp();
+	};
+
+	class Window_AddTransactionExpense : public Window
+	{
+	public:
+		Window_AddTransactionExpense(Point xy, int w, int h, const std::string& title);
+		Button buttonOK;
+		Button buttonCancel;
+		bool wait_for_button();
+	private:
+		bool button_pushed;
+		//Text textAccount;
+		//Text textAmount;
+		//Text textDesctiption;
+		//Text textPayee;
+		//Text textCategory;
+		//Text textTime;
+		//Text textComment;
+		//Text textTag;
+
+		In_box textAccountForAdd;
+		In_box textAmountForAdd;
+		In_box textDesctiptionForAdd;
+		In_box textPayeeForAdd;
+		In_box textCategoryForAdd;
+		In_box textTimeForAdd;
+		In_box textCommentForAdd;
+		In_box textTagForAdd;
+
+		static void cbOK(Address, Address);
+		static void cbCancel(Address, Address);
+
+		void OK();
+		void Cancel();
 	};
 }

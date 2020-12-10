@@ -1,6 +1,6 @@
 #include "HomeBookkeepingLib.h"
 
-BookkkeepingMainWindow::BookkkeepingMainWindow(Point xy, int w, int h, const std::string& title) :
+Window_Main::Window_Main(Point xy, int w, int h, const std::string& title) :
 	Window{ xy, w, h, title },
 	menuAddTransaction{ Point(0, 0), buttonSizeWidth / 3, buttonSizeHeight, Menu::horizontal, "figures" },
 	menuMain{ Point(0, buttonSizeHeight), buttonSizeWidth, buttonSizeHeight, Menu::vertical, "figures" },
@@ -51,287 +51,289 @@ BookkkeepingMainWindow::BookkkeepingMainWindow(Point xy, int w, int h, const std
 	attach(menuFooter);
 }
 
-void BookkkeepingMainWindow::menuMainAddTransactionExpense()
+void Window_Main::menuMainAddTransactionExpense()
 {
 	std::cout << "menuMainAddTransactionExpense\n";
 }
 
-void BookkkeepingMainWindow::menuMainAddTransactionIncome()
+void Window_Main::menuMainAddTransactionIncome()
 {
 	std::cout << "menuMainAddTransactionIncome\n";
 }
 
-void BookkkeepingMainWindow::menuMainAddTransactionTransfer()
+void Window_Main::menuMainAddTransactionTransfer()
 {
 	std::cout << "menuMainAddTransactionTransfer\n";
 }
 
-void BookkkeepingMainWindow::menuMainTransactions()
+void Window_Main::menuMainTransactions()
 {
 	std::cout << "menuMainTransactions\n";
 }
 
-void BookkkeepingMainWindow::menuMainAccounts()
+void Window_Main::menuMainAccounts()
 {
 	std::cout << "menuMainAccounts\n";
 }
 
-void BookkkeepingMainWindow::menuMainPlanned()
+void Window_Main::menuMainPlanned()
 {
 	std::cout << "menuMainPlanned\n";
 }
 
-void BookkkeepingMainWindow::menuMainReports()
+void Window_Main::menuMainReports()
 {
 	std::cout << "menuMainReports\n";
 }
 
-void BookkkeepingMainWindow::menuMainBudget()
+void Window_Main::menuMainBudget()
 {
 	std::cout << "menuMainBudget\n";
 }
 
-void BookkkeepingMainWindow::menuMainStatistics()
+void Window_Main::menuMainStatistics()
 {
 	std::cout << "menuMainStatistics\n";
 }
 
-void BookkkeepingMainWindow::menuStatisticsNetWorth()
+void Window_Main::menuStatisticsNetWorth()
 {
 	std::cout << "menuStatisticsNetWorth\n";
 }
 
-void BookkkeepingMainWindow::menuStatisticsLiabilities()
+void Window_Main::menuStatisticsLiabilities()
 {
 	std::cout << "menuStatisticsLiabilities\n";
 }
 
-void BookkkeepingMainWindow::menuStatisticsExpensesToday()
+void Window_Main::menuStatisticsExpensesToday()
 {
 	std::cout << "menuStatisticsExpensesToday\n";
 }
 
-void BookkkeepingMainWindow::menuStatisticsExpensesThisWeek()
+void Window_Main::menuStatisticsExpensesThisWeek()
 {
 	std::cout << "menuStatisticsExpensesThisWeek\n";
 }
 
-void BookkkeepingMainWindow::menuStatisticsExpensesThisMonth()
+void Window_Main::menuStatisticsExpensesThisMonth()
 {
 	std::cout << "menuStatisticsExpensesThisMonth\n";
 }
 
-void BookkkeepingMainWindow::menuStatisticsIncomeThisMonth()
+void Window_Main::menuStatisticsIncomeThisMonth()
 {
 	std::cout << "menuStatisticsIncomeThisMonth\n";
 }
 
-void BookkkeepingMainWindow::menuStatisticsTextNetWorth()
+void Window_Main::menuStatisticsTextNetWorth()
 {
 	std::cout << "menuStatisticsTextNetWorth\n";
 }
 
-void BookkkeepingMainWindow::menuStatisticsTextLiabilities()
+void Window_Main::menuStatisticsTextLiabilities()
 {
 	std::cout << "menuStatisticsTextLiabilities\n";
 }
 
-void BookkkeepingMainWindow::menuStatisticsTextExpensesToday()
+void Window_Main::menuStatisticsTextExpensesToday()
 {
 	std::cout << "menuStatisticsTextExpensesToday\n";
 }
 
-void BookkkeepingMainWindow::menuStatisticsTextExpensesThisWeek()
+void Window_Main::menuStatisticsTextExpensesThisWeek()
 {
 	std::cout << "menuStatisticsTextExpensesThisWeek\n";
 }
 
-void BookkkeepingMainWindow::menuStatisticsTextExpensesThisMonth()
+void Window_Main::menuStatisticsTextExpensesThisMonth()
 {
 	std::cout << "menuStatisticsTextExpensesThisMonth\n";
 }
 
-void BookkkeepingMainWindow::menuStatisticsTextIncomeThisMonth()
+void Window_Main::menuStatisticsTextIncomeThisMonth()
 {
 	std::cout << "menuStatisticsTextIncomeThisMonth\n";
 }
 
-void Graph_lib::BookkkeepingMainWindow::menuFooterAddAccount()
+void Window_Main::menuFooterAddAccount()
 {
-	std::cout << "menuFooterAddAccount\n";
+	Window_AddTransactionExpense addTransactionExpence(Point(100, 100), 400, 400, "Add account");
+	addTransactionExpence.wait_for_button();
+	std::cout << "New Window - addTransactionExpence\n";
 }
 
-void Graph_lib::BookkkeepingMainWindow::menuFooterAddAccountGroup()
+void Window_Main::menuFooterAddAccountGroup()
 {
 	std::cout << "menuFooterAddAccountGroup\n";
 }
 
-void Graph_lib::BookkkeepingMainWindow::menuFooterAddBudget()
+void Window_Main::menuFooterAddBudget()
 {
 	std::cout << "menuFooterAddBudget\n";
 }
 
-void Graph_lib::BookkkeepingMainWindow::menuFooterImport()
+void Window_Main::menuFooterImport()
 {
 	std::cout << "menuFooterImport\n";
 }
 
-void Graph_lib::BookkkeepingMainWindow::menuFooterExport()
+void Window_Main::menuFooterExport()
 {
 	std::cout << "menuFooterExport\n";
 }
 
-void Graph_lib::BookkkeepingMainWindow::menuFooterSettings()
+void Window_Main::menuFooterSettings()
 {
 	std::cout << "menuFooterSettings\n";
 }
 
-void Graph_lib::BookkkeepingMainWindow::menuFooterHelp()
+void Window_Main::menuFooterHelp()
 {
 	std::cout << "menuFooterHelp\n";
 }
 
-void BookkkeepingMainWindow::cbMenuMainAddTransactionExpense(Address, Address pw)
+void Window_Main::cbMenuMainAddTransactionExpense(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuMainAddTransactionExpense();
+	reference_to<Window_Main>(pw).menuMainAddTransactionExpense();
 }
 
-void BookkkeepingMainWindow::cbMenuMainAddTransactionIncome(Address, Address pw)
+void Window_Main::cbMenuMainAddTransactionIncome(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuMainAddTransactionIncome();
+	reference_to<Window_Main>(pw).menuMainAddTransactionIncome();
 }
 
-void BookkkeepingMainWindow::cbMenuMainAddTransactionTransfer(Address, Address pw)
+void Window_Main::cbMenuMainAddTransactionTransfer(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuMainAddTransactionTransfer();
+	reference_to<Window_Main>(pw).menuMainAddTransactionTransfer();
 }
 
-void BookkkeepingMainWindow::cbMenuMainTransactions(Address, Address pw)
+void Window_Main::cbMenuMainTransactions(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuMainTransactions();
+	reference_to<Window_Main>(pw).menuMainTransactions();
 }
 
-void BookkkeepingMainWindow::cbMenuMainAccounts(Address, Address pw)
+void Window_Main::cbMenuMainAccounts(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuMainAccounts();
+	reference_to<Window_Main>(pw).menuMainAccounts();
 }
 
-void BookkkeepingMainWindow::cbMenuMainPlanned(Address, Address pw)
+void Window_Main::cbMenuMainPlanned(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuMainPlanned();
+	reference_to<Window_Main>(pw).menuMainPlanned();
 }
 
-void BookkkeepingMainWindow::cbMenuMainReports(Address, Address pw)
+void Window_Main::cbMenuMainReports(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuMainReports();
+	reference_to<Window_Main>(pw).menuMainReports();
 }
 
-void BookkkeepingMainWindow::cbMenuMainBudget(Address, Address pw)
+void Window_Main::cbMenuMainBudget(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuMainBudget();
+	reference_to<Window_Main>(pw).menuMainBudget();
 }
 
-void BookkkeepingMainWindow::cbMenuMainStatistics(Address, Address pw)
+void Window_Main::cbMenuMainStatistics(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuMainStatistics();
+	reference_to<Window_Main>(pw).menuMainStatistics();
 }
 
-void BookkkeepingMainWindow::cbMenuStatisticsNetWorth(Address, Address pw)
+void Window_Main::cbMenuStatisticsNetWorth(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuStatisticsNetWorth();
+	reference_to<Window_Main>(pw).menuStatisticsNetWorth();
 }
 
-void BookkkeepingMainWindow::cbMenuStatisticsLiabilities(Address, Address pw)
+void Window_Main::cbMenuStatisticsLiabilities(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuStatisticsLiabilities();
+	reference_to<Window_Main>(pw).menuStatisticsLiabilities();
 }
 
-void BookkkeepingMainWindow::cbMenuStatisticsExpensesToday(Address, Address pw)
+void Window_Main::cbMenuStatisticsExpensesToday(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuStatisticsExpensesToday();
+	reference_to<Window_Main>(pw).menuStatisticsExpensesToday();
 }
 
-void BookkkeepingMainWindow::cbMenuStatisticsExpensesThisWeek(Address, Address pw)
+void Window_Main::cbMenuStatisticsExpensesThisWeek(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuStatisticsExpensesThisWeek();
+	reference_to<Window_Main>(pw).menuStatisticsExpensesThisWeek();
 }
 
-void BookkkeepingMainWindow::cbMenuStatisticsExpensesThisMonth(Address, Address pw)
+void Window_Main::cbMenuStatisticsExpensesThisMonth(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuStatisticsExpensesThisMonth();
+	reference_to<Window_Main>(pw).menuStatisticsExpensesThisMonth();
 }
 
-void BookkkeepingMainWindow::cbMenuStatisticsIncomeThisMonth(Address, Address pw)
+void Window_Main::cbMenuStatisticsIncomeThisMonth(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuStatisticsIncomeThisMonth();
+	reference_to<Window_Main>(pw).menuStatisticsIncomeThisMonth();
 }
 
-void BookkkeepingMainWindow::cbMenuStatisticsTextNetWorth(Address, Address pw)
+void Window_Main::cbMenuStatisticsTextNetWorth(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuStatisticsTextNetWorth();
+	reference_to<Window_Main>(pw).menuStatisticsTextNetWorth();
 }
 
-void BookkkeepingMainWindow::cbMenuStatisticsTextLiabilities(Address, Address pw)
+void Window_Main::cbMenuStatisticsTextLiabilities(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuStatisticsTextLiabilities();
+	reference_to<Window_Main>(pw).menuStatisticsTextLiabilities();
 }
 
-void BookkkeepingMainWindow::cbMenuStatisticsTextExpensesToday(Address, Address pw)
+void Window_Main::cbMenuStatisticsTextExpensesToday(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuStatisticsTextExpensesToday();
+	reference_to<Window_Main>(pw).menuStatisticsTextExpensesToday();
 }
 
-void BookkkeepingMainWindow::cbMenuStatisticsTextExpensesThisWeek(Address, Address pw)
+void Window_Main::cbMenuStatisticsTextExpensesThisWeek(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuStatisticsTextExpensesThisWeek();
+	reference_to<Window_Main>(pw).menuStatisticsTextExpensesThisWeek();
 }
 
-void BookkkeepingMainWindow::cbMenuStatisticsTextExpensesThisMonth(Address, Address pw)
+void Window_Main::cbMenuStatisticsTextExpensesThisMonth(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuStatisticsTextExpensesThisMonth();
+	reference_to<Window_Main>(pw).menuStatisticsTextExpensesThisMonth();
 }
 
-void BookkkeepingMainWindow::cbMenuStatisticsTextIncomeThisMonth(Address, Address pw)
+void Window_Main::cbMenuStatisticsTextIncomeThisMonth(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuStatisticsTextIncomeThisMonth();
+	reference_to<Window_Main>(pw).menuStatisticsTextIncomeThisMonth();
 }
 
-void Graph_lib::BookkkeepingMainWindow::cbMenuFooterAddAccount(Address, Address pw)
+void Window_Main::cbMenuFooterAddAccount(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuFooterAddAccount();
+	reference_to<Window_Main>(pw).menuFooterAddAccount();
 }
 
-void Graph_lib::BookkkeepingMainWindow::cbMenuFooterAddAccountGroup(Address, Address pw)
+void Window_Main::cbMenuFooterAddAccountGroup(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuFooterAddAccountGroup();
+	reference_to<Window_Main>(pw).menuFooterAddAccountGroup();
 }
 
-void Graph_lib::BookkkeepingMainWindow::cbMenuFooterAddBudget(Address, Address pw)
+void Window_Main::cbMenuFooterAddBudget(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuFooterAddBudget();
+	reference_to<Window_Main>(pw).menuFooterAddBudget();
 }
 
-void Graph_lib::BookkkeepingMainWindow::cbMenuFooterImport(Address, Address pw)
+void Window_Main::cbMenuFooterImport(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuFooterImport();
+	reference_to<Window_Main>(pw).menuFooterImport();
 }
 
-void Graph_lib::BookkkeepingMainWindow::cbMenuFooterExport(Address, Address pw)
+void Window_Main::cbMenuFooterExport(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuFooterExport();
+	reference_to<Window_Main>(pw).menuFooterExport();
 }
 
-void Graph_lib::BookkkeepingMainWindow::cbMenuFooterSettings(Address, Address pw)
+void Window_Main::cbMenuFooterSettings(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuFooterSettings();
+	reference_to<Window_Main>(pw).menuFooterSettings();
 }
 
-void Graph_lib::BookkkeepingMainWindow::cbMenuFooterHelp(Address, Address pw)
+void Window_Main::cbMenuFooterHelp(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).menuFooterHelp();
+	reference_to<Window_Main>(pw).menuFooterHelp();
 }
 
-bool BookkkeepingMainWindow::wait_for_button()
+bool Window_Main::wait_for_button()
 {
 	show();
 	button_pushed = false;
@@ -344,14 +346,77 @@ bool BookkkeepingMainWindow::wait_for_button()
 	return button_pushed;
 }
 
-void BookkkeepingMainWindow::cbQuit(Address, Address pw)
+void Window_Main::cbQuit(Address, Address pw)
 {
-	reference_to<BookkkeepingMainWindow>(pw).quit();
+	reference_to<Window_Main>(pw).quit();
 }
 
-void BookkkeepingMainWindow::quit()
+void Window_Main::quit()
 {
 	button_pushed = true;
 	std::cout << "quit\n";
+	hide();
+}
+
+Window_AddTransactionExpense::Window_AddTransactionExpense(Point xy, int w, int h, const std::string& title):
+	Window{ xy, w, h, title },
+	buttonOK(Point(x_max() - 70, 0), 70, 20, "OK", cbOK),
+	buttonCancel(Point(x_max() - 70, 0), 70, 20, "Cancel", cbCancel),
+
+	textAccountForAdd{ Point(0, 0), x_max() - 100, 30, "Account: " },
+	textAmountForAdd{ Point(80, 40), x_max() - 100, 30, "Amount: " },
+	textDesctiptionForAdd{ Point(80, 40), x_max() - 100, 30, "Description: " },
+	textPayeeForAdd{ Point(80, 40), x_max() - 100, 30, "Payee: " },
+	textCategoryForAdd{ Point(80, 40), x_max() - 100, 30, "Category: " },
+	textTimeForAdd{ Point(80, 40), x_max() - 100, 30, "Time: " },
+	textCommentForAdd{ Point(80, 40), x_max() - 100, 30, "Comment: " },
+	textTagForAdd{ Point(80, 40), x_max() - 100, 30, "Tag: " }
+{
+	attach(buttonOK);
+	attach(buttonCancel);
+	attach(textAccountForAdd);
+	attach(textAmountForAdd);
+	attach(textDesctiptionForAdd);
+	attach(textPayeeForAdd);
+	attach(textCategoryForAdd);
+	attach(textTimeForAdd);
+	attach(textCommentForAdd);
+	attach(textTagForAdd);
+}
+
+bool Graph_lib::Window_AddTransactionExpense::wait_for_button()
+{
+	show();
+	button_pushed = false;
+#if 1
+	while (!button_pushed) Fl::wait();
+	Fl::redraw();
+#else
+	Fl::run();
+#endif
+	return button_pushed;
+}
+
+void Window_AddTransactionExpense::cbOK(Address, Address pw)
+{
+	reference_to<Window_AddTransactionExpense>(pw).OK();
+}
+
+void Window_AddTransactionExpense::cbCancel(Address, Address pw)
+{
+	reference_to<Window_AddTransactionExpense>(pw).Cancel();
+}
+
+void Window_AddTransactionExpense::OK()
+{
+	button_pushed = true;
+	std::cout << "quit OK\n";
+	hide();
+}
+
+void Window_AddTransactionExpense::Cancel()
+{
+	button_pushed = true;
+	std::cout << "quit Cancel\n";
 	hide();
 }
