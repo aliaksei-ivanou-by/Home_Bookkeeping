@@ -6,7 +6,7 @@
 class TransactionRepository
 {
 private:
-	std::multiset<Transaction> transactionRepository;
+	std::set<Transaction> transactionRepository;
 public:
 	TransactionRepository()
 	{}
@@ -18,11 +18,11 @@ public:
 	{
 		transactionRepository.erase(transactionForRemove);
 	}
-	std::multiset<Transaction> getTransactionRepository() const
+	std::set<Transaction> getTransactionRepository() const
 	{
 		return transactionRepository;
 	}
-	void setTransactionRepository(std::multiset<Transaction>&& transactionsForAdd)
+	void setTransactionRepository(std::set<Transaction>&& transactionsForAdd)
 	{
 		transactionRepository = transactionsForAdd;
 	}

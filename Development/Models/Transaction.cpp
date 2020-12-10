@@ -168,7 +168,182 @@ void Transaction::setTransactionTransactionTyoe(TransactionType&& transactionTyp
 
 bool operator<(const Transaction& leftTransaction, const Transaction& rightTransaction)
 {
-	return (leftTransaction.getTransactionAccount() < rightTransaction.getTransactionAccount());
+	if (leftTransaction.getTransactionTime() < rightTransaction.getTransactionTime())
+	{
+		return true;
+	}
+	else
+	{
+		if (rightTransaction.getTransactionTime() < leftTransaction.getTransactionTime())
+		{
+			return false;
+		}
+		else
+		{
+			if (leftTransaction.getTransactionAccount() < rightTransaction.getTransactionAccount())
+			{
+				return true;
+			}
+			else
+			{
+				if (rightTransaction.getTransactionAccount() < leftTransaction.getTransactionAccount())
+				{
+					return false;
+				}
+				else
+				{
+					if (leftTransaction.getTransactionCategory() < rightTransaction.getTransactionCategory())
+					{
+						return true;
+					}
+					else
+					{
+						if (rightTransaction.getTransactionCategory() < leftTransaction.getTransactionCategory())
+						{
+							return false;
+						}
+						else
+						{
+							if (leftTransaction.getTransactionCategorySub() < rightTransaction.getTransactionCategorySub())
+							{
+								return true;
+							}
+							else
+							{
+								if (rightTransaction.getTransactionCategorySub() < leftTransaction.getTransactionCategorySub())
+								{
+									return false;
+								}
+								else
+								{
+									if (leftTransaction.getTransactionAmount() < rightTransaction.getTransactionAmount())
+									{
+										return true;
+									}
+									else
+									{
+										if (rightTransaction.getTransactionAmount() < leftTransaction.getTransactionAmount())
+										{
+											return false;
+										}
+										else
+										{
+											if (leftTransaction.getTransactionComment() < rightTransaction.getTransactionComment())
+											{
+												return true;
+											}
+											else
+											{
+												if (rightTransaction.getTransactionComment() < leftTransaction.getTransactionComment())
+												{
+													return false;
+												}
+												else
+												{
+													if (leftTransaction.getTransactionCurrency() < rightTransaction.getTransactionCurrency())
+													{
+														return true;
+													}
+													else
+													{
+														if (rightTransaction.getTransactionCurrency() < leftTransaction.getTransactionCurrency())
+														{
+															return false;
+														}
+														else
+														{
+															if (leftTransaction.getTransactionCurrencyRate() < rightTransaction.getTransactionCurrencyRate())
+															{
+																return true;
+															}
+															else
+															{
+																if (rightTransaction.getTransactionCurrencyRate() < leftTransaction.getTransactionCurrencyRate())
+																{
+																	return false;
+																}
+																else
+																{
+																	if (leftTransaction.getTransactionDescription() < rightTransaction.getTransactionDescription())
+																	{
+																		return true;
+																	}
+																	else
+																	{
+																		if (rightTransaction.getTransactionDescription() < leftTransaction.getTransactionDescription())
+																		{
+																			return false;
+																		}
+																		else
+																		{
+																			if (leftTransaction.getTransactionPayee() < rightTransaction.getTransactionPayee())
+																			{
+																				return true;
+																			}
+																			else
+																			{
+																				if (rightTransaction.getTransactionPayee() < leftTransaction.getTransactionPayee())
+																				{
+																					return false;
+																				}
+																				else
+																				{
+																					if (leftTransaction.getTransactionTag() < rightTransaction.getTransactionTag())
+																					{
+																						return true;
+																					}
+																					else
+																					{
+																						if (rightTransaction.getTransactionTag() < leftTransaction.getTransactionTag())
+																						{
+																							return false;
+																						}
+																						else
+																						{
+																							if (leftTransaction.getTransactionStatus() < rightTransaction.getTransactionStatus())
+																							{
+																								return true;
+																							}
+																							else
+																							{
+																								if (rightTransaction.getTransactionStatus() < leftTransaction.getTransactionStatus())
+																								{
+																									return false;
+																								}
+																								else
+																								{
+																									if (leftTransaction.getTransactionType() < rightTransaction.getTransactionType())
+																									{
+																										return true;
+																									}
+																									else
+																									{
+																										return false;
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 std::ostream& operator<<(std::ostream& outputStream, const Transaction& transaction)

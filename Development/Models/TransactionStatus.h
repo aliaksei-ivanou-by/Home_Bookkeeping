@@ -19,4 +19,5 @@ public:
 	TransactionStatus(TransactionStatusEnum transactionStatusToAdd);
 	void setTransactionStatus(TransactionStatusEnum&& transactionStatusForUpdate);
 	TransactionStatusEnum getTransactionStatus() const;
+	friend bool operator<(const TransactionStatus& leftTransactionStatus, const TransactionStatus& rightTransactionStatus);
 };

@@ -17,3 +17,8 @@ TransactionStatusEnum TransactionStatus::getTransactionStatus() const
 {
 	return transactionStatus;
 }
+
+bool operator<(const TransactionStatus& leftTransactionStatus, const TransactionStatus& rightTransactionStatus)
+{
+	return leftTransactionStatus.getTransactionStatus() < rightTransactionStatus.getTransactionStatus();
+}

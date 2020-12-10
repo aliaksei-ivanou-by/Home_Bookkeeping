@@ -37,7 +37,7 @@ void default_book_keeping(FinanceRepository& mainRepository)
 	default_currencies(mainRepository);
 }
 
-void print_accounts(FinanceRepository& mainRepository)
+void print_accounts(const FinanceRepository& mainRepository)
 {
 	std::cout << "ACCOUNTS:\n";
 	for (auto i : mainRepository.getAccounts().getAccountRepository())
@@ -46,7 +46,7 @@ void print_accounts(FinanceRepository& mainRepository)
 	}
 }
 
-void print_categories(FinanceRepository& mainRepository)
+void print_categories(const FinanceRepository& mainRepository)
 {
 	std::cout << "CATEGORIES:\n";
 	for (auto i : mainRepository.getCategories().getCategoryRepository())
@@ -55,7 +55,7 @@ void print_categories(FinanceRepository& mainRepository)
 	}
 }
 
-void print_currencies(FinanceRepository& mainRepository)
+void print_currencies(const FinanceRepository& mainRepository)
 {
 	std::cout << "CURRENCIES:\n";
 	for (auto i : mainRepository.getCurrencies().getCurrencyRepository())
@@ -64,7 +64,7 @@ void print_currencies(FinanceRepository& mainRepository)
 	}
 }
 
-void print_transactions(FinanceRepository& mainRepository)
+void print_transactions(const FinanceRepository& mainRepository)
 {
 	std::cout << "TRANSACTIONS:\n";
 	for (auto i : mainRepository.getTransactions().getTransactionRepository())

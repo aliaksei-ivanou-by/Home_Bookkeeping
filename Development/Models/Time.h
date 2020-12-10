@@ -26,12 +26,12 @@ public:
 	int getDay() const;
 	int getMonth() const;
 	int getYear() const;
-	void updateSecond(int secondForUpdate);
-	void updateMinute(int minuteForUpdate);
-	void updateHour(int hourForUpdate);
-	void updateDay(int dayForUpdate);
-	void updateMonth(int monthForUpdate);
-	void updateYear(int yearForUpdate);
+	void setSecond(int secondForUpdate);
+	void setMinute(int minuteForUpdate);
+	void setHour(int hourForUpdate);
+	void setDay(int dayForUpdate);
+	void setMonth(int monthForUpdate);
+	void setYear(int yearForUpdate);
 	friend bool operator<(const Time& leftTime, const Time& rightTime);
 	friend std::ostream& operator<<(std::ostream& outputStream, const Time& time);
 };

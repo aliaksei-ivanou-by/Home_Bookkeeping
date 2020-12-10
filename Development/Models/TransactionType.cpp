@@ -13,7 +13,12 @@ void TransactionType::setTransactionType(TransactionTypeEnum&& transactionTypeFo
 	transactionType = std::move(transactionTypeForUpdate);
 }
 
-TransactionTypeEnum TransactionType::getTransactionType()
+TransactionTypeEnum TransactionType::getTransactionType() const
 {
 	return transactionType;
+}
+
+bool operator<(const TransactionType& leftTransactionType, const TransactionType& rightTransactionType)
+{
+	return leftTransactionType.getTransactionType() < rightTransactionType.getTransactionType();
 }
