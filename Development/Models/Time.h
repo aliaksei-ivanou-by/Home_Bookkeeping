@@ -26,6 +26,7 @@ public:
 	int getDay() const;
 	int getMonth() const;
 	int getYear() const;
+	void setTime();
 	void setSecond(int secondForUpdate);
 	void setMinute(int minuteForUpdate);
 	void setHour(int hourForUpdate);

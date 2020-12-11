@@ -63,6 +63,12 @@ int Time::setYear()
 	return year;
 }
 
+void Time::setTime()
+{
+	Time time;
+	*this = time;
+}
+
 int Time::getSecond() const
 {
 	return timeSecond;
