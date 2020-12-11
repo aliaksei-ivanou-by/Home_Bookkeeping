@@ -10,9 +10,13 @@ namespace Graph_lib
 	class Window_Main : public Window
 	{
 	public:
-		Window_Main(Point xy, int w, int h, const std::string& title);
+		Window_Main(
+			Point xy, int w, int h,
+			const std::string& title,
+			std::shared_ptr<FinanceRepository> ptrFinanceRepository);
 		bool wait_for_button();
 		Button buttonQuit;
+		std::shared_ptr<FinanceRepository> ptrFinanceRepository;
 	private:
 		int buttonSizeWidth = 300;
 		int buttonSizeHeight = 30;
@@ -92,16 +96,20 @@ namespace Graph_lib
 		void menuFooterSettings();
 		void menuFooterHelp();
 
-		//friend Window_AddTransactionExpense;
+		friend class Window_AddTransactionExpense;
 	};
 
 	class Window_AddTransactionExpense : public Window
 	{
 	public:
-		Window_AddTransactionExpense(const std::string& title, Point xy = Point{ 150, 150 }, int w = 400, int h = 400);
+		Window_AddTransactionExpense(
+			const std::string& title,
+			std::shared_ptr<FinanceRepository> ptrFinanceRepository,
+			Point xy = Point{ 150, 150 }, int w = 400, int h = 400);
 		Button buttonOK;
 		Button buttonCancel;
 		bool wait_for_button();
+		std::shared_ptr<FinanceRepository> ptrFinanceRepository;
 	private:
 		int elementSizeWidth = 200;
 		int elementSizeHeight = 30;
@@ -122,17 +130,20 @@ namespace Graph_lib
 
 		void Window_AddTransactionExpense_OK();
 		void Window_AddTransactionExpense_Cancel();
-
-		friend Window_Main;
+		friend class Window_Main;
 	};
 
 	class Window_AddTransactionIncome : public Window
 	{
 	public:
-		Window_AddTransactionIncome(const std::string& title, Point xy = Point{ 150, 150 }, int w = 400, int h = 400);
+		Window_AddTransactionIncome(
+			const std::string& title,
+			std::shared_ptr<FinanceRepository> ptrFinanceRepository,
+			Point xy = Point{ 150, 150 }, int w = 400, int h = 400);
 		Button buttonOK;
 		Button buttonCancel;
 		bool wait_for_button();
+		std::shared_ptr<FinanceRepository> ptrFinanceRepository;
 	private:
 		int elementSizeWidth = 200;
 		int elementSizeHeight = 30;
@@ -158,10 +169,14 @@ namespace Graph_lib
 	class Window_AddTransactionTransfer : public Window
 	{
 	public:
-		Window_AddTransactionTransfer(const std::string& title, Point xy = Point{ 150, 150 }, int w = 400, int h = 400);
+		Window_AddTransactionTransfer(
+			const std::string& title,
+			std::shared_ptr<FinanceRepository> ptrFinanceRepository,
+			Point xy = Point{ 150, 150 }, int w = 400, int h = 400);
 		Button buttonOK;
 		Button buttonCancel;
 		bool wait_for_button();
+		std::shared_ptr<FinanceRepository> ptrFinanceRepository;
 	private:
 		int elementSizeWidth = 200;
 		int elementSizeHeight = 30;

@@ -1,6 +1,9 @@
 #include "HomeBookkeepingLib.h"
 
-Window_Main::Window_Main(Point xy, int w, int h, const std::string& title) :
+Window_Main::Window_Main(
+	Point xy, int w, int h,
+	const std::string& title,
+	std::shared_ptr<FinanceRepository> ptrFinanceRepositoryForAdd):
 	Window{ xy, w, h, title },
 	menuAddTransaction{ Point(0, 0), buttonSizeWidth / 3, buttonSizeHeight, Menu::horizontal, "figures" },
 	menuMain{ Point(0, buttonSizeHeight), buttonSizeWidth, buttonSizeHeight, Menu::vertical, "figures" },
@@ -8,7 +11,8 @@ Window_Main::Window_Main(Point xy, int w, int h, const std::string& title) :
 	menuStatisticsText{ Point(buttonSizeWidth - 150, 250), buttonSizeWidth - 150, buttonSizeHeight, Menu::vertical, "figures" },
 	menuFooter{ Point(0, h - buttonSizeHeight), w / 7, buttonSizeHeight, Menu::horizontal, "figures" },
 	button_pushed(false),
-	buttonQuit(Point(x_max() - 70, 0), 70, 20, "Quit", cbQuit)
+	buttonQuit(Point(x_max() - 70, 0), 70, 20, "Quit", cbQuit),
+	ptrFinanceRepository{ ptrFinanceRepositoryForAdd }
 {
 	attach(buttonQuit);
 
@@ -53,21 +57,21 @@ Window_Main::Window_Main(Point xy, int w, int h, const std::string& title) :
 
 void Window_Main::menuMainAddTransactionExpense()
 {
-	Window_AddTransactionExpense addTransactionExpence("Add Expense");
+	Window_AddTransactionExpense addTransactionExpence("Add Expense", ptrFinanceRepository);
 	addTransactionExpence.wait_for_button();
 	std::cout << "menuMainAddTransactionExpense\n";
 }
 
 void Window_Main::menuMainAddTransactionIncome()
 {
-	Window_AddTransactionIncome addTransactionIncome("Add Income");
+	Window_AddTransactionIncome addTransactionIncome("Add Income", ptrFinanceRepository);
 	addTransactionIncome.wait_for_button();
 	std::cout << "menuMainAddTransactionIncome\n";
 }
 
 void Window_Main::menuMainAddTransactionTransfer()
 {
-	Window_AddTransactionTransfer addTransactionTransfer("Add Transfer");
+	Window_AddTransactionTransfer addTransactionTransfer("Add Transfer", ptrFinanceRepository);
 	addTransactionTransfer.wait_for_button();
 	std::cout << "menuMainAddTransactionTransfer\n";
 }
@@ -362,7 +366,8 @@ void Window_Main::quit()
 	hide();
 }
 
-Window_AddTransactionExpense::Window_AddTransactionExpense(const std::string& title, Point xy, int w, int h):
+Window_AddTransactionExpense::Window_AddTransactionExpense(const std::string& title, 
+	std::shared_ptr<FinanceRepository> ptrFinanceRepositoryForAdd, Point xy, int w, int h):
 	Window{ xy, w, h, title },
 	buttonOK{ Point(x_max() - 250, 350), 100, 20, "OK", cbWindow_AddTransactionExpense_OK },
 	buttonCancel{ Point(x_max() - 150, 350), 100, 20, "Cancel", cbWindow_AddTransactionExpense_Cancel },
@@ -374,7 +379,8 @@ Window_AddTransactionExpense::Window_AddTransactionExpense(const std::string& ti
 	textCategoryForAdd{ Point(x_max() - 280, y_max() - 270), elementSizeWidth, elementSizeHeight, "Category: " },
 	textCategorySubForAdd{ Point(x_max() - 280, y_max() - 240), elementSizeWidth, elementSizeHeight, "CategorySub: " },
 	textCommentForAdd{ Point(x_max() - 280, y_max() - 210), elementSizeWidth, elementSizeHeight, "Comment: " },
-	textTagForAdd{ Point(x_max() - 280, y_max() - 180), elementSizeWidth, elementSizeHeight, "Tag: " }
+	textTagForAdd{ Point(x_max() - 280, y_max() - 180), elementSizeWidth, elementSizeHeight, "Tag: " },
+	ptrFinanceRepository{ ptrFinanceRepositoryForAdd }
 {
 	attach(buttonOK);
 	attach(buttonCancel);
@@ -426,9 +432,15 @@ try
 	TransactionType transactionType(TransactionTypeEnum::Expence);
 	Transaction transaction(account, category, categorySub, amount, comment, { "" }, { "" }, description, payee, tag,
 		transactionStatus, transactionType);
+	ptrFinanceRepository->addTransaction(transaction);
 	std::cout << "REPOSITORY : Operation -> Transaction added\n";
 	button_pushed = true;
 	std::cout << "SYSTEM : Window -> Add Transaction Expense : Button -> OK\n";
+	std::cout << "TRANSACTIONS:\n";
+	for (auto i : (*ptrFinanceRepository).getTransactions().getTransactionRepository())
+	{
+		std::cout << '\t' << i << '\n';
+	}
 	hide();
 }
 catch (...)
@@ -448,7 +460,8 @@ void Window_AddTransactionExpense::Window_AddTransactionExpense_Cancel()
 	hide();
 }
 
-Window_AddTransactionIncome::Window_AddTransactionIncome(const std::string& title, Point xy, int w, int h) :
+Window_AddTransactionIncome::Window_AddTransactionIncome(const std::string& title
+	, std::shared_ptr<FinanceRepository> ptrFinanceRepositoryForAdd, Point xy, int w, int h) :
 	Window{ xy, w, h, title },
 	buttonOK{ Point(x_max() - 250, 350), 100, 20, "OK", cbOK },
 	buttonCancel{ Point(x_max() - 150, 350), 100, 20, "Cancel", cbCancel },
@@ -460,7 +473,8 @@ Window_AddTransactionIncome::Window_AddTransactionIncome(const std::string& titl
 	textCategoryForAdd{ Point(x_max() - 280, y_max() - 270), elementSizeWidth, elementSizeHeight, "Category: " },
 	textCategorySubForAdd{ Point(x_max() - 280, y_max() - 240), elementSizeWidth, elementSizeHeight, "CategorySub: " },
 	textCommentForAdd{ Point(x_max() - 280, y_max() - 210), elementSizeWidth, elementSizeHeight, "Comment: " },
-	textTagForAdd{ Point(x_max() - 280, y_max() - 180), elementSizeWidth, elementSizeHeight, "Tag: " }
+	textTagForAdd{ Point(x_max() - 280, y_max() - 180), elementSizeWidth, elementSizeHeight, "Tag: " },
+	ptrFinanceRepository{ ptrFinanceRepositoryForAdd }
 {
 	attach(buttonOK);
 	attach(buttonCancel);
@@ -512,6 +526,7 @@ try
 	TransactionType transactionType(TransactionTypeEnum::Income);
 	Transaction transaction(account, category, categorySub, amount, comment, { "" }, { "" }, description, payee, tag,
 		transactionStatus, transactionType);
+	ptrFinanceRepository->addTransaction(transaction);
 	std::cout << "REPOSITORY : Operation -> Transaction added\n";
 	button_pushed = true;
 	std::cout << "SYSTEM : Window -> Add Transaction Income : Button -> OK\n";
@@ -532,7 +547,8 @@ void Window_AddTransactionIncome::Cancel()
 	hide();
 }
 
-Window_AddTransactionTransfer::Window_AddTransactionTransfer(const std::string& title, Point xy, int w, int h) :
+Window_AddTransactionTransfer::Window_AddTransactionTransfer(const std::string& title, 
+	std::shared_ptr<FinanceRepository> ptrFinanceRepositoryForAdd, Point xy, int w, int h) :
 	Window{ xy, w, h, title },
 	buttonOK{ Point(x_max() - 250, 350), 100, 20, "OK", cbOK },
 	buttonCancel{ Point(x_max() - 150, 350), 100, 20, "Cancel", cbCancel },
@@ -543,7 +559,8 @@ Window_AddTransactionTransfer::Window_AddTransactionTransfer(const std::string& 
 	textDesctiptionForAdd{ Point(x_max() - 280, y_max() - 300), elementSizeWidth, elementSizeHeight, "Description: " },
 	textCategoryForAdd{ Point(x_max() - 280, y_max() - 270), elementSizeWidth, elementSizeHeight, "Category: " },
 	textCommentForAdd{ Point(x_max() - 280, y_max() - 240), elementSizeWidth, elementSizeHeight, "Comment: " },
-	textTagForAdd{ Point(x_max() - 280, y_max() - 210), elementSizeWidth, elementSizeHeight, "Tag: " }
+	textTagForAdd{ Point(x_max() - 280, y_max() - 210), elementSizeWidth, elementSizeHeight, "Tag: " },
+	ptrFinanceRepository{ ptrFinanceRepositoryForAdd }
 {
 	attach(buttonOK);
 	attach(buttonCancel);
@@ -593,6 +610,7 @@ try
 	TransactionType transactionType(TransactionTypeEnum::Income);
 	Transaction transaction(accountFrom, category, {}, amount, comment, { "" }, { "" }, description, {}, tag,
 		transactionStatus, transactionType);
+	ptrFinanceRepository->addTransaction(transaction);
 	std::cout << "REPOSITORY : Add Transaction Transfer: \n" << transaction << '\n';
 	button_pushed = true;
 	std::cout << "SYSTEM : Window : Window_AddTransactionTransfer_OK\n";

@@ -26,7 +26,16 @@ void Book_Keeping()
 int main()
 {
 	//Book_Keeping();
-	Window_Main win(Point(100, 100), Fl::w() - 200, Fl::h() - 200, "Home Bookkeeping");
+	FinanceRepository financeRepository;
+	Transaction tr1({ "BYN Cash" }, { "Bills" }, { "" }, 5.5, { "BYN" });
+	financeRepository.addTransaction(tr1);
+	Transaction tr2({ "BYN Cash" }, { "Bills" }, { "" }, 10.5, { "BYN" });
+	financeRepository.addTransaction(tr2);
+	Transaction tr3({ "BYN Cash" }, { "Bills" }, { "" }, 8.5, { "BYN" });
+	financeRepository.addTransaction(tr3);
+	Transaction tr4({ "EUR Cash" }, { "Bills" }, { "" }, 6.5, { "EUR" });
+	auto ptrFinanceRepository = std::make_shared<FinanceRepository>(financeRepository);
+	Window_Main win(Point(100, 100) , Fl::w() - 200, Fl::h() - 200, "Home Bookkeeping", ptrFinanceRepository);
 	win.wait_for_button();
 	return 0;
 }
