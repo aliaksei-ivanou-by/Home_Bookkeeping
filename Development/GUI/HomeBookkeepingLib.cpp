@@ -53,16 +53,22 @@ Window_Main::Window_Main(Point xy, int w, int h, const std::string& title) :
 
 void Window_Main::menuMainAddTransactionExpense()
 {
+	Window_AddTransactionExpense addTransactionExpence("Add Expense");
+	addTransactionExpence.wait_for_button();
 	std::cout << "menuMainAddTransactionExpense\n";
 }
 
 void Window_Main::menuMainAddTransactionIncome()
 {
+	Window_AddTransactionIncome addTransactionIncome("Add Income");
+	addTransactionIncome.wait_for_button();
 	std::cout << "menuMainAddTransactionIncome\n";
 }
 
 void Window_Main::menuMainAddTransactionTransfer()
 {
+	Window_AddTransactionTransfer addTransactionTransfer("Add Transfer");
+	addTransactionTransfer.wait_for_button();
 	std::cout << "menuMainAddTransactionTransfer\n";
 }
 
@@ -158,8 +164,6 @@ void Window_Main::menuStatisticsTextIncomeThisMonth()
 
 void Window_Main::menuFooterAddAccount()
 {
-	Window_AddTransactionExpense addTransactionExpence(Point(100, 100), 400, 400, "Add account");
-	addTransactionExpence.wait_for_button();
 	std::cout << "New Window - addTransactionExpence\n";
 }
 
@@ -358,19 +362,19 @@ void Window_Main::quit()
 	hide();
 }
 
-Window_AddTransactionExpense::Window_AddTransactionExpense(Point xy, int w, int h, const std::string& title):
+Window_AddTransactionExpense::Window_AddTransactionExpense(const std::string& title, Point xy, int w, int h):
 	Window{ xy, w, h, title },
-	buttonOK(Point(x_max() - 70, 0), 70, 20, "OK", cbOK),
-	buttonCancel(Point(x_max() - 70, 0), 70, 20, "Cancel", cbCancel),
-
-	textAccountForAdd{ Point(0, 0), x_max() - 100, 30, "Account: " },
-	textAmountForAdd{ Point(80, 40), x_max() - 100, 30, "Amount: " },
-	textDesctiptionForAdd{ Point(80, 40), x_max() - 100, 30, "Description: " },
-	textPayeeForAdd{ Point(80, 40), x_max() - 100, 30, "Payee: " },
-	textCategoryForAdd{ Point(80, 40), x_max() - 100, 30, "Category: " },
-	textTimeForAdd{ Point(80, 40), x_max() - 100, 30, "Time: " },
-	textCommentForAdd{ Point(80, 40), x_max() - 100, 30, "Comment: " },
-	textTagForAdd{ Point(80, 40), x_max() - 100, 30, "Tag: " }
+	buttonOK{ Point(x_max() - 250, 350), 100, 20, "OK", cbWindow_AddTransactionExpense_OK },
+	buttonCancel{ Point(x_max() - 150, 350), 100, 20, "Cancel", cbWindow_AddTransactionExpense_Cancel },
+	button_pushed{ false },
+	textAccountForAdd{ Point(x_max() - 280, y_max() - 390), elementSizeWidth, elementSizeHeight, "Account: " },
+	textAmountForAdd{ Point(x_max() - 280, y_max() - 360), elementSizeWidth, elementSizeHeight, "Amount: " },
+	textDesctiptionForAdd{ Point(x_max() - 280, y_max() - 330), elementSizeWidth, elementSizeHeight, "Description: " },
+	textPayeeForAdd{ Point(x_max() - 280, y_max() - 300), elementSizeWidth, elementSizeHeight, "Payee: " },
+	textCategoryForAdd{ Point(x_max() - 280, y_max() - 270), elementSizeWidth, elementSizeHeight, "Category: " },
+	textCategorySubForAdd{ Point(x_max() - 280, y_max() - 240), elementSizeWidth, elementSizeHeight, "CategorySub: " },
+	textCommentForAdd{ Point(x_max() - 280, y_max() - 210), elementSizeWidth, elementSizeHeight, "Comment: " },
+	textTagForAdd{ Point(x_max() - 280, y_max() - 180), elementSizeWidth, elementSizeHeight, "Tag: " }
 {
 	attach(buttonOK);
 	attach(buttonCancel);
@@ -379,12 +383,12 @@ Window_AddTransactionExpense::Window_AddTransactionExpense(Point xy, int w, int 
 	attach(textDesctiptionForAdd);
 	attach(textPayeeForAdd);
 	attach(textCategoryForAdd);
-	attach(textTimeForAdd);
+	attach(textCategorySubForAdd);
 	attach(textCommentForAdd);
 	attach(textTagForAdd);
 }
 
-bool Graph_lib::Window_AddTransactionExpense::wait_for_button()
+bool Window_AddTransactionExpense::wait_for_button()
 {
 	show();
 	button_pushed = false;
@@ -397,26 +401,214 @@ bool Graph_lib::Window_AddTransactionExpense::wait_for_button()
 	return button_pushed;
 }
 
-void Window_AddTransactionExpense::cbOK(Address, Address pw)
+void Window_AddTransactionExpense::cbWindow_AddTransactionExpense_OK(Address, Address pw)
 {
-	reference_to<Window_AddTransactionExpense>(pw).OK();
+	reference_to<Window_AddTransactionExpense>(pw).Window_AddTransactionExpense_OK();
 }
 
-void Window_AddTransactionExpense::cbCancel(Address, Address pw)
+void Window_AddTransactionExpense::cbWindow_AddTransactionExpense_Cancel(Address, Address pw)
 {
-	reference_to<Window_AddTransactionExpense>(pw).Cancel();
+	reference_to<Window_AddTransactionExpense>(pw).Window_AddTransactionExpense_Cancel();
 }
 
-void Window_AddTransactionExpense::OK()
+void Window_AddTransactionExpense::Window_AddTransactionExpense_OK()
+try
 {
+	Account account(std::string(textAccountForAdd.get_string()));
+	Category category(std::string(textCategoryForAdd.get_string()));
+	CategorySub categorySub(std::string(textCategorySubForAdd.get_string()));
+	double amount = std::stod((textAmountForAdd.get_string()));
+	Comment comment(std::string(textCommentForAdd.get_string()));
+	Description description(std::string(textDesctiptionForAdd.get_string()));
+	Payee payee(std::string(textPayeeForAdd.get_string()));
+	Tag tag(std::string(textTagForAdd.get_string()));
+	TransactionStatus transactionStatus(TransactionStatusEnum::Void);
+	TransactionType transactionType(TransactionTypeEnum::Expence);
+	Transaction transaction(account, category, categorySub, amount, comment, { "" }, { "" }, description, payee, tag,
+		transactionStatus, transactionType);
+	std::cout << "REPOSITORY : Operation -> Transaction added\n";
 	button_pushed = true;
-	std::cout << "quit OK\n";
+	std::cout << "SYSTEM : Window -> Add Transaction Expense : Button -> OK\n";
+	hide();
+}
+catch (...)
+{
+	Time time;
+	std::cout << time << " : SYSTEM : Error -> Transaction no added\n";
+	std::cout << time << " : SYSTEM : Window -> Add Transaction Expense : Button -> OK\n";
+	button_pushed = true;
 	hide();
 }
 
-void Window_AddTransactionExpense::Cancel()
+void Window_AddTransactionExpense::Window_AddTransactionExpense_Cancel()
 {
 	button_pushed = true;
-	std::cout << "quit Cancel\n";
+	Time time;
+	std::cout << time << " : SYSTEM : Window -> Add Transaction Expense : Button -> Cancel\n";
+	hide();
+}
+
+Window_AddTransactionIncome::Window_AddTransactionIncome(const std::string& title, Point xy, int w, int h) :
+	Window{ xy, w, h, title },
+	buttonOK{ Point(x_max() - 250, 350), 100, 20, "OK", cbOK },
+	buttonCancel{ Point(x_max() - 150, 350), 100, 20, "Cancel", cbCancel },
+	button_pushed{ false },
+	textAccountForAdd{ Point(x_max() - 280, y_max() - 390), elementSizeWidth, elementSizeHeight, "Account: " },
+	textAmountForAdd{ Point(x_max() - 280, y_max() - 360), elementSizeWidth, elementSizeHeight, "Amount: " },
+	textDesctiptionForAdd{ Point(x_max() - 280, y_max() - 330), elementSizeWidth, elementSizeHeight, "Description: " },
+	textPayeeForAdd{ Point(x_max() - 280, y_max() - 300), elementSizeWidth, elementSizeHeight, "Payee: " },
+	textCategoryForAdd{ Point(x_max() - 280, y_max() - 270), elementSizeWidth, elementSizeHeight, "Category: " },
+	textCategorySubForAdd{ Point(x_max() - 280, y_max() - 240), elementSizeWidth, elementSizeHeight, "CategorySub: " },
+	textCommentForAdd{ Point(x_max() - 280, y_max() - 210), elementSizeWidth, elementSizeHeight, "Comment: " },
+	textTagForAdd{ Point(x_max() - 280, y_max() - 180), elementSizeWidth, elementSizeHeight, "Tag: " }
+{
+	attach(buttonOK);
+	attach(buttonCancel);
+	attach(textAccountForAdd);
+	attach(textAmountForAdd);
+	attach(textDesctiptionForAdd);
+	attach(textPayeeForAdd);
+	attach(textCategoryForAdd);
+	attach(textCategorySubForAdd);
+	attach(textCommentForAdd);
+	attach(textTagForAdd);
+}
+
+bool Window_AddTransactionIncome::wait_for_button()
+{
+	show();
+	button_pushed = false;
+#if 1
+	while (!button_pushed) Fl::wait();
+	Fl::redraw();
+#else
+	Fl::run();
+#endif
+	return button_pushed;
+}
+
+void Window_AddTransactionIncome::cbOK(Address, Address pw)
+{
+	reference_to<Window_AddTransactionIncome>(pw).OK();
+}
+
+void Window_AddTransactionIncome::cbCancel(Address, Address pw)
+{
+	reference_to<Window_AddTransactionIncome>(pw).Cancel();
+}
+
+void Window_AddTransactionIncome::OK()
+try
+{
+	Account account(textAccountForAdd.get_string());
+	Category category(textCategoryForAdd.get_string());
+	CategorySub categorySub(textCategorySubForAdd.get_string());
+	double amount(std::stod(textAmountForAdd.get_string()));
+	Comment comment(textCommentForAdd.get_string());
+	Description description(textDesctiptionForAdd.get_string());
+	Payee payee(textPayeeForAdd.get_string());
+	Tag tag(textTagForAdd.get_string());
+	TransactionStatus transactionStatus(TransactionStatusEnum::Void);
+	TransactionType transactionType(TransactionTypeEnum::Income);
+	Transaction transaction(account, category, categorySub, amount, comment, { "" }, { "" }, description, payee, tag,
+		transactionStatus, transactionType);
+	std::cout << "REPOSITORY : Operation -> Transaction added\n";
+	button_pushed = true;
+	std::cout << "SYSTEM : Window -> Add Transaction Income : Button -> OK\n";
+	hide();
+}
+catch (...)
+{
+	std::cout << "SYSTEM : ERROR : Input Error\n";
+	button_pushed = true;
+	hide();
+}
+
+void Window_AddTransactionIncome::Cancel()
+{
+	std::cout << "SYSTEM : Error -> Transaction no added\n";
+	std::cout << "SYSTEM : Window -> Add Transaction Income : Button -> Cancel\n";
+	button_pushed = true;
+	hide();
+}
+
+Window_AddTransactionTransfer::Window_AddTransactionTransfer(const std::string& title, Point xy, int w, int h) :
+	Window{ xy, w, h, title },
+	buttonOK{ Point(x_max() - 250, 350), 100, 20, "OK", cbOK },
+	buttonCancel{ Point(x_max() - 150, 350), 100, 20, "Cancel", cbCancel },
+	button_pushed{ false },
+	textAccountFromForAdd{ Point(x_max() - 280, y_max() - 390), elementSizeWidth, elementSizeHeight, "Account From: " },
+	textAccountToForAdd{ Point(x_max() - 280, y_max() - 360), elementSizeWidth, elementSizeHeight, "Account To: " },
+	textAmountForAdd{ Point(x_max() - 280, y_max() - 330), elementSizeWidth, elementSizeHeight, "Amount: " },
+	textDesctiptionForAdd{ Point(x_max() - 280, y_max() - 300), elementSizeWidth, elementSizeHeight, "Description: " },
+	textCategoryForAdd{ Point(x_max() - 280, y_max() - 270), elementSizeWidth, elementSizeHeight, "Category: " },
+	textCommentForAdd{ Point(x_max() - 280, y_max() - 240), elementSizeWidth, elementSizeHeight, "Comment: " },
+	textTagForAdd{ Point(x_max() - 280, y_max() - 210), elementSizeWidth, elementSizeHeight, "Tag: " }
+{
+	attach(buttonOK);
+	attach(buttonCancel);
+	attach(textAccountFromForAdd);
+	attach(textAccountToForAdd);
+	attach(textAmountForAdd);
+	attach(textDesctiptionForAdd);
+	attach(textCategoryForAdd);
+	attach(textCommentForAdd);
+	attach(textTagForAdd);
+}
+
+bool Window_AddTransactionTransfer::wait_for_button()
+{
+	show();
+	button_pushed = false;
+#if 1
+	while (!button_pushed) Fl::wait();
+	Fl::redraw();
+#else
+	Fl::run();
+#endif
+	return button_pushed;
+}
+
+void Window_AddTransactionTransfer::cbOK(Address, Address pw)
+{
+	reference_to<Window_AddTransactionTransfer>(pw).OK();
+}
+
+void Window_AddTransactionTransfer::cbCancel(Address, Address pw)
+{
+	reference_to<Window_AddTransactionTransfer>(pw).Cancel();
+}
+
+void Window_AddTransactionTransfer::OK()
+try
+{
+	Account accountFrom(textAccountFromForAdd.get_string());
+	Account accountTo(textAccountToForAdd.get_string());
+	Category category(textCategoryForAdd.get_string());
+	double amount(std::stod(textAmountForAdd.get_string()));
+	Comment comment(textCommentForAdd.get_string());
+	Description description(textDesctiptionForAdd.get_string());
+	Tag tag(textTagForAdd.get_string());
+	TransactionStatus transactionStatus(TransactionStatusEnum::Void);
+	TransactionType transactionType(TransactionTypeEnum::Income);
+	Transaction transaction(accountFrom, category, {}, amount, comment, { "" }, { "" }, description, {}, tag,
+		transactionStatus, transactionType);
+	std::cout << "REPOSITORY : Add Transaction Transfer: \n" << transaction << '\n';
+	button_pushed = true;
+	std::cout << "SYSTEM : Window : Window_AddTransactionTransfer_OK\n";
+	hide();
+}
+catch (...)
+{
+	std::cout << "SYSTEM : ERROR : Input Error\n";
+	button_pushed = true;
+	hide();
+}
+
+void Window_AddTransactionTransfer::Cancel()
+{
+	std::cout << "SYSTEM : Error -> Transaction no added\n";
+	std::cout << "SYSTEM : Window -> Add Transaction Transfer : Button -> Cancel\n";
+	button_pushed = true;
 	hide();
 }

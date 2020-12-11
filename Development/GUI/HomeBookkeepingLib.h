@@ -3,6 +3,7 @@
 #include "../include/stdafx.h"
 #include "../include/FLTK.h"
 #include "../include/Graphics.h"
+#include "../include/DataAccess.h"
 
 namespace Graph_lib
 {
@@ -90,32 +91,88 @@ namespace Graph_lib
 		void menuFooterExport();
 		void menuFooterSettings();
 		void menuFooterHelp();
+
+		//friend Window_AddTransactionExpense;
 	};
 
 	class Window_AddTransactionExpense : public Window
 	{
 	public:
-		Window_AddTransactionExpense(Point xy, int w, int h, const std::string& title);
+		Window_AddTransactionExpense(const std::string& title, Point xy = Point{ 150, 150 }, int w = 400, int h = 400);
 		Button buttonOK;
 		Button buttonCancel;
 		bool wait_for_button();
 	private:
+		int elementSizeWidth = 200;
+		int elementSizeHeight = 30;
+
 		bool button_pushed;
-		//Text textAccount;
-		//Text textAmount;
-		//Text textDesctiption;
-		//Text textPayee;
-		//Text textCategory;
-		//Text textTime;
-		//Text textComment;
-		//Text textTag;
 
 		In_box textAccountForAdd;
 		In_box textAmountForAdd;
 		In_box textDesctiptionForAdd;
 		In_box textPayeeForAdd;
 		In_box textCategoryForAdd;
-		In_box textTimeForAdd;
+		In_box textCategorySubForAdd;
+		In_box textCommentForAdd;
+		In_box textTagForAdd;
+
+		static void cbWindow_AddTransactionExpense_OK(Address, Address);
+		static void cbWindow_AddTransactionExpense_Cancel(Address, Address);
+
+		void Window_AddTransactionExpense_OK();
+		void Window_AddTransactionExpense_Cancel();
+
+		friend Window_Main;
+	};
+
+	class Window_AddTransactionIncome : public Window
+	{
+	public:
+		Window_AddTransactionIncome(const std::string& title, Point xy = Point{ 150, 150 }, int w = 400, int h = 400);
+		Button buttonOK;
+		Button buttonCancel;
+		bool wait_for_button();
+	private:
+		int elementSizeWidth = 200;
+		int elementSizeHeight = 30;
+
+		bool button_pushed;
+
+		In_box textAccountForAdd;
+		In_box textAmountForAdd;
+		In_box textDesctiptionForAdd;
+		In_box textPayeeForAdd;
+		In_box textCategoryForAdd;
+		In_box textCategorySubForAdd;
+		In_box textCommentForAdd;
+		In_box textTagForAdd;
+
+		static void cbOK(Address, Address);
+		static void cbCancel(Address, Address);
+
+		void OK();
+		void Cancel();
+	};
+
+	class Window_AddTransactionTransfer : public Window
+	{
+	public:
+		Window_AddTransactionTransfer(const std::string& title, Point xy = Point{ 150, 150 }, int w = 400, int h = 400);
+		Button buttonOK;
+		Button buttonCancel;
+		bool wait_for_button();
+	private:
+		int elementSizeWidth = 200;
+		int elementSizeHeight = 30;
+
+		bool button_pushed;
+
+		In_box textAccountFromForAdd;
+		In_box textAccountToForAdd;
+		In_box textAmountForAdd;
+		In_box textDesctiptionForAdd;
+		In_box textCategoryForAdd;
 		In_box textCommentForAdd;
 		In_box textTagForAdd;
 
