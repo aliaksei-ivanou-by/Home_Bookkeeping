@@ -19,18 +19,30 @@ private:
 	Tag transactionTag;
 	TransactionStatus transactionStatus;
 	TransactionType transactionType;
+	Account transactionAccountTo;
 public:
 	Transaction() = delete;
-	Transaction(Account transactionAccountForAdd, Category transactionCategoryForAdd,
+	Transaction(Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
 		CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
 		Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
 		CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
 		Payee transactionPayeeForAdd, Tag transactionTagForAdd,
 		TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd);
+	Transaction(Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
+		CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+		Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
+		CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
+		Payee transactionPayeeForAdd, Tag transactionTagForAdd,
+		TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd,
+		Account transactionAccountToForAdd);
 	Transaction(
-		Account transactionAccountForAdd, Category transactionCategoryForAdd,
+		Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
 		CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
 		Currency transactionCurrencyForAdd);
+	Transaction(
+		Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
+		CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+		Currency transactionCurrencyForAdd, Account transactionAccountToForAdd);
 	Time getTransactionTime() const;
 	Account getTransactionAccount() const;
 	Category getTransactionCategory() const;

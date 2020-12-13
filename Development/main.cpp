@@ -7,11 +7,16 @@
 void Book_Keeping()
 {
 	FinanceRepository book_keeping;
-	default_book_keeping(book_keeping);
-	print_accounts(book_keeping);
-	print_categories(book_keeping);
+
+	setDefaultAccounts(book_keeping);
+	setDefaultCategories(book_keeping);
+	setDefaultCurrencies(book_keeping);
+
+	printAccounts(book_keeping);
+	printCategories(book_keeping);
+
 	book_keeping.addCurrency({ "RUB", "RUB", false });
-	print_currencies(book_keeping);
+	printCurrencies(book_keeping);
 	Transaction tr1({ "BYN Cash" }, { "Bills" }, { "" }, 5.5, { "BYN" });
 	book_keeping.addTransaction(tr1);
 	Transaction tr2({ "BYN Cash" }, { "Bills" }, { "" }, 10.5, { "BYN" });
@@ -20,12 +25,12 @@ void Book_Keeping()
 	book_keeping.addTransaction(tr3);
 	Transaction tr4({ "EUR Cash" }, { "Bills" }, { "" }, 6.5, { "EUR" });
 	book_keeping.addTransaction(tr4);
-	print_transactions(book_keeping);
+	printTransactions(book_keeping);
 }
 
 int main()
 {
-	//Book_Keeping();
+	Book_Keeping();
 	FinanceRepository financeRepository;
 	Transaction tr1({ "BYN Cash" }, { "Bills" }, { "" }, 5.5, { "BYN" });
 	financeRepository.addTransaction(tr1);
@@ -34,8 +39,12 @@ int main()
 	Transaction tr3({ "BYN Cash" }, { "Bills" }, { "" }, 8.5, { "BYN" });
 	financeRepository.addTransaction(tr3);
 	Transaction tr4({ "EUR Cash" }, { "Bills" }, { "" }, 6.5, { "EUR" });
+	financeRepository.addTransaction(tr4);
 	auto ptrFinanceRepository = std::make_shared<FinanceRepository>(financeRepository);
 	Window_Main win(Point(100, 100) , Fl::w() - 200, Fl::h() - 200, "Home Bookkeeping", ptrFinanceRepository);
 	win.wait_for_button();
+	printTransactions(financeRepository);
+	TransactionType tt(TransactionTypeEnum::Expence);
+	sumTransactionsByTransactionType(financeRepository, tt);
 	return 0;
 }

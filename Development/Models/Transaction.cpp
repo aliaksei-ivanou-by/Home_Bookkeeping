@@ -1,14 +1,14 @@
 #include "Transaction.h"
 
 Transaction::Transaction(
-	Account transactionAccountForAdd, Category transactionCategoryForAdd, 
+	Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
 	CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
 	Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
 	CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
 	Payee transactionPayeeForAdd, Tag transactionTagForAdd,
 	TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd):
 	transactionTime{},
-	transactionAccount{ transactionAccountForAdd },
+	transactionAccount{ transactionAccountFromForAdd },
 	transactionCategory{ transactionCategoryForAdd },
 	transactionCategorySub{ transactionCategorySubForAdd },
 	transactionAmount{ transactionAmountForAdd },
@@ -19,15 +19,40 @@ Transaction::Transaction(
 	transactionPayee{ transactionPayeeForAdd },
 	transactionTag{ transactionTagForAdd },
 	transactionStatus{ transactionStatusForAdd },
-	transactionType{ transactionTypeForAdd }
+	transactionType{ transactionTypeForAdd },
+	transactionAccountTo{ transactionAccountFromForAdd }
 {}
 
 Transaction::Transaction(
-	Account transactionAccountForAdd, Category transactionCategoryForAdd,
+	Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
+	CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+	Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
+	CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
+	Payee transactionPayeeForAdd, Tag transactionTagForAdd,
+	TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd, 
+	Account transactionAccountToForAdd):
+	transactionTime{},
+	transactionAccount{ transactionAccountFromForAdd },
+	transactionCategory{ transactionCategoryForAdd },
+	transactionCategorySub{ transactionCategorySubForAdd },
+	transactionAmount{ transactionAmountForAdd },
+	transactionComment{ transactionCommentForAdd },
+	transactionCurrency{ transactionCurrencyForAdd },
+	transactionCurrencyRate{ transactionCurrencyRateForAdd },
+	transactionDescription{ transactionDescriptionForAdd },
+	transactionPayee{ transactionPayeeForAdd },
+	transactionTag{ transactionTagForAdd },
+	transactionStatus{ transactionStatusForAdd },
+	transactionType{ transactionTypeForAdd },
+	transactionAccountTo{ transactionAccountToForAdd }
+{}
+
+Transaction::Transaction(
+	Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
 	CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
 	Currency transactionCurrencyForAdd):
 	transactionTime{},
-	transactionAccount{ transactionAccountForAdd },
+	transactionAccount{ transactionAccountFromForAdd },
 	transactionCategory{ transactionCategoryForAdd },
 	transactionCategorySub{ transactionCategorySubForAdd },
 	transactionAmount{ transactionAmountForAdd },
@@ -38,7 +63,28 @@ Transaction::Transaction(
 	transactionPayee{ },
 	transactionTag{ },
 	transactionStatus{ },
-	transactionType{ }
+	transactionType{ },
+	transactionAccountTo{ transactionAccountFromForAdd }
+{}
+
+Transaction::Transaction(
+	Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
+	CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+	Currency transactionCurrencyForAdd, Account transactionAccountToForAdd) :
+	transactionTime{},
+	transactionAccount{ transactionAccountFromForAdd },
+	transactionCategory{ transactionCategoryForAdd },
+	transactionCategorySub{ transactionCategorySubForAdd },
+	transactionAmount{ transactionAmountForAdd },
+	transactionComment{ },
+	transactionCurrency{ transactionCurrencyForAdd },
+	transactionCurrencyRate{ },
+	transactionDescription{ },
+	transactionPayee{ },
+	transactionTag{ },
+	transactionStatus{ },
+	transactionType{ },
+	transactionAccountTo{ transactionAccountToForAdd }
 {}
 
 Time Transaction::getTransactionTime() const

@@ -1,3 +1,5 @@
 #pragma once
 
-#include "../BusinessLogic/TransactionsFunctions.h"
+#include "../BusinessLogic/defaultRepository.h"
+#include "../BusinessLogic/printRepository.h"
+#include "../BusinessLogic/sumTransactions.h"
