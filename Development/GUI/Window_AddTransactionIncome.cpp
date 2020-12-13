@@ -70,13 +70,11 @@ try
 	ptrFinanceRepository->addTransaction(transaction);
 	std::cout << Time() << " : REPOSITORY : Operation -> Transaction added\n";
 	button_pushed = true;
-	std::cout << Time() << " : SYSTEM : Window -> Add Transaction Income : Button -> OK\n";
 	hide();
 }
 catch (...)
 {
 	std::cout << Time() << " : SYSTEM : Error -> Transaction no added\n";
-	std::cout << Time() << " : SYSTEM : Window -> Add Transaction Income : Button -> OK\n";
 	button_pushed = true;
 	hide();
 }
@@ -84,6 +82,5 @@ catch (...)
 void Window_AddTransactionIncome::Cancel()
 {
 	button_pushed = true;
-	std::cout << Time() << " : SYSTEM : Window -> Add Transaction Income : Button -> Cancel\n";
 	hide();
 }

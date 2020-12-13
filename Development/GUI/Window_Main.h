@@ -4,6 +4,7 @@
 #include "../include/FLTK.h"
 #include "../include/Graphics.h"
 #include "../include/DataAccess.h"
+#include "../include/BusinessLogic.h"
 
 namespace Graph_lib
 {
@@ -45,14 +46,12 @@ namespace Graph_lib
 		static void cbMenuStatisticsNetWorth(Address, Address);
 		static void cbMenuStatisticsLiabilities(Address, Address);
 		static void cbMenuStatisticsExpensesToday(Address, Address);
-		static void cbMenuStatisticsExpensesThisWeek(Address, Address);
 		static void cbMenuStatisticsExpensesThisMonth(Address, Address);
 		static void cbMenuStatisticsIncomeThisMonth(Address, Address);
 
 		static void cbMenuStatisticsTextNetWorth(Address, Address);
 		static void cbMenuStatisticsTextLiabilities(Address, Address);
 		static void cbMenuStatisticsTextExpensesToday(Address, Address);
-		static void cbMenuStatisticsTextExpensesThisWeek(Address, Address);
 		static void cbMenuStatisticsTextExpensesThisMonth(Address, Address);
 		static void cbMenuStatisticsTextIncomeThisMonth(Address, Address);
 
@@ -77,14 +76,12 @@ namespace Graph_lib
 		void menuStatisticsNetWorth();
 		void menuStatisticsLiabilities();
 		void menuStatisticsExpensesToday();
-		void menuStatisticsExpensesThisWeek();
 		void menuStatisticsExpensesThisMonth();
 		void menuStatisticsIncomeThisMonth();
 
 		void menuStatisticsTextNetWorth();
 		void menuStatisticsTextLiabilities();
 		void menuStatisticsTextExpensesToday();
-		void menuStatisticsTextExpensesThisWeek();
 		void menuStatisticsTextExpensesThisMonth();
 		void menuStatisticsTextIncomeThisMonth();
 

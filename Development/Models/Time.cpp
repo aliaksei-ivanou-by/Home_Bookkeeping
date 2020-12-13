@@ -230,7 +230,6 @@ bool operator<(const Time& leftTime, const Time& rightTime)
 		}
 	}
 	return false;
-	std::to_string(1);
 }
 
 std::ostream& operator<<(std::ostream& outputStream, const Time& time)

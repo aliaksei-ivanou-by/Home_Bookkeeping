@@ -31,7 +31,6 @@ Window_Main::Window_Main(
 	menuStatistics.attach(new Button(Point(0, 0), 0, 0, "Net Worth", cbMenuStatisticsNetWorth));
 	menuStatistics.attach(new Button(Point(0, 0), 0, 0, "Liabilities", cbMenuStatisticsLiabilities));
 	menuStatistics.attach(new Button(Point(0, 0), 0, 0, "Expenses Today", cbMenuStatisticsExpensesToday));
-	menuStatistics.attach(new Button(Point(0, 0), 0, 0, "Expenses This Week", cbMenuStatisticsExpensesThisWeek));
 	menuStatistics.attach(new Button(Point(0, 0), 0, 0, "Expenses This Month", cbMenuStatisticsExpensesThisMonth));
 	menuStatistics.attach(new Button(Point(0, 0), 0, 0, "Income This Month", cbMenuStatisticsIncomeThisMonth));
 	attach(menuStatistics);
@@ -39,7 +38,6 @@ Window_Main::Window_Main(
 	menuStatisticsText.attach(new Button(Point(0, 0), 0, 0, "Net Worth", cbMenuStatisticsTextNetWorth));
 	menuStatisticsText.attach(new Button(Point(0, 0), 0, 0, "Liabilities", cbMenuStatisticsTextLiabilities));
 	menuStatisticsText.attach(new Button(Point(0, 0), 0, 0, "Expenses Today", cbMenuStatisticsTextExpensesToday));
-	menuStatisticsText.attach(new Button(Point(0, 0), 0, 0, "Expenses This Week", cbMenuStatisticsTextExpensesThisWeek));
 	menuStatisticsText.attach(new Button(Point(0, 0), 0, 0, "Expenses This Month", cbMenuStatisticsTextExpensesThisMonth));
 	menuStatisticsText.attach(new Button(Point(0, 0), 0, 0, "Income This Month", cbMenuStatisticsTextIncomeThisMonth));
 	attach(menuStatisticsText);
@@ -52,27 +50,45 @@ Window_Main::Window_Main(
 	menuFooter.attach(new Button(Point(0, 0), 0, 0, "Settings", cbMenuFooterSettings));
 	menuFooter.attach(new Button(Point(0, 0), 0, 0, "Help", cbMenuFooterHelp));
 	attach(menuFooter);
+
+	Window_Main::menuStatisticsNetWorth();
+	Window_Main::menuStatisticsLiabilities();
+	Window_Main::menuStatisticsExpensesToday();
+	Window_Main::menuStatisticsExpensesThisMonth();
+	Window_Main::menuStatisticsIncomeThisMonth();
 }
 
 void Window_Main::menuMainAddTransactionExpense()
 {
-	std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Add Transaction Expense\n";
 	Window_AddTransactionExpense addTransactionExpence("Add Expense", ptrFinanceRepository);
 	addTransactionExpence.wait_for_button();
+	Window_Main::menuStatisticsNetWorth();
+	Window_Main::menuStatisticsLiabilities();
+	Window_Main::menuStatisticsExpensesToday();
+	Window_Main::menuStatisticsExpensesThisMonth();
+	Window_Main::menuStatisticsIncomeThisMonth();
 }
 
 void Window_Main::menuMainAddTransactionIncome()
 {
-	std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Add Transaction Income\n";
 	Window_AddTransactionIncome addTransactionIncome("Add Income", ptrFinanceRepository);
 	addTransactionIncome.wait_for_button();
+	Window_Main::menuStatisticsNetWorth();
+	Window_Main::menuStatisticsLiabilities();
+	Window_Main::menuStatisticsExpensesToday();
+	Window_Main::menuStatisticsExpensesThisMonth();
+	Window_Main::menuStatisticsIncomeThisMonth();
 }
 
 void Window_Main::menuMainAddTransactionTransfer()
 {
-	std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Add Transaction Transfer\n";
 	Window_AddTransactionTransfer addTransactionTransfer("Add Transfer", ptrFinanceRepository);
 	addTransactionTransfer.wait_for_button();
+	Window_Main::menuStatisticsNetWorth();
+	Window_Main::menuStatisticsLiabilities();
+	Window_Main::menuStatisticsExpensesToday();
+	Window_Main::menuStatisticsExpensesThisMonth();
+	Window_Main::menuStatisticsIncomeThisMonth();
 }
 
 void Window_Main::menuMainTransactions()
@@ -117,22 +133,38 @@ void Window_Main::menuStatisticsLiabilities()
 
 void Window_Main::menuStatisticsExpensesToday()
 {
-	std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics Expenses Today\n";
-}
-
-void Window_Main::menuStatisticsExpensesThisWeek()
-{
-	std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics Expenses This Week\n";
+	menuStatisticsText.selection[2].hide();
+	double sum = sumTransactionsByTransactionTypeToday(
+		*ptrFinanceRepository, TransactionType(TransactionTypeEnum::Expence), Time());
+	std::ostringstream sumStream;
+	sumStream << std::fixed << std::setprecision(2) << sum;
+	std::string sumString = sumStream.str();
+	menuStatisticsText.selection[2].label = sumString;
+	menuStatisticsText.selection[2].show();
 }
 
 void Window_Main::menuStatisticsExpensesThisMonth()
 {
-	std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics Expenses This Month\n";
+	menuStatisticsText.selection[3].hide();
+	double sum = sumTransactionsByTransactionTypeThisMonth(
+		*ptrFinanceRepository, TransactionType(TransactionTypeEnum::Expence), Time());
+	std::ostringstream sumStream;
+	sumStream << std::fixed << std::setprecision(2) << sum;
+	std::string sumString = sumStream.str();
+	menuStatisticsText.selection[3].label = sumString;
+	menuStatisticsText.selection[3].show();
 }
 
 void Window_Main::menuStatisticsIncomeThisMonth()
 {
-	std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics Income This Month\n";
+	menuStatisticsText.selection[4].hide();
+	double sum = sumTransactionsByTransactionTypeThisMonth(
+		*ptrFinanceRepository, TransactionType(TransactionTypeEnum::Income), Time());
+	std::ostringstream sumStream;
+	sumStream << std::fixed << std::setprecision(2) << sum;
+	std::string sumString = sumStream.str();
+	menuStatisticsText.selection[4].label = sumString;
+	menuStatisticsText.selection[4].show();
 }
 
 void Window_Main::menuStatisticsTextNetWorth()
@@ -148,11 +180,6 @@ void Window_Main::menuStatisticsTextLiabilities()
 void Window_Main::menuStatisticsTextExpensesToday()
 {
 	std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics Text Expenses Today\n";
-}
-
-void Window_Main::menuStatisticsTextExpensesThisWeek()
-{
-	std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics Text Expenses This Week\n";
 }
 
 void Window_Main::menuStatisticsTextExpensesThisMonth()
@@ -260,11 +287,6 @@ void Window_Main::cbMenuStatisticsExpensesToday(Address, Address pw)
 	reference_to<Window_Main>(pw).menuStatisticsExpensesToday();
 }
 
-void Window_Main::cbMenuStatisticsExpensesThisWeek(Address, Address pw)
-{
-	reference_to<Window_Main>(pw).menuStatisticsExpensesThisWeek();
-}
-
 void Window_Main::cbMenuStatisticsExpensesThisMonth(Address, Address pw)
 {
 	reference_to<Window_Main>(pw).menuStatisticsExpensesThisMonth();
@@ -288,11 +310,6 @@ void Window_Main::cbMenuStatisticsTextLiabilities(Address, Address pw)
 void Window_Main::cbMenuStatisticsTextExpensesToday(Address, Address pw)
 {
 	reference_to<Window_Main>(pw).menuStatisticsTextExpensesToday();
-}
-
-void Window_Main::cbMenuStatisticsTextExpensesThisWeek(Address, Address pw)
-{
-	reference_to<Window_Main>(pw).menuStatisticsTextExpensesThisWeek();
 }
 
 void Window_Main::cbMenuStatisticsTextExpensesThisMonth(Address, Address pw)
@@ -361,6 +378,6 @@ void Window_Main::cbQuit(Address, Address pw)
 void Window_Main::quit()
 {
 	button_pushed = true;
-	std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Quit\n";
+	std::cout << Time() << "Quit\n";
 	hide();
 }

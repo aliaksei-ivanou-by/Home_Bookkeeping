@@ -44,7 +44,6 @@ int main()
 	Window_Main win(Point(100, 100) , Fl::w() - 200, Fl::h() - 200, "Home Bookkeeping", ptrFinanceRepository);
 	win.wait_for_button();
 	printTransactions(financeRepository);
-	TransactionType tt(TransactionTypeEnum::Expence);
-	sumTransactionsByTransactionType(financeRepository, tt);
+
 	return 0;
 }
