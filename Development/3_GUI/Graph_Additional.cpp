@@ -1,7 +1,7 @@
 
 #include "../include/stdafx.h"
 #include "../include/FLTK.h"
-#include "../include/Graphics.h"
+#include "../include/3_GUI.h"
 #include "Graph_Additional.h"
 #include "../include/constants.h"
 

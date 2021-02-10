@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../include/stdafx.h"
-#include "../Models/Payee.h"
+#include "../0_Models/Payee.h"
 
 class PayeeRepository
 {

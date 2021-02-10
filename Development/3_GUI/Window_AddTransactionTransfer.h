@@ -2,15 +2,15 @@
 
 #include "../include/stdafx.h"
 #include "../include/FLTK.h"
-#include "../include/Graphics.h"
-#include "../include/DataAccess.h"
+#include "../include/3_GUI.h"
+#include "../include/1_DataAccess.h"
 
 namespace Graph_lib
 {
-	class Window_AddAccount : public Window
+	class Window_AddTransactionTransfer : public Window
 	{
 	public:
-		Window_AddAccount(
+		Window_AddTransactionTransfer(
 			const std::string& title,
 			std::shared_ptr<FinanceRepository> ptrFinanceRepository,
 			Point xy = Point{ 150, 150 }, int w = 400, int h = 400);
@@ -24,7 +24,13 @@ namespace Graph_lib
 
 		bool button_pushed;
 
-		In_box textAccountForAdd;
+		In_box textAccountFromForAdd;
+		In_box textAccountToForAdd;
+		In_box textAmountForAdd;
+		In_box textDesctiptionForAdd;
+		In_box textCategoryForAdd;
+		In_box textCommentForAdd;
+		In_box textTagForAdd;
 
 		static void cbOK(Address, Address);
 		static void cbCancel(Address, Address);

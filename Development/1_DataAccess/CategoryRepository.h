@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../include/stdafx.h"
-#include "../Models/Category.h"
+#include "../0_Models/Category.h"
 
 class CategoryRepository
 {

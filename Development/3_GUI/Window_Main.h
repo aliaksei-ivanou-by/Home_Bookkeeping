@@ -2,9 +2,9 @@
 
 #include "../include/stdafx.h"
 #include "../include/FLTK.h"
-#include "../include/Graphics.h"
-#include "../include/DataAccess.h"
-#include "../include/BusinessLogic.h"
+#include "../include/3_GUI.h"
+#include "../include/1_DataAccess.h"
+#include "../include/2_BusinessLogic.h"
 
 namespace Graph_lib
 {

@@ -1,5 +1,5 @@
 #pragma once
 
-#include "../Models/Transaction.h"
-#include "../DataAccess/TransactionRepository.h"
-#include "../DataAccess/BookKeepingRepository.h"
+#include "../0_Models/Transaction.h"
+#include "../1_DataAccess/TransactionRepository.h"
+#include "../1_DataAccess/BookKeepingRepository.h"

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../include/stdafx.h"
-#include "../Models/CurrencyRate.h"
+#include "../0_Models/CurrencyRate.h"
 
 class CurrencyRateRepository
 {

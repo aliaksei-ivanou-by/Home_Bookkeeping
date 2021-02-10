@@ -2,15 +2,15 @@
 
 #include "../include/stdafx.h"
 #include "../include/FLTK.h"
-#include "../include/Graphics.h"
-#include "../include/DataAccess.h"
+#include "../include/3_GUI.h"
+#include "../include/1_DataAccess.h"
 
 namespace Graph_lib
 {
-	class Window_AddTransactionIncome : public Window
+	class Window_AddTransactionExpense : public Window
 	{
 	public:
-		Window_AddTransactionIncome(
+		Window_AddTransactionExpense(
 			const std::string& title,
 			std::shared_ptr<FinanceRepository> ptrFinanceRepository,
 			Point xy = Point{ 150, 150 }, int w = 400, int h = 400);
@@ -32,10 +32,10 @@ namespace Graph_lib
 		In_box textCommentForAdd;
 		In_box textTagForAdd;
 
-		static void cbOK(Address, Address);
-		static void cbCancel(Address, Address);
+		static void cbWindow_AddTransactionExpense_OK(Address, Address);
+		static void cbWindow_AddTransactionExpense_Cancel(Address, Address);
 
-		void OK();
-		void Cancel();
+		void Window_AddTransactionExpense_OK();
+		void Window_AddTransactionExpense_Cancel();
 	};
 }

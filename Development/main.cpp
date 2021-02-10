@@ -1,8 +1,8 @@
 #include "include/stdafx.h"
 #include "include/constants.h"
-#include "include/DataAccess.h"
-#include "include/BusinessLogic.h"
-#include "include/Graphics.h"
+#include "include/1_DataAccess.h"
+#include "include/2_BusinessLogic.h"
+#include "include/3_GUI.h"
 
 void Book_Keeping()
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../include/stdafx.h"
-#include "../Models/Comment.h"
+#include "../0_Models/Comment.h"
 
 class CommentRepository
 {
