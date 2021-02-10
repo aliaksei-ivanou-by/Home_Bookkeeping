@@ -12,7 +12,6 @@ private:
 	double transactionAmount;
 	Comment transactionComment;
 	Currency transactionCurrency;
-	CurrencyRate transactionCurrencyRate;
 	Description transactionDescription;
 	Payee transactionPayee;
 	Tag transactionTag;
@@ -24,13 +23,13 @@ public:
 	Transaction(Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
 		double transactionAmountForAdd,
 		Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
-		CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
+		Description transactionDescriptionForAdd,
 		Payee transactionPayeeForAdd, Tag transactionTagForAdd,
 		TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd);
 	Transaction(Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
 		double transactionAmountForAdd,
 		Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
-		CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
+		Description transactionDescriptionForAdd,
 		Payee transactionPayeeForAdd, Tag transactionTagForAdd,
 		TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd,
 		Account transactionAccountToForAdd);
@@ -48,7 +47,6 @@ public:
 	double getTransactionAmount() const;
 	Comment getTransactionComment() const;
 	Currency getTransactionCurrency() const;
-	CurrencyRate getTransactionCurrencyRate() const;
 	Description getTransactionDescription() const;
 	Payee getTransactionPayee() const;
 	Tag getTransactionTag() const;
@@ -59,7 +57,6 @@ public:
 	void setTransactionCategory(Category&& categoryForUpdate);
 	void setTransactionComment(Comment&& commentForUpdate);
 	void setTransactionCurrency(Currency&& currencyForUpdate);
-	void setTransactionCurrencyRate(CurrencyRate&& currencyRateForUpdate);
 	void setTransactionDescription(Description&& descriptionForUpdate);
 	void setTransactionPayee(Payee&& payeeForUpdate);
 	void setTransactionTag(Tag&& tagForUpdate);

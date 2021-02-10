@@ -12,7 +12,6 @@ private:
 	PayeeRepository financeRepositoryPayees;
 	AccountRepository financeRepositoryAccounts;
 	CurrencyRepository financeRepositoryCurrencies;
-	CurrencyRateRepository financeRepositoryCurrenciesRate;
 	DescriptionRepository financeRepositoryDescriptions;
 	TagRepository financeRepositoryTags;
 public:
@@ -24,7 +23,6 @@ public:
 	PayeeRepository getPayees() const;
 	AccountRepository getAccounts() const;
 	CurrencyRepository getCurrencies() const;
-	CurrencyRateRepository getCurrenciesRate() const;
 	DescriptionRepository getDescriptions() const;
 	TagRepository getTags() const;
 	

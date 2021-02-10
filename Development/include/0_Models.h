@@ -5,7 +5,6 @@
 #include "../0_Models/Category.h"
 #include "../0_Models/Comment.h"
 #include "../0_Models/Currency.h"
-#include "../0_Models/CurrencyRate.h"
 #include "../0_Models/Description.h"
 #include "../0_Models/Payee.h"
 #include "../0_Models/Tag.h"

@@ -62,7 +62,7 @@ try
 	Tag tag(textTagForAdd.get_string());
 	TransactionStatus transactionStatus(TransactionStatusEnum::Void);
 	TransactionType transactionType(TransactionTypeEnum::Income);
-	Transaction transaction(account, category, amount, comment, { "" }, { "" }, description, payee, tag,
+	Transaction transaction(account, category, amount, comment, { "" }, description, payee, tag,
 		transactionStatus, transactionType);
 	ptrFinanceRepository->addTransaction(transaction);
 	std::cout << Time() << " : REPOSITORY : Operation -> Transaction added\n";

@@ -8,7 +8,6 @@ FinanceRepository::FinanceRepository()
 	PayeeRepository();
 	AccountRepository();
 	CurrencyRepository();
-	CurrencyRateRepository();
 	DescriptionRepository();
 	TagRepository();
 }
@@ -35,10 +34,6 @@ AccountRepository FinanceRepository::getAccounts() const
 CurrencyRepository FinanceRepository::getCurrencies() const
 {
 	return financeRepositoryCurrencies;
-}
-CurrencyRateRepository FinanceRepository::getCurrenciesRate() const
-{
-	return financeRepositoryCurrenciesRate;
 }
 DescriptionRepository FinanceRepository::getDescriptions() const
 {
