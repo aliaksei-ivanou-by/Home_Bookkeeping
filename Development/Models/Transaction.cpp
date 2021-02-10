@@ -2,7 +2,7 @@
 
 Transaction::Transaction(
 	Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-	CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+	double transactionAmountForAdd,
 	Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
 	CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
 	Payee transactionPayeeForAdd, Tag transactionTagForAdd,
@@ -10,7 +10,6 @@ Transaction::Transaction(
 	transactionTime{},
 	transactionAccount{ transactionAccountFromForAdd },
 	transactionCategory{ transactionCategoryForAdd },
-	transactionCategorySub{ transactionCategorySubForAdd },
 	transactionAmount{ transactionAmountForAdd },
 	transactionComment{ transactionCommentForAdd },
 	transactionCurrency{ transactionCurrencyForAdd },
@@ -25,7 +24,7 @@ Transaction::Transaction(
 
 Transaction::Transaction(
 	Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-	CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+	double transactionAmountForAdd,
 	Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
 	CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
 	Payee transactionPayeeForAdd, Tag transactionTagForAdd,
@@ -34,7 +33,6 @@ Transaction::Transaction(
 	transactionTime{},
 	transactionAccount{ transactionAccountFromForAdd },
 	transactionCategory{ transactionCategoryForAdd },
-	transactionCategorySub{ transactionCategorySubForAdd },
 	transactionAmount{ transactionAmountForAdd },
 	transactionComment{ transactionCommentForAdd },
 	transactionCurrency{ transactionCurrencyForAdd },
@@ -49,12 +47,11 @@ Transaction::Transaction(
 
 Transaction::Transaction(
 	Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-	CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+	double transactionAmountForAdd,
 	Currency transactionCurrencyForAdd):
 	transactionTime{},
 	transactionAccount{ transactionAccountFromForAdd },
 	transactionCategory{ transactionCategoryForAdd },
-	transactionCategorySub{ transactionCategorySubForAdd },
 	transactionAmount{ transactionAmountForAdd },
 	transactionComment{ },
 	transactionCurrency{ transactionCurrencyForAdd },
@@ -69,12 +66,11 @@ Transaction::Transaction(
 
 Transaction::Transaction(
 	Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-	CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+	double transactionAmountForAdd,
 	Currency transactionCurrencyForAdd, Account transactionAccountToForAdd) :
 	transactionTime{},
 	transactionAccount{ transactionAccountFromForAdd },
 	transactionCategory{ transactionCategoryForAdd },
-	transactionCategorySub{ transactionCategorySubForAdd },
 	transactionAmount{ transactionAmountForAdd },
 	transactionComment{ },
 	transactionCurrency{ transactionCurrencyForAdd },
@@ -100,11 +96,6 @@ Account Transaction::getTransactionAccount() const
 Category Transaction::getTransactionCategory() const
 {
 	return transactionCategory;
-}
-
-CategorySub Transaction::getTransactionCategorySub() const
-{
-	return transactionCategorySub;
 }
 
 double Transaction::getTransactionAmount() const
@@ -165,11 +156,6 @@ void Transaction::setTransactionAccount(Account&& accountForUpdate)
 void Transaction::setTransactionCategory(Category&& categoryForUpdate)
 {
 	transactionCategory = std::move(categoryForUpdate);
-}
-
-void Transaction::setTransactionCategorySub(CategorySub&& categorySubForUpdate)
-{
-	transactionCategorySub = std::move(categorySubForUpdate);
 }
 
 void Transaction::setTransactionComment(Comment&& commentForUpdate)
@@ -250,129 +236,116 @@ bool operator<(const Transaction& leftTransaction, const Transaction& rightTrans
 						}
 						else
 						{
-							if (leftTransaction.getTransactionCategorySub() < rightTransaction.getTransactionCategorySub())
+							if (leftTransaction.getTransactionAmount() < rightTransaction.getTransactionAmount())
 							{
 								return true;
 							}
 							else
 							{
-								if (rightTransaction.getTransactionCategorySub() < leftTransaction.getTransactionCategorySub())
+								if (rightTransaction.getTransactionAmount() < leftTransaction.getTransactionAmount())
 								{
 									return false;
 								}
 								else
 								{
-									if (leftTransaction.getTransactionAmount() < rightTransaction.getTransactionAmount())
+									if (leftTransaction.getTransactionComment() < rightTransaction.getTransactionComment())
 									{
 										return true;
 									}
 									else
 									{
-										if (rightTransaction.getTransactionAmount() < leftTransaction.getTransactionAmount())
+										if (rightTransaction.getTransactionComment() < leftTransaction.getTransactionComment())
 										{
 											return false;
 										}
 										else
 										{
-											if (leftTransaction.getTransactionComment() < rightTransaction.getTransactionComment())
+											if (leftTransaction.getTransactionCurrency() < rightTransaction.getTransactionCurrency())
 											{
 												return true;
 											}
 											else
 											{
-												if (rightTransaction.getTransactionComment() < leftTransaction.getTransactionComment())
+												if (rightTransaction.getTransactionCurrency() < leftTransaction.getTransactionCurrency())
 												{
 													return false;
 												}
 												else
 												{
-													if (leftTransaction.getTransactionCurrency() < rightTransaction.getTransactionCurrency())
+													if (leftTransaction.getTransactionCurrencyRate() < rightTransaction.getTransactionCurrencyRate())
 													{
 														return true;
 													}
 													else
 													{
-														if (rightTransaction.getTransactionCurrency() < leftTransaction.getTransactionCurrency())
+														if (rightTransaction.getTransactionCurrencyRate() < leftTransaction.getTransactionCurrencyRate())
 														{
 															return false;
 														}
 														else
 														{
-															if (leftTransaction.getTransactionCurrencyRate() < rightTransaction.getTransactionCurrencyRate())
+															if (leftTransaction.getTransactionDescription() < rightTransaction.getTransactionDescription())
 															{
 																return true;
 															}
 															else
 															{
-																if (rightTransaction.getTransactionCurrencyRate() < leftTransaction.getTransactionCurrencyRate())
+																if (rightTransaction.getTransactionDescription() < leftTransaction.getTransactionDescription())
 																{
 																	return false;
 																}
 																else
 																{
-																	if (leftTransaction.getTransactionDescription() < rightTransaction.getTransactionDescription())
+																	if (leftTransaction.getTransactionPayee() < rightTransaction.getTransactionPayee())
 																	{
 																		return true;
 																	}
 																	else
 																	{
-																		if (rightTransaction.getTransactionDescription() < leftTransaction.getTransactionDescription())
+																		if (rightTransaction.getTransactionPayee() < leftTransaction.getTransactionPayee())
 																		{
 																			return false;
 																		}
 																		else
 																		{
-																			if (leftTransaction.getTransactionPayee() < rightTransaction.getTransactionPayee())
+																			if (leftTransaction.getTransactionTag() < rightTransaction.getTransactionTag())
 																			{
 																				return true;
 																			}
 																			else
 																			{
-																				if (rightTransaction.getTransactionPayee() < leftTransaction.getTransactionPayee())
+																				if (rightTransaction.getTransactionTag() < leftTransaction.getTransactionTag())
 																				{
 																					return false;
 																				}
 																				else
 																				{
-																					if (leftTransaction.getTransactionTag() < rightTransaction.getTransactionTag())
+																					if (leftTransaction.getTransactionStatus() < rightTransaction.getTransactionStatus())
 																					{
 																						return true;
 																					}
 																					else
 																					{
-																						if (rightTransaction.getTransactionTag() < leftTransaction.getTransactionTag())
+																						if (rightTransaction.getTransactionStatus() < leftTransaction.getTransactionStatus())
 																						{
 																							return false;
 																						}
 																						else
 																						{
-																							if (leftTransaction.getTransactionStatus() < rightTransaction.getTransactionStatus())
+																							if (leftTransaction.getTransactionType() < rightTransaction.getTransactionType())
 																							{
 																								return true;
 																							}
 																							else
 																							{
-																								if (rightTransaction.getTransactionStatus() < leftTransaction.getTransactionStatus())
-																								{
-																									return false;
-																								}
-																								else
-																								{
-																									if (leftTransaction.getTransactionType() < rightTransaction.getTransactionType())
-																									{
-																										return true;
-																									}
-																									else
-																									{
-																										return false;
-																									}
-																								}
+																								return false;
 																							}
 																						}
 																					}
 																				}
 																			}
 																		}
+																		
 																	}
 																}
 															}
@@ -397,7 +370,6 @@ std::ostream& operator<<(std::ostream& outputStream, const Transaction& transact
 	return outputStream << transaction.getTransactionTime() << '\t' <<
 		transaction.getTransactionAccount() << '\t' <<
 		transaction.getTransactionCategory() << '\t' <<
-		transaction.getTransactionCategorySub() << '\t' <<
 		transaction.getTransactionAmount() << ' ' <<
 		transaction.getTransactionCurrency().getCurrencyName();
 }

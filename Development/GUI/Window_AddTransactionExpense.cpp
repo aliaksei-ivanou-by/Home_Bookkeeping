@@ -11,9 +11,7 @@ Window_AddTransactionExpense::Window_AddTransactionExpense(const std::string& ti
 	textAmountForAdd{ Point(x_max() - 280, y_max() - 360), elementSizeWidth, elementSizeHeight, "Amount: " },
 	textDesctiptionForAdd{ Point(x_max() - 280, y_max() - 330), elementSizeWidth, elementSizeHeight, "Description: " },
 	textPayeeForAdd{ Point(x_max() - 280, y_max() - 300), elementSizeWidth, elementSizeHeight, "Payee: " },
-	textCategoryForAdd{ Point(x_max() - 280, y_max() - 270), elementSizeWidth, elementSizeHeight, "Category: " },
-	textCategorySubForAdd{ Point(x_max() - 280, y_max() - 240), elementSizeWidth, elementSizeHeight, "CategorySub: " },
-	textCommentForAdd{ Point(x_max() - 280, y_max() - 210), elementSizeWidth, elementSizeHeight, "Comment: " },
+	textCategoryForAdd{ Point(x_max() - 280, y_max() - 270), elementSizeWidth, elementSizeHeight, "Category: " },	textCommentForAdd{ Point(x_max() - 280, y_max() - 210), elementSizeWidth, elementSizeHeight, "Comment: " },
 	textTagForAdd{ Point(x_max() - 280, y_max() - 180), elementSizeWidth, elementSizeHeight, "Tag: " },
 	ptrFinanceRepository{ ptrFinanceRepositoryForAdd }
 {
@@ -24,7 +22,6 @@ Window_AddTransactionExpense::Window_AddTransactionExpense(const std::string& ti
 	attach(textDesctiptionForAdd);
 	attach(textPayeeForAdd);
 	attach(textCategoryForAdd);
-	attach(textCategorySubForAdd);
 	attach(textCommentForAdd);
 	attach(textTagForAdd);
 }
@@ -57,7 +54,6 @@ try
 {
 	Account account(std::string(textAccountForAdd.get_string()));
 	Category category(std::string(textCategoryForAdd.get_string()));
-	CategorySub categorySub(std::string(textCategorySubForAdd.get_string()));
 	double amount = std::stod((textAmountForAdd.get_string()));
 	Comment comment(std::string(textCommentForAdd.get_string()));
 	Description description(std::string(textDesctiptionForAdd.get_string()));
@@ -65,7 +61,7 @@ try
 	Tag tag(std::string(textTagForAdd.get_string()));
 	TransactionStatus transactionStatus(TransactionStatusEnum::Void);
 	TransactionType transactionType(TransactionTypeEnum::Expence);
-	Transaction transaction(account, category, categorySub, amount, comment, { "" }, { "" }, description, payee, tag,
+	Transaction transaction(account, category, amount, comment, { "" }, { "" }, description, payee, tag,
 		transactionStatus, transactionType);
 	ptrFinanceRepository->addTransaction(transaction);
 	std::cout << Time() << " : REPOSITORY : Operation -> Transaction added\n";

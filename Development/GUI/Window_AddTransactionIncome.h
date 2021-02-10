@@ -29,7 +29,6 @@ namespace Graph_lib
 		In_box textDesctiptionForAdd;
 		In_box textPayeeForAdd;
 		In_box textCategoryForAdd;
-		In_box textCategorySubForAdd;
 		In_box textCommentForAdd;
 		In_box textTagForAdd;
 

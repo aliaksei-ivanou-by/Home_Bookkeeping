@@ -4,7 +4,6 @@ FinanceRepository::FinanceRepository()
 {
 	TransactionRepository();
 	CategoryRepository();
-	CategorySubRepository();
 	CommentRepository();
 	PayeeRepository();
 	AccountRepository();
@@ -20,10 +19,6 @@ TransactionRepository FinanceRepository::getTransactions() const
 CategoryRepository FinanceRepository::getCategories() const
 {
 	return financeRepositoryCategories;
-}
-CategorySubRepository FinanceRepository::getCategoriesSub() const
-{
-	return financeRepositoryCategoriesSub;
 }
 CommentRepository FinanceRepository::getComments() const
 {
@@ -60,10 +55,6 @@ void FinanceRepository::addTransaction(Transaction& transactionForAdd)
 void FinanceRepository::addCategory(Category categoryForAdd)
 {
 	financeRepositoryCategories.addCategory(categoryForAdd);
-}
-void FinanceRepository::addCategorySub(CategorySub categorySubForAdd)
-{
-	financeRepositoryCategoriesSub.addCategorySub(categorySubForAdd);
 }
 void FinanceRepository::addCurrency(Currency currencyForAdd)
 {

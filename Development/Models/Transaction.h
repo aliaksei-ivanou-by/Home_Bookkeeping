@@ -9,7 +9,6 @@ private:
 	Time transactionTime;
 	Account transactionAccount;
 	Category transactionCategory;
-	CategorySub transactionCategorySub;
 	double transactionAmount;
 	Comment transactionComment;
 	Currency transactionCurrency;
@@ -23,13 +22,13 @@ private:
 public:
 	Transaction() = delete;
 	Transaction(Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-		CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+		double transactionAmountForAdd,
 		Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
 		CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
 		Payee transactionPayeeForAdd, Tag transactionTagForAdd,
 		TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd);
 	Transaction(Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-		CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+		double transactionAmountForAdd,
 		Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
 		CurrencyRate transactionCurrencyRateForAdd, Description transactionDescriptionForAdd,
 		Payee transactionPayeeForAdd, Tag transactionTagForAdd,
@@ -37,16 +36,15 @@ public:
 		Account transactionAccountToForAdd);
 	Transaction(
 		Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-		CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+		double transactionAmountForAdd,
 		Currency transactionCurrencyForAdd);
 	Transaction(
 		Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-		CategorySub transactionCategorySubForAdd, double transactionAmountForAdd,
+		double transactionAmountForAdd,
 		Currency transactionCurrencyForAdd, Account transactionAccountToForAdd);
 	Time getTransactionTime() const;
 	Account getTransactionAccount() const;
 	Category getTransactionCategory() const;
-	CategorySub getTransactionCategorySub() const;
 	double getTransactionAmount() const;
 	Comment getTransactionComment() const;
 	Currency getTransactionCurrency() const;
@@ -59,7 +57,6 @@ public:
 	void setTransactionTime(Time&& timeForUpdate);
 	void setTransactionAccount(Account&& accountForUpdate);
 	void setTransactionCategory(Category&& categoryForUpdate);
-	void setTransactionCategorySub(CategorySub&& categorySubForUpdate);
 	void setTransactionComment(Comment&& commentForUpdate);
 	void setTransactionCurrency(Currency&& currencyForUpdate);
 	void setTransactionCurrencyRate(CurrencyRate&& currencyRateForUpdate);

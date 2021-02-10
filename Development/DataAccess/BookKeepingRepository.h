@@ -8,7 +8,6 @@ class FinanceRepository
 private:
 	TransactionRepository financeRepositoryTransactions;
 	CategoryRepository financeRepositoryCategories;
-	CategorySubRepository financeRepositoryCategoriesSub;
 	CommentRepository financeRepositoryComments;
 	PayeeRepository financeRepositoryPayees;
 	AccountRepository financeRepositoryAccounts;
@@ -21,7 +20,6 @@ public:
 	
 	TransactionRepository getTransactions() const;
 	CategoryRepository getCategories() const;
-	CategorySubRepository getCategoriesSub() const;
 	CommentRepository getComments() const;
 	PayeeRepository getPayees() const;
 	AccountRepository getAccounts() const;
@@ -32,7 +30,6 @@ public:
 	
 	void addTransaction(Transaction& transactionForAdd);
 	void addCategory(Category categoryForAdd);
-	void addCategorySub(CategorySub categorySubForAdd);
 	void addCurrency(Currency currencyForAdd);
 	void addPayee(Payee payeeForAdd);
 	void addTag(Tag tagForAdd);
