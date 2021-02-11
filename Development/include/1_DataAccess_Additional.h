@@ -10,4 +10,3 @@
 #include "../1_DataAccess/PayeeRepository.h"
 #include "../1_DataAccess/TagRepository.h"
 #include "../1_DataAccess/TransactionRepository.h"
-#include "../1_DataAccess/BookKeepingRepository.h"
