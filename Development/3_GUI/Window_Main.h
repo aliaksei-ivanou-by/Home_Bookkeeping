@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 
 #include "../include/stdafx.h"
 #include "../include/FLTK.h"
@@ -93,4 +93,4 @@ namespace Graph_lib
 		void menuFooterSettings();
 		void menuFooterHelp();
 	};
-}
+}*/

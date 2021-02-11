@@ -1,4 +1,4 @@
-#include "Window_Main.h"
+/*#include "Window_Main.h"
 
 Window_Main::Window_Main(
 	Point xy, int w, int h,
@@ -380,4 +380,4 @@ void Window_Main::quit()
 	button_pushed = true;
 	std::cout << Time() << "Quit\n";
 	hide();
-}
+}*/

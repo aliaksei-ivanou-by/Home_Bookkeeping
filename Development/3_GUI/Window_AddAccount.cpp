@@ -1,11 +1,11 @@
-#include "Window_Main.h"
+/*#include "Window_Main.h"
 #include "Window_AddAccount.h"
 
 void Window_AddAccount::OK()
 try
 {
 	Account account(textAccountForAdd.get_string());
-	ptrFinanceRepository->addAccount(account);
+	//ptrFinanceRepository->addAccount(account);
 	std::cout << Time() << " : REPOSITORY : Add Account: \n" << account << '\n';
 	button_pushed = true;
 	hide();
@@ -22,3 +22,4 @@ void Window_AddAccount::Cancel()
 	button_pushed = true;
 	hide();
 }
+*/

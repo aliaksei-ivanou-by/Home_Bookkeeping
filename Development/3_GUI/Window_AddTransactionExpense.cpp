@@ -1,4 +1,4 @@
-#include "Window_Main.h"
+/*#include "Window_Main.h"
 #include "Window_AddTransactionExpense.h"
 
 Window_AddTransactionExpense::Window_AddTransactionExpense(const std::string& title,
@@ -79,4 +79,4 @@ void Window_AddTransactionExpense::Window_AddTransactionExpense_Cancel()
 {
 	button_pushed = true;
 	hide();
-}
+}*/

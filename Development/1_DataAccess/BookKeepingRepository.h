@@ -1,7 +1,8 @@
-#pragma once
+/*#pragma once
 
 #include "../include/stdafx.h"
-#include "../include/1_DataAccess.h"
+#include "../include/DataAccess1.h"
+#include "../include/DataAccess2.h"
 
 class FinanceRepository
 {
@@ -17,14 +18,14 @@ private:
 public:
 	FinanceRepository();
 	
-	TransactionRepository getTransactions() const;
-	CategoryRepository getCategories() const;
-	CommentRepository getComments() const;
-	PayeeRepository getPayees() const;
-	AccountRepository getAccounts() const;
-	CurrencyRepository getCurrencies() const;
-	DescriptionRepository getDescriptions() const;
-	TagRepository getTags() const;
+	TransactionRepository getTransactionRepository() const;
+	CategoryRepository getCategoryRepository() const;
+	CommentRepository getCommentRepository() const;
+	PayeeRepository getPayeeRepository() const;
+	AccountRepository getAccountRepository() const;
+	CurrencyRepository getCurrencyRepository() const;
+	DescriptionRepository getDescriptionRepository() const;
+	TagRepository getTagRepository() const;
 	
 	void addTransaction(Transaction& transactionForAdd);
 	void addCategory(Category categoryForAdd);
@@ -34,4 +35,4 @@ public:
 	void addComment(Comment commentForAdd);
 	void addDescription(Description descriptionForAdd);
 	void addAccount(Account accountForAdd);
-};
+};*/

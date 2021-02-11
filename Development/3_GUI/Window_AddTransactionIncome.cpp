@@ -1,4 +1,4 @@
-#include "Window_Main.h"
+/*#include "Window_Main.h"
 #include "Window_AddTransactionIncome.h"
 
 Window_AddTransactionIncome::Window_AddTransactionIncome(const std::string& title
@@ -80,4 +80,4 @@ void Window_AddTransactionIncome::Cancel()
 {
 	button_pushed = true;
 	hide();
-}
+}*/

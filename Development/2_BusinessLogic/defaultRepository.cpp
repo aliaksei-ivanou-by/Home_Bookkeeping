@@ -1,6 +1,6 @@
 #include "defaultRepository.h"
 
-void setDefaultCurrencies(FinanceRepository& mainRepository)
+/*void setDefaultCurrencies(FinanceRepository& mainRepository)
 {
 	mainRepository.addCurrency({ "BYN", "BYN", true });
 	mainRepository.addCurrency({ "USD", "USD", false });
@@ -25,4 +25,4 @@ void setDefaultCategories(FinanceRepository& mainRepository)
 	mainRepository.addCategory({ "Transportation" });
 	mainRepository.addCategory({ "Vehicle" });
 	mainRepository.addCategory({ "Shopping" });
-}
+}*/

@@ -1,4 +1,4 @@
-#include "BookKeepingRepository.h"
+/*#include "BookKeepingRepository.h"
 
 FinanceRepository::FinanceRepository()
 {
@@ -11,35 +11,35 @@ FinanceRepository::FinanceRepository()
 	DescriptionRepository();
 	TagRepository();
 }
-TransactionRepository FinanceRepository::getTransactions() const
+TransactionRepository FinanceRepository::getTransactionRepository() const
 {
 	return financeRepositoryTransactions;
 }
-CategoryRepository FinanceRepository::getCategories() const
+CategoryRepository FinanceRepository::getCategoryRepository() const
 {
 	return financeRepositoryCategories;
 }
-CommentRepository FinanceRepository::getComments() const
+CommentRepository FinanceRepository::getCommentRepository() const
 {
 	return financeRepositoryComments;
 }
-PayeeRepository FinanceRepository::getPayees() const
+PayeeRepository FinanceRepository::getPayeeRepository() const
 {
 	return financeRepositoryPayees;
 }
-AccountRepository FinanceRepository::getAccounts() const
+AccountRepository FinanceRepository::getAccountRepository() const
 {
 	return financeRepositoryAccounts;
 }
-CurrencyRepository FinanceRepository::getCurrencies() const
+CurrencyRepository FinanceRepository::getCurrencyRepository() const
 {
 	return financeRepositoryCurrencies;
 }
-DescriptionRepository FinanceRepository::getDescriptions() const
+DescriptionRepository FinanceRepository::getDescriptionRepository() const
 {
 	return financeRepositoryDescriptions;
 }
-TagRepository FinanceRepository::getTags() const
+TagRepository FinanceRepository::getTagRepository() const
 {
 	return financeRepositoryTags;
 }
@@ -74,4 +74,4 @@ void FinanceRepository::addDescription(Description descriptionForAdd)
 void FinanceRepository::addAccount(Account accountForAdd)
 {
 	financeRepositoryAccounts.addAccount(accountForAdd);
-}
+}*/
