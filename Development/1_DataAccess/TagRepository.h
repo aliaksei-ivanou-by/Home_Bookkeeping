@@ -11,4 +11,5 @@ public:
 	TagRepository();
 	void addTag(Tag tagForAdd);
 	void removeTag(Tag tagForRemove);
+	size_t sizeTagRepository();
 };

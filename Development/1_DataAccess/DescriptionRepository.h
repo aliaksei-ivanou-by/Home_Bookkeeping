@@ -11,4 +11,5 @@ public:
 	DescriptionRepository();
 	void addDescription(Description descriptionForAdd);
 	void removeDescription(Description descriptionForRemove);
+	size_t sizeDescriptionRepository();
 };

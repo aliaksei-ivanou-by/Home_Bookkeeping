@@ -12,3 +12,8 @@ void CategoryRepository::removeCategory(Category categoryForRemove)
 {
 	categoryRepository.erase(categoryForRemove);
 }
+
+size_t CategoryRepository::sizeCategoryRepository()
+{
+	return categoryRepository.size();
+}

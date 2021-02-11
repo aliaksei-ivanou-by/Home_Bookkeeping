@@ -12,3 +12,8 @@ void CurrencyRepository::removeCurrency(Currency currencyForRemove)
 {
 	currencyRepository.erase(currencyForRemove);
 }
+
+size_t CurrencyRepository::sizeCurrencyRepository()
+{
+	return currencyRepository.size();
+}

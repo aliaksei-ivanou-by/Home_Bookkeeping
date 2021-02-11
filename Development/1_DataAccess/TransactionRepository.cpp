@@ -12,3 +12,8 @@ void TransactionRepository::removeTransaction(Transaction transactionForRemove)
 {
 	transactionRepository.erase(transactionForRemove);
 }
+
+size_t TransactionRepository::sizeTransactionRepository()
+{
+	return transactionRepository.size();
+}

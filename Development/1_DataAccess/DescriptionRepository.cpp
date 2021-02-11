@@ -12,3 +12,8 @@ void DescriptionRepository::removeDescription(Description descriptionForRemove)
 {
 	descriptionRepository.erase(descriptionForRemove);
 }
+
+size_t DescriptionRepository::sizeDescriptionRepository()
+{
+	return descriptionRepository.size();
+}

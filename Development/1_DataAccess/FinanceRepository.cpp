@@ -45,40 +45,40 @@ void FinanceRepository::addAccount(Account&& accountForAdd)
 
 size_t FinanceRepository::getTransactionRepositorySize()
 {
-
+	return financeRepositoryTransactions.sizeTransactionRepository();
 }
 
 size_t FinanceRepository::getCategoryRepositorySize()
 {
-
+	return financeRepositoryCategories.sizeCategoryRepository();
 }
 
 size_t FinanceRepository::getCurrencyRepositorySize()
 {
-
+	return financeRepositoryCurrencies.sizeCurrencyRepository();
 }
 
 size_t FinanceRepository::getPayeeRepositorySize()
 {
-
+	return financeRepositoryPayees.sizePayeeRepository();
 }
 
 size_t FinanceRepository::getTagRepositorySize()
 {
-
+	return financeRepositoryTags.sizeTagRepository();
 }
 
 size_t FinanceRepository::getCommentRepositorySize()
 {
-
+	return financeRepositoryComments.sizeCommentRepository();
 }
 
 size_t FinanceRepository::getDescriptionRepositorySize()
 {
-
+	return financeRepositoryDescriptions.sizeDescriptionRepository();
 }
 
 size_t FinanceRepository::getAccountRepositorySize()
 {
-
+	return financeRepositoryAccounts.sizeAccountRepository();
 }

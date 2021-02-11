@@ -12,3 +12,8 @@ void PayeeRepository::removePayee(Payee payeeForRemove)
 {
 	payeeRepository.erase(payeeForRemove);
 }
+
+size_t PayeeRepository::sizePayeeRepository()
+{
+	return payeeRepository.size();
+}

@@ -12,3 +12,8 @@ void CommentRepository::removeComment(Comment commentForRemove)
 {
 	commentRepository.erase(commentForRemove);
 }
+
+size_t CommentRepository::sizeCommentRepository()
+{
+	return commentRepository.size();
+}
