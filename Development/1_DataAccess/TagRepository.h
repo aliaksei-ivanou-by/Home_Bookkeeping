@@ -11,6 +11,4 @@ public:
 	TagRepository();
 	void addTag(Tag tagForAdd);
 	void removeTag(Tag tagForRemove);
-	std::set<Tag> getTagRepository() const;
-	void setTagRepository(std::set<Tag>&& tagsForAdd);
 };

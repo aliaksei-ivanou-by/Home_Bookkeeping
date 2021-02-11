@@ -11,6 +11,4 @@ public:
 	AccountRepository();
 	void addAccount(Account accountForAdd);
 	void removeAccount(Account accountForRemove);
-	std::set<Account> getAccountRepository() const;
-	void setAccountRepository(std::set<Account>&& accountsForAdd);
 };

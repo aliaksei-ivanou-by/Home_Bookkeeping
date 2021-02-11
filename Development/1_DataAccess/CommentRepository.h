@@ -11,6 +11,4 @@ public:
 	CommentRepository();
 	void addComment(Comment commentForAdd);
 	void removeComment(Comment commentForRemove);
-	std::set<Comment> getCommentRepository() const;
-	void setCommentRepository(std::set<Comment>&& commentsForAdd);
 };

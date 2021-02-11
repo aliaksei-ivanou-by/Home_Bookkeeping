@@ -11,6 +11,4 @@ public:
 	PayeeRepository();
 	void addPayee(Payee payeeForAdd);
 	void removePayee(Payee payeeForRemove);
-	std::set<Payee> getPayeeRepository() const;
-	void setPayeeRepository(std::set<Payee>&& payeesForAdd);
 };
