@@ -12,4 +12,5 @@ public:
 	void addPayee(Payee payeeForAdd);
 	void removePayee(Payee payeeForRemove);
 	size_t sizePayeeRepository();
+	void clearPayeeRepository();
 };

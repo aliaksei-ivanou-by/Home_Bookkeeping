@@ -17,3 +17,8 @@ size_t DescriptionRepository::sizeDescriptionRepository()
 {
 	return descriptionRepository.size();
 }
+
+void DescriptionRepository::clearDescriptionRepository()
+{
+	descriptionRepository.clear();
+}

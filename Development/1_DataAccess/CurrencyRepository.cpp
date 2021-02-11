@@ -17,3 +17,8 @@ size_t CurrencyRepository::sizeCurrencyRepository()
 {
 	return currencyRepository.size();
 }
+
+void CurrencyRepository::clearCurrencyRepository()
+{
+	currencyRepository.clear();
+}

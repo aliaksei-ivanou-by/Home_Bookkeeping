@@ -12,4 +12,5 @@ public:
 	void addAccount(Account accountForAdd);
 	void removeAccount(Account accountForRemove);
 	size_t sizeAccountRepository();
+	void clearAccountRepository();
 };

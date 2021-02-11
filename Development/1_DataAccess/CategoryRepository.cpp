@@ -17,3 +17,8 @@ size_t CategoryRepository::sizeCategoryRepository()
 {
 	return categoryRepository.size();
 }
+
+void CategoryRepository::clearCategoryRepository()
+{
+	categoryRepository.clear();
+}

@@ -12,4 +12,5 @@ public:
 	void addTransaction(Transaction transactionForAdd);
 	void removeTransaction(Transaction transactionForRemove);
 	size_t sizeTransactionRepository();
+	void clearTransactionRepository();
 };

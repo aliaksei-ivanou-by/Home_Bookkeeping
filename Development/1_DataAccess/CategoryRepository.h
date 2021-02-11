@@ -12,4 +12,5 @@ public:
 	void addCategory(Category categoryForAdd);
 	void removeCategory(Category categoryforRemove);
 	size_t sizeCategoryRepository();
+	void clearCategoryRepository();
 };

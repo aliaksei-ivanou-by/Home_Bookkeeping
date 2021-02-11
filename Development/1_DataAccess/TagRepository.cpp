@@ -17,3 +17,8 @@ size_t TagRepository::sizeTagRepository()
 {
 	return tagRepository.size();
 }
+
+void TagRepository::clearTagRepository()
+{
+	tagRepository.clear();
+}

@@ -32,4 +32,13 @@ public:
 	size_t getCommentRepositorySize();
 	size_t getDescriptionRepositorySize();
 	size_t getAccountRepositorySize();
+
+	void clearTransactionRepository();
+	void clearCategoryRepository();
+	void clearCurrencyRepository();
+	void clearPayeeRepository();
+	void clearTagRepository();
+	void clearCommentRepository();
+	void clearDescriptionRepository();
+	void clearAccountRepository();
 };

@@ -17,3 +17,8 @@ size_t PayeeRepository::sizePayeeRepository()
 {
 	return payeeRepository.size();
 }
+
+void PayeeRepository::clearPayeeRepository()
+{
+	payeeRepository.clear();
+}

@@ -17,3 +17,8 @@ size_t AccountRepository::sizeAccountRepository()
 {
 	return accountRepository.size();
 }
+
+void AccountRepository::clearAccountRepository()
+{
+	accountRepository.clear();
+}

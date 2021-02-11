@@ -12,4 +12,5 @@ public:
 	void addComment(Comment commentForAdd);
 	void removeComment(Comment commentForRemove);
 	size_t sizeCommentRepository();
+	void clearCommentRepository();
 };

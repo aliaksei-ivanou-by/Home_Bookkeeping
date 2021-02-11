@@ -17,3 +17,8 @@ size_t CommentRepository::sizeCommentRepository()
 {
 	return commentRepository.size();
 }
+
+void CommentRepository::clearCommentRepository()
+{
+	commentRepository.clear();
+}

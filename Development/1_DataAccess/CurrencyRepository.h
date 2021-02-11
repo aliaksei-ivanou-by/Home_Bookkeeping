@@ -12,4 +12,5 @@ public:
 	void addCurrency(Currency currencyForAdd);
 	void removeCurrency(Currency currencyForRemove);
 	size_t sizeCurrencyRepository();
+	void clearCurrencyRepository();
 };

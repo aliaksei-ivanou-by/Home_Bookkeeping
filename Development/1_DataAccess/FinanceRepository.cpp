@@ -82,3 +82,43 @@ size_t FinanceRepository::getAccountRepositorySize()
 {
 	return financeRepositoryAccounts.sizeAccountRepository();
 }
+
+void FinanceRepository::clearTransactionRepository()
+{
+	financeRepositoryTransactions.clearTransactionRepository();
+}
+
+void FinanceRepository::clearCategoryRepository()
+{
+	financeRepositoryCategories.clearCategoryRepository();
+}
+
+void FinanceRepository::clearCurrencyRepository()
+{
+	financeRepositoryCurrencies.clearCurrencyRepository();
+}
+
+void FinanceRepository::clearPayeeRepository()
+{
+	financeRepositoryPayees.clearPayeeRepository();
+}
+
+void FinanceRepository::clearTagRepository()
+{
+	financeRepositoryTags.clearTagRepository();
+}
+
+void FinanceRepository::clearCommentRepository()
+{
+	financeRepositoryComments.clearCommentRepository();
+}
+
+void FinanceRepository::clearDescriptionRepository()
+{
+	financeRepositoryDescriptions.clearDescriptionRepository();
+}
+
+void FinanceRepository::clearAccountRepository()
+{
+	financeRepositoryAccounts.clearAccountRepository();
+}

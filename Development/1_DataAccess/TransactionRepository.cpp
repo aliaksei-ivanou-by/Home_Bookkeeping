@@ -17,3 +17,8 @@ size_t TransactionRepository::sizeTransactionRepository()
 {
 	return transactionRepository.size();
 }
+
+void TransactionRepository::clearTransactionRepository()
+{
+	transactionRepository.clear();
+}
