@@ -8,6 +8,7 @@
 int main()
 {
 	FinanceRepository a;
-	a.addCategory({ "Bills" });
+	a.addAccount({ "BYN Cash" });
+	a.addAccount({ "BYN VISA" });
 	return 0;
 }

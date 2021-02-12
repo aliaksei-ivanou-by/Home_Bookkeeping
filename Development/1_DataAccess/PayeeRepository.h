@@ -3,6 +3,8 @@
 #include "../include/stdafx.h"
 #include "../0_Models/Payee.h"
 
+using PayeeRepositoryIterator = std::set<Payee>::iterator;
+
 class PayeeRepository
 {
 private:
@@ -13,4 +15,5 @@ public:
 	void removePayee(Payee payeeForRemove);
 	size_t sizePayeeRepository();
 	void clearPayeeRepository();
+	PayeeRepositoryIterator findPayeeRepository(Payee&& payeeForFind);
 };

@@ -22,3 +22,8 @@ void TagRepository::clearTagRepository()
 {
 	tagRepository.clear();
 }
+
+TagRepositoryIterator TagRepository::findPayeeRepository(Tag&& tagForFind)
+{
+	return tagRepository.find(std::move(tagForFind));
+}

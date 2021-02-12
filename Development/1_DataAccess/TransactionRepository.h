@@ -3,6 +3,8 @@
 #include "../include/stdafx.h"
 #include "../include/1_DataAccess_Additional.h"
 
+using TransactionRepositoryIterator = std::set<Transaction>::iterator;
+
 class TransactionRepository
 {
 private:
@@ -13,4 +15,5 @@ public:
 	void removeTransaction(Transaction transactionForRemove);
 	size_t sizeTransactionRepository();
 	void clearTransactionRepository();
+	TransactionRepositoryIterator findTransactionRepository(Transaction&& transactionForFind);
 };

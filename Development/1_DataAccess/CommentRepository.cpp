@@ -22,3 +22,8 @@ void CommentRepository::clearCommentRepository()
 {
 	commentRepository.clear();
 }
+
+CommentRepositoryIterator CommentRepository::findCommentRepository(Comment&& commentForFind)
+{
+	return commentRepository.find(std::move(commentForFind));
+}

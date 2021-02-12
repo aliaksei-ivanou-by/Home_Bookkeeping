@@ -22,3 +22,8 @@ void TransactionRepository::clearTransactionRepository()
 {
 	transactionRepository.clear();
 }
+
+TransactionRepositoryIterator TransactionRepository::findTransactionRepository(Transaction&& transactionForFind)
+{
+	return transactionRepository.find(std::move(transactionForFind));
+}

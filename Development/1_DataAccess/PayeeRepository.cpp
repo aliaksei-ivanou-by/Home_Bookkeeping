@@ -22,3 +22,8 @@ void PayeeRepository::clearPayeeRepository()
 {
 	payeeRepository.clear();
 }
+
+PayeeRepositoryIterator PayeeRepository::findPayeeRepository(Payee&& payeeForFind)
+{
+	return payeeRepository.find(std::move(payeeForFind));
+}

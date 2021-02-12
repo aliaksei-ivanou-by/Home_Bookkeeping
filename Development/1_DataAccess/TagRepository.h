@@ -3,6 +3,8 @@
 #include "../include/stdafx.h"
 #include "../0_Models/Tag.h"
 
+using TagRepositoryIterator = std::set<Tag>::iterator;
+
 class TagRepository
 {
 private:
@@ -13,4 +15,5 @@ public:
 	void removeTag(Tag tagForRemove);
 	size_t sizeTagRepository();
 	void clearTagRepository();
+	TagRepositoryIterator findPayeeRepository(Tag&& tagForFind);
 };

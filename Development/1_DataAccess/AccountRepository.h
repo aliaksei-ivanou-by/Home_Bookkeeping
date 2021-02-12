@@ -3,6 +3,8 @@
 #include "../include/stdafx.h"
 #include "../0_Models/Account.h"
 
+using AccountRepositoryIterator = std::set<Account>::iterator;
+
 class AccountRepository
 {
 private:
@@ -13,4 +15,5 @@ public:
 	void removeAccount(Account accountForRemove);
 	size_t sizeAccountRepository();
 	void clearAccountRepository();
+	AccountRepositoryIterator findAccountRepository(Account&& accountForFind);
 };

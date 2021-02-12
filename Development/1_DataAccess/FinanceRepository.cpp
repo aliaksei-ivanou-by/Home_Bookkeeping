@@ -122,3 +122,43 @@ void FinanceRepository::clearAccountRepository()
 {
 	financeRepositoryAccounts.clearAccountRepository();
 }
+
+TransactionRepositoryIterator FinanceRepository::findTransactionRepository(Transaction&& transactionForFind)
+{
+	return financeRepositoryTransactions.findTransactionRepository(std::move(transactionForFind));
+}
+
+CategoryRepositoryIterator FinanceRepository::findCategoryRepository(Category&& categoryForFind)
+{
+	return financeRepositoryCategories.findCategoryRepository(std::move(categoryForFind));
+}
+
+CurrencyRepositoryIterator FinanceRepository::findCurrencyRepository(Currency&& currencyForFind)
+{
+	return financeRepositoryCurrencies.findCurrencyRepository(std::move(currencyForFind));
+}
+
+PayeeRepositoryIterator FinanceRepository::findPayeeRepository(Payee&& payeeForFind)
+{
+	return financeRepositoryPayees.findPayeeRepository(std::move(payeeForFind));
+}
+
+TagRepositoryIterator FinanceRepository::findTagRepository(Tag&& tagForFind)
+{
+	return financeRepositoryTags.findPayeeRepository(std::move(tagForFind));
+}
+
+CommentRepositoryIterator FinanceRepository::findCommentRepository(Comment&& commentForFind)
+{
+	return financeRepositoryComments.findCommentRepository(std::move(commentForFind));
+}
+
+DescriptionRepositoryIterator FinanceRepository::findDescriptionRepository(Description&& descriptionForFind)
+{
+	return financeRepositoryDescriptions.findDescriptionRepository(std::move(descriptionForFind));
+}
+
+AccountRepositoryIterator FinanceRepository::findAccountRepository(Account&& accountForFind)
+{
+	return financeRepositoryAccounts.findAccountRepository(std::move(accountForFind));
+}

@@ -22,3 +22,8 @@ void CategoryRepository::clearCategoryRepository()
 {
 	categoryRepository.clear();
 }
+
+CategoryRepositoryIterator CategoryRepository::findCategoryRepository(Category&& categoryForFind)
+{
+	return categoryRepository.find(std::move(categoryForFind));
+}

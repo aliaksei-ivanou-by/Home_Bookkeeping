@@ -41,4 +41,13 @@ public:
 	void clearCommentRepository();
 	void clearDescriptionRepository();
 	void clearAccountRepository();
+
+	TransactionRepositoryIterator findTransactionRepository(Transaction&& transactionForFind);
+	CategoryRepositoryIterator findCategoryRepository(Category&& categoryForFind);
+	CurrencyRepositoryIterator findCurrencyRepository(Currency&& currencyForFind);
+	PayeeRepositoryIterator findPayeeRepository(Payee&& payeeForFind);
+	TagRepositoryIterator findTagRepository(Tag&& tagForFind);
+	CommentRepositoryIterator findCommentRepository(Comment&& commentForFind);
+	DescriptionRepositoryIterator findDescriptionRepository(Description&& descriptionForFind);
+	AccountRepositoryIterator findAccountRepository(Account&& accountForFind);
 };

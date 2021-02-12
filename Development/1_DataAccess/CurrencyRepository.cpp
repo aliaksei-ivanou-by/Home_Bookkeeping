@@ -22,3 +22,8 @@ void CurrencyRepository::clearCurrencyRepository()
 {
 	currencyRepository.clear();
 }
+
+CurrencyRepositoryIterator CurrencyRepository::findCurrencyRepository(Currency&& currencyForFind)
+{
+	return currencyRepository.find(std::move(currencyForFind));
+}

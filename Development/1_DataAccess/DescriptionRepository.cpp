@@ -22,3 +22,8 @@ void DescriptionRepository::clearDescriptionRepository()
 {
 	descriptionRepository.clear();
 }
+
+DescriptionRepositoryIterator DescriptionRepository::findDescriptionRepository(Description&& descriptionForFind)
+{
+	return descriptionRepository.find(std::move(descriptionForFind));
+}

@@ -22,3 +22,8 @@ void AccountRepository::clearAccountRepository()
 {
 	accountRepository.clear();
 }
+
+AccountRepositoryIterator AccountRepository::findAccountRepository(Account&& accountForFind)
+{
+	return accountRepository.find(std::move(accountForFind));
+}

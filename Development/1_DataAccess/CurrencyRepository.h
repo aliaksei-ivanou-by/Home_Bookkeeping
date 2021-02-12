@@ -3,6 +3,8 @@
 #include "../include/stdafx.h"
 #include "../0_Models/Currency.h"
 
+using CurrencyRepositoryIterator = std::set<Currency>::iterator;
+
 class CurrencyRepository
 {
 private:
@@ -13,4 +15,5 @@ public:
 	void removeCurrency(Currency currencyForRemove);
 	size_t sizeCurrencyRepository();
 	void clearCurrencyRepository();
+	CurrencyRepositoryIterator findCurrencyRepository(Currency&& currencyForFind);
 };

@@ -3,6 +3,8 @@
 #include "../include/stdafx.h"
 #include "../0_Models/Comment.h"
 
+using CommentRepositoryIterator = std::set<Comment>::iterator;
+
 class CommentRepository
 {
 private:
@@ -13,4 +15,5 @@ public:
 	void removeComment(Comment commentForRemove);
 	size_t sizeCommentRepository();
 	void clearCommentRepository();
+	CommentRepositoryIterator findCommentRepository(Comment&& commentForFind);
 };
