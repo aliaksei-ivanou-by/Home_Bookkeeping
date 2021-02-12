@@ -8,12 +8,12 @@ using TransactionRepositoryIterator = std::set<Transaction>::iterator;
 class TransactionRepository
 {
 private:
-	std::set<Transaction> transactionRepository;
+	std::set<Transaction> repository;
 public:
 	TransactionRepository();
-	void addTransaction(Transaction transactionForAdd);
-	void removeTransaction(Transaction transactionForRemove);
-	size_t sizeTransactionRepository() const;
-	void clearTransactionRepository();
-	TransactionRepositoryIterator findTransactionRepository(Transaction&& transactionForFind) const;
+	void add(Transaction transactionForAdd);
+	void remove(Transaction transactionForRemove);
+	size_t size() const;
+	void clear();
+	TransactionRepositoryIterator find(Transaction&& transactionForFind) const;
 };

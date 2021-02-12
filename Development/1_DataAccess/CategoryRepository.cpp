@@ -3,27 +3,27 @@
 CategoryRepository::CategoryRepository()
 {}
 
-void CategoryRepository::addCategory(Category categoryForAdd)
+void CategoryRepository::add(Category categoryForAdd)
 {
-	categoryRepository.insert(categoryForAdd);
+	repository.insert(categoryForAdd);
 }
 
-void CategoryRepository::removeCategory(Category categoryForRemove)
+void CategoryRepository::remove(Category categoryForRemove)
 {
-	categoryRepository.erase(categoryForRemove);
+	repository.erase(categoryForRemove);
 }
 
-size_t CategoryRepository::sizeCategoryRepository() const
+size_t CategoryRepository::size() const
 {
-	return categoryRepository.size();
+	return repository.size();
 }
 
-void CategoryRepository::clearCategoryRepository()
+void CategoryRepository::clear()
 {
-	categoryRepository.clear();
+	repository.clear();
 }
 
-CategoryRepositoryIterator CategoryRepository::findCategoryRepository(Category&& categoryForFind) const
+CategoryRepositoryIterator CategoryRepository::find(Category&& categoryForFind) const
 {
-	return categoryRepository.find(std::move(categoryForFind));
+	return repository.find(std::move(categoryForFind));
 }

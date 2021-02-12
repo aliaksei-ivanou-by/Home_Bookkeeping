@@ -3,27 +3,27 @@
 PayeeRepository::PayeeRepository()
 {}
 
-void PayeeRepository::addPayee(Payee payeeForAdd)
+void PayeeRepository::add(Payee payeeForAdd)
 {
-	payeeRepository.insert(payeeForAdd);
+	repository.insert(payeeForAdd);
 }
 
-void PayeeRepository::removePayee(Payee payeeForRemove)
+void PayeeRepository::remove(Payee payeeForRemove)
 {
-	payeeRepository.erase(payeeForRemove);
+	repository.erase(payeeForRemove);
 }
 
-size_t PayeeRepository::sizePayeeRepository() const
+size_t PayeeRepository::size() const
 {
-	return payeeRepository.size();
+	return repository.size();
 }
 
-void PayeeRepository::clearPayeeRepository()
+void PayeeRepository::clear()
 {
-	payeeRepository.clear();
+	repository.clear();
 }
 
-PayeeRepositoryIterator PayeeRepository::findPayeeRepository(Payee&& payeeForFind) const
+PayeeRepositoryIterator PayeeRepository::find(Payee&& payeeForFind) const
 {
-	return payeeRepository.find(std::move(payeeForFind));
+	return repository.find(std::move(payeeForFind));
 }

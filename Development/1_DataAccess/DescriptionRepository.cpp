@@ -3,27 +3,27 @@
 DescriptionRepository::DescriptionRepository()
 {}
 
-void DescriptionRepository::addDescription(Description descriptionForAdd)
+void DescriptionRepository::add(Description descriptionForAdd)
 {
-	descriptionRepository.insert(descriptionForAdd);
+	repository.insert(descriptionForAdd);
 }
 
-void DescriptionRepository::removeDescription(Description descriptionForRemove)
+void DescriptionRepository::remove(Description descriptionForRemove)
 {
-	descriptionRepository.erase(descriptionForRemove);
+	repository.erase(descriptionForRemove);
 }
 
-size_t DescriptionRepository::sizeDescriptionRepository() const
+size_t DescriptionRepository::size() const
 {
-	return descriptionRepository.size();
+	return repository.size();
 }
 
-void DescriptionRepository::clearDescriptionRepository()
+void DescriptionRepository::clear()
 {
-	descriptionRepository.clear();
+	repository.clear();
 }
 
-DescriptionRepositoryIterator DescriptionRepository::findDescriptionRepository(Description&& descriptionForFind) const
+DescriptionRepositoryIterator DescriptionRepository::find(Description&& descriptionForFind) const
 {
-	return descriptionRepository.find(std::move(descriptionForFind));
+	return repository.find(std::move(descriptionForFind));
 }

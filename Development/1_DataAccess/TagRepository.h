@@ -8,12 +8,12 @@ using TagRepositoryIterator = std::set<Tag>::iterator;
 class TagRepository
 {
 private:
-	std::set<Tag> tagRepository;
+	std::set<Tag> repository;
 public:
 	TagRepository();
-	void addTag(Tag tagForAdd);
-	void removeTag(Tag tagForRemove);
-	size_t sizeTagRepository() const;
-	void clearTagRepository();
-	TagRepositoryIterator findPayeeRepository(Tag&& tagForFind) const;
+	void add(Tag tagForAdd);
+	void remove(Tag tagForRemove);
+	size_t size() const;
+	void clear();
+	TagRepositoryIterator find(Tag&& tagForFind) const;
 };

@@ -8,12 +8,12 @@ using PayeeRepositoryIterator = std::set<Payee>::iterator;
 class PayeeRepository
 {
 private:
-	std::set<Payee> payeeRepository;
+	std::set<Payee> repository;
 public:
 	PayeeRepository();
-	void addPayee(Payee payeeForAdd);
-	void removePayee(Payee payeeForRemove);
-	size_t sizePayeeRepository() const;
-	void clearPayeeRepository();
-	PayeeRepositoryIterator findPayeeRepository(Payee&& payeeForFind) const;
+	void add(Payee payeeForAdd);
+	void remove(Payee payeeForRemove);
+	size_t size() const;
+	void clear();
+	PayeeRepositoryIterator find(Payee&& payeeForFind) const;
 };

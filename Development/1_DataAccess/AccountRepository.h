@@ -8,12 +8,12 @@ using AccountRepositoryIterator = std::set<Account>::iterator;
 class AccountRepository
 {
 private:
-	std::set<Account> accountRepository;
+	std::set<Account> repository;
 public:
 	AccountRepository();
-	void addAccount(Account accountForAdd);
-	void removeAccount(Account accountForRemove);
-	size_t sizeAccountRepository() const;
-	void clearAccountRepository();
-	AccountRepositoryIterator findAccountRepository(Account&& accountForFind) const;
+	void add(Account accountForAdd);
+	void remove(Account accountForRemove);
+	size_t size() const;
+	void clear();
+	AccountRepositoryIterator find(Account&& accountForFind) const;
 };

@@ -8,12 +8,12 @@ using CurrencyRepositoryIterator = std::set<Currency>::iterator;
 class CurrencyRepository
 {
 private:
-	std::set<Currency> currencyRepository;
+	std::set<Currency> repository;
 public:
 	CurrencyRepository();
-	void addCurrency(Currency currencyForAdd);
-	void removeCurrency(Currency currencyForRemove);
-	size_t sizeCurrencyRepository() const;
-	void clearCurrencyRepository();
-	CurrencyRepositoryIterator findCurrencyRepository(Currency&& currencyForFind) const;
+	void add(Currency currencyForAdd);
+	void remove(Currency currencyForRemove);
+	size_t size() const;
+	void clear();
+	CurrencyRepositoryIterator find(Currency&& currencyForFind) const;
 };

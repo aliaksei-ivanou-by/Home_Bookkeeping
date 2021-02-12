@@ -5,160 +5,160 @@ FinanceRepository::FinanceRepository()
 
 void FinanceRepository::addTransaction(Transaction&& transactionForAdd)
 {
-	financeRepositoryTransactions.addTransaction(std::move(transactionForAdd));
+	financeRepositoryTransactions.add(std::move(transactionForAdd));
 }
 
 void FinanceRepository::addCategory(Category&& categoryForAdd)
 {
-	financeRepositoryCategories.addCategory(std::move(categoryForAdd));
+	financeRepositoryCategories.add(std::move(categoryForAdd));
 }
 
 void FinanceRepository::addCurrency(Currency&& currencyForAdd)
 {
-	financeRepositoryCurrencies.addCurrency(std::move(currencyForAdd));
+	financeRepositoryCurrencies.add(std::move(currencyForAdd));
 }
 
 void FinanceRepository::addPayee(Payee&& payeeForAdd)
 {
-	financeRepositoryPayees.addPayee(std::move(payeeForAdd));
+	financeRepositoryPayees.add(std::move(payeeForAdd));
 }
 
 void FinanceRepository::addTag(Tag&& tagForAdd)
 {
-	financeRepositoryTags.addTag(std::move(tagForAdd));
+	financeRepositoryTags.add(std::move(tagForAdd));
 }
 
 void FinanceRepository::addComment(Comment&& commentForAdd)
 {
-	financeRepositoryComments.addComment(std::move(commentForAdd));
+	financeRepositoryComments.add(std::move(commentForAdd));
 }
 
 void FinanceRepository::addDescription(Description&& descriptionForAdd)
 {
-	financeRepositoryDescriptions.addDescription(std::move(descriptionForAdd));
+	financeRepositoryDescriptions.add(std::move(descriptionForAdd));
 }
 
 void FinanceRepository::addAccount(Account&& accountForAdd)
 {
-	financeRepositoryAccounts.addAccount(std::move(accountForAdd));
+	financeRepositoryAccounts.add(std::move(accountForAdd));
 }
 
 size_t FinanceRepository::getTransactionRepositorySize() const
 {
-	return financeRepositoryTransactions.sizeTransactionRepository();
+	return financeRepositoryTransactions.size();
 }
 
 size_t FinanceRepository::getCategoryRepositorySize() const
 {
-	return financeRepositoryCategories.sizeCategoryRepository();
+	return financeRepositoryCategories.size();
 }
 
 size_t FinanceRepository::getCurrencyRepositorySize() const
 {
-	return financeRepositoryCurrencies.sizeCurrencyRepository();
+	return financeRepositoryCurrencies.size();
 }
 
 size_t FinanceRepository::getPayeeRepositorySize() const
 {
-	return financeRepositoryPayees.sizePayeeRepository();
+	return financeRepositoryPayees.size();
 }
 
 size_t FinanceRepository::getTagRepositorySize() const
 {
-	return financeRepositoryTags.sizeTagRepository();
+	return financeRepositoryTags.size();
 }
 
 size_t FinanceRepository::getCommentRepositorySize() const
 {
-	return financeRepositoryComments.sizeCommentRepository();
+	return financeRepositoryComments.size();
 }
 
 size_t FinanceRepository::getDescriptionRepositorySize() const
 {
-	return financeRepositoryDescriptions.sizeDescriptionRepository();
+	return financeRepositoryDescriptions.size();
 }
 
 size_t FinanceRepository::getAccountRepositorySize() const
 {
-	return financeRepositoryAccounts.sizeAccountRepository();
+	return financeRepositoryAccounts.size();
 }
 
 void FinanceRepository::clearTransactionRepository()
 {
-	financeRepositoryTransactions.clearTransactionRepository();
+	financeRepositoryTransactions.clear();
 }
 
 void FinanceRepository::clearCategoryRepository()
 {
-	financeRepositoryCategories.clearCategoryRepository();
+	financeRepositoryCategories.clear();
 }
 
 void FinanceRepository::clearCurrencyRepository()
 {
-	financeRepositoryCurrencies.clearCurrencyRepository();
+	financeRepositoryCurrencies.clear();
 }
 
 void FinanceRepository::clearPayeeRepository()
 {
-	financeRepositoryPayees.clearPayeeRepository();
+	financeRepositoryPayees.clear();
 }
 
 void FinanceRepository::clearTagRepository()
 {
-	financeRepositoryTags.clearTagRepository();
+	financeRepositoryTags.clear();
 }
 
 void FinanceRepository::clearCommentRepository()
 {
-	financeRepositoryComments.clearCommentRepository();
+	financeRepositoryComments.clear();
 }
 
 void FinanceRepository::clearDescriptionRepository()
 {
-	financeRepositoryDescriptions.clearDescriptionRepository();
+	financeRepositoryDescriptions.clear();
 }
 
 void FinanceRepository::clearAccountRepository()
 {
-	financeRepositoryAccounts.clearAccountRepository();
+	financeRepositoryAccounts.clear();
 }
 
 TransactionRepositoryIterator FinanceRepository::findTransactionRepository(Transaction&& transactionForFind) const
 {
-	return financeRepositoryTransactions.findTransactionRepository(std::move(transactionForFind));
+	return financeRepositoryTransactions.find(std::move(transactionForFind));
 }
 
 CategoryRepositoryIterator FinanceRepository::findCategoryRepository(Category&& categoryForFind) const
 {
-	return financeRepositoryCategories.findCategoryRepository(std::move(categoryForFind));
+	return financeRepositoryCategories.find(std::move(categoryForFind));
 }
 
 CurrencyRepositoryIterator FinanceRepository::findCurrencyRepository(Currency&& currencyForFind) const
 {
-	return financeRepositoryCurrencies.findCurrencyRepository(std::move(currencyForFind));
+	return financeRepositoryCurrencies.find(std::move(currencyForFind));
 }
 
 PayeeRepositoryIterator FinanceRepository::findPayeeRepository(Payee&& payeeForFind) const
 {
-	return financeRepositoryPayees.findPayeeRepository(std::move(payeeForFind));
+	return financeRepositoryPayees.find(std::move(payeeForFind));
 }
 
 TagRepositoryIterator FinanceRepository::findTagRepository(Tag&& tagForFind) const
 {
-	return financeRepositoryTags.findPayeeRepository(std::move(tagForFind));
+	return financeRepositoryTags.find(std::move(tagForFind));
 }
 
 CommentRepositoryIterator FinanceRepository::findCommentRepository(Comment&& commentForFind) const
 {
-	return financeRepositoryComments.findCommentRepository(std::move(commentForFind));
+	return financeRepositoryComments.find(std::move(commentForFind));
 }
 
 DescriptionRepositoryIterator FinanceRepository::findDescriptionRepository(Description&& descriptionForFind) const
 {
-	return financeRepositoryDescriptions.findDescriptionRepository(std::move(descriptionForFind));
+	return financeRepositoryDescriptions.find(std::move(descriptionForFind));
 }
 
 AccountRepositoryIterator FinanceRepository::findAccountRepository(Account&& accountForFind) const
 {
-	return financeRepositoryAccounts.findAccountRepository(std::move(accountForFind));
+	return financeRepositoryAccounts.find(std::move(accountForFind));
 }

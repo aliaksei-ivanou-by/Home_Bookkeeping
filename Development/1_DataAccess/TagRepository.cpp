@@ -3,27 +3,27 @@
 TagRepository::TagRepository()
 {}
 
-void TagRepository::addTag(Tag tagForAdd)
+void TagRepository::add(Tag tagForAdd)
 {
-	tagRepository.insert(tagForAdd);
+	repository.insert(tagForAdd);
 }
 
-void TagRepository::removeTag(Tag tagForRemove)
+void TagRepository::remove(Tag tagForRemove)
 {
-	tagRepository.erase(tagForRemove);
+	repository.erase(tagForRemove);
 }
 
-size_t TagRepository::sizeTagRepository() const
+size_t TagRepository::size() const
 {
-	return tagRepository.size();
+	return repository.size();
 }
 
-void TagRepository::clearTagRepository()
+void TagRepository::clear()
 {
-	tagRepository.clear();
+	repository.clear();
 }
 
-TagRepositoryIterator TagRepository::findPayeeRepository(Tag&& tagForFind) const
+TagRepositoryIterator TagRepository::find(Tag&& tagForFind) const
 {
-	return tagRepository.find(std::move(tagForFind));
+	return repository.find(std::move(tagForFind));
 }

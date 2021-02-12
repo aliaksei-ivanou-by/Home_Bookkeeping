@@ -8,12 +8,12 @@ using CommentRepositoryIterator = std::set<Comment>::iterator;
 class CommentRepository
 {
 private:
-	std::set<Comment> commentRepository;
+	std::set<Comment> repository;
 public:
 	CommentRepository();
-	void addComment(Comment commentForAdd);
-	void removeComment(Comment commentForRemove);
-	size_t sizeCommentRepository() const;
-	void clearCommentRepository();
-	CommentRepositoryIterator findCommentRepository(Comment&& commentForFind) const;
+	void add(Comment commentForAdd);
+	void remove(Comment commentForRemove);
+	size_t size() const;
+	void clear();
+	CommentRepositoryIterator find(Comment&& commentForFind) const;
 };

@@ -3,27 +3,27 @@
 TransactionRepository::TransactionRepository()
 {}
 
-void TransactionRepository::addTransaction(Transaction transactionForAdd)
+void TransactionRepository::add(Transaction transactionForAdd)
 {
-	transactionRepository.insert(transactionForAdd);
+	repository.insert(transactionForAdd);
 }
 
-void TransactionRepository::removeTransaction(Transaction transactionForRemove)
+void TransactionRepository::remove(Transaction transactionForRemove)
 {
-	transactionRepository.erase(transactionForRemove);
+	repository.erase(transactionForRemove);
 }
 
-size_t TransactionRepository::sizeTransactionRepository() const
+size_t TransactionRepository::size() const
 {
-	return transactionRepository.size();
+	return repository.size();
 }
 
-void TransactionRepository::clearTransactionRepository()
+void TransactionRepository::clear()
 {
-	transactionRepository.clear();
+	repository.clear();
 }
 
-TransactionRepositoryIterator TransactionRepository::findTransactionRepository(Transaction&& transactionForFind) const
+TransactionRepositoryIterator TransactionRepository::find(Transaction&& transactionForFind) const
 {
-	return transactionRepository.find(std::move(transactionForFind));
+	return repository.find(std::move(transactionForFind));
 }

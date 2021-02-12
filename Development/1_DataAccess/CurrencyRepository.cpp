@@ -3,27 +3,27 @@
 CurrencyRepository::CurrencyRepository()
 {}
 
-void CurrencyRepository::addCurrency(Currency currencyForAdd)
+void CurrencyRepository::add(Currency currencyForAdd)
 {
-	currencyRepository.insert(currencyForAdd);
+	repository.insert(currencyForAdd);
 }
 
-void CurrencyRepository::removeCurrency(Currency currencyForRemove)
+void CurrencyRepository::remove(Currency currencyForRemove)
 {
-	currencyRepository.erase(currencyForRemove);
+	repository.erase(currencyForRemove);
 }
 
-size_t CurrencyRepository::sizeCurrencyRepository() const
+size_t CurrencyRepository::size() const
 {
-	return currencyRepository.size();
+	return repository.size();
 }
 
-void CurrencyRepository::clearCurrencyRepository()
+void CurrencyRepository::clear()
 {
-	currencyRepository.clear();
+	repository.clear();
 }
 
-CurrencyRepositoryIterator CurrencyRepository::findCurrencyRepository(Currency&& currencyForFind) const
+CurrencyRepositoryIterator CurrencyRepository::find(Currency&& currencyForFind) const
 {
-	return currencyRepository.find(std::move(currencyForFind));
+	return repository.find(std::move(currencyForFind));
 }

@@ -3,27 +3,27 @@
 AccountRepository::AccountRepository()
 {}
 
-void AccountRepository::addAccount(Account accountForAdd)
+void AccountRepository::add(Account accountForAdd)
 {
-	accountRepository.insert(accountForAdd);
+	repository.insert(accountForAdd);
 }
 
-void AccountRepository::removeAccount(Account accountForRemove)
+void AccountRepository::remove(Account accountForRemove)
 {
-	accountRepository.erase(accountForRemove);
+	repository.erase(accountForRemove);
 }
 
-size_t AccountRepository::sizeAccountRepository() const
+size_t AccountRepository::size() const
 {
-	return accountRepository.size();
+	return repository.size();
 }
 
-void AccountRepository::clearAccountRepository()
+void AccountRepository::clear()
 {
-	accountRepository.clear();
+	repository.clear();
 }
 
-AccountRepositoryIterator AccountRepository::findAccountRepository(Account&& accountForFind) const
+AccountRepositoryIterator AccountRepository::find(Account&& accountForFind) const
 {
-	return accountRepository.find(std::move(accountForFind));
+	return repository.find(std::move(accountForFind));
 }

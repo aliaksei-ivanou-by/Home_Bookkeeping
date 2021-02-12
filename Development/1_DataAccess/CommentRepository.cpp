@@ -3,27 +3,27 @@
 CommentRepository::CommentRepository()
 {}
 
-void CommentRepository::addComment(Comment commentForAdd)
+void CommentRepository::add(Comment commentForAdd)
 {
-	commentRepository.insert(commentForAdd);
+	repository.insert(commentForAdd);
 }
 
-void CommentRepository::removeComment(Comment commentForRemove)
+void CommentRepository::remove(Comment commentForRemove)
 {
-	commentRepository.erase(commentForRemove);
+	repository.erase(commentForRemove);
 }
 
-size_t CommentRepository::sizeCommentRepository() const
+size_t CommentRepository::size() const
 {
-	return commentRepository.size();
+	return repository.size();
 }
 
-void CommentRepository::clearCommentRepository()
+void CommentRepository::clear()
 {
-	commentRepository.clear();
+	repository.clear();
 }
 
-CommentRepositoryIterator CommentRepository::findCommentRepository(Comment&& commentForFind) const
+CommentRepositoryIterator CommentRepository::find(Comment&& commentForFind) const
 {
-	return commentRepository.find(std::move(commentForFind));
+	return repository.find(std::move(commentForFind));
 }

@@ -8,12 +8,12 @@ using CategoryRepositoryIterator = std::set<Category>::iterator;
 class CategoryRepository
 {
 private:
-	std::set<Category> categoryRepository;
+	std::set<Category> repository;
 public:
 	CategoryRepository();
-	void addCategory(Category categoryForAdd);
-	void removeCategory(Category categoryforRemove);
-	size_t sizeCategoryRepository() const;
-	void clearCategoryRepository();
-	CategoryRepositoryIterator findCategoryRepository(Category&& categoryForFind) const;
+	void add(Category categoryForAdd);
+	void remove(Category categoryforRemove);
+	size_t size() const;
+	void clear();
+	CategoryRepositoryIterator find(Category&& categoryForFind) const;
 };
