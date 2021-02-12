@@ -13,7 +13,7 @@ public:
 	CommentRepository();
 	void addComment(Comment commentForAdd);
 	void removeComment(Comment commentForRemove);
-	size_t sizeCommentRepository();
+	size_t sizeCommentRepository() const;
 	void clearCommentRepository();
-	CommentRepositoryIterator findCommentRepository(Comment&& commentForFind);
+	CommentRepositoryIterator findCommentRepository(Comment&& commentForFind) const;
 };

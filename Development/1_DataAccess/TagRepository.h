@@ -13,7 +13,7 @@ public:
 	TagRepository();
 	void addTag(Tag tagForAdd);
 	void removeTag(Tag tagForRemove);
-	size_t sizeTagRepository();
+	size_t sizeTagRepository() const;
 	void clearTagRepository();
-	TagRepositoryIterator findPayeeRepository(Tag&& tagForFind);
+	TagRepositoryIterator findPayeeRepository(Tag&& tagForFind) const;
 };

@@ -13,7 +13,7 @@ public:
 	CurrencyRepository();
 	void addCurrency(Currency currencyForAdd);
 	void removeCurrency(Currency currencyForRemove);
-	size_t sizeCurrencyRepository();
+	size_t sizeCurrencyRepository() const;
 	void clearCurrencyRepository();
-	CurrencyRepositoryIterator findCurrencyRepository(Currency&& currencyForFind);
+	CurrencyRepositoryIterator findCurrencyRepository(Currency&& currencyForFind) const;
 };

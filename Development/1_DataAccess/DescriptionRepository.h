@@ -13,7 +13,7 @@ public:
 	DescriptionRepository();
 	void addDescription(Description descriptionForAdd);
 	void removeDescription(Description descriptionForRemove);
-	size_t sizeDescriptionRepository();
+	size_t sizeDescriptionRepository() const;
 	void clearDescriptionRepository();
-	DescriptionRepositoryIterator findDescriptionRepository(Description&& descriptionForFind);
+	DescriptionRepositoryIterator findDescriptionRepository(Description&& descriptionForFind) const;
 };

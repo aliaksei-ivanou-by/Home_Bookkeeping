@@ -13,7 +13,7 @@ public:
 	PayeeRepository();
 	void addPayee(Payee payeeForAdd);
 	void removePayee(Payee payeeForRemove);
-	size_t sizePayeeRepository();
+	size_t sizePayeeRepository() const;
 	void clearPayeeRepository();
-	PayeeRepositoryIterator findPayeeRepository(Payee&& payeeForFind);
+	PayeeRepositoryIterator findPayeeRepository(Payee&& payeeForFind) const;
 };

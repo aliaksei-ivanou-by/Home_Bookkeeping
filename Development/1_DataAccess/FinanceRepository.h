@@ -24,14 +24,14 @@ public:
 	void addDescription(Description&& descriptionForAdd);
 	void addAccount(Account&& accountForAdd);
 
-	size_t getTransactionRepositorySize();
-	size_t getCategoryRepositorySize();
-	size_t getCurrencyRepositorySize();
-	size_t getPayeeRepositorySize();
-	size_t getTagRepositorySize();
-	size_t getCommentRepositorySize();
-	size_t getDescriptionRepositorySize();
-	size_t getAccountRepositorySize();
+	size_t getTransactionRepositorySize() const;
+	size_t getCategoryRepositorySize() const;
+	size_t getCurrencyRepositorySize() const;
+	size_t getPayeeRepositorySize() const;
+	size_t getTagRepositorySize() const;
+	size_t getCommentRepositorySize() const;
+	size_t getDescriptionRepositorySize() const;
+	size_t getAccountRepositorySize() const;
 
 	void clearTransactionRepository();
 	void clearCategoryRepository();
@@ -42,12 +42,12 @@ public:
 	void clearDescriptionRepository();
 	void clearAccountRepository();
 
-	TransactionRepositoryIterator findTransactionRepository(Transaction&& transactionForFind);
-	CategoryRepositoryIterator findCategoryRepository(Category&& categoryForFind);
-	CurrencyRepositoryIterator findCurrencyRepository(Currency&& currencyForFind);
-	PayeeRepositoryIterator findPayeeRepository(Payee&& payeeForFind);
-	TagRepositoryIterator findTagRepository(Tag&& tagForFind);
-	CommentRepositoryIterator findCommentRepository(Comment&& commentForFind);
-	DescriptionRepositoryIterator findDescriptionRepository(Description&& descriptionForFind);
-	AccountRepositoryIterator findAccountRepository(Account&& accountForFind);
+	TransactionRepositoryIterator findTransactionRepository(Transaction&& transactionForFind) const;
+	CategoryRepositoryIterator findCategoryRepository(Category&& categoryForFind) const;
+	CurrencyRepositoryIterator findCurrencyRepository(Currency&& currencyForFind) const;
+	PayeeRepositoryIterator findPayeeRepository(Payee&& payeeForFind) const;
+	TagRepositoryIterator findTagRepository(Tag&& tagForFind) const;
+	CommentRepositoryIterator findCommentRepository(Comment&& commentForFind) const;
+	DescriptionRepositoryIterator findDescriptionRepository(Description&& descriptionForFind) const;
+	AccountRepositoryIterator findAccountRepository(Account&& accountForFind) const;
 };

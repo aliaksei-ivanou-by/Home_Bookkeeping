@@ -13,7 +13,7 @@ public:
 	CategoryRepository();
 	void addCategory(Category categoryForAdd);
 	void removeCategory(Category categoryforRemove);
-	size_t sizeCategoryRepository();
+	size_t sizeCategoryRepository() const;
 	void clearCategoryRepository();
-	CategoryRepositoryIterator findCategoryRepository(Category&& categoryForFind);
+	CategoryRepositoryIterator findCategoryRepository(Category&& categoryForFind) const;
 };

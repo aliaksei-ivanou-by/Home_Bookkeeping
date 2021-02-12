@@ -13,7 +13,7 @@ void TransactionRepository::removeTransaction(Transaction transactionForRemove)
 	transactionRepository.erase(transactionForRemove);
 }
 
-size_t TransactionRepository::sizeTransactionRepository()
+size_t TransactionRepository::sizeTransactionRepository() const
 {
 	return transactionRepository.size();
 }
@@ -23,7 +23,7 @@ void TransactionRepository::clearTransactionRepository()
 	transactionRepository.clear();
 }
 
-TransactionRepositoryIterator TransactionRepository::findTransactionRepository(Transaction&& transactionForFind)
+TransactionRepositoryIterator TransactionRepository::findTransactionRepository(Transaction&& transactionForFind) const
 {
 	return transactionRepository.find(std::move(transactionForFind));
 }

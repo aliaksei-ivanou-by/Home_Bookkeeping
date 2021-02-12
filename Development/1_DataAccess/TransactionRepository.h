@@ -13,7 +13,7 @@ public:
 	TransactionRepository();
 	void addTransaction(Transaction transactionForAdd);
 	void removeTransaction(Transaction transactionForRemove);
-	size_t sizeTransactionRepository();
+	size_t sizeTransactionRepository() const;
 	void clearTransactionRepository();
-	TransactionRepositoryIterator findTransactionRepository(Transaction&& transactionForFind);
+	TransactionRepositoryIterator findTransactionRepository(Transaction&& transactionForFind) const;
 };

@@ -13,7 +13,7 @@ void TagRepository::removeTag(Tag tagForRemove)
 	tagRepository.erase(tagForRemove);
 }
 
-size_t TagRepository::sizeTagRepository()
+size_t TagRepository::sizeTagRepository() const
 {
 	return tagRepository.size();
 }
@@ -23,7 +23,7 @@ void TagRepository::clearTagRepository()
 	tagRepository.clear();
 }
 
-TagRepositoryIterator TagRepository::findPayeeRepository(Tag&& tagForFind)
+TagRepositoryIterator TagRepository::findPayeeRepository(Tag&& tagForFind) const
 {
 	return tagRepository.find(std::move(tagForFind));
 }

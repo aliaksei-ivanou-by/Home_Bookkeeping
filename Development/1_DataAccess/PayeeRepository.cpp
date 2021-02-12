@@ -13,7 +13,7 @@ void PayeeRepository::removePayee(Payee payeeForRemove)
 	payeeRepository.erase(payeeForRemove);
 }
 
-size_t PayeeRepository::sizePayeeRepository()
+size_t PayeeRepository::sizePayeeRepository() const
 {
 	return payeeRepository.size();
 }
@@ -23,7 +23,7 @@ void PayeeRepository::clearPayeeRepository()
 	payeeRepository.clear();
 }
 
-PayeeRepositoryIterator PayeeRepository::findPayeeRepository(Payee&& payeeForFind)
+PayeeRepositoryIterator PayeeRepository::findPayeeRepository(Payee&& payeeForFind) const
 {
 	return payeeRepository.find(std::move(payeeForFind));
 }

@@ -13,7 +13,7 @@ void CommentRepository::removeComment(Comment commentForRemove)
 	commentRepository.erase(commentForRemove);
 }
 
-size_t CommentRepository::sizeCommentRepository()
+size_t CommentRepository::sizeCommentRepository() const
 {
 	return commentRepository.size();
 }
@@ -23,7 +23,7 @@ void CommentRepository::clearCommentRepository()
 	commentRepository.clear();
 }
 
-CommentRepositoryIterator CommentRepository::findCommentRepository(Comment&& commentForFind)
+CommentRepositoryIterator CommentRepository::findCommentRepository(Comment&& commentForFind) const
 {
 	return commentRepository.find(std::move(commentForFind));
 }

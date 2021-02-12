@@ -13,7 +13,7 @@ void DescriptionRepository::removeDescription(Description descriptionForRemove)
 	descriptionRepository.erase(descriptionForRemove);
 }
 
-size_t DescriptionRepository::sizeDescriptionRepository()
+size_t DescriptionRepository::sizeDescriptionRepository() const
 {
 	return descriptionRepository.size();
 }
@@ -23,7 +23,7 @@ void DescriptionRepository::clearDescriptionRepository()
 	descriptionRepository.clear();
 }
 
-DescriptionRepositoryIterator DescriptionRepository::findDescriptionRepository(Description&& descriptionForFind)
+DescriptionRepositoryIterator DescriptionRepository::findDescriptionRepository(Description&& descriptionForFind) const
 {
 	return descriptionRepository.find(std::move(descriptionForFind));
 }

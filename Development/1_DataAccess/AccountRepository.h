@@ -13,7 +13,7 @@ public:
 	AccountRepository();
 	void addAccount(Account accountForAdd);
 	void removeAccount(Account accountForRemove);
-	size_t sizeAccountRepository();
+	size_t sizeAccountRepository() const;
 	void clearAccountRepository();
-	AccountRepositoryIterator findAccountRepository(Account&& accountForFind);
+	AccountRepositoryIterator findAccountRepository(Account&& accountForFind) const;
 };

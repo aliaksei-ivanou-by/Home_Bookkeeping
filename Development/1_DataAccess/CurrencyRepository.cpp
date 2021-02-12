@@ -13,7 +13,7 @@ void CurrencyRepository::removeCurrency(Currency currencyForRemove)
 	currencyRepository.erase(currencyForRemove);
 }
 
-size_t CurrencyRepository::sizeCurrencyRepository()
+size_t CurrencyRepository::sizeCurrencyRepository() const
 {
 	return currencyRepository.size();
 }
@@ -23,7 +23,7 @@ void CurrencyRepository::clearCurrencyRepository()
 	currencyRepository.clear();
 }
 
-CurrencyRepositoryIterator CurrencyRepository::findCurrencyRepository(Currency&& currencyForFind)
+CurrencyRepositoryIterator CurrencyRepository::findCurrencyRepository(Currency&& currencyForFind) const
 {
 	return currencyRepository.find(std::move(currencyForFind));
 }
