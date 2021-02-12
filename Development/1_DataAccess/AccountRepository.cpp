@@ -27,3 +27,13 @@ AccountRepositoryIterator AccountRepository::find(Account&& accountForFind) cons
 {
 	return repository.find(std::move(accountForFind));
 }
+
+AccountRepositoryIterator AccountRepository::begin() const
+{
+	return repository.begin();
+}
+
+AccountRepositoryIterator AccountRepository::end() const
+{
+	return repository.end();
+}

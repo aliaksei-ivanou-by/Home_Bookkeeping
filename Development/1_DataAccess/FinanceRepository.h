@@ -50,4 +50,22 @@ public:
 	CommentRepositoryIterator findCommentRepository(Comment&& commentForFind) const;
 	DescriptionRepositoryIterator findDescriptionRepository(Description&& descriptionForFind) const;
 	AccountRepositoryIterator findAccountRepository(Account&& accountForFind) const;
+
+	TransactionRepositoryIterator beginTransactionRepository() const;
+	CategoryRepositoryIterator beginCategoryRepository() const;
+	CurrencyRepositoryIterator beginCurrencyRepository() const;
+	PayeeRepositoryIterator beginPayeeRepository() const;
+	TagRepositoryIterator beginTagRepository() const;
+	CommentRepositoryIterator beginCommentRepository() const;
+	DescriptionRepositoryIterator beginDescriptionRepository() const;
+	AccountRepositoryIterator beginAccountRepository() const;
+
+	TransactionRepositoryIterator endTransactionRepository() const;
+	CategoryRepositoryIterator endCategoryRepository() const;
+	CurrencyRepositoryIterator endCurrencyRepository() const;
+	PayeeRepositoryIterator endPayeeRepository() const;
+	TagRepositoryIterator endTagRepository() const;
+	CommentRepositoryIterator endCommentRepository() const;
+	DescriptionRepositoryIterator endDescriptionRepository() const;
+	AccountRepositoryIterator endAccountRepository() const;
 };

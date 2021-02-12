@@ -16,4 +16,6 @@ public:
 	size_t size() const;
 	void clear();
 	TagRepositoryIterator find(Tag&& tagForFind) const;
+	TagRepositoryIterator begin() const;
+	TagRepositoryIterator end() const;
 };

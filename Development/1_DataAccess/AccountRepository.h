@@ -16,4 +16,6 @@ public:
 	size_t size() const;
 	void clear();
 	AccountRepositoryIterator find(Account&& accountForFind) const;
+	AccountRepositoryIterator begin() const;
+	AccountRepositoryIterator end() const;
 };

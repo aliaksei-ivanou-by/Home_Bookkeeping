@@ -16,4 +16,6 @@ public:
 	size_t size() const;
 	void clear();
 	CurrencyRepositoryIterator find(Currency&& currencyForFind) const;
+	CurrencyRepositoryIterator begin() const;
+	CurrencyRepositoryIterator end() const;
 };

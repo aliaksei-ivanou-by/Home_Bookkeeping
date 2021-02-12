@@ -162,3 +162,83 @@ AccountRepositoryIterator FinanceRepository::findAccountRepository(Account&& acc
 {
 	return financeRepositoryAccounts.find(std::move(accountForFind));
 }
+
+TransactionRepositoryIterator FinanceRepository::beginTransactionRepository() const
+{
+	return financeRepositoryTransactions.begin();
+}
+
+CategoryRepositoryIterator FinanceRepository::beginCategoryRepository() const
+{
+	return financeRepositoryCategories.begin();
+}
+
+CurrencyRepositoryIterator FinanceRepository::beginCurrencyRepository() const
+{
+	return financeRepositoryCurrencies.begin();
+}
+
+PayeeRepositoryIterator FinanceRepository::beginPayeeRepository() const
+{
+	return financeRepositoryPayees.begin();
+}
+
+TagRepositoryIterator FinanceRepository::beginTagRepository() const
+{
+	return financeRepositoryTags.begin();
+}
+
+CommentRepositoryIterator FinanceRepository::beginCommentRepository() const
+{
+	return financeRepositoryComments.begin();
+}
+
+DescriptionRepositoryIterator FinanceRepository::beginDescriptionRepository() const
+{
+	return financeRepositoryDescriptions.begin();
+}
+
+AccountRepositoryIterator FinanceRepository::beginAccountRepository() const
+{
+	return financeRepositoryAccounts.begin();
+}
+
+TransactionRepositoryIterator FinanceRepository::endTransactionRepository() const
+{
+	return financeRepositoryTransactions.end();
+}
+
+CategoryRepositoryIterator FinanceRepository::endCategoryRepository() const
+{
+	return financeRepositoryCategories.end();
+}
+
+CurrencyRepositoryIterator FinanceRepository::endCurrencyRepository() const
+{
+	return financeRepositoryCurrencies.end();
+}
+
+PayeeRepositoryIterator FinanceRepository::endPayeeRepository() const
+{
+	return financeRepositoryPayees.end();
+}
+
+TagRepositoryIterator FinanceRepository::endTagRepository() const
+{
+	return financeRepositoryTags.end();
+}
+
+CommentRepositoryIterator FinanceRepository::endCommentRepository() const
+{
+	return financeRepositoryComments.end();
+}
+
+DescriptionRepositoryIterator FinanceRepository::endDescriptionRepository() const
+{
+	return financeRepositoryDescriptions.end();
+}
+
+AccountRepositoryIterator FinanceRepository::endAccountRepository() const
+{
+	return financeRepositoryAccounts.end();
+}

@@ -27,3 +27,13 @@ TransactionRepositoryIterator TransactionRepository::find(Transaction&& transact
 {
 	return repository.find(std::move(transactionForFind));
 }
+
+TransactionRepositoryIterator TransactionRepository::begin() const
+{
+	return repository.begin();
+}
+
+TransactionRepositoryIterator TransactionRepository::end() const
+{
+	return repository.end();
+}

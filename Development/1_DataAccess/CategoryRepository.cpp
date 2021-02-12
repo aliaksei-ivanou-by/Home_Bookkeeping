@@ -27,3 +27,13 @@ CategoryRepositoryIterator CategoryRepository::find(Category&& categoryForFind) 
 {
 	return repository.find(std::move(categoryForFind));
 }
+
+CategoryRepositoryIterator CategoryRepository::begin() const
+{
+	return repository.begin();
+}
+
+CategoryRepositoryIterator CategoryRepository::end() const
+{
+	return repository.end();
+}

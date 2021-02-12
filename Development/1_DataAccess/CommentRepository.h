@@ -16,4 +16,6 @@ public:
 	size_t size() const;
 	void clear();
 	CommentRepositoryIterator find(Comment&& commentForFind) const;
+	CommentRepositoryIterator begin() const;
+	CommentRepositoryIterator end() const;
 };

@@ -27,3 +27,13 @@ CurrencyRepositoryIterator CurrencyRepository::find(Currency&& currencyForFind) 
 {
 	return repository.find(std::move(currencyForFind));
 }
+
+CurrencyRepositoryIterator CurrencyRepository::begin() const
+{
+	return repository.begin();
+}
+
+CurrencyRepositoryIterator CurrencyRepository::end() const
+{
+	return repository.end();
+}

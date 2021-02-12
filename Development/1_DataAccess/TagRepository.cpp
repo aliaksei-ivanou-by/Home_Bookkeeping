@@ -27,3 +27,13 @@ TagRepositoryIterator TagRepository::find(Tag&& tagForFind) const
 {
 	return repository.find(std::move(tagForFind));
 }
+
+TagRepositoryIterator TagRepository::begin() const
+{
+	return repository.begin();
+}
+
+TagRepositoryIterator TagRepository::end() const
+{
+	return repository.end();
+}

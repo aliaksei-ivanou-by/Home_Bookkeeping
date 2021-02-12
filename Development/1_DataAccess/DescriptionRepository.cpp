@@ -27,3 +27,14 @@ DescriptionRepositoryIterator DescriptionRepository::find(Description&& descript
 {
 	return repository.find(std::move(descriptionForFind));
 }
+
+DescriptionRepositoryIterator DescriptionRepository::begin() const
+{
+	return repository.begin();
+
+}
+
+DescriptionRepositoryIterator DescriptionRepository::end() const
+{
+	return repository.end();
+}

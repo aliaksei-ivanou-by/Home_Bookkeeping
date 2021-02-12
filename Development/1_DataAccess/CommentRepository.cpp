@@ -27,3 +27,13 @@ CommentRepositoryIterator CommentRepository::find(Comment&& commentForFind) cons
 {
 	return repository.find(std::move(commentForFind));
 }
+
+CommentRepositoryIterator CommentRepository::begin() const
+{
+	return repository.begin();
+}
+
+CommentRepositoryIterator CommentRepository::end() const
+{
+	return repository.end();
+}

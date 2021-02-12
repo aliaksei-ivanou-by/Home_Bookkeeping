@@ -16,4 +16,6 @@ public:
 	size_t size() const;
 	void clear();
 	PayeeRepositoryIterator find(Payee&& payeeForFind) const;
+	PayeeRepositoryIterator begin() const;
+	PayeeRepositoryIterator end() const;
 };

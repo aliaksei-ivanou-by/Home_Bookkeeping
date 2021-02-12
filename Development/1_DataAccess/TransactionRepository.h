@@ -16,4 +16,6 @@ public:
 	size_t size() const;
 	void clear();
 	TransactionRepositoryIterator find(Transaction&& transactionForFind) const;
+	TransactionRepositoryIterator begin() const;
+	TransactionRepositoryIterator end() const;
 };
