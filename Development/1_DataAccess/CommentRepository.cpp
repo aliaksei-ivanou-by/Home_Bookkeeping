@@ -23,9 +23,9 @@ void CommentRepository::clear()
 	repository.clear();
 }
 
-CommentRepositoryIterator CommentRepository::find(Comment&& commentForFind) const
+CommentRepositoryIterator CommentRepository::find(const Comment& commentForFind) const
 {
-	return repository.find(std::move(commentForFind));
+	return repository.find(commentForFind);
 }
 
 CommentRepositoryIterator CommentRepository::begin() const

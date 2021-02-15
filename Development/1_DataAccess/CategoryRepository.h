@@ -15,7 +15,7 @@ public:
 	void remove(Category categoryforRemove);
 	size_t size() const;
 	void clear();
-	CategoryRepositoryIterator find(Category&& categoryForFind) const;
+	CategoryRepositoryIterator find(const Category& categoryForFind) const;
 	CategoryRepositoryIterator begin() const;
 	CategoryRepositoryIterator end() const;
 };

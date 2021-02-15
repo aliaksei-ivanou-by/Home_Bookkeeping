@@ -23,9 +23,9 @@ void PayeeRepository::clear()
 	repository.clear();
 }
 
-PayeeRepositoryIterator PayeeRepository::find(Payee&& payeeForFind) const
+PayeeRepositoryIterator PayeeRepository::find(const Payee& payeeForFind) const
 {
-	return repository.find(std::move(payeeForFind));
+	return repository.find(payeeForFind);
 }
 
 PayeeRepositoryIterator PayeeRepository::begin() const

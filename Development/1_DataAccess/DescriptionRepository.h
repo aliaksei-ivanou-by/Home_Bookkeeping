@@ -15,7 +15,7 @@ public:
 	void remove(Description descriptionForRemove);
 	size_t size() const;
 	void clear();
-	DescriptionRepositoryIterator find(Description&& descriptionForFind) const;
+	DescriptionRepositoryIterator find(const Description& descriptionForFind) const;
 	DescriptionRepositoryIterator begin() const;
 	DescriptionRepositoryIterator end() const;
 };

@@ -23,9 +23,9 @@ void AccountRepository::clear()
 	repository.clear();
 }
 
-AccountRepositoryIterator AccountRepository::find(Account&& accountForFind) const
+AccountRepositoryIterator AccountRepository::find(const Account& accountForFind) const
 {
-	return repository.find(std::move(accountForFind));
+	return repository.find(accountForFind);
 }
 
 AccountRepositoryIterator AccountRepository::begin() const

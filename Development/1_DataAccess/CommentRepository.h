@@ -15,7 +15,7 @@ public:
 	void remove(Comment commentForRemove);
 	size_t size() const;
 	void clear();
-	CommentRepositoryIterator find(Comment&& commentForFind) const;
+	CommentRepositoryIterator find(const Comment& commentForFind) const;
 	CommentRepositoryIterator begin() const;
 	CommentRepositoryIterator end() const;
 };

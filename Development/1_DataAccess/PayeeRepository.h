@@ -15,7 +15,7 @@ public:
 	void remove(Payee payeeForRemove);
 	size_t size() const;
 	void clear();
-	PayeeRepositoryIterator find(Payee&& payeeForFind) const;
+	PayeeRepositoryIterator find(const Payee& payeeForFind) const;
 	PayeeRepositoryIterator begin() const;
 	PayeeRepositoryIterator end() const;
 };

@@ -15,7 +15,7 @@ public:
 	void remove(Tag tagForRemove);
 	size_t size() const;
 	void clear();
-	TagRepositoryIterator find(Tag&& tagForFind) const;
+	TagRepositoryIterator find(const Tag& tagForFind) const;
 	TagRepositoryIterator begin() const;
 	TagRepositoryIterator end() const;
 };

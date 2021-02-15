@@ -23,9 +23,9 @@ void TransactionRepository::clear()
 	repository.clear();
 }
 
-TransactionRepositoryIterator TransactionRepository::find(Transaction&& transactionForFind) const
+TransactionRepositoryIterator TransactionRepository::find(const Transaction& transactionForFind) const
 {
-	return repository.find(std::move(transactionForFind));
+	return repository.find(transactionForFind);
 }
 
 TransactionRepositoryIterator TransactionRepository::begin() const

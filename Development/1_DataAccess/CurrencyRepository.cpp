@@ -23,9 +23,9 @@ void CurrencyRepository::clear()
 	repository.clear();
 }
 
-CurrencyRepositoryIterator CurrencyRepository::find(Currency&& currencyForFind) const
+CurrencyRepositoryIterator CurrencyRepository::find(const Currency& currencyForFind) const
 {
-	return repository.find(std::move(currencyForFind));
+	return repository.find(currencyForFind);
 }
 
 CurrencyRepositoryIterator CurrencyRepository::begin() const

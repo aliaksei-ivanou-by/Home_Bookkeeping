@@ -23,9 +23,9 @@ void CategoryRepository::clear()
 	repository.clear();
 }
 
-CategoryRepositoryIterator CategoryRepository::find(Category&& categoryForFind) const
+CategoryRepositoryIterator CategoryRepository::find(const Category& categoryForFind) const
 {
-	return repository.find(std::move(categoryForFind));
+	return repository.find(categoryForFind);
 }
 
 CategoryRepositoryIterator CategoryRepository::begin() const

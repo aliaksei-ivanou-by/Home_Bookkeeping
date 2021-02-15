@@ -23,9 +23,9 @@ void TagRepository::clear()
 	repository.clear();
 }
 
-TagRepositoryIterator TagRepository::find(Tag&& tagForFind) const
+TagRepositoryIterator TagRepository::find(const Tag& tagForFind) const
 {
-	return repository.find(std::move(tagForFind));
+	return repository.find(tagForFind);
 }
 
 TagRepositoryIterator TagRepository::begin() const

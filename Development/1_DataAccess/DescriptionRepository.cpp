@@ -23,9 +23,9 @@ void DescriptionRepository::clear()
 	repository.clear();
 }
 
-DescriptionRepositoryIterator DescriptionRepository::find(Description&& descriptionForFind) const
+DescriptionRepositoryIterator DescriptionRepository::find(const Description& descriptionForFind) const
 {
-	return repository.find(std::move(descriptionForFind));
+	return repository.find(descriptionForFind);
 }
 
 DescriptionRepositoryIterator DescriptionRepository::begin() const
