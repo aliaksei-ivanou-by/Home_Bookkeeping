@@ -77,4 +77,8 @@ public:
 	void printTags(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
 	void printComments(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
 	void printDescriptions(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
+
+	double sumExpencesToday() const;
+	double sumExpencesThisMonth() const;
+	double sumExpencesAllTime() const;
 };

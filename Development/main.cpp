@@ -16,5 +16,11 @@ int main()
 	Transaction tr({ "BYN Cash" }, { "Bills" }, 12, { "BYN" });
 	a.addTransaction(tr);
 	a.printTransactions();
+	std::cout << '\n';
+	std::cout << a.sumExpencesToday();
+	std::cout << '\n';
+	std::cout << a.sumExpencesThisMonth();
+	std::cout << '\n';
+	std::cout << a.sumExpencesAllTime();
 	return 0;
 }
