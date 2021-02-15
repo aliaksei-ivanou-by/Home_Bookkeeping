@@ -1,12 +1,17 @@
 #include "Transaction.h"
 
 Transaction::Transaction(
-	Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-	double transactionAmountForAdd,
-	Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
-	Description transactionDescriptionForAdd,
-	Payee transactionPayeeForAdd, Tag transactionTagForAdd,
-	TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd):
+	const Account& transactionAccountFromForAdd,
+	const Category& transactionCategoryForAdd,
+	const double transactionAmountForAdd,
+	const Comment& transactionCommentForAdd,
+	const Currency& transactionCurrencyForAdd,
+	const Description& transactionDescriptionForAdd,
+	const Payee& transactionPayeeForAdd,
+	const Tag& transactionTagForAdd,
+	const TransactionStatus& transactionStatusForAdd,
+	const TransactionType& transactionTypeForAdd):
+
 	transactionTime{},
 	transactionAccount{ transactionAccountFromForAdd },
 	transactionCategory{ transactionCategoryForAdd },
@@ -22,13 +27,18 @@ Transaction::Transaction(
 {}
 
 Transaction::Transaction(
-	Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-	double transactionAmountForAdd,
-	Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
-	Description transactionDescriptionForAdd,
-	Payee transactionPayeeForAdd, Tag transactionTagForAdd,
-	TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd, 
-	Account transactionAccountToForAdd):
+	const Account& transactionAccountFromForAdd,
+	const Category& transactionCategoryForAdd,
+	const double transactionAmountForAdd,
+	const Comment& transactionCommentForAdd,
+	const Currency& transactionCurrencyForAdd,
+	const Description& transactionDescriptionForAdd,
+	const Payee& transactionPayeeForAdd,
+	const Tag& transactionTagForAdd,
+	const TransactionStatus& transactionStatusForAdd,
+	const TransactionType& transactionTypeForAdd,
+	const Account& transactionAccountToForAdd):
+
 	transactionTime{},
 	transactionAccount{ transactionAccountFromForAdd },
 	transactionCategory{ transactionCategoryForAdd },
@@ -44,9 +54,11 @@ Transaction::Transaction(
 {}
 
 Transaction::Transaction(
-	Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-	double transactionAmountForAdd,
-	Currency transactionCurrencyForAdd):
+	const Account& transactionAccountFromForAdd,
+	const Category& transactionCategoryForAdd,
+	const double transactionAmountForAdd,
+	const Currency& transactionCurrencyForAdd):
+
 	transactionTime{},
 	transactionAccount{ transactionAccountFromForAdd },
 	transactionCategory{ transactionCategoryForAdd },
@@ -62,9 +74,12 @@ Transaction::Transaction(
 {}
 
 Transaction::Transaction(
-	Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-	double transactionAmountForAdd,
-	Currency transactionCurrencyForAdd, Account transactionAccountToForAdd) :
+	const Account& transactionAccountFromForAdd,
+	const Category& transactionCategoryForAdd,
+	const double transactionAmountForAdd,
+	const Currency& transactionCurrencyForAdd,
+	const Account& transactionAccountToForAdd) :
+
 	transactionTime{},
 	transactionAccount{ transactionAccountFromForAdd },
 	transactionCategory{ transactionCategoryForAdd },
@@ -134,54 +149,54 @@ TransactionType Transaction::getTransactionType() const
 	return transactionType;
 }
 
-void Transaction::setTransactionTime(Time&& timeForUpdate)
+void Transaction::setTransactionTime(const Time& timeForUpdate)
 {
-	transactionTime = std::move(timeForUpdate);
+	transactionTime = timeForUpdate;
 }
 
-void Transaction::setTransactionAccount(Account&& accountForUpdate)
+void Transaction::setTransactionAccount(const Account& accountForUpdate)
 {
-	transactionAccount = std::move(accountForUpdate);
+	transactionAccount = accountForUpdate;
 }
 
-void Transaction::setTransactionCategory(Category&& categoryForUpdate)
+void Transaction::setTransactionCategory(const Category& categoryForUpdate)
 {
-	transactionCategory = std::move(categoryForUpdate);
+	transactionCategory = categoryForUpdate;
 }
 
-void Transaction::setTransactionComment(Comment&& commentForUpdate)
+void Transaction::setTransactionComment(const Comment& commentForUpdate)
 {
-	transactionComment = std::move(commentForUpdate);
+	transactionComment = commentForUpdate;
 }
 
-void Transaction::setTransactionCurrency(Currency&& currencyForUpdate)
+void Transaction::setTransactionCurrency(const Currency& currencyForUpdate)
 {
-	transactionCurrency = std::move(currencyForUpdate);
+	transactionCurrency = currencyForUpdate;
 }
 
-void Transaction::setTransactionDescription(Description&& descriptionForUpdate)
+void Transaction::setTransactionDescription(const Description& descriptionForUpdate)
 {
-	transactionDescription = std::move(descriptionForUpdate);
+	transactionDescription = descriptionForUpdate;
 }
 
-void Transaction::setTransactionPayee(Payee&& payeeForUpdate)
+void Transaction::setTransactionPayee(const Payee& payeeForUpdate)
 {
-	transactionPayee = std::move(payeeForUpdate);
+	transactionPayee = payeeForUpdate;
 }
 
-void Transaction::setTransactionTag(Tag&& tagForUpdate)
+void Transaction::setTransactionTag(const Tag& tagForUpdate)
 {
-	transactionTag = std::move(tagForUpdate);
+	transactionTag = tagForUpdate;
 }
 
-void Transaction::setTransactionTransactionStatus(TransactionStatus&& transactionStatusForUpdate)
+void Transaction::setTransactionTransactionStatus(const TransactionStatus& transactionStatusForUpdate)
 {
-	transactionStatus = std::move(transactionStatusForUpdate);
+	transactionStatus = transactionStatusForUpdate;
 }
 
-void Transaction::setTransactionTransactionTyoe(TransactionType&& transactionTypeForUpdate)
+void Transaction::setTransactionTransactionTyoe(const TransactionType& transactionTypeForUpdate)
 {
-	transactionType = std::move(transactionTypeForUpdate);
+	transactionType = transactionTypeForUpdate;
 }
 
 bool operator<(const Transaction& leftTransaction, const Transaction& rightTransaction)

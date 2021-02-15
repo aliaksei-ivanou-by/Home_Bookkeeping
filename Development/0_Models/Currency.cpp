@@ -6,19 +6,19 @@ Currency::Currency():
 	currencyActive{ true }
 {}
 
-Currency::Currency(std::string currencyNameForAdd):
+Currency::Currency(const std::string& currencyNameForAdd):
 	currencyName{ currencyNameForAdd },
 	currencyCode{ "" },
 	currencyActive{ true }
 {}
 
-Currency::Currency(std::string currencyNameForAdd, std::string currencyCodeForAdd):
+Currency::Currency(const std::string& currencyNameForAdd, const std::string& currencyCodeForAdd):
 	currencyName{ currencyNameForAdd },
 	currencyCode{ currencyCodeForAdd },
 	currencyActive{ true }
 {}
 
-Currency::Currency(std::string currencyNameForAdd, std::string currencyCodeForAdd, bool currencyActiveForAdd):
+Currency::Currency(const std::string& currencyNameForAdd, const std::string& currencyCodeForAdd, bool currencyActiveForAdd):
 	currencyName{ currencyNameForAdd },
 	currencyCode{ currencyCodeForAdd },
 	currencyActive{ currencyActiveForAdd }
@@ -39,9 +39,9 @@ bool Currency::getCurrencyActive() const
 	return currencyActive;
 }
 
-void Currency::setCurrencyName(std::string&& currencyNameForUpdate)
+void Currency::setCurrencyName(const std::string& currencyNameForUpdate)
 {
-	currencyName = std::move(currencyNameForUpdate);
+	currencyName = currencyNameForUpdate;
 }
 
 bool operator<(const Currency& leftCurrency, const Currency& rightCurrency)

@@ -99,7 +99,7 @@ int Time::getYear() const
 	return timeYear;
 }
 
-void Time::setSecond(int secondForUpdate)
+void Time::setSecond(const int secondForUpdate)
 {
 	if (secondForUpdate > 60 || secondForUpdate < 1)
 	{
@@ -108,7 +108,7 @@ void Time::setSecond(int secondForUpdate)
 	timeSecond = secondForUpdate;
 }
 
-void Time::setMinute(int minuteForUpdate)
+void Time::setMinute(const int minuteForUpdate)
 {
 	if (minuteForUpdate > 60 || minuteForUpdate < 1)
 	{
@@ -117,7 +117,7 @@ void Time::setMinute(int minuteForUpdate)
 	timeMinute = minuteForUpdate;
 }
 
-void Time::setHour(int hourForUpdate)
+void Time::setHour(const int hourForUpdate)
 {
 	if (hourForUpdate > 24 || hourForUpdate < 1)
 	{
@@ -126,7 +126,7 @@ void Time::setHour(int hourForUpdate)
 	timeHour = hourForUpdate;
 }
 
-void Time::setDay(int dayForUpdate)
+void Time::setDay(const int dayForUpdate)
 {
 	if (dayForUpdate > 31 || dayForUpdate < 1)
 	{
@@ -135,7 +135,7 @@ void Time::setDay(int dayForUpdate)
 	timeDay = dayForUpdate;
 }
 
-void Time::setMonth(int monthForUpdate)
+void Time::setMonth(const int monthForUpdate)
 {
 	if (monthForUpdate > 12 || monthForUpdate < 1)
 	{
@@ -144,7 +144,7 @@ void Time::setMonth(int monthForUpdate)
 	timeMonth = monthForUpdate;
 }
 
-void Time::setYear(int yearForUpdate)
+void Time::setYear(const int yearForUpdate)
 {
 	timeYear = yearForUpdate;
 }

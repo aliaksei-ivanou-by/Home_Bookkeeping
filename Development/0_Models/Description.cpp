@@ -4,7 +4,7 @@ Description::Description():
 	descriptionName{ "" }
 {}
 
-Description::Description(std::string descriptionNameForAdd)
+Description::Description(const std::string& descriptionNameForAdd)
 	: descriptionName{ descriptionNameForAdd }
 {}
 
@@ -13,9 +13,9 @@ std::string Description::getDescriptionName() const
 	return descriptionName;
 }
 
-void Description::setDescriptionName(std::string&& descriptionNameForUpdate)
+void Description::setDescriptionName(const std::string& descriptionNameForUpdate)
 {
-	descriptionName = std::move(descriptionNameForUpdate);
+	descriptionName = descriptionNameForUpdate;
 }
 
 bool operator<(const Description& leftDescription, const Description& rightDescription)

@@ -8,9 +8,9 @@ private:
 	std::string accountName;
 public:
 	Account();
-	Account(std::string accountNameForAdd);
+	Account(const std::string& accountNameForAdd);
 	std::string getAccountName() const;
-	void setAccountName(std::string&& accountNameForUpdate);
+	void setAccountName(const std::string& accountNameForUpdate);
 	friend bool operator<(const Account& leftAccount, const Account& rightAccount);
 	friend std::ostream& operator<<(std::ostream& outputStream, const Account& account);
 };

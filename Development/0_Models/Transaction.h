@@ -20,27 +20,40 @@ private:
 	Account transactionAccountTo;
 public:
 	Transaction() = delete;
-	Transaction(Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-		double transactionAmountForAdd,
-		Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
-		Description transactionDescriptionForAdd,
-		Payee transactionPayeeForAdd, Tag transactionTagForAdd,
-		TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd);
-	Transaction(Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-		double transactionAmountForAdd,
-		Comment transactionCommentForAdd, Currency transactionCurrencyForAdd,
-		Description transactionDescriptionForAdd,
-		Payee transactionPayeeForAdd, Tag transactionTagForAdd,
-		TransactionStatus transactionStatusForAdd, TransactionType transactionTypeForAdd,
-		Account transactionAccountToForAdd);
 	Transaction(
-		Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-		double transactionAmountForAdd,
-		Currency transactionCurrencyForAdd);
+		const Account& transactionAccountFromForAdd,
+		const Category& transactionCategoryForAdd,
+		const double transactionAmountForAdd,
+		const Comment& transactionCommentForAdd,
+		const Currency& transactionCurrencyForAdd,
+		const Description& transactionDescriptionForAdd,
+		const Payee& transactionPayeeForAdd,
+		const Tag& transactionTagForAdd,
+		const TransactionStatus& transactionStatusForAdd,
+		const TransactionType& transactionTypeForAdd);
 	Transaction(
-		Account transactionAccountFromForAdd, Category transactionCategoryForAdd,
-		double transactionAmountForAdd,
-		Currency transactionCurrencyForAdd, Account transactionAccountToForAdd);
+		const Account& transactionAccountFromForAdd,
+		const Category& transactionCategoryForAdd,
+		const double transactionAmountForAdd,
+		const Comment& transactionCommentForAdd,
+		const Currency& transactionCurrencyForAdd,
+		const Description& transactionDescriptionForAdd,
+		const Payee& transactionPayeeForAdd,
+		const Tag& transactionTagForAdd,
+		const TransactionStatus& transactionStatusForAdd,
+		const TransactionType& transactionTypeForAdd,
+		const Account& transactionAccountToForAdd);
+	Transaction(
+		const Account& transactionAccountFromForAdd,
+		const Category& transactionCategoryForAdd,
+		const double transactionAmountForAdd,
+		const Currency& transactionCurrencyForAdd);
+	Transaction(
+		const Account& transactionAccountFromForAdd,
+		const Category& transactionCategoryForAdd,
+		const double transactionAmountForAdd,
+		const Currency& transactionCurrencyForAdd,
+		const Account& transactionAccountToForAdd);
 	Time getTransactionTime() const;
 	Account getTransactionAccount() const;
 	Category getTransactionCategory() const;
@@ -52,16 +65,16 @@ public:
 	Tag getTransactionTag() const;
 	TransactionStatus getTransactionStatus() const;
 	TransactionType getTransactionType() const;
-	void setTransactionTime(Time&& timeForUpdate);
-	void setTransactionAccount(Account&& accountForUpdate);
-	void setTransactionCategory(Category&& categoryForUpdate);
-	void setTransactionComment(Comment&& commentForUpdate);
-	void setTransactionCurrency(Currency&& currencyForUpdate);
-	void setTransactionDescription(Description&& descriptionForUpdate);
-	void setTransactionPayee(Payee&& payeeForUpdate);
-	void setTransactionTag(Tag&& tagForUpdate);
-	void setTransactionTransactionStatus(TransactionStatus&& transactionStatusForUpdate);
-	void setTransactionTransactionTyoe(TransactionType&& transactionTypeForUpdate);
+	void setTransactionTime(const Time& timeForUpdate);
+	void setTransactionAccount(const Account& accountForUpdate);
+	void setTransactionCategory(const Category& categoryForUpdate);
+	void setTransactionComment(const Comment& commentForUpdate);
+	void setTransactionCurrency(const Currency& currencyForUpdate);
+	void setTransactionDescription(const Description& descriptionForUpdate);
+	void setTransactionPayee(const Payee& payeeForUpdate);
+	void setTransactionTag(const Tag& tagForUpdate);
+	void setTransactionTransactionStatus(const TransactionStatus& transactionStatusForUpdate);
+	void setTransactionTransactionTyoe(const TransactionType& transactionTypeForUpdate);
 	friend bool operator<(const Transaction& leftTransaction, const Transaction& rightTransaction);
 	friend std::ostream& operator<<(std::ostream& outputStream, const Transaction& transaction);
 };

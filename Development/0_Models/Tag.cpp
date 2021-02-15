@@ -4,7 +4,7 @@ Tag::Tag():
 	tagName{ "" }
 {}
 
-Tag::Tag(std::string tagNameForAdd):
+Tag::Tag(const std::string& tagNameForAdd):
 	tagName{ tagNameForAdd }
 {}
 
@@ -13,9 +13,9 @@ std::string Tag::getTagName() const
 	return tagName;
 }
 
-void Tag::setTagName(std::string&& tagNameNewForUpdate)
+void Tag::setTagName(const std::string& tagNameNewForUpdate)
 {
-	tagName = std::move(tagNameNewForUpdate);
+	tagName = tagNameNewForUpdate;
 }
 
 bool operator<(const Tag& leftTag, const Tag& rightTag)

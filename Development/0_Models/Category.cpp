@@ -4,7 +4,7 @@ Category::Category():
 	categoryName{ "" }
 {}
 
-Category::Category(std::string categoryNameForAdd):
+Category::Category(const std::string& categoryNameForAdd):
 	categoryName{ categoryNameForAdd }
 {}
 
@@ -13,9 +13,9 @@ std::string Category::getCategoryName() const
 	return categoryName;
 }
 
-void Category::setCategoryName(std::string&& categoryNameForUpdate)
+void Category::setCategoryName(const std::string& categoryNameForUpdate)
 {
-	categoryName = std::move(categoryNameForUpdate);
+	categoryName = categoryNameForUpdate;
 }
 
 bool operator<(const Category& leftCategory, const Category& rightCategory)

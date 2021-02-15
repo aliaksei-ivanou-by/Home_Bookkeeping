@@ -4,7 +4,7 @@ Payee::Payee():
 	payeeName{ "" }
 {}
 
-Payee::Payee(std::string payeeNameForAdd):
+Payee::Payee(const std::string& payeeNameForAdd):
 	payeeName{ payeeNameForAdd }
 {}
 
@@ -13,9 +13,9 @@ std::string Payee::getPayeeName() const
 	return payeeName;
 }
 
-void Payee::setPayeeName(std::string&& payeeNameForUpdate)
+void Payee::setPayeeName(const std::string& payeeNameForUpdate)
 {
-	payeeName = std::move(payeeNameForUpdate);
+	payeeName = payeeNameForUpdate;
 }
 
 bool operator<(const Payee& leftPayee, const Payee& rightPayee)

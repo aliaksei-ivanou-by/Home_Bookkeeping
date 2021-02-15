@@ -8,9 +8,9 @@ private:
 	std::string tagName;
 public:
 	Tag();
-	Tag(std::string tagNameForAdd);
+	Tag(const std::string& tagNameForAdd);
 	std::string getTagName() const;
-	void setTagName(std::string&& tagNameForUpdate);
+	void setTagName(const std::string& tagNameForUpdate);
 	friend bool operator<(const Tag& leftTag, const Tag& rightTag);
 	friend std::ostream& operator<<(std::ostream& outputStream, const Tag& tag);
 };

@@ -15,8 +15,8 @@ private:
 	TransactionTypeEnum transactionType;
 public:
 	TransactionType();
-	TransactionType(TransactionTypeEnum transactionTypeForAdd);
-	void setTransactionType(TransactionTypeEnum&& transactionTypeForUpdate);
+	TransactionType(const TransactionTypeEnum& transactionTypeForAdd);
+	void setTransactionType(const TransactionTypeEnum& transactionTypeForUpdate);
 	TransactionTypeEnum getTransactionType() const;
 	friend bool operator<(const TransactionType& leftTransactionType, const TransactionType& rightTransactionType);
 };
