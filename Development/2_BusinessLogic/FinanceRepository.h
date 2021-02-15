@@ -68,4 +68,13 @@ public:
 	CommentRepositoryIterator findComment(Comment&& commentForFind) const;
 	DescriptionRepositoryIterator findDescription(Description&& descriptionForFind) const;
 	AccountRepositoryIterator findAccount(Account&& accountForFind) const;
+
+	void printAccounts(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
+	void printTransactions(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
+	void printCategories(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
+	void printCurrencies(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
+	void printPayees(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
+	void printTags(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
+	void printComments(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
+	void printDescriptions(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
 };

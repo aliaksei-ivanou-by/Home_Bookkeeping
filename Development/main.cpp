@@ -10,5 +10,6 @@ int main()
 	FinanceRepository a;
 	a.addAccount({ "BYN Cash" });
 	a.addAccount({ "BYN VISA" });
+	a.printAccounts(", ");
 	return 0;
 }

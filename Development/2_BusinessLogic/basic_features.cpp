@@ -242,3 +242,115 @@ AccountRepositoryIterator FinanceRepository::endAccountRepository() const
 {
 	return financeRepositoryAccounts.end();
 }
+
+void FinanceRepository::printAccounts(const std::string& delimeter, std::ostream& outputStream) const
+{
+	auto i = beginAccountRepository();
+	while (i != endAccountRepository())
+	{
+		outputStream << *i;
+		++i;
+		if (i != endAccountRepository())
+		{
+			outputStream << delimeter;
+		}
+	}
+}
+
+void FinanceRepository::printTransactions(const std::string& delimeter, std::ostream& outputStream) const
+{
+	auto i = beginTransactionRepository();
+	while (i != endTransactionRepository())
+	{
+		outputStream << *i;
+		++i;
+		if (i != endTransactionRepository())
+		{
+			outputStream << delimeter;
+		}
+	}
+}
+
+void FinanceRepository::printCategories(const std::string& delimeter, std::ostream& outputStream) const
+{
+	auto i = beginCategoryRepository();
+	while (i != endCategoryRepository())
+	{
+		outputStream << *i;
+		++i;
+		if (i != endCategoryRepository())
+		{
+			outputStream << delimeter;
+		}
+	}
+}
+
+void FinanceRepository::printCurrencies(const std::string& delimeter, std::ostream& outputStream) const
+{
+	auto i = beginCurrencyRepository();
+	while (i != endCurrencyRepository())
+	{
+		outputStream << *i;
+		++i;
+		if (i != endCurrencyRepository())
+		{
+			outputStream << delimeter;
+		}
+	}
+}
+
+void FinanceRepository::printPayees(const std::string& delimeter, std::ostream& outputStream) const
+{
+	auto i = beginPayeeRepository();
+	while (i != endPayeeRepository())
+	{
+		outputStream << *i;
+		++i;
+		if (i != endPayeeRepository())
+		{
+			outputStream << delimeter;
+		}
+	}
+}
+
+void FinanceRepository::printTags(const std::string& delimeter, std::ostream& outputStream) const
+{
+	auto i = beginTagRepository();
+	while (i != endTagRepository())
+	{
+		outputStream << *i;
+		++i;
+		if (i != endTagRepository())
+		{
+			outputStream << delimeter;
+		}
+	}
+}
+
+void FinanceRepository::printComments(const std::string& delimeter, std::ostream& outputStream) const
+{
+	auto i = beginCommentRepository();
+	while (i != endCommentRepository())
+	{
+		outputStream << *i;
+		++i;
+		if (i != endCommentRepository())
+		{
+			outputStream << delimeter;
+		}
+	}
+}
+
+void FinanceRepository::printDescriptions(const std::string& delimeter, std::ostream& outputStream) const
+{
+	auto i = beginDescriptionRepository();
+	while (i != endDescriptionRepository())
+	{
+		outputStream << *i;
+		++i;
+		if (i != endDescriptionRepository())
+		{
+			outputStream << delimeter;
+		}
+	}
+}
