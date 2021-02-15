@@ -43,6 +43,46 @@ void FinanceRepository::addAccount(const Account& accountForAdd)
 	financeRepositoryAccounts.add(accountForAdd);
 }
 
+void FinanceRepository::removeTransaction(const Transaction& transactionForRemove)
+{
+	financeRepositoryTransactions.remove(transactionForRemove);
+}
+
+void FinanceRepository::removeCategory(const Category& categoryForRemove)
+{
+	financeRepositoryCategories.remove(categoryForRemove);
+
+}
+void FinanceRepository::removeCurrency(const Currency& currencyForRemove)
+{
+	financeRepositoryCurrencies.remove(currencyForRemove);
+}
+
+void FinanceRepository::removePayee(const Payee& payeeForRemove)
+{
+	financeRepositoryPayees.remove(payeeForRemove);
+}
+
+void FinanceRepository::removeTag(const Tag& tagForRemove)
+{
+	financeRepositoryTags.remove(tagForRemove);
+}
+
+void FinanceRepository::removeComment(const Comment& commentForRemove)
+{
+	financeRepositoryComments.remove(commentForRemove);
+}
+
+void FinanceRepository::removeDescription(const Description& descriptionForRemove)
+{
+	financeRepositoryDescriptions.remove(descriptionForRemove);
+}
+
+void FinanceRepository::removeAccount(const Account& accountForRemove)
+{
+	financeRepositoryAccounts.remove(accountForRemove);
+}
+
 size_t FinanceRepository::getTransactionsNumber() const
 {
 	return financeRepositoryTransactions.size();

@@ -42,6 +42,15 @@ public:
 	void addDescription(const Description& descriptionForAdd);
 	void addAccount(const Account& accountForAdd);
 
+	void removeTransaction(const Transaction& transactionForRemove);
+	void removeCategory(const Category& categoryForRemove);
+	void removeCurrency(const Currency& currencyForRemove);
+	void removePayee(const Payee& payeeForRemove);
+	void removeTag(const Tag& tagForRemove);
+	void removeComment(const Comment& commentForRemove);
+	void removeDescription(const Description& descriptionForRemove);
+	void removeAccount(const Account& accountForRemove);
+
 	size_t getTransactionsNumber() const;
 	size_t getCategoriesNumber() const;
 	size_t getCurrenciesNumber() const;
