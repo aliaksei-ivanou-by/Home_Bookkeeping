@@ -11,5 +11,10 @@ int main()
 	a.addAccount({ "BYN Cash" });
 	a.addAccount({ "BYN VISA" });
 	a.printAccounts(", ");
+	std::cout << '\n';
+	a.addTransaction({{ "BYN Cash" }, { "Bills" }, 22, { "BYN" } });
+	Transaction tr({ "BYN Cash" }, { "Bills" }, 12, { "BYN" });
+	a.addTransaction(tr);
+	a.printTransactions();
 	return 0;
 }

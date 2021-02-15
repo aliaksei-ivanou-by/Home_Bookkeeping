@@ -3,44 +3,44 @@
 FinanceRepository::FinanceRepository()
 {}
 
-void FinanceRepository::addTransaction(Transaction&& transactionForAdd)
+void FinanceRepository::addTransaction(const Transaction& transactionForAdd)
 {
-	financeRepositoryTransactions.add(std::move(transactionForAdd));
+	financeRepositoryTransactions.add(transactionForAdd);
 }
 
-void FinanceRepository::addCategory(Category&& categoryForAdd)
+void FinanceRepository::addCategory(const Category& categoryForAdd)
 {
-	financeRepositoryCategories.add(std::move(categoryForAdd));
+	financeRepositoryCategories.add(categoryForAdd);
 }
 
-void FinanceRepository::addCurrency(Currency&& currencyForAdd)
+void FinanceRepository::addCurrency(const Currency& currencyForAdd)
 {
-	financeRepositoryCurrencies.add(std::move(currencyForAdd));
+	financeRepositoryCurrencies.add(currencyForAdd);
 }
 
-void FinanceRepository::addPayee(Payee&& payeeForAdd)
+void FinanceRepository::addPayee(const Payee& payeeForAdd)
 {
-	financeRepositoryPayees.add(std::move(payeeForAdd));
+	financeRepositoryPayees.add(payeeForAdd);
 }
 
-void FinanceRepository::addTag(Tag&& tagForAdd)
+void FinanceRepository::addTag(const Tag& tagForAdd)
 {
-	financeRepositoryTags.add(std::move(tagForAdd));
+	financeRepositoryTags.add(tagForAdd);
 }
 
-void FinanceRepository::addComment(Comment&& commentForAdd)
+void FinanceRepository::addComment(const Comment& commentForAdd)
 {
-	financeRepositoryComments.add(std::move(commentForAdd));
+	financeRepositoryComments.add(commentForAdd);
 }
 
-void FinanceRepository::addDescription(Description&& descriptionForAdd)
+void FinanceRepository::addDescription(const Description& descriptionForAdd)
 {
-	financeRepositoryDescriptions.add(std::move(descriptionForAdd));
+	financeRepositoryDescriptions.add(descriptionForAdd);
 }
 
-void FinanceRepository::addAccount(Account&& accountForAdd)
+void FinanceRepository::addAccount(const Account& accountForAdd)
 {
-	financeRepositoryAccounts.add(std::move(accountForAdd));
+	financeRepositoryAccounts.add(accountForAdd);
 }
 
 size_t FinanceRepository::getTransactionsNumber() const

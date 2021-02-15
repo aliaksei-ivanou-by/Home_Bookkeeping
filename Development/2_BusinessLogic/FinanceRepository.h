@@ -33,14 +33,14 @@ private:
 	AccountRepositoryIterator endAccountRepository() const;
 public:
 	FinanceRepository();
-	void addTransaction(Transaction&& transactionForAdd);
-	void addCategory(Category&& categoryForAdd);
-	void addCurrency(Currency&& currencyForAdd);
-	void addPayee(Payee&& payeeForAdd);
-	void addTag(Tag&& tagForAdd);
-	void addComment(Comment&& commentForAdd);
-	void addDescription(Description&& descriptionForAdd);
-	void addAccount(Account&& accountForAdd);
+	void addTransaction(const Transaction& transactionForAdd);
+	void addCategory(const Category& categoryForAdd);
+	void addCurrency(const Currency& currencyForAdd);
+	void addPayee(const Payee& payeeForAdd);
+	void addTag(const Tag& tagForAdd);
+	void addComment(const Comment& commentForAdd);
+	void addDescription(const Description& descriptionForAdd);
+	void addAccount(const Account& accountForAdd);
 
 	size_t getTransactionsNumber() const;
 	size_t getCategoriesNumber() const;
