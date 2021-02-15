@@ -60,14 +60,14 @@ public:
 	void clearDescriptions();
 	void clearAccounts();
 
-	TransactionRepositoryIterator findTransaction(Transaction&& transactionForFind) const;
-	CategoryRepositoryIterator findCategory(Category&& categoryForFind) const;
-	CurrencyRepositoryIterator findCurrency(Currency&& currencyForFind) const;
-	PayeeRepositoryIterator findPayee(Payee&& payeeForFind) const;
-	TagRepositoryIterator findTag(Tag&& tagForFind) const;
-	CommentRepositoryIterator findComment(Comment&& commentForFind) const;
-	DescriptionRepositoryIterator findDescription(Description&& descriptionForFind) const;
-	AccountRepositoryIterator findAccount(Account&& accountForFind) const;
+	TransactionRepositoryIterator findTransaction(const Transaction& transactionForFind) const;
+	CategoryRepositoryIterator findCategory(const Category& categoryForFind) const;
+	CurrencyRepositoryIterator findCurrency(const Currency& currencyForFind) const;
+	PayeeRepositoryIterator findPayee(const Payee& payeeForFind) const;
+	TagRepositoryIterator findTag(const Tag& tagForFind) const;
+	CommentRepositoryIterator findComment(const Comment& commentForFind) const;
+	DescriptionRepositoryIterator findDescription(const Description& descriptionForFind) const;
+	AccountRepositoryIterator findAccount(const Account& accountForFind) const;
 
 	void printAccounts(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
 	void printTransactions(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;

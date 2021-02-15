@@ -123,44 +123,44 @@ void FinanceRepository::clearAccounts()
 	financeRepositoryAccounts.clear();
 }
 
-TransactionRepositoryIterator FinanceRepository::findTransaction(Transaction&& transactionForFind) const
+TransactionRepositoryIterator FinanceRepository::findTransaction(const Transaction& transactionForFind) const
 {
-	return financeRepositoryTransactions.find(std::move(transactionForFind));
+	return financeRepositoryTransactions.find(transactionForFind);
 }
 
-CategoryRepositoryIterator FinanceRepository::findCategory(Category&& categoryForFind) const
+CategoryRepositoryIterator FinanceRepository::findCategory(const Category& categoryForFind) const
 {
-	return financeRepositoryCategories.find(std::move(categoryForFind));
+	return financeRepositoryCategories.find(categoryForFind);
 }
 
-CurrencyRepositoryIterator FinanceRepository::findCurrency(Currency&& currencyForFind) const
+CurrencyRepositoryIterator FinanceRepository::findCurrency(const Currency& currencyForFind) const
 {
-	return financeRepositoryCurrencies.find(std::move(currencyForFind));
+	return financeRepositoryCurrencies.find(currencyForFind);
 }
 
-PayeeRepositoryIterator FinanceRepository::findPayee(Payee&& payeeForFind) const
+PayeeRepositoryIterator FinanceRepository::findPayee(const Payee& payeeForFind) const
 {
-	return financeRepositoryPayees.find(std::move(payeeForFind));
+	return financeRepositoryPayees.find(payeeForFind);
 }
 
-TagRepositoryIterator FinanceRepository::findTag(Tag&& tagForFind) const
+TagRepositoryIterator FinanceRepository::findTag(const Tag& tagForFind) const
 {
-	return financeRepositoryTags.find(std::move(tagForFind));
+	return financeRepositoryTags.find(tagForFind);
 }
 
-CommentRepositoryIterator FinanceRepository::findComment(Comment&& commentForFind) const
+CommentRepositoryIterator FinanceRepository::findComment(const Comment& commentForFind) const
 {
-	return financeRepositoryComments.find(std::move(commentForFind));
+	return financeRepositoryComments.find(commentForFind);
 }
 
-DescriptionRepositoryIterator FinanceRepository::findDescription(Description&& descriptionForFind) const
+DescriptionRepositoryIterator FinanceRepository::findDescription(const Description& descriptionForFind) const
 {
-	return financeRepositoryDescriptions.find(std::move(descriptionForFind));
+	return financeRepositoryDescriptions.find(descriptionForFind);
 }
 
-AccountRepositoryIterator FinanceRepository::findAccount(Account&& accountForFind) const
+AccountRepositoryIterator FinanceRepository::findAccount(const Account& accountForFind) const
 {
-	return financeRepositoryAccounts.find(std::move(accountForFind));
+	return financeRepositoryAccounts.find(accountForFind);
 }
 
 TransactionRepositoryIterator FinanceRepository::beginTransactionRepository() const
