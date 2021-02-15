@@ -81,4 +81,8 @@ public:
 	double sumExpencesToday() const;
 	double sumExpencesThisMonth() const;
 	double sumExpencesAllTime() const;
+	
+	void setDefaultCategories();
+	void setDefaultAccounts();
+	void setDefaultCurrencies();
 };

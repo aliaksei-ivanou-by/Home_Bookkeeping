@@ -8,9 +8,14 @@
 int main()
 {
 	FinanceRepository a;
-	a.addAccount({ "BYN Cash" });
-	a.addAccount({ "BYN VISA" });
+	a.setDefaultAccounts();
+	a.setDefaultCategories();
+	a.setDefaultCurrencies();
 	a.printAccounts(", ");
+	std::cout << '\n';
+	a.printCategories(", ");
+	std::cout << '\n';
+	a.printCurrencies(", ");
 	std::cout << '\n';
 	a.addTransaction({{ "BYN Cash" }, { "Bills" }, 22, { "BYN" } });
 	Transaction tr({ "BYN Cash" }, { "Bills" }, 12, { "BYN" });
