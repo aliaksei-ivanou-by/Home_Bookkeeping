@@ -17,6 +17,7 @@ int main()
 	std::cout << '\n';
 	a.printCurrencies(", ");
 	std::cout << '\n';
+	a.findAccount({ "BYN Cash" });
 	a.addTransaction({{ "BYN Cash" }, { "Bills" }, 22, { "BYN" } });
 	Transaction tr({ "BYN Cash" }, { "Bills" }, 12, { "BYN" });
 	a.addTransaction(tr);

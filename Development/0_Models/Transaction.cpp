@@ -1,5 +1,6 @@
 #include "Transaction.h"
 
+// Income or Expense
 Transaction::Transaction(
 	const Account& transactionAccountFromForAdd,
 	const Category& transactionCategoryForAdd,
@@ -13,7 +14,8 @@ Transaction::Transaction(
 	const TransactionType& transactionTypeForAdd):
 
 	transactionTime{},
-	transactionAccount{ transactionAccountFromForAdd },
+	transactionAccountFrom{ transactionAccountFromForAdd },
+	transactionAccountTo{ transactionAccountFromForAdd },
 	transactionCategory{ transactionCategoryForAdd },
 	transactionAmount{ transactionAmountForAdd },
 	transactionComment{ transactionCommentForAdd },
@@ -22,10 +24,24 @@ Transaction::Transaction(
 	transactionPayee{ transactionPayeeForAdd },
 	transactionTag{ transactionTagForAdd },
 	transactionStatus{ transactionStatusForAdd },
-	transactionType{ transactionTypeForAdd },
-	transactionAccountTo{ transactionAccountFromForAdd }
-{}
+	transactionType{ transactionTypeForAdd }
+{
+	if (transactionType == TransactionType(TransactionTypeEnum::Expence))
+	{
+		transactionAccountFrom.updateAccountAmount(-transactionAmount);
+	}
+	if (transactionType == TransactionType(TransactionTypeEnum::Income))
+	{
+		transactionAccountFrom.updateAccountAmount(transactionAmount);
+	}
+	if (transactionType == TransactionType(TransactionTypeEnum::Transfer))
+	{
+		transactionAccountFrom.updateAccountAmount(-transactionAmount);
+		transactionAccountTo.updateAccountAmount(transactionAmount);
+	}
+}
 
+// Income or Expense
 Transaction::Transaction(
 	const Account& transactionAccountFromForAdd,
 	const Category& transactionCategoryForAdd,
@@ -40,7 +56,8 @@ Transaction::Transaction(
 	const Account& transactionAccountToForAdd):
 
 	transactionTime{},
-	transactionAccount{ transactionAccountFromForAdd },
+	transactionAccountFrom{ transactionAccountFromForAdd },
+	transactionAccountTo{ transactionAccountToForAdd },
 	transactionCategory{ transactionCategoryForAdd },
 	transactionAmount{ transactionAmountForAdd },
 	transactionComment{ transactionCommentForAdd },
@@ -49,10 +66,24 @@ Transaction::Transaction(
 	transactionPayee{ transactionPayeeForAdd },
 	transactionTag{ transactionTagForAdd },
 	transactionStatus{ transactionStatusForAdd },
-	transactionType{ transactionTypeForAdd },
-	transactionAccountTo{ transactionAccountToForAdd }
-{}
+	transactionType{ transactionTypeForAdd }
+{
+	if (transactionType == TransactionType(TransactionTypeEnum::Expence))
+	{
+		transactionAccountFrom.updateAccountAmount(-transactionAmount);
+	}
+	if (transactionType == TransactionType(TransactionTypeEnum::Income))
+	{
+		transactionAccountFrom.updateAccountAmount(transactionAmount);
+	}
+	if (transactionType == TransactionType(TransactionTypeEnum::Transfer))
+	{
+		transactionAccountFrom.updateAccountAmount(-transactionAmount);
+		transactionAccountTo.updateAccountAmount(transactionAmount);
+	}
+}
 
+// Income or Expense
 Transaction::Transaction(
 	const Account& transactionAccountFromForAdd,
 	const Category& transactionCategoryForAdd,
@@ -60,7 +91,8 @@ Transaction::Transaction(
 	const Currency& transactionCurrencyForAdd):
 
 	transactionTime{},
-	transactionAccount{ transactionAccountFromForAdd },
+	transactionAccountFrom{ transactionAccountFromForAdd },
+	transactionAccountTo{ transactionAccountFromForAdd },
 	transactionCategory{ transactionCategoryForAdd },
 	transactionAmount{ transactionAmountForAdd },
 	transactionComment{ },
@@ -69,19 +101,34 @@ Transaction::Transaction(
 	transactionPayee{ },
 	transactionTag{ },
 	transactionStatus{ },
-	transactionType{ },
-	transactionAccountTo{ transactionAccountFromForAdd }
-{}
+	transactionType{ }
+{
+	if (transactionType == TransactionType(TransactionTypeEnum::Expence))
+	{
+		transactionAccountFrom.updateAccountAmount(-transactionAmount);
+	}
+	if (transactionType == TransactionType(TransactionTypeEnum::Income))
+	{
+		transactionAccountFrom.updateAccountAmount(transactionAmount);
+	}
+	if (transactionType == TransactionType(TransactionTypeEnum::Transfer))
+	{
+		transactionAccountFrom.updateAccountAmount(-transactionAmount);
+		transactionAccountTo.updateAccountAmount(transactionAmount);
+	}
+}
 
+// Transfer
 Transaction::Transaction(
 	const Account& transactionAccountFromForAdd,
+	const Account& transactionAccountToForAdd,
 	const Category& transactionCategoryForAdd,
 	const double transactionAmountForAdd,
-	const Currency& transactionCurrencyForAdd,
-	const Account& transactionAccountToForAdd) :
+	const Currency& transactionCurrencyForAdd) :
 
 	transactionTime{},
-	transactionAccount{ transactionAccountFromForAdd },
+	transactionAccountFrom{ transactionAccountFromForAdd },
+	transactionAccountTo{ transactionAccountToForAdd },
 	transactionCategory{ transactionCategoryForAdd },
 	transactionAmount{ transactionAmountForAdd },
 	transactionComment{ },
@@ -90,18 +137,36 @@ Transaction::Transaction(
 	transactionPayee{ },
 	transactionTag{ },
 	transactionStatus{ },
-	transactionType{ },
-	transactionAccountTo{ transactionAccountToForAdd }
-{}
+	transactionType{ }
+{
+	if (transactionType == TransactionType(TransactionTypeEnum::Expence))
+	{
+		transactionAccountFrom.updateAccountAmount(-transactionAmount);
+	}
+	if (transactionType == TransactionType(TransactionTypeEnum::Income))
+	{
+		transactionAccountFrom.updateAccountAmount(transactionAmount);
+	}
+	if (transactionType == TransactionType(TransactionTypeEnum::Transfer))
+	{
+		transactionAccountFrom.updateAccountAmount(-transactionAmount);
+		transactionAccountTo.updateAccountAmount(transactionAmount);
+	}
+}
 
 Time Transaction::getTransactionTime() const
 {
 	return transactionTime;
 }
 
-Account Transaction::getTransactionAccount() const
+Account Transaction::getTransactionAccountFrom() const
 {
-	return transactionAccount;
+	return transactionAccountFrom;
+}
+
+Account Transaction::getTransactionAccountTo() const
+{
+	return transactionAccountTo;
 }
 
 Category Transaction::getTransactionCategory() const
@@ -112,6 +177,11 @@ Category Transaction::getTransactionCategory() const
 double Transaction::getTransactionAmount() const
 {
 	return transactionAmount;
+}
+
+double Transaction::getTransactionAccountAmount() const
+{
+	return transactionAccountFrom.getAccountAmount();
 }
 
 Comment Transaction::getTransactionComment() const
@@ -154,9 +224,14 @@ void Transaction::setTransactionTime(const Time& timeForUpdate)
 	transactionTime = timeForUpdate;
 }
 
-void Transaction::setTransactionAccount(const Account& accountForUpdate)
+void Transaction::setTransactionAccountFrom(const Account& accountFromForUpdate)
 {
-	transactionAccount = accountForUpdate;
+	transactionAccountFrom = accountFromForUpdate;
+}
+
+void Transaction::setTransactionAccountTo(const Account& accountToForUpdate)
+{
+	transactionAccountTo = accountToForUpdate;
 }
 
 void Transaction::setTransactionCategory(const Category& categoryForUpdate)
@@ -213,13 +288,13 @@ bool operator<(const Transaction& leftTransaction, const Transaction& rightTrans
 		}
 		else
 		{
-			if (leftTransaction.getTransactionAccount() < rightTransaction.getTransactionAccount())
+			if (leftTransaction.getTransactionAccountFrom() < rightTransaction.getTransactionAccountFrom())
 			{
 				return true;
 			}
 			else
 			{
-				if (rightTransaction.getTransactionAccount() < leftTransaction.getTransactionAccount())
+				if (rightTransaction.getTransactionAccountFrom() < leftTransaction.getTransactionAccountFrom())
 				{
 					return false;
 				}
@@ -355,7 +430,7 @@ bool operator<(const Transaction& leftTransaction, const Transaction& rightTrans
 std::ostream& operator<<(std::ostream& outputStream, const Transaction& transaction)
 {
 	return outputStream << transaction.getTransactionTime() << '\t' <<
-		transaction.getTransactionAccount() << '\t' <<
+		transaction.getTransactionAccountFrom() << '\t' <<
 		transaction.getTransactionCategory() << '\t' <<
 		transaction.getTransactionAmount() << ' ' <<
 		transaction.getTransactionCurrency().getCurrencyName();

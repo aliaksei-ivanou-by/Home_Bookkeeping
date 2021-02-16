@@ -7,7 +7,8 @@ class Transaction
 {
 private:
 	Time transactionTime;
-	Account transactionAccount;
+	Account transactionAccountFrom;
+	Account transactionAccountTo;
 	Category transactionCategory;
 	double transactionAmount;
 	Comment transactionComment;
@@ -17,10 +18,9 @@ private:
 	Tag transactionTag;
 	TransactionStatus transactionStatus;
 	TransactionType transactionType;
-	Account transactionAccountTo;
 public:
 	Transaction() = delete;
-	Transaction(
+	Transaction( // Income or Expense
 		const Account& transactionAccountFromForAdd,
 		const Category& transactionCategoryForAdd,
 		const double transactionAmountForAdd,
@@ -31,7 +31,7 @@ public:
 		const Tag& transactionTagForAdd,
 		const TransactionStatus& transactionStatusForAdd,
 		const TransactionType& transactionTypeForAdd);
-	Transaction(
+	Transaction( // Income or Expense
 		const Account& transactionAccountFromForAdd,
 		const Category& transactionCategoryForAdd,
 		const double transactionAmountForAdd,
@@ -43,21 +43,23 @@ public:
 		const TransactionStatus& transactionStatusForAdd,
 		const TransactionType& transactionTypeForAdd,
 		const Account& transactionAccountToForAdd);
-	Transaction(
+	Transaction( // Income or Expense
 		const Account& transactionAccountFromForAdd,
 		const Category& transactionCategoryForAdd,
 		const double transactionAmountForAdd,
 		const Currency& transactionCurrencyForAdd);
-	Transaction(
+	Transaction( // Transfer
 		const Account& transactionAccountFromForAdd,
+		const Account& transactionAccountToForAdd,
 		const Category& transactionCategoryForAdd,
 		const double transactionAmountForAdd,
-		const Currency& transactionCurrencyForAdd,
-		const Account& transactionAccountToForAdd);
+		const Currency& transactionCurrencyForAdd);
 	Time getTransactionTime() const;
-	Account getTransactionAccount() const;
+	Account getTransactionAccountFrom() const;
+	Account getTransactionAccountTo() const;
 	Category getTransactionCategory() const;
 	double getTransactionAmount() const;
+	double getTransactionAccountAmount() const;
 	Comment getTransactionComment() const;
 	Currency getTransactionCurrency() const;
 	Description getTransactionDescription() const;
@@ -66,7 +68,8 @@ public:
 	TransactionStatus getTransactionStatus() const;
 	TransactionType getTransactionType() const;
 	void setTransactionTime(const Time& timeForUpdate);
-	void setTransactionAccount(const Account& accountForUpdate);
+	void setTransactionAccountFrom(const Account& accountFromForUpdate);
+	void setTransactionAccountTo(const Account& accountToForUpdate);
 	void setTransactionCategory(const Category& categoryForUpdate);
 	void setTransactionComment(const Comment& commentForUpdate);
 	void setTransactionCurrency(const Currency& currencyForUpdate);
