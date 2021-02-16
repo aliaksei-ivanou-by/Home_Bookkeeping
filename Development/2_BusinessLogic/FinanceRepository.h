@@ -90,6 +90,10 @@ public:
 	double sumExpencesToday() const;
 	double sumExpencesThisMonth() const;
 	double sumExpencesAllTime() const;
+
+	double sumIncomesToday() const;
+	double sumIncomesThisMonth() const;
+	double sumIncomesAllTime() const;
 	
 	void setDefaultCategories();
 	void setDefaultAccounts();
