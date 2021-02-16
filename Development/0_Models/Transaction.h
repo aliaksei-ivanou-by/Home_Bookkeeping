@@ -7,17 +7,17 @@ class Transaction
 {
 private:
 	Time transactionTime;
-	Account transactionAccountFrom;
-	Account transactionAccountTo;
-	Category transactionCategory;
+	std::shared_ptr<Account> transactionAccountFrom;
+	std::shared_ptr<Account> transactionAccountTo;
+	std::shared_ptr<Category> transactionCategory;
 	double transactionAmount;
-	Comment transactionComment;
-	Currency transactionCurrency;
-	Description transactionDescription;
-	Payee transactionPayee;
-	Tag transactionTag;
-	TransactionStatus transactionStatus;
-	TransactionType transactionType;
+	std::shared_ptr<Comment> transactionComment;
+	std::shared_ptr<Currency> transactionCurrency;
+	std::shared_ptr<Description> transactionDescription;
+	std::shared_ptr<Payee> transactionPayee;
+	std::shared_ptr<Tag> transactionTag;
+	std::shared_ptr<TransactionStatus> transactionStatus;
+	std::shared_ptr<TransactionType> transactionType;
 public:
 	Transaction() = delete;
 	Transaction( // Income or Expense
