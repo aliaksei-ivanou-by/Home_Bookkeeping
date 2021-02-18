@@ -3,8 +3,21 @@
 FinanceRepository::FinanceRepository()
 {}
 
-void FinanceRepository::addTransaction(const Transaction& transactionForAdd)
+void FinanceRepository::addTransaction(Transaction& transactionForAdd)
 {
+	updateAccountAmount(transactionForAdd);
+
+	if (financeRepositoryAccounts.size() == 0)
+	{
+		financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrFrom());
+	}
+	else
+	{
+		if (financeRepositoryAccounts.find(transactionForAdd.getTransactionAccountPtrFrom()) == financeRepositoryAccounts.end())
+		{
+			financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrFrom());
+		}
+	}
 	financeRepositoryTransactions.add(transactionForAdd);
 }
 
@@ -288,7 +301,7 @@ void FinanceRepository::printAccounts(const std::string& delimeter, std::ostream
 	auto i = beginAccountRepository();
 	while (i != endAccountRepository())
 	{
-		outputStream << *i;
+		outputStream << **i;
 		++i;
 		if (i != endAccountRepository())
 		{
@@ -392,5 +405,31 @@ void FinanceRepository::printDescriptions(const std::string& delimeter, std::ost
 		{
 			outputStream << delimeter;
 		}
+	}
+}
+
+void FinanceRepository::updateAccountAmount(Transaction& transactionForAdd)
+{
+	if (transactionForAdd.getTransactionType() == TransactionType(TransactionTypeEnum::Expence))
+	{
+		auto amount1 = transactionForAdd.getTransactionAccountFromLastAmount() - transactionForAdd.getTransactionAmount();
+		transactionForAdd.setTransactionAccountFromLastAmount(amount1);
+		transactionForAdd.setTransactionAccountToLastAmount(amount1);
+		auto amount2 = transactionForAdd.getTransactionAccountFromLastAmount();
+		transactionForAdd.setTransactionAccountFromCurrentAmount(amount2);
+		transactionForAdd.setTransactionAccountToCurrentAmount(amount2);
+	}
+	if (transactionForAdd.getTransactionType() == TransactionType(TransactionTypeEnum::Income))
+	{
+		auto amount1 = transactionForAdd.getTransactionAccountFromLastAmount() + transactionForAdd.getTransactionAmount();
+		transactionForAdd.setTransactionAccountFromLastAmount(amount1);
+		transactionForAdd.setTransactionAccountToLastAmount(amount1);
+		auto amount2 = transactionForAdd.getTransactionAccountFromLastAmount();
+		transactionForAdd.setTransactionAccountFromCurrentAmount(amount2);
+		transactionForAdd.setTransactionAccountToCurrentAmount(amount2);
+	}
+	if (transactionForAdd.getTransactionType() == TransactionType(TransactionTypeEnum::Transfer))
+	{
+
 	}
 }

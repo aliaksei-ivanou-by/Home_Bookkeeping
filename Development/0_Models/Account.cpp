@@ -1,20 +1,19 @@
 #include "Account.h"
 
 Account::Account():
-	accountName{ "" }
+	accountName{ "" },
+	accountLastAmount{ 0 }
 {}
 
 Account::Account(const std::string& accountNameForAdd):
-	accountName{ accountNameForAdd }
-{
-	accountAmount = 0;
-}
+	accountName{ accountNameForAdd },
+	accountLastAmount{ 0 }
+{}
 
 Account::Account(const std::string& accountNameForAdd, double accounAmountForAdd) :
-	accountName{ accountNameForAdd }
-{
-	accountAmount = accounAmountForAdd;
-}
+	accountName{ accountNameForAdd },
+	accountLastAmount{ accounAmountForAdd }
+{}
 
 std::string Account::getAccountName() const
 {
@@ -28,12 +27,17 @@ void Account::setAccountName(const std::string& accountNameForUpdate)
 
 double Account::getAccountAmount() const
 {
-	return accountAmount;
+	return accountLastAmount;
+}
+
+void Account::setAccountAmount(double accountAmountForUpdate)
+{
+	accountLastAmount = accountAmountForUpdate;
 }
 
 void Account::updateAccountAmount(const double accountAmoutForUpdate)
 {
-	accountAmount += accountAmoutForUpdate;
+	accountLastAmount += accountAmoutForUpdate;
 }
 
 bool operator<(const Account& leftAccount, const Account& rightAccount)

@@ -18,6 +18,8 @@ Transaction::Transaction(
 	transactionAccountTo{ std::make_shared<Account>(transactionAccountFromForAdd) },
 	transactionCategory{ std::make_shared<Category>(transactionCategoryForAdd) },
 	transactionAmount{ transactionAmountForAdd },
+	transactionAccountFromCurrentAmount{ 0 },
+	transactionAccountToCurrentAmount{ 0 },
 	transactionComment{ std::make_shared<Comment>(transactionCommentForAdd) },
 	transactionCurrency{ std::make_shared<Currency>(transactionCurrencyForAdd) },
 	transactionDescription{ std::make_shared<Description>(transactionDescriptionForAdd) },
@@ -25,21 +27,7 @@ Transaction::Transaction(
 	transactionTag{ std::make_shared<Tag>(transactionTagForAdd) },
 	transactionStatus{ std::make_shared<TransactionStatus>(transactionStatusForAdd) },
 	transactionType{ std::make_shared<TransactionType>(transactionTypeForAdd) }
-{
-	if (*transactionType == TransactionType(TransactionTypeEnum::Expence))
-	{
-		(*transactionAccountFrom).updateAccountAmount(-transactionAmount);
-	}
-	if (*transactionType == TransactionType(TransactionTypeEnum::Income))
-	{
-		(*transactionAccountFrom).updateAccountAmount(transactionAmount);
-	}
-	if (*transactionType == TransactionType(TransactionTypeEnum::Transfer))
-	{
-		(*transactionAccountFrom).updateAccountAmount(-transactionAmount);
-		(*transactionAccountTo).updateAccountAmount(transactionAmount);
-	}
-}
+{}
 
 // Income or Expense
 Transaction::Transaction(
@@ -57,9 +45,11 @@ Transaction::Transaction(
 
 	transactionTime{ Time() },
 	transactionAccountFrom{ std::make_shared<Account>(transactionAccountFromForAdd) },
-	transactionAccountTo{ std::make_shared<Account>(transactionAccountToForAdd) },
+	transactionAccountTo{ transactionAccountFrom },
 	transactionCategory{ std::make_shared<Category>(transactionCategoryForAdd) },
 	transactionAmount{ transactionAmountForAdd },
+	transactionAccountFromCurrentAmount{ 0 },
+	transactionAccountToCurrentAmount{ 0 },
 	transactionComment{ std::make_shared<Comment>(transactionCommentForAdd) },
 	transactionCurrency{ std::make_shared<Currency>(transactionCurrencyForAdd) },
 	transactionDescription{ std::make_shared<Description>(transactionDescriptionForAdd) },
@@ -67,21 +57,7 @@ Transaction::Transaction(
 	transactionTag{ std::make_shared<Tag>(transactionTagForAdd) },
 	transactionStatus{ std::make_shared<TransactionStatus>(transactionStatusForAdd) },
 	transactionType{ std::make_shared<TransactionType>(transactionTypeForAdd) }
-{
-	if (*transactionType == TransactionType(TransactionTypeEnum::Expence))
-	{
-		(*transactionAccountFrom).updateAccountAmount(-transactionAmount);
-	}
-	if (*transactionType == TransactionType(TransactionTypeEnum::Income))
-	{
-		(*transactionAccountFrom).updateAccountAmount(transactionAmount);
-	}
-	if (*transactionType == TransactionType(TransactionTypeEnum::Transfer))
-	{
-		(*transactionAccountFrom).updateAccountAmount(-transactionAmount);
-		(*transactionAccountTo).updateAccountAmount(transactionAmount);
-	}
-}
+{}
 
 // Income or Expense
 Transaction::Transaction(
@@ -92,9 +68,11 @@ Transaction::Transaction(
 
 	transactionTime{ Time() },
 	transactionAccountFrom{ std::make_shared<Account>(transactionAccountFromForAdd) },
-	transactionAccountTo{ std::make_shared<Account>(transactionAccountFromForAdd) },
+	transactionAccountTo{ transactionAccountFrom },
 	transactionCategory{ std::make_shared<Category>(transactionCategoryForAdd) },
 	transactionAmount{ transactionAmountForAdd },
+	transactionAccountFromCurrentAmount{ 0 },
+	transactionAccountToCurrentAmount{ 0 },
 	transactionComment{ std::make_shared<Comment>(Comment()) },
 	transactionCurrency{ std::make_shared<Currency>(transactionCurrencyForAdd) },
 	transactionDescription{ std::make_shared<Description>(Description()) },
@@ -102,21 +80,7 @@ Transaction::Transaction(
 	transactionTag{ std::make_shared<Tag>(Tag()) },
 	transactionStatus{ std::make_shared<TransactionStatus>(TransactionStatus()) },
 	transactionType{ std::make_shared<TransactionType>(TransactionType()) }
-{
-	if (*transactionType == TransactionType(TransactionTypeEnum::Expence))
-	{
-		(*transactionAccountFrom).updateAccountAmount(-transactionAmount);
-	}
-	if (*transactionType == TransactionType(TransactionTypeEnum::Income))
-	{
-		(*transactionAccountFrom).updateAccountAmount(transactionAmount);
-	}
-	if (*transactionType == TransactionType(TransactionTypeEnum::Transfer))
-	{
-		(*transactionAccountFrom).updateAccountAmount(-transactionAmount);
-		(*transactionAccountTo).updateAccountAmount(transactionAmount);
-	}
-}
+{}
 
 // Transfer
 Transaction::Transaction(
@@ -131,6 +95,8 @@ Transaction::Transaction(
 	transactionAccountTo{ std::make_shared<Account>(transactionAccountToForAdd) },
 	transactionCategory{ std::make_shared<Category>(transactionCategoryForAdd) },
 	transactionAmount{ transactionAmountForAdd },
+	transactionAccountFromCurrentAmount{ 0 },
+	transactionAccountToCurrentAmount{ 0 },
 	transactionComment{ std::make_shared<Comment>(Comment()) },
 	transactionCurrency{ std::make_shared<Currency>(transactionCurrencyForAdd) },
 	transactionDescription{ std::make_shared<Description>(Description()) },
@@ -138,21 +104,7 @@ Transaction::Transaction(
 	transactionTag{ std::make_shared<Tag>(Tag()) },
 	transactionStatus{ std::make_shared<TransactionStatus>(TransactionStatus()) },
 	transactionType{ std::make_shared<TransactionType>(TransactionType()) }
-{
-	if (*transactionType == TransactionType(TransactionTypeEnum::Expence))
-	{
-		(*transactionAccountFrom).updateAccountAmount(-transactionAmount);
-	}
-	if (*transactionType == TransactionType(TransactionTypeEnum::Income))
-	{
-		(*transactionAccountFrom).updateAccountAmount(transactionAmount);
-	}
-	if (*transactionType == TransactionType(TransactionTypeEnum::Transfer))
-	{
-		(*transactionAccountFrom).updateAccountAmount(-transactionAmount);
-		(*transactionAccountTo).updateAccountAmount(transactionAmount);
-	}
-}
+{}
 
 Time Transaction::getTransactionTime() const
 {
@@ -164,9 +116,19 @@ Account Transaction::getTransactionAccountFrom() const
 	return *transactionAccountFrom;
 }
 
+std::shared_ptr<Account> Transaction::getTransactionAccountPtrFrom() const
+{
+	return transactionAccountFrom;
+}
+
 Account Transaction::getTransactionAccountTo() const
 {
 	return *transactionAccountTo;
+}
+
+std::shared_ptr<Account> Transaction::getTransactionAccountPtrTo() const
+{
+	return transactionAccountTo;
 }
 
 Category Transaction::getTransactionCategory() const
@@ -179,9 +141,24 @@ double Transaction::getTransactionAmount() const
 	return transactionAmount;
 }
 
-double Transaction::getTransactionAccountAmount() const
+double Transaction::getTransactionAccountFromCurrentAmount() const
+{
+	return transactionAccountFromCurrentAmount;
+}
+
+double Transaction::getTransactionAccountToCurrentAmount() const
+{
+	return transactionAccountToCurrentAmount;
+}
+
+double Transaction::getTransactionAccountFromLastAmount() const
 {
 	return (*transactionAccountFrom).getAccountAmount();
+}
+
+double Transaction::getTransactionAccountToLastAmount() const
+{
+	return (*transactionAccountTo).getAccountAmount();
 }
 
 Comment Transaction::getTransactionComment() const
@@ -229,6 +206,11 @@ void Transaction::setTransactionAccountFrom(const Account& accountFromForUpdate)
 	*transactionAccountFrom = accountFromForUpdate;
 }
 
+void Transaction::setTransactionAccountPtrFrom(std::shared_ptr<Account> accountFromForUpdate)
+{
+	transactionAccountFrom = accountFromForUpdate;
+}
+
 void Transaction::setTransactionAccountTo(const Account& accountToForUpdate)
 {
 	*transactionAccountTo = accountToForUpdate;
@@ -237,6 +219,31 @@ void Transaction::setTransactionAccountTo(const Account& accountToForUpdate)
 void Transaction::setTransactionCategory(const Category& categoryForUpdate)
 {
 	*transactionCategory = categoryForUpdate;
+}
+
+void Transaction::setTransactionAmount(const double amountForUpdate)
+{
+	transactionAmount = amountForUpdate;
+}
+
+void Transaction::setTransactionAccountFromCurrentAmount(const double amountForUpdate)
+{
+	transactionAccountFromCurrentAmount = amountForUpdate;
+}
+
+void Transaction::setTransactionAccountToCurrentAmount(const double amountForUpdate)
+{
+	transactionAccountToCurrentAmount = amountForUpdate;
+}
+
+void Transaction::setTransactionAccountFromLastAmount(const double amountForUpdate)
+{
+	(*transactionAccountFrom).setAccountAmount(amountForUpdate);
+}
+
+void Transaction::setTransactionAccountToLastAmount(const double amountForUpdate)
+{
+	(*transactionAccountTo).setAccountAmount(amountForUpdate);
 }
 
 void Transaction::setTransactionComment(const Comment& commentForUpdate)

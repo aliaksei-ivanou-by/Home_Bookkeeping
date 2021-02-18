@@ -6,7 +6,7 @@ class Account
 {
 private:
 	std::string accountName;
-	double accountAmount;
+	double accountLastAmount;
 public:
 	Account();
 	Account(const std::string& accountNameForAdd);
@@ -14,6 +14,7 @@ public:
 	std::string getAccountName() const;
 	void setAccountName(const std::string& accountNameForUpdate);
 	double getAccountAmount() const;
+	void setAccountAmount(double accountAmountForUpdate);
 	void updateAccountAmount(const double accountAmoutForUpdate);
 	friend bool operator<(const Account& leftAccount, const Account& rightAccount);
 	friend std::ostream& operator<<(std::ostream& outputStream, const Account& account);

@@ -11,6 +11,8 @@ private:
 	std::shared_ptr<Account> transactionAccountTo;
 	std::shared_ptr<Category> transactionCategory;
 	double transactionAmount;
+	double transactionAccountFromCurrentAmount;
+	double transactionAccountToCurrentAmount;
 	std::shared_ptr<Comment> transactionComment;
 	std::shared_ptr<Currency> transactionCurrency;
 	std::shared_ptr<Description> transactionDescription;
@@ -54,12 +56,18 @@ public:
 		const Category& transactionCategoryForAdd,
 		const double transactionAmountForAdd,
 		const Currency& transactionCurrencyForAdd);
+
 	Time getTransactionTime() const;
 	Account getTransactionAccountFrom() const;
+	std::shared_ptr<Account> getTransactionAccountPtrFrom() const;
 	Account getTransactionAccountTo() const;
+	std::shared_ptr<Account> getTransactionAccountPtrTo() const;
 	Category getTransactionCategory() const;
 	double getTransactionAmount() const;
-	double getTransactionAccountAmount() const;
+	double getTransactionAccountFromCurrentAmount() const;
+	double getTransactionAccountToCurrentAmount() const;
+	double getTransactionAccountFromLastAmount() const;
+	double getTransactionAccountToLastAmount() const;
 	Comment getTransactionComment() const;
 	Currency getTransactionCurrency() const;
 	Description getTransactionDescription() const;
@@ -67,10 +75,17 @@ public:
 	Tag getTransactionTag() const;
 	TransactionStatus getTransactionStatus() const;
 	TransactionType getTransactionType() const;
+
 	void setTransactionTime(const Time& timeForUpdate);
 	void setTransactionAccountFrom(const Account& accountFromForUpdate);
+	void setTransactionAccountPtrFrom(std::shared_ptr<Account> accountFromForUpdate);
 	void setTransactionAccountTo(const Account& accountToForUpdate);
 	void setTransactionCategory(const Category& categoryForUpdate);
+	void setTransactionAmount(const double amountForUpdate);
+	void setTransactionAccountFromLastAmount(const double amountForUpdate);
+	void setTransactionAccountToLastAmount(const double amountForUpdate);
+	void setTransactionAccountFromCurrentAmount(const double amountForUpdate);
+	void setTransactionAccountToCurrentAmount(const double amountForUpdate);
 	void setTransactionComment(const Comment& commentForUpdate);
 	void setTransactionCurrency(const Currency& currencyForUpdate);
 	void setTransactionDescription(const Description& descriptionForUpdate);
@@ -78,6 +93,7 @@ public:
 	void setTransactionTag(const Tag& tagForUpdate);
 	void setTransactionTransactionStatus(const TransactionStatus& transactionStatusForUpdate);
 	void setTransactionTransactionTyoe(const TransactionType& transactionTypeForUpdate);
+
 	friend bool operator<(const Transaction& leftTransaction, const Transaction& rightTransaction);
 	friend std::ostream& operator<<(std::ostream& outputStream, const Transaction& transaction);
 };

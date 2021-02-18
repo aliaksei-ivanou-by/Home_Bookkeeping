@@ -3,12 +3,12 @@
 #include "../include/stdafx.h"
 #include "../include/1_DataAccess_Additional.h"
 
-using TransactionRepositoryIterator = std::set<Transaction>::iterator;
+using TransactionRepositoryIterator = std::multiset<Transaction>::iterator;
 
 class TransactionRepository
 {
 private:
-	std::set<Transaction> repository;
+	std::multiset<Transaction> repository;
 public:
 	TransactionRepository();
 	void add(Transaction transactionForAdd);

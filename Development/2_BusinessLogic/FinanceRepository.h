@@ -33,7 +33,7 @@ private:
 	AccountRepositoryIterator endAccountRepository() const;
 public:
 	FinanceRepository();
-	void addTransaction(const Transaction& transactionForAdd);
+	void addTransaction(Transaction& transactionForAdd);
 	void addCategory(const Category& categoryForAdd);
 	void addCurrency(const Currency& currencyForAdd);
 	void addPayee(const Payee& payeeForAdd);
@@ -98,4 +98,6 @@ public:
 	void setDefaultCategories();
 	void setDefaultAccounts();
 	void setDefaultCurrencies();
+
+	void updateAccountAmount(Transaction& transactionForAdd);
 };
