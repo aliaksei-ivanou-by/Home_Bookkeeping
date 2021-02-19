@@ -43,7 +43,7 @@ public:
 	void addAccount(const Account& accountForAdd);
 
 	void removeTransaction(const Transaction& transactionForRemove);
-	void removeCategory(const Category& categoryForRemove);
+	void removeCategory(std::shared_ptr<Category> categoryForRemove);
 	void removeCurrency(const Currency& currencyForRemove);
 	void removePayee(const Payee& payeeForRemove);
 	void removeTag(const Tag& tagForRemove);
@@ -70,7 +70,7 @@ public:
 	void clearAccounts();
 
 	TransactionRepositoryIterator findTransaction(const Transaction& transactionForFind) const;
-	CategoryRepositoryIterator findCategory(const Category& categoryForFind) const;
+	CategoryRepositoryIterator findCategory(std::shared_ptr<Category> categoryForFind) const;
 	CurrencyRepositoryIterator findCurrency(const Currency& currencyForFind) const;
 	PayeeRepositoryIterator findPayee(const Payee& payeeForFind) const;
 	TagRepositoryIterator findTag(const Tag& tagForFind) const;

@@ -42,6 +42,42 @@ void FinanceRepository::addTransaction(Transaction& transactionForAdd)
 		}
 	}
 	updateAccountAmount(transactionForAdd);
+	// Category
+	if (financeRepositoryCategories.size() == 0)
+	{
+		financeRepositoryCategories.add(transactionForAdd.getTransactionCategoryPtr());
+	}
+	else
+	{
+		bool keyFrom = false;
+		for (auto i = financeRepositoryCategories.begin(); i != financeRepositoryCategories.end(); ++i)
+		{
+			if ((**i).getCategoryName() == transactionForAdd.getTransactionCategory().getCategoryName())
+			{
+				keyFrom = true;
+				transactionForAdd.setTransactionCategoryPtr(*i);
+				break;
+			}
+		}
+		if (!keyFrom)
+		{
+			financeRepositoryCategories.add(transactionForAdd.getTransactionCategory());
+		}
+		bool keyTo = false;
+		for (auto i = financeRepositoryCategories.begin(); i != financeRepositoryCategories.end(); ++i)
+		{
+			if ((**i).getCategoryName() == transactionForAdd.getTransactionCategory().getCategoryName())
+			{
+				keyTo = true;
+				transactionForAdd.setTransactionCategoryPtr(*i);
+				break;
+			}
+		}
+		if (!keyTo)
+		{
+			financeRepositoryCategories.add(transactionForAdd.getTransactionCategoryPtr());
+		}
+	}
 	financeRepositoryTransactions.add(transactionForAdd);
 }
 
@@ -85,7 +121,7 @@ void FinanceRepository::removeTransaction(const Transaction& transactionForRemov
 	financeRepositoryTransactions.remove(transactionForRemove);
 }
 
-void FinanceRepository::removeCategory(const Category& categoryForRemove)
+void FinanceRepository::removeCategory(std::shared_ptr<Category> categoryForRemove)
 {
 	financeRepositoryCategories.remove(categoryForRemove);
 
@@ -205,7 +241,7 @@ TransactionRepositoryIterator FinanceRepository::findTransaction(const Transacti
 	return financeRepositoryTransactions.find(transactionForFind);
 }
 
-CategoryRepositoryIterator FinanceRepository::findCategory(const Category& categoryForFind) const
+CategoryRepositoryIterator FinanceRepository::findCategory(std::shared_ptr<Category> categoryForFind) const
 {
 	return financeRepositoryCategories.find(categoryForFind);
 }

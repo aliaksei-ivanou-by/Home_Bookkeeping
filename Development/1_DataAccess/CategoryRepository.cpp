@@ -5,10 +5,15 @@ CategoryRepository::CategoryRepository()
 
 void CategoryRepository::add(Category categoryForAdd)
 {
+	repository.insert(std::make_shared<Category>(categoryForAdd));
+}
+
+void CategoryRepository::add(std::shared_ptr<Category> categoryForAdd)
+{
 	repository.insert(categoryForAdd);
 }
 
-void CategoryRepository::remove(Category categoryForRemove)
+void CategoryRepository::remove(std::shared_ptr<Category> categoryForRemove)
 {
 	repository.erase(categoryForRemove);
 }
@@ -23,7 +28,7 @@ void CategoryRepository::clear()
 	repository.clear();
 }
 
-CategoryRepositoryIterator CategoryRepository::find(const Category& categoryForFind) const
+CategoryRepositoryIterator CategoryRepository::find(std::shared_ptr<Category> categoryForFind) const
 {
 	return repository.find(categoryForFind);
 }
