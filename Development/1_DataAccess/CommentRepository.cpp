@@ -5,10 +5,15 @@ CommentRepository::CommentRepository()
 
 void CommentRepository::add(Comment commentForAdd)
 {
+	repository.insert(std::make_shared<Comment>(commentForAdd));
+}
+
+void CommentRepository::add(std::shared_ptr<Comment> commentForAdd)
+{
 	repository.insert(commentForAdd);
 }
 
-void CommentRepository::remove(Comment commentForRemove)
+void CommentRepository::remove(std::shared_ptr<Comment> commentForRemove)
 {
 	repository.erase(commentForRemove);
 }
@@ -23,7 +28,7 @@ void CommentRepository::clear()
 	repository.clear();
 }
 
-CommentRepositoryIterator CommentRepository::find(const Comment& commentForFind) const
+CommentRepositoryIterator CommentRepository::find(std::shared_ptr<Comment> commentForFind) const
 {
 	return repository.find(commentForFind);
 }

@@ -5,10 +5,10 @@ PayeeRepository::PayeeRepository()
 
 void PayeeRepository::add(Payee payeeForAdd)
 {
-	repository.insert(payeeForAdd);
+	repository.insert(std::make_shared<Payee>(payeeForAdd));
 }
 
-void PayeeRepository::remove(Payee payeeForRemove)
+void PayeeRepository::remove(std::shared_ptr<Payee> payeeForRemove)
 {
 	repository.erase(payeeForRemove);
 }
@@ -23,7 +23,7 @@ void PayeeRepository::clear()
 	repository.clear();
 }
 
-PayeeRepositoryIterator PayeeRepository::find(const Payee& payeeForFind) const
+PayeeRepositoryIterator PayeeRepository::find(std::shared_ptr<Payee> payeeForFind) const
 {
 	return repository.find(payeeForFind);
 }

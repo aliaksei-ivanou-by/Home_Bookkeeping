@@ -116,7 +116,7 @@ void FinanceRepository::addAccount(const Account& accountForAdd)
 	financeRepositoryAccounts.add(accountForAdd);
 }
 
-void FinanceRepository::removeTransaction(const Transaction& transactionForRemove)
+void FinanceRepository::removeTransaction(std::shared_ptr<Transaction> transactionForRemove)
 {
 	financeRepositoryTransactions.remove(transactionForRemove);
 }
@@ -126,32 +126,32 @@ void FinanceRepository::removeCategory(std::shared_ptr<Category> categoryForRemo
 	financeRepositoryCategories.remove(categoryForRemove);
 
 }
-void FinanceRepository::removeCurrency(const Currency& currencyForRemove)
+void FinanceRepository::removeCurrency(std::shared_ptr<Currency> currencyForRemove)
 {
 	financeRepositoryCurrencies.remove(currencyForRemove);
 }
 
-void FinanceRepository::removePayee(const Payee& payeeForRemove)
+void FinanceRepository::removePayee(std::shared_ptr<Payee> payeeForRemove)
 {
 	financeRepositoryPayees.remove(payeeForRemove);
 }
 
-void FinanceRepository::removeTag(const Tag& tagForRemove)
+void FinanceRepository::removeTag(std::shared_ptr<Tag> tagForRemove)
 {
 	financeRepositoryTags.remove(tagForRemove);
 }
 
-void FinanceRepository::removeComment(const Comment& commentForRemove)
+void FinanceRepository::removeComment(std::shared_ptr<Comment> commentForRemove)
 {
 	financeRepositoryComments.remove(commentForRemove);
 }
 
-void FinanceRepository::removeDescription(const Description& descriptionForRemove)
+void FinanceRepository::removeDescription(std::shared_ptr<Description> descriptionForRemove)
 {
 	financeRepositoryDescriptions.remove(descriptionForRemove);
 }
 
-void FinanceRepository::removeAccount(const Account& accountForRemove)
+void FinanceRepository::removeAccount(std::shared_ptr<Account> accountForRemove)
 {
 	financeRepositoryAccounts.remove(accountForRemove);
 }
@@ -236,7 +236,7 @@ void FinanceRepository::clearAccounts()
 	financeRepositoryAccounts.clear();
 }
 
-TransactionRepositoryIterator FinanceRepository::findTransaction(const Transaction& transactionForFind) const
+TransactionRepositoryIterator FinanceRepository::findTransaction(std::shared_ptr<Transaction> transactionForFind) const
 {
 	return financeRepositoryTransactions.find(transactionForFind);
 }
@@ -246,32 +246,32 @@ CategoryRepositoryIterator FinanceRepository::findCategory(std::shared_ptr<Categ
 	return financeRepositoryCategories.find(categoryForFind);
 }
 
-CurrencyRepositoryIterator FinanceRepository::findCurrency(const Currency& currencyForFind) const
+CurrencyRepositoryIterator FinanceRepository::findCurrency(std::shared_ptr<Currency> currencyForFind) const
 {
 	return financeRepositoryCurrencies.find(currencyForFind);
 }
 
-PayeeRepositoryIterator FinanceRepository::findPayee(const Payee& payeeForFind) const
+PayeeRepositoryIterator FinanceRepository::findPayee(std::shared_ptr<Payee> payeeForFind) const
 {
 	return financeRepositoryPayees.find(payeeForFind);
 }
 
-TagRepositoryIterator FinanceRepository::findTag(const Tag& tagForFind) const
+TagRepositoryIterator FinanceRepository::findTag(std::shared_ptr<Tag> tagForFind) const
 {
 	return financeRepositoryTags.find(tagForFind);
 }
 
-CommentRepositoryIterator FinanceRepository::findComment(const Comment& commentForFind) const
+CommentRepositoryIterator FinanceRepository::findComment(std::shared_ptr<Comment> commentForFind) const
 {
 	return financeRepositoryComments.find(commentForFind);
 }
 
-DescriptionRepositoryIterator FinanceRepository::findDescription(const Description& descriptionForFind) const
+DescriptionRepositoryIterator FinanceRepository::findDescription(std::shared_ptr<Description> descriptionForFind) const
 {
 	return financeRepositoryDescriptions.find(descriptionForFind);
 }
 
-AccountRepositoryIterator FinanceRepository::findAccount(const Account& accountForFind) const
+AccountRepositoryIterator FinanceRepository::findAccount(std::shared_ptr<Account> accountForFind) const
 {
 	return financeRepositoryAccounts.find(accountForFind);
 }
@@ -375,7 +375,7 @@ void FinanceRepository::printTransactions(const std::string& delimeter, std::ost
 	auto i = beginTransactionRepository();
 	while (i != endTransactionRepository())
 	{
-		outputStream << *i;
+		outputStream << **i;
 		++i;
 		if (i != endTransactionRepository())
 		{

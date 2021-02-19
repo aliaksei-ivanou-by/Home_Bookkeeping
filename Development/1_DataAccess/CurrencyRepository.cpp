@@ -5,10 +5,15 @@ CurrencyRepository::CurrencyRepository()
 
 void CurrencyRepository::add(Currency currencyForAdd)
 {
+	repository.insert(std::make_shared<Currency>(currencyForAdd));
+}
+
+void CurrencyRepository::add(std::shared_ptr<Currency> currencyForAdd)
+{
 	repository.insert(currencyForAdd);
 }
 
-void CurrencyRepository::remove(Currency currencyForRemove)
+void CurrencyRepository::remove(std::shared_ptr<Currency> currencyForRemove)
 {
 	repository.erase(currencyForRemove);
 }
@@ -23,7 +28,7 @@ void CurrencyRepository::clear()
 	repository.clear();
 }
 
-CurrencyRepositoryIterator CurrencyRepository::find(const Currency& currencyForFind) const
+CurrencyRepositoryIterator CurrencyRepository::find(std::shared_ptr<Currency> currencyForFind) const
 {
 	return repository.find(currencyForFind);
 }

@@ -42,14 +42,14 @@ public:
 	void addDescription(const Description& descriptionForAdd);
 	void addAccount(const Account& accountForAdd);
 
-	void removeTransaction(const Transaction& transactionForRemove);
+	void removeTransaction(std::shared_ptr<Transaction> transactionForRemove);
 	void removeCategory(std::shared_ptr<Category> categoryForRemove);
-	void removeCurrency(const Currency& currencyForRemove);
-	void removePayee(const Payee& payeeForRemove);
-	void removeTag(const Tag& tagForRemove);
-	void removeComment(const Comment& commentForRemove);
-	void removeDescription(const Description& descriptionForRemove);
-	void removeAccount(const Account& accountForRemove);
+	void removeCurrency(std::shared_ptr<Currency> currencyForRemove);
+	void removePayee(std::shared_ptr<Payee> payeeForRemove);
+	void removeTag(std::shared_ptr<Tag> tagForRemove);
+	void removeComment(std::shared_ptr<Comment> commentForRemove);
+	void removeDescription(std::shared_ptr<Description> descriptionForRemove);
+	void removeAccount(std::shared_ptr<Account> accountForRemove);
 
 	size_t getTransactionsNumber() const;
 	size_t getCategoriesNumber() const;
@@ -69,14 +69,14 @@ public:
 	void clearDescriptions();
 	void clearAccounts();
 
-	TransactionRepositoryIterator findTransaction(const Transaction& transactionForFind) const;
+	TransactionRepositoryIterator findTransaction(std::shared_ptr<Transaction> transactionForFind) const;
 	CategoryRepositoryIterator findCategory(std::shared_ptr<Category> categoryForFind) const;
-	CurrencyRepositoryIterator findCurrency(const Currency& currencyForFind) const;
-	PayeeRepositoryIterator findPayee(const Payee& payeeForFind) const;
-	TagRepositoryIterator findTag(const Tag& tagForFind) const;
-	CommentRepositoryIterator findComment(const Comment& commentForFind) const;
-	DescriptionRepositoryIterator findDescription(const Description& descriptionForFind) const;
-	AccountRepositoryIterator findAccount(const Account& accountForFind) const;
+	CurrencyRepositoryIterator findCurrency(std::shared_ptr<Currency> currencyForFind) const;
+	PayeeRepositoryIterator findPayee(std::shared_ptr<Payee> payeeForFind) const;
+	TagRepositoryIterator findTag(std::shared_ptr<Tag> tagForFind) const;
+	CommentRepositoryIterator findComment(std::shared_ptr<Comment> commentForFind) const;
+	DescriptionRepositoryIterator findDescription(std::shared_ptr<Description> descriptionForFind) const;
+	AccountRepositoryIterator findAccount(std::shared_ptr<Account> accountForFind) const;
 
 	void printAccounts(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
 	void printTransactions(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;

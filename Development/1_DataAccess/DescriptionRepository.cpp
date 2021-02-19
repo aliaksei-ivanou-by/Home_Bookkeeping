@@ -5,10 +5,15 @@ DescriptionRepository::DescriptionRepository()
 
 void DescriptionRepository::add(Description descriptionForAdd)
 {
+	repository.insert(std::make_shared<Description>(descriptionForAdd));
+}
+
+void DescriptionRepository::add(std::shared_ptr<Description> descriptionForAdd)
+{
 	repository.insert(descriptionForAdd);
 }
 
-void DescriptionRepository::remove(Description descriptionForRemove)
+void DescriptionRepository::remove(std::shared_ptr<Description> descriptionForRemove)
 {
 	repository.erase(descriptionForRemove);
 }
@@ -23,7 +28,7 @@ void DescriptionRepository::clear()
 	repository.clear();
 }
 
-DescriptionRepositoryIterator DescriptionRepository::find(const Description& descriptionForFind) const
+DescriptionRepositoryIterator DescriptionRepository::find(std::shared_ptr<Description> descriptionForFind) const
 {
 	return repository.find(descriptionForFind);
 }

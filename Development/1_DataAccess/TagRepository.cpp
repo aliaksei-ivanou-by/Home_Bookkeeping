@@ -5,10 +5,10 @@ TagRepository::TagRepository()
 
 void TagRepository::add(Tag tagForAdd)
 {
-	repository.insert(tagForAdd);
+	repository.insert(std::make_shared<Tag>(tagForAdd));
 }
 
-void TagRepository::remove(Tag tagForRemove)
+void TagRepository::remove(std::shared_ptr<Tag> tagForRemove)
 {
 	repository.erase(tagForRemove);
 }
@@ -23,7 +23,7 @@ void TagRepository::clear()
 	repository.clear();
 }
 
-TagRepositoryIterator TagRepository::find(const Tag& tagForFind) const
+TagRepositoryIterator TagRepository::find(std::shared_ptr<Tag> tagForFind) const
 {
 	return repository.find(tagForFind);
 }

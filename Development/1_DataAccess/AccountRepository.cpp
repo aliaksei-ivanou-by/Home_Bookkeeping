@@ -13,9 +13,9 @@ void AccountRepository::add(std::shared_ptr<Account> accountForAdd)
 	repository.insert(accountForAdd);
 }
 
-void AccountRepository::remove(Account accountForRemove)
+void AccountRepository::remove(std::shared_ptr<Account> accountForRemove)
 {
-	repository.erase(std::make_shared<Account>(accountForRemove));
+	repository.erase(accountForRemove);
 }
 
 size_t AccountRepository::size() const
@@ -26,11 +26,6 @@ size_t AccountRepository::size() const
 void AccountRepository::clear()
 {
 	repository.clear();
-}
-
-AccountRepositoryIterator AccountRepository::find(const Account& accountForFind) const
-{
-	return repository.find(std::make_shared<Account>(accountForFind));
 }
 
 AccountRepositoryIterator AccountRepository::find(std::shared_ptr<Account> accountForFind) const

@@ -56,7 +56,7 @@ public:
 		const Category& transactionCategoryForAdd,
 		const double transactionAmountForAdd,
 		const Currency& transactionCurrencyForAdd);
-
+	Transaction(const Transaction& transaction);
 	Time getTransactionTime() const;
 	Account getTransactionAccountFrom() const;
 	std::shared_ptr<Account> getTransactionAccountPtrFrom() const;

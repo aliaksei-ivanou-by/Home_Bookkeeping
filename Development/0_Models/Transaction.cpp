@@ -106,6 +106,24 @@ Transaction::Transaction(
 	transactionType{ std::make_shared<TransactionType>(TransactionType(TransactionTypeEnum::Transfer)) }
 {}
 
+Transaction::Transaction(const Transaction& transaction)
+{
+	transactionTime = Time();
+	transactionAccountFrom = std::make_shared<Account>(transaction.getTransactionAccountFrom());
+	transactionAccountTo = std::make_shared<Account>(transaction.getTransactionAccountTo());
+	transactionCategory = std::make_shared<Category>(transaction.getTransactionCategory());
+	transactionAmount = transaction.transactionAmount;
+	transactionAccountFromCurrentAmount = transaction.transactionAccountFromCurrentAmount;
+	transactionAccountToCurrentAmount = transaction.transactionAccountToCurrentAmount;
+	transactionComment = std::make_shared<Comment>(transaction.getTransactionComment());
+	transactionCurrency = std::make_shared<Currency>(transaction.getTransactionCurrency());
+	transactionDescription = std::make_shared<Description>(transaction.getTransactionDescription());
+	transactionPayee = std::make_shared<Payee>(transaction.getTransactionPayee());
+	transactionTag = std::make_shared<Tag>(transaction.getTransactionTag());
+	transactionStatus = std::make_shared<TransactionStatus>(transaction.getTransactionStatus());
+	transactionType = std::make_shared<TransactionType>(transaction.getTransactionType());
+}
+
 Time Transaction::getTransactionTime() const
 {
 	return transactionTime;
