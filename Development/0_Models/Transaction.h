@@ -80,6 +80,7 @@ public:
 	void setTransactionAccountFrom(const Account& accountFromForUpdate);
 	void setTransactionAccountPtrFrom(std::shared_ptr<Account> accountFromForUpdate);
 	void setTransactionAccountTo(const Account& accountToForUpdate);
+	void setTransactionAccountPtrTo(std::shared_ptr<Account> accountFromForUpdate);
 	void setTransactionCategory(const Category& categoryForUpdate);
 	void setTransactionAmount(const double amountForUpdate);
 	void setTransactionAccountFromLastAmount(const double amountForUpdate);

@@ -5,19 +5,42 @@ FinanceRepository::FinanceRepository()
 
 void FinanceRepository::addTransaction(Transaction& transactionForAdd)
 {
-	updateAccountAmount(transactionForAdd);
-
 	if (financeRepositoryAccounts.size() == 0)
 	{
 		financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrFrom());
 	}
 	else
 	{
-		if (financeRepositoryAccounts.find(transactionForAdd.getTransactionAccountPtrFrom()) == financeRepositoryAccounts.end())
+		bool keyFrom = false;
+		for (auto i = financeRepositoryAccounts.begin(); i != financeRepositoryAccounts.end(); ++i)
+		{
+			if ((**i).getAccountName() == transactionForAdd.getTransactionAccountFrom().getAccountName())
+			{
+				keyFrom = true;
+				transactionForAdd.setTransactionAccountPtrFrom(*i);
+				break;
+			}
+		}
+		if (!keyFrom)
 		{
 			financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrFrom());
 		}
+		bool keyTo = false;
+		for (auto i = financeRepositoryAccounts.begin(); i != financeRepositoryAccounts.end(); ++i)
+		{
+			if ((**i).getAccountName() == transactionForAdd.getTransactionAccountTo().getAccountName())
+			{
+				keyTo = true;
+				transactionForAdd.setTransactionAccountPtrTo(*i);
+				break;
+			}
+		}
+		if (!keyTo)
+		{
+			financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrTo());
+		}
 	}
+	updateAccountAmount(transactionForAdd);
 	financeRepositoryTransactions.add(transactionForAdd);
 }
 
@@ -412,24 +435,28 @@ void FinanceRepository::updateAccountAmount(Transaction& transactionForAdd)
 {
 	if (transactionForAdd.getTransactionType() == TransactionType(TransactionTypeEnum::Expence))
 	{
-		auto amount1 = transactionForAdd.getTransactionAccountFromLastAmount() - transactionForAdd.getTransactionAmount();
-		transactionForAdd.setTransactionAccountFromLastAmount(amount1);
-		transactionForAdd.setTransactionAccountToLastAmount(amount1);
-		auto amount2 = transactionForAdd.getTransactionAccountFromLastAmount();
-		transactionForAdd.setTransactionAccountFromCurrentAmount(amount2);
-		transactionForAdd.setTransactionAccountToCurrentAmount(amount2);
+		auto amount = transactionForAdd.getTransactionAccountFromLastAmount() - transactionForAdd.getTransactionAmount();
+		transactionForAdd.setTransactionAccountFromLastAmount(amount);
+		transactionForAdd.setTransactionAccountToLastAmount(amount);
+		transactionForAdd.setTransactionAccountFromCurrentAmount(amount);
+		transactionForAdd.setTransactionAccountToCurrentAmount(amount);
 	}
 	if (transactionForAdd.getTransactionType() == TransactionType(TransactionTypeEnum::Income))
 	{
-		auto amount1 = transactionForAdd.getTransactionAccountFromLastAmount() + transactionForAdd.getTransactionAmount();
-		transactionForAdd.setTransactionAccountFromLastAmount(amount1);
-		transactionForAdd.setTransactionAccountToLastAmount(amount1);
-		auto amount2 = transactionForAdd.getTransactionAccountFromLastAmount();
-		transactionForAdd.setTransactionAccountFromCurrentAmount(amount2);
-		transactionForAdd.setTransactionAccountToCurrentAmount(amount2);
+		auto amount = transactionForAdd.getTransactionAccountFromLastAmount() + transactionForAdd.getTransactionAmount();
+		transactionForAdd.setTransactionAccountFromLastAmount(amount);
+		transactionForAdd.setTransactionAccountToLastAmount(amount);
+		transactionForAdd.setTransactionAccountFromCurrentAmount(amount);
+		transactionForAdd.setTransactionAccountToCurrentAmount(amount);
 	}
 	if (transactionForAdd.getTransactionType() == TransactionType(TransactionTypeEnum::Transfer))
 	{
+		auto amountFrom = transactionForAdd.getTransactionAccountFromLastAmount() - transactionForAdd.getTransactionAmount();
+		transactionForAdd.setTransactionAccountFromLastAmount(amountFrom);
+		transactionForAdd.setTransactionAccountFromCurrentAmount(amountFrom);
 
+		auto amountTo = transactionForAdd.getTransactionAccountToLastAmount() + transactionForAdd.getTransactionAmount();
+		transactionForAdd.setTransactionAccountToLastAmount(amountTo);
+		transactionForAdd.setTransactionAccountToCurrentAmount(amountTo);
 	}
 }

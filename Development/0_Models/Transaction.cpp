@@ -103,7 +103,7 @@ Transaction::Transaction(
 	transactionPayee{ std::make_shared<Payee>(Payee()) },
 	transactionTag{ std::make_shared<Tag>(Tag()) },
 	transactionStatus{ std::make_shared<TransactionStatus>(TransactionStatus()) },
-	transactionType{ std::make_shared<TransactionType>(TransactionType()) }
+	transactionType{ std::make_shared<TransactionType>(TransactionType(TransactionTypeEnum::Transfer)) }
 {}
 
 Time Transaction::getTransactionTime() const
@@ -214,6 +214,11 @@ void Transaction::setTransactionAccountPtrFrom(std::shared_ptr<Account> accountF
 void Transaction::setTransactionAccountTo(const Account& accountToForUpdate)
 {
 	*transactionAccountTo = accountToForUpdate;
+}
+
+void Transaction::setTransactionAccountPtrTo(std::shared_ptr<Account> accountFromForUpdate)
+{
+	transactionAccountTo = accountFromForUpdate;
 }
 
 void Transaction::setTransactionCategory(const Category& categoryForUpdate)
