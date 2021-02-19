@@ -5,6 +5,7 @@ FinanceRepository::FinanceRepository()
 
 void FinanceRepository::addTransaction(Transaction& transactionForAdd)
 {
+	// Account
 	if (financeRepositoryAccounts.size() == 0)
 	{
 		financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrFrom());

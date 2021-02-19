@@ -136,6 +136,11 @@ Category Transaction::getTransactionCategory() const
 	return *transactionCategory;
 }
 
+std::shared_ptr<Category> Transaction::getTransactionCategoryPtr() const
+{
+	return transactionCategory;
+}
+
 double Transaction::getTransactionAmount() const
 {
 	return transactionAmount;
@@ -166,9 +171,19 @@ Comment Transaction::getTransactionComment() const
 	return *transactionComment;
 }
 
+std::shared_ptr<Comment> Transaction::getTransactionCommentPtr() const
+{
+	return transactionComment;
+}
+
 Currency Transaction::getTransactionCurrency() const
 {
 	return *transactionCurrency;
+}
+
+std::shared_ptr<Currency> Transaction::getTransactionCurrencyPtr() const
+{
+	return transactionCurrency;
 }
 
 Description Transaction::getTransactionDescription() const
@@ -176,9 +191,19 @@ Description Transaction::getTransactionDescription() const
 	return *transactionDescription;
 }
 
+std::shared_ptr<Description> Transaction::getTransactionDescriptionPtr() const
+{
+	return transactionDescription;
+}
+
 Payee Transaction::getTransactionPayee() const
 {
 	return *transactionPayee;
+}
+
+std::shared_ptr<Payee> Transaction::getTransactionPayeePtr() const
+{
+	return transactionPayee;
 }
 
 Tag Transaction::getTransactionTag() const
@@ -186,14 +211,29 @@ Tag Transaction::getTransactionTag() const
 	return *transactionTag;
 }
 
+std::shared_ptr<Tag> Transaction::getTransactionTagPtr() const
+{
+	return transactionTag;
+}
+
 TransactionStatus Transaction::getTransactionStatus() const
 {
 	return *transactionStatus;
 }
 
+std::shared_ptr<TransactionStatus> Transaction::getTransactionStatusPtr() const
+{
+	return transactionStatus;
+}
+
 TransactionType Transaction::getTransactionType() const
 {
 	return *transactionType;
+}
+
+std::shared_ptr<TransactionType> Transaction::getTransactionTypePtr() const
+{
+	return transactionType;
 }
 
 void Transaction::setTransactionTime(const Time& timeForUpdate)
@@ -226,6 +266,11 @@ void Transaction::setTransactionCategory(const Category& categoryForUpdate)
 	*transactionCategory = categoryForUpdate;
 }
 
+void Transaction::setTransactionCategoryPtr(std::shared_ptr<Category> categoryForUpdate)
+{
+	transactionCategory = categoryForUpdate;
+}
+
 void Transaction::setTransactionAmount(const double amountForUpdate)
 {
 	transactionAmount = amountForUpdate;
@@ -256,9 +301,19 @@ void Transaction::setTransactionComment(const Comment& commentForUpdate)
 	*transactionComment = commentForUpdate;
 }
 
+void Transaction::setTransactionCommentPtr(std::shared_ptr<Comment> commentForUpdate)
+{
+	transactionComment = commentForUpdate;
+}
+
 void Transaction::setTransactionCurrency(const Currency& currencyForUpdate)
 {
 	*transactionCurrency = currencyForUpdate;
+}
+
+void Transaction::setTransactionCurrencyPtr(std::shared_ptr<Currency> currencyForUpdate)
+{
+	transactionCurrency = currencyForUpdate;
 }
 
 void Transaction::setTransactionDescription(const Description& descriptionForUpdate)
@@ -266,9 +321,19 @@ void Transaction::setTransactionDescription(const Description& descriptionForUpd
 	*transactionDescription = descriptionForUpdate;
 }
 
+void Transaction::setTransactionDescriptionPtr(std::shared_ptr<Description> descriptionForUpdate)
+{
+	transactionDescription = descriptionForUpdate;
+}
+
 void Transaction::setTransactionPayee(const Payee& payeeForUpdate)
 {
 	*transactionPayee = payeeForUpdate;
+}
+
+void Transaction::setTransactionPayeePtr(std::shared_ptr<Payee> payeeForUpdate)
+{
+	transactionPayee = payeeForUpdate;
 }
 
 void Transaction::setTransactionTag(const Tag& tagForUpdate)
@@ -276,14 +341,29 @@ void Transaction::setTransactionTag(const Tag& tagForUpdate)
 	*transactionTag = tagForUpdate;
 }
 
+void Transaction::setTransactionTagPtr(std::shared_ptr<Tag> tagForUpdate)
+{
+	transactionTag = tagForUpdate;
+}
+
 void Transaction::setTransactionTransactionStatus(const TransactionStatus& transactionStatusForUpdate)
 {
 	*transactionStatus = transactionStatusForUpdate;
 }
 
-void Transaction::setTransactionTransactionTyoe(const TransactionType& transactionTypeForUpdate)
+void Transaction::setTransactionTransactionStatusPtr(std::shared_ptr<TransactionStatus> transactionStatusForUpdate)
+{
+	transactionStatus = transactionStatusForUpdate;
+}
+
+void Transaction::setTransactionTransactionType(const TransactionType& transactionTypeForUpdate)
 {
 	*transactionType = transactionTypeForUpdate;
+}
+
+void Transaction::setTransactionTransactionTypePtr(std::shared_ptr<TransactionType> transactionTypeForUpdate)
+{
+	transactionType = transactionTypeForUpdate;
 }
 
 bool operator<(const Transaction& leftTransaction, const Transaction& rightTransaction)

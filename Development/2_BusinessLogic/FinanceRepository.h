@@ -99,5 +99,6 @@ public:
 	void setDefaultAccounts();
 	void setDefaultCurrencies();
 
+
 	void updateAccountAmount(Transaction& transactionForAdd);
 };
