@@ -1,4 +1,4 @@
-/*#include "Window_Main.h"
+#include "Window_Main.h"
 
 Window_Main::Window_Main(
 	Point xy, int w, int h,
@@ -134,8 +134,7 @@ void Window_Main::menuStatisticsLiabilities()
 void Window_Main::menuStatisticsExpensesToday()
 {
 	menuStatisticsText.selection[2].hide();
-	double sum = sumTransactionsByTransactionTypeToday(
-		*ptrFinanceRepository, TransactionType(TransactionTypeEnum::Expence), Time());
+	double sum = ptrFinanceRepository->sumExpencesToday();
 	std::ostringstream sumStream;
 	sumStream << std::fixed << std::setprecision(2) << sum;
 	std::string sumString = sumStream.str();
@@ -146,8 +145,7 @@ void Window_Main::menuStatisticsExpensesToday()
 void Window_Main::menuStatisticsExpensesThisMonth()
 {
 	menuStatisticsText.selection[3].hide();
-	double sum = sumTransactionsByTransactionTypeThisMonth(
-		*ptrFinanceRepository, TransactionType(TransactionTypeEnum::Expence), Time());
+	double sum = ptrFinanceRepository->sumExpencesThisMonth();
 	std::ostringstream sumStream;
 	sumStream << std::fixed << std::setprecision(2) << sum;
 	std::string sumString = sumStream.str();
@@ -158,8 +156,7 @@ void Window_Main::menuStatisticsExpensesThisMonth()
 void Window_Main::menuStatisticsIncomeThisMonth()
 {
 	menuStatisticsText.selection[4].hide();
-	double sum = sumTransactionsByTransactionTypeThisMonth(
-		*ptrFinanceRepository, TransactionType(TransactionTypeEnum::Income), Time());
+	double sum = ptrFinanceRepository->sumIncomesThisMonth();
 	std::ostringstream sumStream;
 	sumStream << std::fixed << std::setprecision(2) << sum;
 	std::string sumString = sumStream.str();
@@ -380,4 +377,4 @@ void Window_Main::quit()
 	button_pushed = true;
 	std::cout << Time() << "Quit\n";
 	hide();
-}*/
+}

@@ -1,9 +1,9 @@
-/*#pragma once
+#pragma once
 
 #include "../include/stdafx.h"
 #include "../include/FLTK.h"
 #include "../include/3_GUI.h"
-#include "../include/1_DataAccess.h"
+#include "../include/2_BusinessLogic.h"
 
 namespace Graph_lib
 {
@@ -38,4 +38,4 @@ namespace Graph_lib
 		void OK();
 		void Cancel();
 	};
-}*/
+}

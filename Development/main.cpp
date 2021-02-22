@@ -1,6 +1,7 @@
 #include "include/stdafx.h"
 #include "include/constants.h"
-#include "include/2_BusinessLogic.h"
+//#include "include/2_BusinessLogic.h"
+#include "include/3_GUI.h"
 
 int main()
 {
@@ -24,5 +25,8 @@ int main()
 	std::cout << a.sumExpencesThisMonth();
 	std::cout << '\n';
 	std::cout << a.sumExpencesAllTime();
-	return 0;
+	std::cout << '\n';
+
+	Window_Main win(Point(100, 100), 600, 600, "Finance System", std::make_shared<FinanceRepository>(a));
+	return gui_main();
 }

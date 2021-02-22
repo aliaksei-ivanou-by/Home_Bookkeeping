@@ -1,4 +1,4 @@
-/*#include "Window_Main.h"
+#include "Window_Main.h"
 #include "Window_AddTransactionTransfer.h"
 
 Window_AddTransactionTransfer::Window_AddTransactionTransfer(const std::string& title,
@@ -80,4 +80,4 @@ void Window_AddTransactionTransfer::Cancel()
 {
 	button_pushed = true;
 	hide();
-}*/
+}
