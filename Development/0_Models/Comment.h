@@ -6,7 +6,7 @@ Class Comment
 Includes comment name.
 
 Constructors:
-	Default
+	Default (name of the comment is empty)
 	With the setting of the name of the comment
 
 Class member functions:
