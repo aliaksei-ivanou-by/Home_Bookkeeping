@@ -375,6 +375,6 @@ void Window_Main::cbQuit(Address, Address pw)
 void Window_Main::quit()
 {
 	button_pushed = true;
-	std::cout << Time() << "Quit\n";
+	std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Quit\n";
 	hide();
 }
