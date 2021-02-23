@@ -2,7 +2,7 @@
 
 // Default constructor
 Category::Category():
-	categoryName{ "Unspecified" }
+	categoryName{ categoryNameUnspecified }
 {}
 
 // Constructor with the setting of the name of the category

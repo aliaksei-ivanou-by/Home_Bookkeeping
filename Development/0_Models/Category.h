@@ -6,7 +6,7 @@ Class Category
 Includes category name.
 
 Constructors:
-	Default
+	Default (name of the category = categoryNameUnspecified)
 	With the setting of the name of the category
 
 Class member functions:
@@ -20,6 +20,7 @@ class Category
 {
 private:
 	std::string categoryName;
+	std::string categoryNameUnspecified = "Unspecified";
 public:
 	Category();
 	Category(const std::string& categoryNameForAdd);
