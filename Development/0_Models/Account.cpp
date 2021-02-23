@@ -7,7 +7,7 @@ Account::Account(const std::string& accountNameForAdd):
 {}
 
 // Constructor with the setting of the name of the account and the initial balance
-Account::Account(const std::string& accountNameForAdd, double accounAmountForAdd) :
+Account::Account(const std::string& accountNameForAdd, double accounAmountForAdd):
 	accountName{ accountNameForAdd },
 	accountLastAmount{ accounAmountForAdd }
 {}
