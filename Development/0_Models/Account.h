@@ -18,6 +18,9 @@ Class member functions:
 	Update the current account balance
 	Operator < for sorting accounts
 	Print account
+
+Wil be updated:
+	Link between Model Account and Model Currency
 */
 
 class Account
