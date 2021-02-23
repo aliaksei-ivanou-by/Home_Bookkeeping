@@ -1,0 +1,2 @@
+- link between Model Account and Model Currency
+- add base currency
