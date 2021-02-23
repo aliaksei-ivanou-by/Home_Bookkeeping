@@ -140,6 +140,7 @@ Transaction& Transaction::operator=(const Transaction& transaction)
 	transactionTag = std::make_shared<Tag>(transaction.getTransactionTag());
 	transactionStatus = std::make_shared<TransactionStatus>(transaction.getTransactionStatus());
 	transactionType = std::make_shared<TransactionType>(transaction.getTransactionType());
+	return *this;
 }
 
 Time Transaction::getTransactionTime() const
