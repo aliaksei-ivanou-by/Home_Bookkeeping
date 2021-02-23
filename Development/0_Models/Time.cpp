@@ -1,5 +1,6 @@
 #include "Time.h"
 
+// Default constructor
 Time::Time():
 	timeSecond{ setSecond() },
 	timeMinute{ setMinute() },
@@ -9,6 +10,7 @@ Time::Time():
 	timeYear{ setYear() }
 {}
 
+// Class member function. Set current second of the time
 int Time::setSecond()
 {
 	struct tm newtime;
@@ -18,6 +20,7 @@ int Time::setSecond()
 	return seconds;
 }
 
+// Class member function. Set current minute of the time
 int Time::setMinute()
 {
 	struct tm newtime;
@@ -27,6 +30,7 @@ int Time::setMinute()
 	return minute;
 }
 
+// Class member function. Set current hour of the time
 int Time::setHour()
 {
 	struct tm newtime;
@@ -36,6 +40,7 @@ int Time::setHour()
 	return hours;
 }
 
+// Class member function. Set current day of the time
 int Time::setDay()
 {
 	struct tm newtime;
@@ -45,6 +50,7 @@ int Time::setDay()
 	return days;
 }
 
+// Class member function. Set current month of the time
 int Time::setMonth()
 {
 	struct tm newtime;
@@ -54,6 +60,7 @@ int Time::setMonth()
 	return month + 1;
 }
 
+// Class member function. Set current year of the time
 int Time::setYear()
 {
 	struct tm newtime;
@@ -63,42 +70,50 @@ int Time::setYear()
 	return year;
 }
 
+// Class member function. Set surrent time and current date of the time
 void Time::setTime()
 {
 	Time time;
 	*this = time;
 }
 
+// Class member function. Get second of the time
 int Time::getSecond() const
 {
 	return timeSecond;
 }
 
+// Class member function. Get minute of the time
 int Time::getMinute() const
 {
 	return timeMinute;
 }
 
+// Class member function. Get hour of the time
 int Time::getHour() const
 {
 	return timeHour;
 }
 
+// Class member function. Get day of the time
 int Time::getDay() const
 {
 	return timeDay;
 }
 
+// Class member function. Get month of the time
 int Time::getMonth() const
 {
 	return timeMonth;
 }
 
+// Class member function. Get year of the time
 int Time::getYear() const
 {
 	return timeYear;
 }
 
+// Class member function. Set second of the time
 void Time::setSecond(const int secondForUpdate)
 {
 	if (secondForUpdate > 60 || secondForUpdate < 1)
@@ -108,6 +123,7 @@ void Time::setSecond(const int secondForUpdate)
 	timeSecond = secondForUpdate;
 }
 
+// Class member function. Set minute of the time
 void Time::setMinute(const int minuteForUpdate)
 {
 	if (minuteForUpdate > 60 || minuteForUpdate < 1)
@@ -117,6 +133,7 @@ void Time::setMinute(const int minuteForUpdate)
 	timeMinute = minuteForUpdate;
 }
 
+// Class member function. Set hour of the time
 void Time::setHour(const int hourForUpdate)
 {
 	if (hourForUpdate > 24 || hourForUpdate < 1)
@@ -126,6 +143,7 @@ void Time::setHour(const int hourForUpdate)
 	timeHour = hourForUpdate;
 }
 
+// Class member function. Set day of the time
 void Time::setDay(const int dayForUpdate)
 {
 	if (dayForUpdate > 31 || dayForUpdate < 1)
@@ -135,6 +153,7 @@ void Time::setDay(const int dayForUpdate)
 	timeDay = dayForUpdate;
 }
 
+// Class member function. Set month of the time
 void Time::setMonth(const int monthForUpdate)
 {
 	if (monthForUpdate > 12 || monthForUpdate < 1)
@@ -144,11 +163,13 @@ void Time::setMonth(const int monthForUpdate)
 	timeMonth = monthForUpdate;
 }
 
+// Class member function. Set year of the time
 void Time::setYear(const int yearForUpdate)
 {
 	timeYear = yearForUpdate;
 }
 
+// Class member function. Operator < for sorting times
 bool operator<(const Time& leftTime, const Time& rightTime)
 {
 	if (leftTime.getYear() < rightTime.getYear())
@@ -232,16 +253,18 @@ bool operator<(const Time& leftTime, const Time& rightTime)
 	return false;
 }
 
+// Class member function. Print time
 std::ostream& operator<<(std::ostream& outputStream, const Time& time)
 {
-	return outputStream << time.getYear() << '.' <<
-							time.getMonth() << '.' <<
-							(time.getDay() < 10 ? "0" : "") << 
-							time.getDay() << ' ' <<
-							(time.getHour() < 10 ? "0" : "") <<
-							time.getHour() << ':' <<
-							(time.getMinute() < 10 ? "0" : "") <<
-							time.getMinute() << ':' <<
-							(time.getSecond() < 10 ? "0" : "") <<
-							time.getSecond();
+	return outputStream << time.timeYear << '.' <<
+							(time.timeMonth < 10 ? "0" : "") <<
+							time.timeMonth << '.' <<
+							(time.timeDay < 10 ? "0" : "") << 
+							time.timeDay << ' ' <<
+							(time.timeHour < 10 ? "0" : "") <<
+							time.timeHour << ':' <<
+							(time.timeMinute < 10 ? "0" : "") <<
+							time.timeMinute << ':' <<
+							(time.timeSecond < 10 ? "0" : "") <<
+							time.timeSecond;
 }
