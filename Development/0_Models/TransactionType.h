@@ -1,6 +1,21 @@
 #pragma once
-
 #include "../include/stdafx.h"
+
+/*
+Class TransactionType
+Includes enum class TransactionTypeEnum, type.
+
+Constructors:
+	Default (status of the transaction type is expence)
+	With the setting of the type of the transaction type
+
+Class member functions:
+	Get the type of the transaction type
+	Set the type of the transaction type
+	Operator == for comparing transaction types
+	Operator != for comparing transaction types
+	Operator < for sorting transaction type
+*/
 
 enum class TransactionTypeEnum
 {
@@ -16,14 +31,11 @@ private:
 public:
 	TransactionType();
 	TransactionType(const TransactionTypeEnum& transactionTypeForAdd);
-	void setTransactionType(const TransactionTypeEnum& transactionTypeForUpdate);
+
 	TransactionTypeEnum getTransactionType() const;
-	bool operator==(const TransactionType& other) const
-	{
-		return transactionType == other.transactionType;
-	}
-	bool operator!=(const TransactionType& other) const
-	{
-		return !(*this == other);
-	}
+
+	void setTransactionType(const TransactionTypeEnum& transactionTypeForUpdate);
+
+	bool operator==(const TransactionType& other) const;
+	bool operator!=(const TransactionType& other) const;
 	friend bool operator<(const TransactionType& leftTransactionType, const TransactionType& rightTransactionType);};
