@@ -1,6 +1,7 @@
 #include "Transaction.h"
 
-// Income or Expense
+// Constructor with the setting of the account from, category, amount, comment, currency, 
+// description, payee, tag, transaction status, transaction type(income or expense)
 Transaction::Transaction(
 	const Account& transactionAccountFromForAdd,
 	const Category& transactionCategoryForAdd,
@@ -29,9 +30,11 @@ Transaction::Transaction(
 	transactionType{ std::make_shared<TransactionType>(transactionTypeForAdd) }
 {}
 
-// Income or Expense
+// Constructor with the setting of the account from, account to, category, amount, comment, currency, 
+// description, payee, tag, transaction status, transaction type (transfer)
 Transaction::Transaction(
 	const Account& transactionAccountFromForAdd,
+	const Account& transactionAccountToForAdd,
 	const Category& transactionCategoryForAdd,
 	const double transactionAmountForAdd,
 	const Comment& transactionCommentForAdd,
@@ -40,8 +43,7 @@ Transaction::Transaction(
 	const Payee& transactionPayeeForAdd,
 	const Tag& transactionTagForAdd,
 	const TransactionStatus& transactionStatusForAdd,
-	const TransactionType& transactionTypeForAdd,
-	const Account& transactionAccountToForAdd):
+	const TransactionType& transactionTypeForAdd):
 
 	transactionTime{ Time() },
 	transactionAccountFrom{ std::make_shared<Account>(transactionAccountFromForAdd) },
@@ -59,12 +61,11 @@ Transaction::Transaction(
 	transactionType{ std::make_shared<TransactionType>(transactionTypeForAdd) }
 {}
 
-// Income or Expense
+// Constructor with the setting of the account from, category, amount (income or expense)
 Transaction::Transaction(
 	const Account& transactionAccountFromForAdd,
 	const Category& transactionCategoryForAdd,
-	const double transactionAmountForAdd,
-	const Currency& transactionCurrencyForAdd):
+	const double transactionAmountForAdd):
 
 	transactionTime{ Time() },
 	transactionAccountFrom{ std::make_shared<Account>(transactionAccountFromForAdd) },
@@ -74,7 +75,7 @@ Transaction::Transaction(
 	transactionAccountFromCurrentAmount{ 0 },
 	transactionAccountToCurrentAmount{ 0 },
 	transactionComment{ std::make_shared<Comment>(Comment()) },
-	transactionCurrency{ std::make_shared<Currency>(transactionCurrencyForAdd) },
+	transactionCurrency{ std::make_shared<Currency>(Currency()) },
 	transactionDescription{ std::make_shared<Description>(Description()) },
 	transactionPayee{ std::make_shared<Payee>(Payee()) },
 	transactionTag{ std::make_shared<Tag>(Tag()) },
@@ -82,13 +83,12 @@ Transaction::Transaction(
 	transactionType{ std::make_shared<TransactionType>(TransactionType()) }
 {}
 
-// Transfer
+// Constructor with the setting of the account from, account to, category, amount (transfer)
 Transaction::Transaction(
 	const Account& transactionAccountFromForAdd,
 	const Account& transactionAccountToForAdd,
 	const Category& transactionCategoryForAdd,
-	const double transactionAmountForAdd,
-	const Currency& transactionCurrencyForAdd) :
+	const double transactionAmountForAdd):
 
 	transactionTime{},
 	transactionAccountFrom{ std::make_shared<Account>(transactionAccountFromForAdd) },
@@ -98,7 +98,7 @@ Transaction::Transaction(
 	transactionAccountFromCurrentAmount{ 0 },
 	transactionAccountToCurrentAmount{ 0 },
 	transactionComment{ std::make_shared<Comment>(Comment()) },
-	transactionCurrency{ std::make_shared<Currency>(transactionCurrencyForAdd) },
+	transactionCurrency{ std::make_shared<Currency>(Currency()) },
 	transactionDescription{ std::make_shared<Description>(Description()) },
 	transactionPayee{ std::make_shared<Payee>(Payee()) },
 	transactionTag{ std::make_shared<Tag>(Tag()) },
@@ -106,6 +106,7 @@ Transaction::Transaction(
 	transactionType{ std::make_shared<TransactionType>(TransactionType(TransactionTypeEnum::Transfer)) }
 {}
 
+// Constructor copy
 Transaction::Transaction(const Transaction& transaction)
 {
 	transactionTime = Time();
@@ -124,6 +125,319 @@ Transaction::Transaction(const Transaction& transaction)
 	transactionType = std::make_shared<TransactionType>(transaction.getTransactionType());
 }
 
+// Class member function. Get the time of the transaction
+Time Transaction::getTransactionTime() const
+{
+	return transactionTime;
+}
+
+// Class member function. Get the account from of the transaction
+Account Transaction::getTransactionAccountFrom() const
+{
+	return *transactionAccountFrom;
+}
+
+// Class member function. Get the account to of the transaction
+Account Transaction::getTransactionAccountTo() const
+{
+	return *transactionAccountTo;
+}
+
+// Class member function. Get the category of the transaction
+Category Transaction::getTransactionCategory() const
+{
+	return *transactionCategory;
+}
+
+// Class member function. Get the amount of the transaction
+double Transaction::getTransactionAmount() const
+{
+	return transactionAmount;
+}
+
+// Class member function. Get the current amount of the account from of the transaction
+double Transaction::getTransactionAccountFromCurrentAmount() const
+{
+	return transactionAccountFromCurrentAmount;
+}
+
+// Class member function. Get the current amount of the account to of the transaction
+double Transaction::getTransactionAccountToCurrentAmount() const
+{
+	return transactionAccountToCurrentAmount;
+}
+
+// Class member function. Get the lastest amount of the account from of the transaction
+double Transaction::getTransactionAccountFromLastAmount() const
+{
+	return (*transactionAccountFrom).getAccountAmount();
+}
+
+// Class member function. Get the lastest amount of the account to of the transaction
+double Transaction::getTransactionAccountToLastAmount() const
+{
+	return (*transactionAccountTo).getAccountAmount();
+}
+
+// Class member function. Get the comment of the transaction
+Comment Transaction::getTransactionComment() const
+{
+	return *transactionComment;
+}
+
+// Class member function. Get the currency of the transaction
+Currency Transaction::getTransactionCurrency() const
+{
+	return *transactionCurrency;
+}
+
+// Class member function. Get the description of the transaction
+Description Transaction::getTransactionDescription() const
+{
+	return *transactionDescription;
+}
+
+// Class member function. Get the payee of the transaction
+Payee Transaction::getTransactionPayee() const
+{
+	return *transactionPayee;
+}
+
+// Class member function. Get the tag of the transaction
+Tag Transaction::getTransactionTag() const
+{
+	return *transactionTag;
+}
+
+// Class member function. Get the transaction status of the transaction
+TransactionStatus Transaction::getTransactionStatus() const
+{
+	return *transactionStatus;
+}
+
+// Class member function. Get the transaction type of the transaction
+TransactionType Transaction::getTransactionType() const
+{
+	return *transactionType;
+}
+
+// Class member function. Get the shared pointer to the account from of the transaction
+std::shared_ptr<Account> Transaction::getTransactionAccountPtrFrom() const
+{
+	return transactionAccountFrom;
+}
+
+// Class member function. Get the shared pointer to the account to of the transaction
+std::shared_ptr<Account> Transaction::getTransactionAccountPtrTo() const
+{
+	return transactionAccountTo;
+}
+
+// Class member function. Get the shared pointer to the category of the transaction
+std::shared_ptr<Category> Transaction::getTransactionCategoryPtr() const
+{
+	return transactionCategory;
+}
+
+// Class member function. Get the shared pointer to the comment of the transaction
+std::shared_ptr<Comment> Transaction::getTransactionCommentPtr() const
+{
+	return transactionComment;
+}
+
+// Class member function. Get the shared pointer to the currency of the transaction
+std::shared_ptr<Currency> Transaction::getTransactionCurrencyPtr() const
+{
+	return transactionCurrency;
+}
+
+// Class member function. Get the shared pointer to the description of the transaction
+std::shared_ptr<Description> Transaction::getTransactionDescriptionPtr() const
+{
+	return transactionDescription;
+}
+
+// Class member function. Get the shared pointer to the payee of the transaction
+std::shared_ptr<Payee> Transaction::getTransactionPayeePtr() const
+{
+	return transactionPayee;
+}
+
+// Class member function. Get the shared pointer to the tag of the transaction
+std::shared_ptr<Tag> Transaction::getTransactionTagPtr() const
+{
+	return transactionTag;
+}
+
+// Class member function. Get the shared pointer to the transaction status of the transaction
+std::shared_ptr<TransactionStatus> Transaction::getTransactionStatusPtr() const
+{
+	return transactionStatus;
+}
+
+// Class member function. Get the shared pointer to the transaction type of the transaction
+std::shared_ptr<TransactionType> Transaction::getTransactionTypePtr() const
+{
+	return transactionType;
+}
+
+// Class member function. Set the time of the transaction
+void Transaction::setTransactionTime(const Time& timeForUpdate)
+{
+	transactionTime = timeForUpdate;
+}
+
+// Class member function. Set the account from of the transaction
+void Transaction::setTransactionAccountFrom(const Account& accountFromForUpdate)
+{
+	*transactionAccountFrom = accountFromForUpdate;
+}
+
+// Class member function. Set the account to of the transaction
+void Transaction::setTransactionAccountTo(const Account& accountToForUpdate)
+{
+	*transactionAccountTo = accountToForUpdate;
+}
+
+// Class member function. Set the category of the transaction
+void Transaction::setTransactionCategory(const Category& categoryForUpdate)
+{
+	*transactionCategory = categoryForUpdate;
+}
+
+// Class member function. Set the amount of the transaction
+void Transaction::setTransactionAmount(const double amountForUpdate)
+{
+	transactionAmount = amountForUpdate;
+}
+
+// Class member function. Set the current amount of the account from of the transaction
+void Transaction::setTransactionAccountFromCurrentAmount(const double amountForUpdate)
+{
+	transactionAccountFromCurrentAmount = amountForUpdate;
+}
+
+// Class member function. Set the current amount of the account to of the transaction
+void Transaction::setTransactionAccountToCurrentAmount(const double amountForUpdate)
+{
+	transactionAccountToCurrentAmount = amountForUpdate;
+}
+
+// Class member function. Set the lastest amount of the account from of the transaction
+void Transaction::setTransactionAccountFromLastAmount(const double amountForUpdate)
+{
+	(*transactionAccountFrom).setAccountAmount(amountForUpdate);
+}
+
+// Class member function. Set the lastest amount of the account to of the transaction
+void Transaction::setTransactionAccountToLastAmount(const double amountForUpdate)
+{
+	(*transactionAccountTo).setAccountAmount(amountForUpdate);
+}
+
+// Class member function. Set the comment of the transaction
+void Transaction::setTransactionComment(const Comment& commentForUpdate)
+{
+	*transactionComment = commentForUpdate;
+}
+
+// Class member function. Set the currency of the transaction
+void Transaction::setTransactionCurrency(const Currency& currencyForUpdate)
+{
+	*transactionCurrency = currencyForUpdate;
+}
+
+// Class member function. Set the description of the transaction
+void Transaction::setTransactionDescription(const Description& descriptionForUpdate)
+{
+	*transactionDescription = descriptionForUpdate;
+}
+
+// Class member function. Set the payee of the transaction
+void Transaction::setTransactionPayee(const Payee& payeeForUpdate)
+{
+	*transactionPayee = payeeForUpdate;
+}
+
+// Class member function. Set the tag of the transaction
+void Transaction::setTransactionTag(const Tag& tagForUpdate)
+{
+	*transactionTag = tagForUpdate;
+}
+
+// Class member function. Set the transaction status of the transaction
+void Transaction::setTransactionTransactionStatus(const TransactionStatus& transactionStatusForUpdate)
+{
+	*transactionStatus = transactionStatusForUpdate;
+}
+
+// Class member function. Set the transaction type of the transaction
+void Transaction::setTransactionTransactionType(const TransactionType& transactionTypeForUpdate)
+{
+	*transactionType = transactionTypeForUpdate;
+}
+
+// Class member function. Set the shared pointer to the account from of the transaction
+void Transaction::setTransactionAccountPtrFrom(std::shared_ptr<Account> accountFromForUpdate)
+{
+	transactionAccountFrom = accountFromForUpdate;
+}
+
+// Class member function. Set the shared pointer to the account to of the transaction
+void Transaction::setTransactionAccountPtrTo(std::shared_ptr<Account> accountFromForUpdate)
+{
+	transactionAccountTo = accountFromForUpdate;
+}
+
+// Class member function. Set the shared pointer to the category of the transaction
+void Transaction::setTransactionCategoryPtr(std::shared_ptr<Category> categoryForUpdate)
+{
+	transactionCategory = categoryForUpdate;
+}
+
+// Class member function. Set the shared pointer to the comment of the transaction
+void Transaction::setTransactionCommentPtr(std::shared_ptr<Comment> commentForUpdate)
+{
+	transactionComment = commentForUpdate;
+}
+
+// Class member function. Set the shared pointer to the currency of the transaction
+void Transaction::setTransactionCurrencyPtr(std::shared_ptr<Currency> currencyForUpdate)
+{
+	transactionCurrency = currencyForUpdate;
+}
+
+// Class member function. Set the shared pointer to the description of the transaction
+void Transaction::setTransactionDescriptionPtr(std::shared_ptr<Description> descriptionForUpdate)
+{
+	transactionDescription = descriptionForUpdate;
+}
+
+// Class member function. Set the shared pointer to the payee of the transaction
+void Transaction::setTransactionPayeePtr(std::shared_ptr<Payee> payeeForUpdate)
+{
+	transactionPayee = payeeForUpdate;
+}
+
+// Class member function. Set the shared pointer to the tag of the transaction
+void Transaction::setTransactionTagPtr(std::shared_ptr<Tag> tagForUpdate)
+{
+	transactionTag = tagForUpdate;
+}
+
+// Class member function. Set the shared pointer to the transaction status of the transaction
+void Transaction::setTransactionTransactionStatusPtr(std::shared_ptr<TransactionStatus> transactionStatusForUpdate)
+{
+	transactionStatus = transactionStatusForUpdate;
+}
+
+// Class member function. Set the shared pointer to the transaction type of the transaction
+void Transaction::setTransactionTransactionTypePtr(std::shared_ptr<TransactionType> transactionTypeForUpdate)
+{
+	transactionType = transactionTypeForUpdate;
+}
+
+// Class member function. Copy assignment operator
 Transaction& Transaction::operator=(const Transaction& transaction)
 {
 	transactionTime = Time();
@@ -143,266 +457,7 @@ Transaction& Transaction::operator=(const Transaction& transaction)
 	return *this;
 }
 
-Time Transaction::getTransactionTime() const
-{
-	return transactionTime;
-}
-
-Account Transaction::getTransactionAccountFrom() const
-{
-	return *transactionAccountFrom;
-}
-
-std::shared_ptr<Account> Transaction::getTransactionAccountPtrFrom() const
-{
-	return transactionAccountFrom;
-}
-
-Account Transaction::getTransactionAccountTo() const
-{
-	return *transactionAccountTo;
-}
-
-std::shared_ptr<Account> Transaction::getTransactionAccountPtrTo() const
-{
-	return transactionAccountTo;
-}
-
-Category Transaction::getTransactionCategory() const
-{
-	return *transactionCategory;
-}
-
-std::shared_ptr<Category> Transaction::getTransactionCategoryPtr() const
-{
-	return transactionCategory;
-}
-
-double Transaction::getTransactionAmount() const
-{
-	return transactionAmount;
-}
-
-double Transaction::getTransactionAccountFromCurrentAmount() const
-{
-	return transactionAccountFromCurrentAmount;
-}
-
-double Transaction::getTransactionAccountToCurrentAmount() const
-{
-	return transactionAccountToCurrentAmount;
-}
-
-double Transaction::getTransactionAccountFromLastAmount() const
-{
-	return (*transactionAccountFrom).getAccountAmount();
-}
-
-double Transaction::getTransactionAccountToLastAmount() const
-{
-	return (*transactionAccountTo).getAccountAmount();
-}
-
-Comment Transaction::getTransactionComment() const
-{
-	return *transactionComment;
-}
-
-std::shared_ptr<Comment> Transaction::getTransactionCommentPtr() const
-{
-	return transactionComment;
-}
-
-Currency Transaction::getTransactionCurrency() const
-{
-	return *transactionCurrency;
-}
-
-std::shared_ptr<Currency> Transaction::getTransactionCurrencyPtr() const
-{
-	return transactionCurrency;
-}
-
-Description Transaction::getTransactionDescription() const
-{
-	return *transactionDescription;
-}
-
-std::shared_ptr<Description> Transaction::getTransactionDescriptionPtr() const
-{
-	return transactionDescription;
-}
-
-Payee Transaction::getTransactionPayee() const
-{
-	return *transactionPayee;
-}
-
-std::shared_ptr<Payee> Transaction::getTransactionPayeePtr() const
-{
-	return transactionPayee;
-}
-
-Tag Transaction::getTransactionTag() const
-{
-	return *transactionTag;
-}
-
-std::shared_ptr<Tag> Transaction::getTransactionTagPtr() const
-{
-	return transactionTag;
-}
-
-TransactionStatus Transaction::getTransactionStatus() const
-{
-	return *transactionStatus;
-}
-
-std::shared_ptr<TransactionStatus> Transaction::getTransactionStatusPtr() const
-{
-	return transactionStatus;
-}
-
-TransactionType Transaction::getTransactionType() const
-{
-	return *transactionType;
-}
-
-std::shared_ptr<TransactionType> Transaction::getTransactionTypePtr() const
-{
-	return transactionType;
-}
-
-void Transaction::setTransactionTime(const Time& timeForUpdate)
-{
-	transactionTime = timeForUpdate;
-}
-
-void Transaction::setTransactionAccountFrom(const Account& accountFromForUpdate)
-{
-	*transactionAccountFrom = accountFromForUpdate;
-}
-
-void Transaction::setTransactionAccountPtrFrom(std::shared_ptr<Account> accountFromForUpdate)
-{
-	transactionAccountFrom = accountFromForUpdate;
-}
-
-void Transaction::setTransactionAccountTo(const Account& accountToForUpdate)
-{
-	*transactionAccountTo = accountToForUpdate;
-}
-
-void Transaction::setTransactionAccountPtrTo(std::shared_ptr<Account> accountFromForUpdate)
-{
-	transactionAccountTo = accountFromForUpdate;
-}
-
-void Transaction::setTransactionCategory(const Category& categoryForUpdate)
-{
-	*transactionCategory = categoryForUpdate;
-}
-
-void Transaction::setTransactionCategoryPtr(std::shared_ptr<Category> categoryForUpdate)
-{
-	transactionCategory = categoryForUpdate;
-}
-
-void Transaction::setTransactionAmount(const double amountForUpdate)
-{
-	transactionAmount = amountForUpdate;
-}
-
-void Transaction::setTransactionAccountFromCurrentAmount(const double amountForUpdate)
-{
-	transactionAccountFromCurrentAmount = amountForUpdate;
-}
-
-void Transaction::setTransactionAccountToCurrentAmount(const double amountForUpdate)
-{
-	transactionAccountToCurrentAmount = amountForUpdate;
-}
-
-void Transaction::setTransactionAccountFromLastAmount(const double amountForUpdate)
-{
-	(*transactionAccountFrom).setAccountAmount(amountForUpdate);
-}
-
-void Transaction::setTransactionAccountToLastAmount(const double amountForUpdate)
-{
-	(*transactionAccountTo).setAccountAmount(amountForUpdate);
-}
-
-void Transaction::setTransactionComment(const Comment& commentForUpdate)
-{
-	*transactionComment = commentForUpdate;
-}
-
-void Transaction::setTransactionCommentPtr(std::shared_ptr<Comment> commentForUpdate)
-{
-	transactionComment = commentForUpdate;
-}
-
-void Transaction::setTransactionCurrency(const Currency& currencyForUpdate)
-{
-	*transactionCurrency = currencyForUpdate;
-}
-
-void Transaction::setTransactionCurrencyPtr(std::shared_ptr<Currency> currencyForUpdate)
-{
-	transactionCurrency = currencyForUpdate;
-}
-
-void Transaction::setTransactionDescription(const Description& descriptionForUpdate)
-{
-	*transactionDescription = descriptionForUpdate;
-}
-
-void Transaction::setTransactionDescriptionPtr(std::shared_ptr<Description> descriptionForUpdate)
-{
-	transactionDescription = descriptionForUpdate;
-}
-
-void Transaction::setTransactionPayee(const Payee& payeeForUpdate)
-{
-	*transactionPayee = payeeForUpdate;
-}
-
-void Transaction::setTransactionPayeePtr(std::shared_ptr<Payee> payeeForUpdate)
-{
-	transactionPayee = payeeForUpdate;
-}
-
-void Transaction::setTransactionTag(const Tag& tagForUpdate)
-{
-	*transactionTag = tagForUpdate;
-}
-
-void Transaction::setTransactionTagPtr(std::shared_ptr<Tag> tagForUpdate)
-{
-	transactionTag = tagForUpdate;
-}
-
-void Transaction::setTransactionTransactionStatus(const TransactionStatus& transactionStatusForUpdate)
-{
-	*transactionStatus = transactionStatusForUpdate;
-}
-
-void Transaction::setTransactionTransactionStatusPtr(std::shared_ptr<TransactionStatus> transactionStatusForUpdate)
-{
-	transactionStatus = transactionStatusForUpdate;
-}
-
-void Transaction::setTransactionTransactionType(const TransactionType& transactionTypeForUpdate)
-{
-	*transactionType = transactionTypeForUpdate;
-}
-
-void Transaction::setTransactionTransactionTypePtr(std::shared_ptr<TransactionType> transactionTypeForUpdate)
-{
-	transactionType = transactionTypeForUpdate;
-}
-
+// Class member function. Operator < for sorting transactions
 bool operator<(const Transaction& leftTransaction, const Transaction& rightTransaction)
 {
 	if (leftTransaction.getTransactionTime() < rightTransaction.getTransactionTime())
@@ -411,151 +466,11 @@ bool operator<(const Transaction& leftTransaction, const Transaction& rightTrans
 	}
 	else
 	{
-		if (rightTransaction.getTransactionTime() < leftTransaction.getTransactionTime())
-		{
-			return false;
-		}
-		else
-		{
-			if (leftTransaction.getTransactionAccountFrom() < rightTransaction.getTransactionAccountFrom())
-			{
-				return true;
-			}
-			else
-			{
-				if (rightTransaction.getTransactionAccountFrom() < leftTransaction.getTransactionAccountFrom())
-				{
-					return false;
-				}
-				else
-				{
-					if (leftTransaction.getTransactionCategory() < rightTransaction.getTransactionCategory())
-					{
-						return true;
-					}
-					else
-					{
-						if (rightTransaction.getTransactionCategory() < leftTransaction.getTransactionCategory())
-						{
-							return false;
-						}
-						else
-						{
-							if (leftTransaction.getTransactionAmount() < rightTransaction.getTransactionAmount())
-							{
-								return true;
-							}
-							else
-							{
-								if (rightTransaction.getTransactionAmount() < leftTransaction.getTransactionAmount())
-								{
-									return false;
-								}
-								else
-								{
-									if (leftTransaction.getTransactionComment() < rightTransaction.getTransactionComment())
-									{
-										return true;
-									}
-									else
-									{
-										if (rightTransaction.getTransactionComment() < leftTransaction.getTransactionComment())
-										{
-											return false;
-										}
-										else
-										{
-											if (leftTransaction.getTransactionCurrency() < rightTransaction.getTransactionCurrency())
-											{
-												return true;
-											}
-											else
-											{
-												if (rightTransaction.getTransactionCurrency() < leftTransaction.getTransactionCurrency())
-												{
-													return false;
-												}
-												else
-												{
-													if (leftTransaction.getTransactionDescription() < rightTransaction.getTransactionDescription())
-													{
-														return true;
-													}
-													else
-													{
-														if (rightTransaction.getTransactionDescription() < leftTransaction.getTransactionDescription())
-														{
-															return false;
-														}
-														else
-														{
-															if (leftTransaction.getTransactionPayee() < rightTransaction.getTransactionPayee())
-															{
-																return true;
-															}
-															else
-															{
-																if (rightTransaction.getTransactionPayee() < leftTransaction.getTransactionPayee())
-																{
-																	return false;
-																}
-																else
-																{
-																	if (leftTransaction.getTransactionTag() < rightTransaction.getTransactionTag())
-																	{
-																		return true;
-																	}
-																	else
-																	{
-																		if (rightTransaction.getTransactionTag() < leftTransaction.getTransactionTag())
-																		{
-																			return false;
-																		}
-																		else
-																		{
-																			if (leftTransaction.getTransactionStatus() < rightTransaction.getTransactionStatus())
-																			{
-																				return true;
-																			}
-																			else
-																			{
-																				if (rightTransaction.getTransactionStatus() < leftTransaction.getTransactionStatus())
-																				{
-																					return false;
-																				}
-																				else
-																				{
-																					if (leftTransaction.getTransactionType() < rightTransaction.getTransactionType())
-																					{
-																						return true;
-																					}
-																					else
-																					{
-																						return false;
-																					}
-																				}
-																			}
-																		}
-																		
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		return false;
 	}
 }
 
+// Class member function. Print transaction
 std::ostream& operator<<(std::ostream& outputStream, const Transaction& transaction)
 {
 	return outputStream << transaction.getTransactionTime() << '\t' <<
