@@ -1,5 +1,15 @@
 #include "FinanceRepository.h"
 
+// Class member function. Set default accounts repository
+void FinanceRepository::setDefaultAccounts()
+{
+	addAccount({ "BYN Cash" });
+	addAccount({ "BYN Card" });
+	addAccount({ "USD Card" });
+	addAccount({ "USD Cash" });
+}
+
+// Class member function. Set default categories repository
 void FinanceRepository::setDefaultCategories()
 {
 	addCategory({ "Bills" });
@@ -12,14 +22,7 @@ void FinanceRepository::setDefaultCategories()
 	addCategory({ "Shopping" });
 }
 
-void FinanceRepository::setDefaultAccounts()
-{
-	addAccount({ "BYN Cash" });
-	addAccount({ "BYN Card" });
-	addAccount({ "USD Card" });
-	addAccount({ "USD Cash" });
-}
-
+// Class member function. Set default currencies repository
 void FinanceRepository::setDefaultCurrencies()
 {
 	addCurrency({ "BYN", "BYN", true });

@@ -6,7 +6,7 @@ Class TransactionType
 Includes enum class TransactionTypeEnum, type.
 
 Constructors:
-	Default (status of the transaction type is expence)
+	Default (status of the transaction type is expense)
 	With the setting of the type of the transaction type
 
 Class member functions:
@@ -20,7 +20,7 @@ Class member functions:
 enum class TransactionTypeEnum
 {
 	Income,
-	Expence,
+	Expense,
 	Transfer
 };
 

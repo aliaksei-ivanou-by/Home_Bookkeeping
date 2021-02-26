@@ -20,11 +20,11 @@ int main()
 	a.addTransaction(tr2);
 	a.printTransactions();
 	std::cout << '\n';
-	std::cout << a.sumExpencesToday();
+	std::cout << a.sumExpensesToday();
 	std::cout << '\n';
-	std::cout << a.sumExpencesThisMonth();
+	std::cout << a.sumExpensesThisMonth();
 	std::cout << '\n';
-	std::cout << a.sumExpencesAllTime();
+	std::cout << a.sumExpensesAllTime();
 	std::cout << '\n';
 
 	Window_Main win(Point(100, 100), 600, 600, "Finance System", std::make_shared<FinanceRepository>(a));

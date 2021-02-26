@@ -2,7 +2,7 @@
 
 // Default constructor
 TransactionType::TransactionType():
-	transactionType{ TransactionTypeEnum::Expence }
+	transactionType{ TransactionTypeEnum::Expense }
 {}
 
 // Constructor with the setting of the type of the transaction type

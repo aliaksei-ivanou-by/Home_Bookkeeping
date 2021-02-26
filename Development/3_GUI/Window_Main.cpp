@@ -60,8 +60,8 @@ Window_Main::Window_Main(
 
 void Window_Main::menuMainAddTransactionExpense()
 {
-	Window_AddTransactionExpense addTransactionExpence("Add Expense", ptrFinanceRepository);
-	addTransactionExpence.wait_for_button();
+	Window_AddTransactionExpense addTransactionExpense("Add Expense", ptrFinanceRepository);
+	addTransactionExpense.wait_for_button();
 	Window_Main::menuStatisticsNetWorth();
 	Window_Main::menuStatisticsLiabilities();
 	Window_Main::menuStatisticsExpensesToday();
@@ -134,7 +134,7 @@ void Window_Main::menuStatisticsLiabilities()
 void Window_Main::menuStatisticsExpensesToday()
 {
 	menuStatisticsText.selection[2].hide();
-	double sum = ptrFinanceRepository->sumExpencesToday();
+	double sum = ptrFinanceRepository->sumExpensesToday();
 	std::ostringstream sumStream;
 	sumStream << std::fixed << std::setprecision(2) << sum;
 	std::string sumString = sumStream.str();
@@ -145,7 +145,7 @@ void Window_Main::menuStatisticsExpensesToday()
 void Window_Main::menuStatisticsExpensesThisMonth()
 {
 	menuStatisticsText.selection[3].hide();
-	double sum = ptrFinanceRepository->sumExpencesThisMonth();
+	double sum = ptrFinanceRepository->sumExpensesThisMonth();
 	std::ostringstream sumStream;
 	sumStream << std::fixed << std::setprecision(2) << sum;
 	std::string sumString = sumStream.str();

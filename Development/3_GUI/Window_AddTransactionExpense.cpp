@@ -60,7 +60,7 @@ try
 	Payee payee(std::string(textPayeeForAdd.get_string()));
 	Tag tag(std::string(textTagForAdd.get_string()));
 	TransactionStatus transactionStatus(TransactionStatusEnum::Void);
-	TransactionType transactionType(TransactionTypeEnum::Expence);
+	TransactionType transactionType(TransactionTypeEnum::Expense);
 	Transaction transaction(account, category, amount, comment, { "" }, description, payee, tag,
 		transactionStatus, transactionType);
 	ptrFinanceRepository->addTransaction(transaction);

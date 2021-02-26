@@ -1,5 +1,6 @@
 #include "FinanceRepository.h"
 
+// Class member function. Calculate sum of today expenses
 double FinanceRepository::sumExpencesToday() const
 {
 	double result = 0;
@@ -16,6 +17,7 @@ double FinanceRepository::sumExpencesToday() const
 	return result;
 }
 
+// Class member function. Calculate sum of this month expenses
 double FinanceRepository::sumExpencesThisMonth() const
 {
 	double result = 0;
@@ -31,6 +33,7 @@ double FinanceRepository::sumExpencesThisMonth() const
 	return result;
 }
 
+// Class member function. Calculate sum of all time expenses
 double FinanceRepository::sumExpencesAllTime() const
 {
 	double result = 0;
@@ -44,6 +47,7 @@ double FinanceRepository::sumExpencesAllTime() const
 	return result;
 }
 
+// Class member function. Calculate sum of today incomes
 double FinanceRepository::sumIncomesToday() const
 {
 	double result = 0;
@@ -60,6 +64,7 @@ double FinanceRepository::sumIncomesToday() const
 	return result;
 }
 
+// Class member function. Calculate sum of this month incomes
 double FinanceRepository::sumIncomesThisMonth() const
 {
 	double result = 0;
@@ -75,6 +80,7 @@ double FinanceRepository::sumIncomesThisMonth() const
 	return result;
 }
 
+// Class member function. Calculate sum of all time incomes
 double FinanceRepository::sumIncomesAllTime() const
 {
 	double result = 0;
