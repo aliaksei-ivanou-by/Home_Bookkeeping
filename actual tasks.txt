@@ -1,3 +1,8 @@
 - link between Model Account and Model Currency
 - add base currency
 - check the date for correctness
+- input for transactions
+- input for other models
+- output for models
+- logger
+- change type for amount to bcd - binary coded dec
