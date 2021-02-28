@@ -103,79 +103,11 @@ TagRepositoryIterator FinanceRepository::endTagRepository() const
 // Class member function. Add transaction to repository of transactions
 void FinanceRepository::addTransaction(Transaction& transactionForAdd)
 {
-	// Account
-	if (financeRepositoryAccounts.size() == 0)
-	{
-		financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrFrom());
-	}
-	else
-	{
-		bool keyFrom = false;
-		for (auto i = financeRepositoryAccounts.begin(); i != financeRepositoryAccounts.end(); ++i)
-		{
-			if ((**i).getAccountName() == transactionForAdd.getTransactionAccountFrom().getAccountName())
-			{
-				keyFrom = true;
-				transactionForAdd.setTransactionAccountPtrFrom(*i);
-				break;
-			}
-		}
-		if (!keyFrom)
-		{
-			financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrFrom());
-		}
-		bool keyTo = false;
-		for (auto i = financeRepositoryAccounts.begin(); i != financeRepositoryAccounts.end(); ++i)
-		{
-			if ((**i).getAccountName() == transactionForAdd.getTransactionAccountTo().getAccountName())
-			{
-				keyTo = true;
-				transactionForAdd.setTransactionAccountPtrTo(*i);
-				break;
-			}
-		}
-		if (!keyTo)
-		{
-			financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrTo());
-		}
-	}
+	updateAccountRepository(transactionForAdd);
 	updateAccountAmount(transactionForAdd);
-	// Category
-	if (financeRepositoryCategories.size() == 0)
-	{
-		financeRepositoryCategories.add(transactionForAdd.getTransactionCategoryPtr());
-	}
-	else
-	{
-		bool keyFrom = false;
-		for (auto i = financeRepositoryCategories.begin(); i != financeRepositoryCategories.end(); ++i)
-		{
-			if ((**i).getCategoryName() == transactionForAdd.getTransactionCategory().getCategoryName())
-			{
-				keyFrom = true;
-				transactionForAdd.setTransactionCategoryPtr(*i);
-				break;
-			}
-		}
-		if (!keyFrom)
-		{
-			financeRepositoryCategories.add(transactionForAdd.getTransactionCategory());
-		}
-		bool keyTo = false;
-		for (auto i = financeRepositoryCategories.begin(); i != financeRepositoryCategories.end(); ++i)
-		{
-			if ((**i).getCategoryName() == transactionForAdd.getTransactionCategory().getCategoryName())
-			{
-				keyTo = true;
-				transactionForAdd.setTransactionCategoryPtr(*i);
-				break;
-			}
-		}
-		if (!keyTo)
-		{
-			financeRepositoryCategories.add(transactionForAdd.getTransactionCategoryPtr());
-		}
-	}
+
+	updateCategoryRepository(transactionForAdd);
+
 	financeRepositoryTransactions.add(transactionForAdd);
 }
 
@@ -537,7 +469,7 @@ TagRepositoryIterator FinanceRepository::findTag(std::shared_ptr<Tag> tagForFind
 // Class member function. Update last amount of account in accounts repository with adding new transaction
 void FinanceRepository::updateAccountAmount(Transaction& transactionForAdd)
 {
-	if (transactionForAdd.getTransactionType() == TransactionType(TransactionTypeEnum::Expence))
+	if (transactionForAdd.getTransactionType() == TransactionType(TransactionTypeEnum::Expense))
 	{
 		auto amount = transactionForAdd.getTransactionAccountFromLastAmount() - transactionForAdd.getTransactionAmount();
 		transactionForAdd.setTransactionAccountFromLastAmount(amount);
@@ -561,5 +493,85 @@ void FinanceRepository::updateAccountAmount(Transaction& transactionForAdd)
 		auto amountTo = transactionForAdd.getTransactionAccountToLastAmount() + transactionForAdd.getTransactionAmount();
 		transactionForAdd.setTransactionAccountToLastAmount(amountTo);
 		transactionForAdd.setTransactionAccountToCurrentAmount(amountTo);
+	}
+}
+
+// Class member function. Update accounts repository with adding new transaction
+void FinanceRepository::updateAccountRepository(Transaction& transactionForAdd)
+{
+	if (financeRepositoryAccounts.size() == 0)
+	{
+		financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrFrom());
+	}
+	else
+	{
+		bool keyFrom = false;
+		for (auto i = financeRepositoryAccounts.begin(); i != financeRepositoryAccounts.end(); ++i)
+		{
+			if ((**i).getAccountName() == transactionForAdd.getTransactionAccountFrom().getAccountName())
+			{
+				keyFrom = true;
+				transactionForAdd.setTransactionAccountPtrFrom(*i);
+				break;
+			}
+		}
+		if (!keyFrom)
+		{
+			financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrFrom());
+		}
+		bool keyTo = false;
+		for (auto i = financeRepositoryAccounts.begin(); i != financeRepositoryAccounts.end(); ++i)
+		{
+			if ((**i).getAccountName() == transactionForAdd.getTransactionAccountTo().getAccountName())
+			{
+				keyTo = true;
+				transactionForAdd.setTransactionAccountPtrTo(*i);
+				break;
+			}
+		}
+		if (!keyTo)
+		{
+			financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrTo());
+		}
+	}
+}
+
+// Class member function. Update categories repository with adding new transaction
+void FinanceRepository::updateCategoryRepository(Transaction& transactionForAdd)
+{
+	if (financeRepositoryCategories.size() == 0)
+	{
+		financeRepositoryCategories.add(transactionForAdd.getTransactionCategoryPtr());
+	}
+	else
+	{
+		bool keyFrom = false;
+		for (auto i = financeRepositoryCategories.begin(); i != financeRepositoryCategories.end(); ++i)
+		{
+			if ((**i).getCategoryName() == transactionForAdd.getTransactionCategory().getCategoryName())
+			{
+				keyFrom = true;
+				transactionForAdd.setTransactionCategoryPtr(*i);
+				break;
+			}
+		}
+		if (!keyFrom)
+		{
+			financeRepositoryCategories.add(transactionForAdd.getTransactionCategory());
+		}
+		bool keyTo = false;
+		for (auto i = financeRepositoryCategories.begin(); i != financeRepositoryCategories.end(); ++i)
+		{
+			if ((**i).getCategoryName() == transactionForAdd.getTransactionCategory().getCategoryName())
+			{
+				keyTo = true;
+				transactionForAdd.setTransactionCategoryPtr(*i);
+				break;
+			}
+		}
+		if (!keyTo)
+		{
+			financeRepositoryCategories.add(transactionForAdd.getTransactionCategoryPtr());
+		}
 	}
 }

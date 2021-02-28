@@ -86,6 +86,13 @@ Class member functions:
 			Find tag (shared pointer) in tags repository
 		additional:
 			Update last amount of account in accounts repository with adding new transaction
+			Update accounts repository with adding new transaction
+			Update categories repository with adding new transaction
+			// Update currencies repository with adding new transaction
+			// Update descriptions repository with adding new transaction
+			// Update payees repository with adding new transaction
+			// Update comments repository with adding new transaction
+			// Update tags repository with adding new transaction
 	sum:
 		expenses:
 			Calculate sum of today expenses
@@ -188,10 +195,12 @@ public:
 	TagRepositoryIterator findTag(std::shared_ptr<Tag> tagForFind) const;
 
 	void updateAccountAmount(Transaction& transactionForAdd);
+	void updateAccountRepository(Transaction& transactionForAdd);
+	void updateCategoryRepository(Transaction& transactionForAdd);
 
-	double sumExpencesToday() const;
-	double sumExpencesThisMonth() const;
-	double sumExpencesAllTime() const;
+	double sumExpensesToday() const;
+	double sumExpensesThisMonth() const;
+	double sumExpensesAllTime() const;
 
 	double sumIncomesToday() const;
 	double sumIncomesThisMonth() const;

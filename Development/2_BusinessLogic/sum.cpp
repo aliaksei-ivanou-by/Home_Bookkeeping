@@ -1,12 +1,12 @@
 #include "FinanceRepository.h"
 
 // Class member function. Calculate sum of today expenses
-double FinanceRepository::sumExpencesToday() const
+double FinanceRepository::sumExpensesToday() const
 {
 	double result = 0;
 	for (auto i = beginTransactionRepository(); i != endTransactionRepository(); ++i)
 	{
-		if ((**i).getTransactionType().getTransactionType() == TransactionTypeEnum::Expence &&
+		if ((**i).getTransactionType().getTransactionType() == TransactionTypeEnum::Expense &&
 			(**i).getTransactionTime().getDay() == Time().getDay() &&
 			(**i).getTransactionTime().getMonth() == Time().getMonth() &&
 			(**i).getTransactionTime().getYear() == Time().getYear())
@@ -18,12 +18,12 @@ double FinanceRepository::sumExpencesToday() const
 }
 
 // Class member function. Calculate sum of this month expenses
-double FinanceRepository::sumExpencesThisMonth() const
+double FinanceRepository::sumExpensesThisMonth() const
 {
 	double result = 0;
 	for (auto i = beginTransactionRepository(); i != endTransactionRepository(); ++i)
 	{
-		if ((**i).getTransactionType().getTransactionType() == TransactionTypeEnum::Expence &&
+		if ((**i).getTransactionType().getTransactionType() == TransactionTypeEnum::Expense &&
 			(**i).getTransactionTime().getMonth() == Time().getMonth() &&
 			(**i).getTransactionTime().getYear() == Time().getYear())
 		{
@@ -34,12 +34,12 @@ double FinanceRepository::sumExpencesThisMonth() const
 }
 
 // Class member function. Calculate sum of all time expenses
-double FinanceRepository::sumExpencesAllTime() const
+double FinanceRepository::sumExpensesAllTime() const
 {
 	double result = 0;
 	for (auto i = beginTransactionRepository(); i != endTransactionRepository(); ++i)
 	{
-		if ((**i).getTransactionType().getTransactionType() == TransactionTypeEnum::Expence)
+		if ((**i).getTransactionType().getTransactionType() == TransactionTypeEnum::Expense)
 		{
 			result += (**i).getTransactionAmount();
 		}
