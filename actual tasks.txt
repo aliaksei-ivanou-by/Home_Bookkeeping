@@ -5,4 +5,4 @@
 - input for other models
 - output for models
 - logger
-- change type for amount to bcd - binary coded dec
+- change type for amount to bcd - binary coded dec (https://github.com/edwig/bcd)
