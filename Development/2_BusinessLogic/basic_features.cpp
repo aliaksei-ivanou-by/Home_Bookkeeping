@@ -107,6 +107,11 @@ void FinanceRepository::addTransaction(Transaction& transactionForAdd)
 	updateAccountAmount(transactionForAdd);
 
 	updateCategoryRepository(transactionForAdd);
+	updateCurrencyRepository(transactionForAdd);
+	updateDescriptionRepository(transactionForAdd);
+	updatePayeeRepository(transactionForAdd);
+	updateCommentRepository(transactionForAdd);
+	updateTagRepository(transactionForAdd);
 
 	financeRepositoryTransactions.add(transactionForAdd);
 }
@@ -572,6 +577,206 @@ void FinanceRepository::updateCategoryRepository(Transaction& transactionForAdd)
 		if (!keyTo)
 		{
 			financeRepositoryCategories.add(transactionForAdd.getTransactionCategoryPtr());
+		}
+	}
+}
+
+// Class member function. Update currencies repository with adding new transaction
+void FinanceRepository::updateCurrencyRepository(Transaction& transactionForAdd)
+{
+	if (financeRepositoryCurrencies.size() == 0)
+	{
+		financeRepositoryCurrencies.add(transactionForAdd.getTransactionCurrencyPtr());
+	}
+	else
+	{
+		bool keyFrom = false;
+		for (auto i = financeRepositoryCurrencies.begin(); i != financeRepositoryCurrencies.end(); ++i)
+		{
+			if ((**i).getCurrencyName() == transactionForAdd.getTransactionCurrency().getCurrencyName())
+			{
+				keyFrom = true;
+				transactionForAdd.setTransactionCurrencyPtr(*i);
+				break;
+			}
+		}
+		if (!keyFrom)
+		{
+			financeRepositoryCurrencies.add(transactionForAdd.getTransactionCurrency());
+		}
+		bool keyTo = false;
+		for (auto i = financeRepositoryCurrencies.begin(); i != financeRepositoryCurrencies.end(); ++i)
+		{
+			if ((**i).getCurrencyName() == transactionForAdd.getTransactionCurrency().getCurrencyName())
+			{
+				keyTo = true;
+				transactionForAdd.setTransactionCurrencyPtr(*i);
+				break;
+			}
+		}
+		if (!keyTo)
+		{
+			financeRepositoryCurrencies.add(transactionForAdd.getTransactionCurrencyPtr());
+		}
+	}
+}
+
+// Class member function. Update descriptions repository with adding new transaction
+void FinanceRepository::updateDescriptionRepository(Transaction& transactionForAdd)
+{
+	if (financeRepositoryDescriptions.size() == 0)
+	{
+		financeRepositoryDescriptions.add(transactionForAdd.getTransactionDescriptionPtr());
+	}
+	else
+	{
+		bool keyFrom = false;
+		for (auto i = financeRepositoryDescriptions.begin(); i != financeRepositoryDescriptions.end(); ++i)
+		{
+			if ((**i).getDescriptionName() == transactionForAdd.getTransactionDescription().getDescriptionName())
+			{
+				keyFrom = true;
+				transactionForAdd.setTransactionDescriptionPtr(*i);
+				break;
+			}
+		}
+		if (!keyFrom)
+		{
+			financeRepositoryDescriptions.add(transactionForAdd.getTransactionDescription());
+		}
+		bool keyTo = false;
+		for (auto i = financeRepositoryDescriptions.begin(); i != financeRepositoryDescriptions.end(); ++i)
+		{
+			if ((**i).getDescriptionName() == transactionForAdd.getTransactionDescription().getDescriptionName())
+			{
+				keyTo = true;
+				transactionForAdd.setTransactionDescriptionPtr(*i);
+				break;
+			}
+		}
+		if (!keyTo)
+		{
+			financeRepositoryDescriptions.add(transactionForAdd.getTransactionDescriptionPtr());
+		}
+	}
+}
+
+// Class member function. Update payees repository with adding new transaction
+void FinanceRepository::updatePayeeRepository(Transaction& transactionForAdd)
+{
+	if (financeRepositoryPayees.size() == 0)
+	{
+		financeRepositoryPayees.add(transactionForAdd.getTransactionPayeePtr());
+	}
+	else
+	{
+		bool keyFrom = false;
+		for (auto i = financeRepositoryPayees.begin(); i != financeRepositoryPayees.end(); ++i)
+		{
+			if ((**i).getPayeeName() == transactionForAdd.getTransactionPayee().getPayeeName())
+			{
+				keyFrom = true;
+				transactionForAdd.setTransactionPayeePtr(*i);
+				break;
+			}
+		}
+		if (!keyFrom)
+		{
+			financeRepositoryPayees.add(transactionForAdd.getTransactionPayee());
+		}
+		bool keyTo = false;
+		for (auto i = financeRepositoryPayees.begin(); i != financeRepositoryPayees.end(); ++i)
+		{
+			if ((**i).getPayeeName() == transactionForAdd.getTransactionPayee().getPayeeName())
+			{
+				keyTo = true;
+				transactionForAdd.setTransactionPayeePtr(*i);
+				break;
+			}
+		}
+		if (!keyTo)
+		{
+			financeRepositoryPayees.add(transactionForAdd.getTransactionPayeePtr());
+		}
+	}
+}
+
+// Class member function. Update comments repository with adding new transaction
+void FinanceRepository::updateCommentRepository(Transaction& transactionForAdd)
+{
+	if (financeRepositoryComments.size() == 0)
+	{
+		financeRepositoryComments.add(transactionForAdd.getTransactionCommentPtr());
+	}
+	else
+	{
+		bool keyFrom = false;
+		for (auto i = financeRepositoryComments.begin(); i != financeRepositoryComments.end(); ++i)
+		{
+			if ((**i).getCommentName() == transactionForAdd.getTransactionComment().getCommentName())
+			{
+				keyFrom = true;
+				transactionForAdd.setTransactionCommentPtr(*i);
+				break;
+			}
+		}
+		if (!keyFrom)
+		{
+			financeRepositoryComments.add(transactionForAdd.getTransactionComment());
+		}
+		bool keyTo = false;
+		for (auto i = financeRepositoryComments.begin(); i != financeRepositoryComments.end(); ++i)
+		{
+			if ((**i).getCommentName() == transactionForAdd.getTransactionComment().getCommentName())
+			{
+				keyTo = true;
+				transactionForAdd.setTransactionCommentPtr(*i);
+				break;
+			}
+		}
+		if (!keyTo)
+		{
+			financeRepositoryComments.add(transactionForAdd.getTransactionCommentPtr());
+		}
+	}
+}
+
+// Class member function. Update tags repository with adding new transaction
+void FinanceRepository::updateTagRepository(Transaction& transactionForAdd)
+{
+	if (financeRepositoryTags.size() == 0)
+	{
+		financeRepositoryTags.add(transactionForAdd.getTransactionTagPtr());
+	}
+	else
+	{
+		bool keyFrom = false;
+		for (auto i = financeRepositoryTags.begin(); i != financeRepositoryTags.end(); ++i)
+		{
+			if ((**i).getTagName() == transactionForAdd.getTransactionTag().getTagName())
+			{
+				keyFrom = true;
+				transactionForAdd.setTransactionTagPtr(*i);
+				break;
+			}
+		}
+		if (!keyFrom)
+		{
+			financeRepositoryTags.add(transactionForAdd.getTransactionTag());
+		}
+		bool keyTo = false;
+		for (auto i = financeRepositoryTags.begin(); i != financeRepositoryTags.end(); ++i)
+		{
+			if ((**i).getTagName() == transactionForAdd.getTransactionTag().getTagName())
+			{
+				keyTo = true;
+				transactionForAdd.setTransactionTagPtr(*i);
+				break;
+			}
+		}
+		if (!keyTo)
+		{
+			financeRepositoryTags.add(transactionForAdd.getTransactionTagPtr());
 		}
 	}
 }

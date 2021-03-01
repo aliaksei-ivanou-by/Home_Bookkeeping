@@ -88,11 +88,11 @@ Class member functions:
 			Update last amount of account in accounts repository with adding new transaction
 			Update accounts repository with adding new transaction
 			Update categories repository with adding new transaction
-			// Update currencies repository with adding new transaction
-			// Update descriptions repository with adding new transaction
-			// Update payees repository with adding new transaction
-			// Update comments repository with adding new transaction
-			// Update tags repository with adding new transaction
+			Update currencies repository with adding new transaction
+			Update descriptions repository with adding new transaction
+			Update payees repository with adding new transaction
+			Update comments repository with adding new transaction
+			Update tags repository with adding new transaction
 	sum:
 		expenses:
 			Calculate sum of today expenses
@@ -195,8 +195,14 @@ public:
 	TagRepositoryIterator findTag(std::shared_ptr<Tag> tagForFind) const;
 
 	void updateAccountAmount(Transaction& transactionForAdd);
+
 	void updateAccountRepository(Transaction& transactionForAdd);
 	void updateCategoryRepository(Transaction& transactionForAdd);
+	void updateCurrencyRepository(Transaction& transactionForAdd);
+	void updateDescriptionRepository(Transaction& transactionForAdd);
+	void updatePayeeRepository(Transaction& transactionForAdd);
+	void updateCommentRepository(Transaction& transactionForAdd);
+	void updateTagRepository(Transaction& transactionForAdd);
 
 	double sumExpensesToday() const;
 	double sumExpensesThisMonth() const;
