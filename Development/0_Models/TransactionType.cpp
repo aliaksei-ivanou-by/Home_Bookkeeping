@@ -1,4 +1,4 @@
-#include "TransactionType.h"
+#include "home_bookkeeping/0_Models/TransactionType.h"
 
 //  Constructor
 //  Default (type = "Expense")

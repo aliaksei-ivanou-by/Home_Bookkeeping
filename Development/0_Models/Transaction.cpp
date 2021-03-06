@@ -1,4 +1,4 @@
-#include "Transaction.h"
+#include "home_bookkeeping/0_Models/Transaction.h"
 
 // Constructor with the setting of the account from, category, amount, comment, currency, 
 // description, payee, tag, transaction status, transaction type(income or expense)
