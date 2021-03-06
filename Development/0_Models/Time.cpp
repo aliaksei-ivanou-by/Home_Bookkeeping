@@ -1,238 +1,259 @@
 #include "Time.h"
 
-// Default constructor
+//  Constructor
+//  Default (current time and current date)
 Time::Time():
-	timeSecond{ setSecond() },
-	timeMinute{ setMinute() },
-	timeHour{ setHour() },
-	timeDay{ setDay() },
-	timeMonth{ setMonth() },
-	timeYear{ setYear() }
+  second_{ SetSecond() },
+  minute_{ SetMinute() },
+  hour_{ SetHour() },
+  day_{ SetDay() },
+  month_{ SetMonth() },
+  year_{ SetYear() }
 {}
 
-// Class member function. Set current second of the time
-int Time::setSecond()
+//  Class member function
+//  Set current second
+int Time::SetSecond()
 {
-	struct tm newtime;
-	time_t now = time(NULL);
-	localtime_s(&newtime, &now);
-	int seconds = newtime.tm_sec;
+	struct tm time_new;
+	time_t time_now = time(NULL);
+	localtime_s(&time_new, &time_now);
+	int seconds = time_new.tm_sec;
 	return seconds;
 }
 
-// Class member function. Set current minute of the time
-int Time::setMinute()
+//  Class member function
+//  Set current minute
+int Time::SetMinute()
 {
-	struct tm newtime;
-	time_t now = time(NULL);
-	localtime_s(&newtime, &now);
-	int minute = newtime.tm_min;
-	return minute;
+  struct tm time_new;
+  time_t time_now = time(NULL);
+  localtime_s(&time_new, &time_now);
+  int minute = time_new.tm_min;
+  return minute;
 }
 
-// Class member function. Set current hour of the time
-int Time::setHour()
+//  Class member function
+//  Set current hour
+int Time::SetHour()
 {
-	struct tm newtime;
-	time_t now = time(NULL);
-	localtime_s(&newtime, &now);
-	int hours = newtime.tm_hour;
-	return hours;
+  struct tm time_new;
+  time_t time_now = time(NULL);
+  localtime_s(&time_new, &time_now);
+  int hours = time_new.tm_hour;
+  return hours;
 }
 
-// Class member function. Set current day of the time
-int Time::setDay()
+//  Class member function
+//  Set current day
+int Time::SetDay()
 {
-	struct tm newtime;
-	time_t now = time(NULL);
-	localtime_s(&newtime, &now);
-	int days = newtime.tm_mday;
-	return days;
+  struct tm time_new;
+  time_t time_now = time(NULL);
+  localtime_s(&time_new, &time_now);
+  int days = time_new.tm_mday;
+  return days;
 }
 
-// Class member function. Set current month of the time
-int Time::setMonth()
+//  Class member function
+//  Set current month
+int Time::SetMonth()
 {
-	struct tm newtime;
-	time_t now = time(NULL);
-	localtime_s(&newtime, &now);
-	int month = newtime.tm_mon;
-	return month + 1;
+  struct tm time_new;
+  time_t time_now = time(NULL);
+  localtime_s(&time_new, &time_now);
+  int month = time_new.tm_mon;
+  return month + 1;
 }
 
-// Class member function. Set current year of the time
-int Time::setYear()
+//  Class member function
+//  Set current year
+int Time::SetYear()
 {
-	struct tm newtime;
-	time_t now = time(NULL);
-	localtime_s(&newtime, &now);
-	int year = newtime.tm_year + 1900;
-	return year;
+  struct tm time_new;
+  time_t time_now = time(NULL);
+  localtime_s(&time_new, &time_now);
+  int year = time_new.tm_year + 1900;
+  return year;
 }
 
-// Class member function. Set surrent time and current date of the time
-void Time::setTime()
+//  Class member function
+//  Set surrent time and current date
+void Time::SetTime()
 {
-	Time time;
-	*this = time;
+  Time time;
+  *this = time;
 }
 
-// Class member function. Get second of the time
-int Time::getSecond() const
+//  Class member function
+//  Get second
+int Time::GetSecond() const
 {
-	return timeSecond;
+  return second_;
 }
 
-// Class member function. Get minute of the time
-int Time::getMinute() const
+//  Class member function
+//  Get minute
+int Time::GetMinute() const
 {
-	return timeMinute;
+  return minute_;
 }
 
-// Class member function. Get hour of the time
-int Time::getHour() const
+//  Class member function
+//  Get hour
+int Time::GetHour() const
 {
-	return timeHour;
+  return hour_;
 }
 
-// Class member function. Get day of the time
-int Time::getDay() const
+//  Class member function
+//  Get day
+int Time::GetDay() const
 {
-	return timeDay;
+  return day_;
 }
 
-// Class member function. Get month of the time
-int Time::getMonth() const
+//  Class member function
+//  Get month
+int Time::GetMonth() const
 {
-	return timeMonth;
+  return month_;
 }
 
-// Class member function. Get year of the time
-int Time::getYear() const
+//  Class member function
+//  Get year
+int Time::GetYear() const
 {
-	return timeYear;
+  return year_;
 }
 
-// Class member function. Set second of the time
-void Time::setSecond(const int secondForUpdate)
+//  Class member function
+//  Set second
+void Time::SetSecond(const int second)
 {
-	if (secondForUpdate > 60 || secondForUpdate < 1)
-	{
-		return;
-	}
-	timeSecond = secondForUpdate;
+  if (second > 60 || second < 1)
+  {
+    return;
+  }
+  second_ = second;
 }
 
-// Class member function. Set minute of the time
-void Time::setMinute(const int minuteForUpdate)
+//  Class member function
+//  Set minute
+void Time::SetMinute(const int minute)
 {
-	if (minuteForUpdate > 60 || minuteForUpdate < 1)
-	{
-		return;
-	}
-	timeMinute = minuteForUpdate;
+  if (minute > 60 || minute < 1)
+  {
+    return;
+  }
+  minute_ = minute;
 }
 
-// Class member function. Set hour of the time
-void Time::setHour(const int hourForUpdate)
+//  Class member function
+//  Set hour
+void Time::SetHour(const int hour)
 {
-	if (hourForUpdate > 24 || hourForUpdate < 1)
-	{
-		return;
-	}
-	timeHour = hourForUpdate;
+  if (hour > 24 || hour < 1)
+  {
+    return;
+  }
+  hour_ = hour;
 }
 
-// Class member function. Set day of the time
-void Time::setDay(const int dayForUpdate)
+//  Class member function
+//  Set day
+void Time::SetDay(const int day)
 {
-	if (dayForUpdate > 31 || dayForUpdate < 1)
-	{
-		return;
-	}
-	timeDay = dayForUpdate;
+  if (day > 31 || day < 1)
+  {
+    return;
+  }
+  day_ = day;
 }
 
-// Class member function. Set month of the time
-void Time::setMonth(const int monthForUpdate)
+//  Class member function
+//  Set month
+void Time::SetMonth(const int month)
 {
-	if (monthForUpdate > 12 || monthForUpdate < 1)
-	{
-		return;
-	}
-	timeMonth = monthForUpdate;
+  if (month > 12 || month < 1)
+  {
+    return;
+  }
+  month_ = month;
 }
 
-// Class member function. Set year of the time
-void Time::setYear(const int yearForUpdate)
+//  Class member function
+//  Set year
+void Time::SetYear(const int year)
 {
-	timeYear = yearForUpdate;
+  year_ = year;
 }
 
-// Class member function. Operator < for sorting times
-bool operator<(const Time& leftTime, const Time& rightTime)
+//  Class member function
+//  Operator < for sorting times (by day and time)
+bool operator<(const Time& time_left, const Time& time_right)
 {
-	if (leftTime.getYear() < rightTime.getYear())
+	if (time_left.year_ < time_right.year_)
 	{
 		return true;
 	}
 	else
 	{
-		if (leftTime.getYear() > rightTime.getYear())
+		if (time_left.year_ > time_right.year_)
 		{
 			return false;
 		}
 		else
 		{
-			if (leftTime.getMonth() < rightTime.getMonth())
+			if (time_left.month_ < time_right.month_)
 			{
 				return true;
 			}
 			else
 			{
-				if (leftTime.getMonth() > rightTime.getMonth())
+				if (time_left.month_ > time_right.month_)
 				{
 					return false;
 				}
 				else
 				{
-					if (leftTime.getDay() < rightTime.getDay())
+					if (time_left.day_ < time_right.day_)
 					{
 						return true;
 					}
 					else
 					{
-						if (leftTime.getDay() > rightTime.getDay())
+						if (time_left.day_ > time_right.day_)
 						{
 							return false;
 						}
 						else
 						{
-							if (leftTime.getHour() < rightTime.getHour())
+							if (time_left.hour_ < time_right.hour_)
 							{
 								return true;
 							}
 							else
 							{
-								if (leftTime.getHour() > rightTime.getHour())
+								if (time_left.hour_ > time_right.hour_)
 								{
 									return false;
 								}
 								else
 								{
-									if (leftTime.getMinute() < rightTime.getMinute())
+									if (time_left.minute_ < time_right.minute_)
 									{
 										return true;
 									}
 									else
 									{
-										if (leftTime.getMinute() > rightTime.getMinute())
+										if (time_left.minute_ > time_right.minute_)
 										{
 											return false;
 										}
 										else
 										{
-											if (leftTime.getSecond() < rightTime.getSecond())
+											if (time_left.second_ < time_right.second_)
 											{
 												return true;
 											}
@@ -253,18 +274,20 @@ bool operator<(const Time& leftTime, const Time& rightTime)
 	return false;
 }
 
-// Class member function. Print time
+//  Class member function
+//  Output time (year, month, day, hour, minute, second -> "YYYY-MM-DD HH:MM:SS")
 std::ostream& operator<<(std::ostream& outputStream, const Time& time)
 {
-	return outputStream << time.timeYear << '.' <<
-							(time.timeMonth < 10 ? "0" : "") <<
-							time.timeMonth << '.' <<
-							(time.timeDay < 10 ? "0" : "") << 
-							time.timeDay << ' ' <<
-							(time.timeHour < 10 ? "0" : "") <<
-							time.timeHour << ':' <<
-							(time.timeMinute < 10 ? "0" : "") <<
-							time.timeMinute << ':' <<
-							(time.timeSecond < 10 ? "0" : "") <<
-							time.timeSecond;
+  return outputStream <<
+    time.year_ <<
+    '-' <<
+    (time.month_ < 10 ? "0" : "") << time.month_ <<
+    '-' <<
+    (time.day_ < 10 ? "0" : "") << time.day_ <<
+    ' ' <<
+    (time.hour_ < 10 ? "0" : "") << time.hour_ <<
+    ':' <<
+    (time.minute_ < 10 ? "0" : "") << time.minute_ <<
+    ':' <<
+    (time.second_ < 10 ? "0" : "") << time.second_;
 }
