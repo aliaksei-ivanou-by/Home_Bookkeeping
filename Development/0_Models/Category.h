@@ -1,34 +1,35 @@
-#pragma once
-#include "../include/stdafx.h"
+#ifndef HOMEBOOKKEEPING_0MODELS_CATEGORY_H_
+#define HOMEBOOKKEEPING_0MODELS_CATEGORY_H_
 
-/*
-Class Category
-Includes category name.
+//  Class Category : public Model
+//
+//  Constructors:
+//    Default (name = "Unspecified")
+//    With name setting
+//
+//  Class member functions:
+//    Get name
+//    Set name
+//    Operator < for sorting models (by name)
+//    Output model (name)
+//    Input model (name)
+//
+//  Variables:
+//    name
+//    kNameUnspecified
 
-Constructors:
-	Default (name of the category = categoryNameUnspecified)
-	With the setting of the name of the category
+#include <iostream>
+#include <string>
 
-Class member functions:
-	Get the name of the category
-	Set the name of the category
-	Operator < for sorting categories
-	Print category
-*/
+#include "home_bookkeeping/0_Models/Model.h"
 
-class Category
+class Category : public Model
 {
-private:
-	std::string categoryName;
-	std::string categoryNameUnspecified = "Unspecified";
 public:
-	Category();
-	Category(const std::string& categoryNameForAdd);
-
-	std::string getCategoryName() const;
-
-	void setCategoryName(const std::string& categoryNameForUpdate);
-
-	friend bool operator<(const Category& leftCategory, const Category& rightCategory);
-	friend std::ostream& operator<<(std::ostream& outputStream, const Category& category);
+  Category();
+  Category(const std::string& name);
+private:
+  std::string kNameUnspecified = "Unspecified";
 };
+
+#endif  //  HOMEBOOKKEEPING_0MODELS_CATEGORY_H_

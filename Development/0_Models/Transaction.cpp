@@ -103,7 +103,7 @@ Transaction::Transaction(
 	transactionPayee{ std::make_shared<Payee>(Payee()) },
 	transactionTag{ std::make_shared<Tag>(Tag()) },
 	transactionStatus{ std::make_shared<TransactionStatus>(TransactionStatus()) },
-	transactionType{ std::make_shared<TransactionType>(TransactionType(TransactionTypeEnum::Transfer)) }
+	transactionType{ std::make_shared<TransactionType>(TransactionType(kEnumTransactionType::Transfer)) }
 {}
 
 // Constructor copy
@@ -170,13 +170,13 @@ double Transaction::getTransactionAccountToCurrentAmount() const
 // Class member function. Get the lastest amount of the account from of the transaction
 double Transaction::getTransactionAccountFromLastAmount() const
 {
-	return (*transactionAccountFrom).getAccountAmount();
+	return (*transactionAccountFrom).GetAmount();
 }
 
 // Class member function. Get the lastest amount of the account to of the transaction
 double Transaction::getTransactionAccountToLastAmount() const
 {
-	return (*transactionAccountTo).getAccountAmount();
+	return (*transactionAccountTo).GetAmount();
 }
 
 // Class member function. Get the comment of the transaction
@@ -326,13 +326,13 @@ void Transaction::setTransactionAccountToCurrentAmount(const double amountForUpd
 // Class member function. Set the lastest amount of the account from of the transaction
 void Transaction::setTransactionAccountFromLastAmount(const double amountForUpdate)
 {
-	(*transactionAccountFrom).setAccountAmount(amountForUpdate);
+	(*transactionAccountFrom).SetAmount(amountForUpdate);
 }
 
 // Class member function. Set the lastest amount of the account to of the transaction
 void Transaction::setTransactionAccountToLastAmount(const double amountForUpdate)
 {
-	(*transactionAccountTo).setAccountAmount(amountForUpdate);
+	(*transactionAccountTo).SetAmount(amountForUpdate);
 }
 
 // Class member function. Set the comment of the transaction
@@ -477,5 +477,5 @@ std::ostream& operator<<(std::ostream& outputStream, const Transaction& transact
 		transaction.getTransactionAccountFrom() << '\t' <<
 		transaction.getTransactionCategory() << '\t' <<
 		transaction.getTransactionAmount() << ' ' <<
-		transaction.getTransactionCurrency().getCurrencyName();
+		transaction.getTransactionCurrency().GetName();
 }

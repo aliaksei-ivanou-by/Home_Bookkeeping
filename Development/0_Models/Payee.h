@@ -1,32 +1,32 @@
-#pragma once
-#include "../include/stdafx.h"
+#ifndef HOMEBOOKKEEPING_0MODELS_PAYEE_H_
+#define HOMEBOOKKEEPING_0MODELS_PAYEE_H_
 
-/*
-Class Payee
-Includes payee name.
+//  Class Payee
+//
+//  Constructors:
+//    Default (name = "")
+//    With name setting
+//
+//  Class member functions:
+//    Get name
+//    Set name
+//    Operator < for sorting models (by name)
+//    Output model (name)
+//    Input model (name)
+//
+//  Variables:
+//    name
 
-Constructors:
-	Default (name of the payee is empty)
-	With the setting of the name of the payee
+#include <iostream>
+#include <string>
 
-Class member functions:
-	Get the name of the payee
-	Set the name of the payee
-	Operator < for sorting payees
-	Print payee
-*/
-class Payee
+#include "home_bookkeeping/0_Models/Model.h"
+
+class Payee : public Model
 {
-private:
-	std::string payeeName;
 public:
-	Payee();
-	Payee(const std::string& payeeNameForAdd);
-
-	std::string getPayeeName() const;
-
-	void setPayeeName(const std::string& payeeNameForUpdate);
-
-	friend bool operator<(const Payee& leftPayee, const Payee& rightPayee);
-	friend std::ostream& operator<<(std::ostream& outputStream, const Payee& payee);
+  Payee();
+  Payee(const std::string& name);
 };
+
+#endif  //  HOMEBOOKKEEPING_0MODELS_PAYEE_H_

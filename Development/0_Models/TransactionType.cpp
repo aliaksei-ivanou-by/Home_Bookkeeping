@@ -1,41 +1,48 @@
 #include "TransactionType.h"
 
-// Default constructor
+//  Constructor
+//  Default (type = "Expense")
 TransactionType::TransactionType():
-	transactionType{ TransactionTypeEnum::Expense }
+  type_{ kEnumTransactionType::Expense }
 {}
 
-// Constructor with the setting of the type of the transaction type
-TransactionType::TransactionType(const TransactionTypeEnum& transactionTypeForAdd):
-	transactionType{ transactionTypeForAdd }
+//  Constructor
+//  With type setting
+TransactionType::TransactionType(const kEnumTransactionType& type):
+  type_{ type }
 {}
 
-// Class member function. Get the type of the transaction type
-TransactionTypeEnum TransactionType::getTransactionType() const
+//  Class member function
+//  Get type
+kEnumTransactionType TransactionType::GetType() const
 {
-	return transactionType;
+  return type_;
 }
 
-// Class member function. Set the type of the transaction type
-void TransactionType::setTransactionType(const TransactionTypeEnum& transactionTypeForUpdate)
+//  Class member function
+//  Set type
+void TransactionType::SetType(const kEnumTransactionType& type)
 {
-	transactionType = transactionTypeForUpdate;
+  type_ = type;
 }
 
-// Class member function. Operator == for comparing transaction types
-bool TransactionType::operator==(const TransactionType& other) const
+//  Class member function
+//  Operator == for comparing types (by type)
+bool TransactionType::operator==(const TransactionType& type) const
 {
-	return transactionType == other.transactionType;
+  return type_ == type.type_;
 }
 
-// Class member function. Operator != for comparing transaction types
-bool TransactionType::operator!=(const TransactionType& other) const
+//  Class member function
+//  Operator != for comparing types (by type)
+bool TransactionType::operator!=(const TransactionType& type) const
 {
-	return !(*this == other);
+  return !(*this == type);
 }
 
-// Class member function. Operator < for sorting transaction type
-bool operator<(const TransactionType& leftTransactionType, const TransactionType& rightTransactionType)
+//  Class member function
+//  Operator < for sorting transaction type (by type)
+bool operator<(const TransactionType& type_left, const TransactionType& type_right)
 {
-	return leftTransactionType.getTransactionType() < rightTransactionType.getTransactionType();
+  return type_left.type_ < type_right.type_;
 }

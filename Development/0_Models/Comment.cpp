@@ -1,35 +1,13 @@
-#include "Comment.h"
+#include "home_bookkeeping/0_Models/Comment.h"
 
-// Default constructor
+//  Constructor
+//  Default (name = "")
 Comment::Comment():
-	commentName{ "" }
+  Model{ "" }
 {}
 
-// Constructor with the setting of the name of the comment
-Comment::Comment(const std::string& commentNameForAdd):
-	commentName{ commentNameForAdd }
+//  Constructor
+//  With name setting
+Comment::Comment(const std::string& name):
+  Model{ name }
 {}
-
-// Class member function. Get the name of the comment
-std::string Comment::getCommentName() const
-{
-	return commentName;
-}
-
-// Class member function. Set the name of the comment
-void Comment::setCommentName(const std::string& commentNameForUpdate)
-{
-	commentName = commentNameForUpdate;
-}
-
-// Class member function. Operator < for sorting comments
-bool operator<(const Comment& leftComment, const Comment& rightComment)
-{
-	return (leftComment.getCommentName()) < (rightComment.getCommentName());
-}
-
-// Class member function. Print comment
-std::ostream& operator<<(std::ostream& outputStream, const Comment& comment)
-{
-	return outputStream << comment.getCommentName();
-}

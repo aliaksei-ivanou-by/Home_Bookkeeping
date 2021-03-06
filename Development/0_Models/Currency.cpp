@@ -1,79 +1,160 @@
-#include "Currency.h"
+#include "home_bookkeeping/0_Models/Currency.h"
 
-// Default constructor
+//  Constructor
+//  Default (name = "", code = "", activity = false)
 Currency::Currency():
-	currencyName{ "" },
-	currencyCode{ "" },
-	currencyActive{ true }
+  Model{ "" },
+  code_{ "" },
+  activity_{ false }
 {}
 
-// Constructor with the setting of the name of the currency
-Currency::Currency(const std::string& currencyNameForAdd):
-	currencyName{ currencyNameForAdd },
-	currencyCode{ "" },
-	currencyActive{ true }
+//  Constructor
+//  With name setting (code = "", activity = true)
+Currency::Currency(const std::string& name):
+  Model{ name },
+  code_{ "" },
+  activity_{ true }
 {}
 
-// Constructor with the setting of the name of the currency, code of the currency
-Currency::Currency(const std::string& currencyNameForAdd, const std::string& currencyCodeForAdd):
-	currencyName{ currencyNameForAdd },
-	currencyCode{ currencyCodeForAdd },
-	currencyActive{ true }
+//  Constructor
+//  With name setting and code setting (activity = true)
+Currency::Currency(const std::string& name, const std::string& code):
+  Model{ name },
+  code_{ code },
+  activity_{ true }
 {}
 
-// Constructor with the setting of the name of the currency, code of the currency, status of the activity of the currency
-Currency::Currency(const std::string& currencyNameForAdd, const std::string& currencyCodeForAdd, bool currencyActiveForAdd):
-	currencyName{ currencyNameForAdd },
-	currencyCode{ currencyCodeForAdd },
-	currencyActive{ currencyActiveForAdd }
+//  Constructor
+//  With name setting, code setting and activity setting
+Currency::Currency(const std::string& name, const std::string& code, bool activity):
+  Model{ name },
+  code_{ code },
+  activity_{ activity }
 {}
 
-// Class member function. Get the name of the currency
-std::string Currency::getCurrencyName() const
+//  Class member function
+//  Get code
+std::string Currency::GetCode() const
 {
-	return currencyName;
+  return code_;
 }
 
-// Class member function. Get the code of the currency
-std::string Currency::getCurrencyCode() const
+//  Class member function
+//  Get activity
+bool Currency::GetActivity() const
 {
-	return currencyCode;
+  return activity_;
 }
 
-// Class member function. Get the status of the activity of the currency
-bool Currency::getCurrencyActive() const
+//  Class member function
+//  Set code
+void Currency::SetCode(const std::string& code)
 {
-	return currencyActive;
+  code_ = code;
 }
 
-// Class member function. Set the name of the currency
-void Currency::setCurrencyName(const std::string& currencyNameForUpdate)
+//  Class member function
+//  Set activity
+void Currency::SetActivity(const bool activity)
 {
-	currencyName = currencyNameForUpdate;
+  activity_ = activity;
 }
 
-// Class member function. Set the code of the currency
-void Currency::setCurrencyCode(const std::string& currencyCodeForUpdate)
+//  Class member function
+//  Operator < for sorting models (by name (1), code (2), activity (3))
+bool operator<(const Currency& model_left, const Currency& model_right)
 {
-	currencyCode = currencyCodeForUpdate;
+  if (model_left.GetName() < model_right.GetName())
+  {
+    return true;
+  }
+  else
+  {
+    if (model_left.GetName() > model_right.GetName())
+    {
+      return false;
+    }
+    else
+    {
+      if (model_left.code_ < model_right.code_)
+      {
+        return true;
+      }
+      else
+      {
+        if (model_left.code_ > model_right.code_)
+        {
+          return false;
+        }
+        else
+        {
+          if ((model_left.activity_ < model_right.activity_))
+          {
+            return true;
+          }
+          else
+          {
+            return false;
+          }
+        }
+      }
+    }
+  }
 }
 
-// Class member function. Set the status of the activity of the currency
-void Currency::setCurrencyActive(const bool currencyActiveForUpdate)
+//  Class member function
+//  Output model (name, code, activity -> "name (code, activity)")
+std::ostream& operator<<(std::ostream& outputStream, const Currency& model)
 {
-	currencyActive = currencyActiveForUpdate;
+  return outputStream << model.GetName() << " ("<< model.code_ << ", " << model.activity_ << ")";
 }
 
-// Class member function. Operator < for sorting currencies
-bool operator<(const Currency& leftCurrency, const Currency& rightCurrency)
+//  Class member function
+//  Input model (name, code, activity -> "name, amount, activity")
+std::istream& operator>>(std::istream& input_stream, Currency& model)
 {
-	return (leftCurrency.getCurrencyName()) < (rightCurrency.getCurrencyName());
-}
-
-// Class member function. Print currency
-std::ostream& operator<<(std::ostream& outputStream, const Currency& currency)
-{
-	return outputStream << currency.getCurrencyName() << '\t' <<
-		currency.getCurrencyCode() << '\t' <<
-		currency.getCurrencyActive();
+  if (!input_stream)
+  {
+    return input_stream;
+  }
+  std::string name;
+  while (true)
+  {
+    char ch;
+    input_stream.get(ch);
+    if (!input_stream)
+    {
+      return input_stream;
+    }
+    if (ch == ',')
+    {
+      break;
+    }
+    name += ch;
+  }
+  model.SetName(name);
+  std::string code;
+  while (true)
+  {
+    char ch;
+    input_stream.get(ch);
+    if (!input_stream)
+    {
+      return input_stream;
+    }
+    if (ch == ',')
+    {
+      break;
+    }
+    code += ch;
+  }
+  model.SetCode(code);
+  bool activity;
+  input_stream >> activity;
+  if (!input_stream)
+  {
+    return input_stream;
+  }
+  model.SetActivity(activity);
+  return input_stream;
 }

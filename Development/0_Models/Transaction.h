@@ -1,6 +1,5 @@
-#pragma once
-#include "../include/stdafx.h"
-#include "../include/0_Models.h"
+#ifndef HOMEBOOKKEEPING_0MODELS_TRANSACTION_H_
+#define HOMEBOOKKEEPING_0MODELS_TRANSACTION_H_
 
 /*
 Class Transaction
@@ -73,6 +72,20 @@ Class member functions:
 	Operator < for sorting transactions
 	Print transaction
 */
+
+#include <iostream>
+#include <string>
+
+#include "home_bookkeeping/0_Models/Account.h"
+#include "home_bookkeeping/0_Models/Category.h"
+#include "home_bookkeeping/0_Models/Comment.h"
+#include "home_bookkeeping/0_Models/Currency.h"
+#include "home_bookkeeping/0_Models/Description.h"
+#include "home_bookkeeping/0_Models/Payee.h"
+#include "home_bookkeeping/0_Models/Tag.h"
+#include "home_bookkeeping/0_Models/Time.h"
+#include "home_bookkeeping/0_Models/TransactionStatus.h"
+#include "home_bookkeeping/0_Models/TransactionType.h"
 
 class Transaction
 {
@@ -188,3 +201,5 @@ public:
 	friend bool operator<(const Transaction& leftTransaction, const Transaction& rightTransaction);
 	friend std::ostream& operator<<(std::ostream& outputStream, const Transaction& transaction);
 };
+
+#endif  //  HOMEBOOKKEEPING_0MODELS_TRANSACTION_H_

@@ -1,41 +1,41 @@
-#pragma once
-#include "../include/stdafx.h"
+#ifndef HOMEBOOKKEEPING_0MODELS_TRANSACTIONTYPE_H_
+#define HOMEBOOKKEEPING_0MODELS_TRANSACTIONTYPE_H_
 
-/*
-Class TransactionType
-Includes enum class TransactionTypeEnum, type.
+//  Class TransactionType
+//
+//  Constructors:
+//    Default (type = "Expense")
+//    With type setting
+//
+//  Class member functions:
+//    Get type
+//    Set type
+//    Operator == for comparing types (by type)
+//    Operator != for comparing types (by type)
+//    Operator < for sorting types (by type)
+//
+//  Variables:
+//    enum class TransactionTypeEnum
+//    type
 
-Constructors:
-	Default (status of the transaction type is expense)
-	With the setting of the type of the transaction type
-
-Class member functions:
-	Get the type of the transaction type
-	Set the type of the transaction type
-	Operator == for comparing transaction types
-	Operator != for comparing transaction types
-	Operator < for sorting transaction type
-*/
-
-enum class TransactionTypeEnum
+enum class kEnumTransactionType
 {
-	Income,
-	Expense,
-	Transfer
+  Income,
+  Expense,
+  Transfer
 };
 
 class TransactionType
 {
-private:
-	TransactionTypeEnum transactionType;
 public:
-	TransactionType();
-	TransactionType(const TransactionTypeEnum& transactionTypeForAdd);
-
-	TransactionTypeEnum getTransactionType() const;
-
-	void setTransactionType(const TransactionTypeEnum& transactionTypeForUpdate);
-
-	bool operator==(const TransactionType& other) const;
-	bool operator!=(const TransactionType& other) const;
-	friend bool operator<(const TransactionType& leftTransactionType, const TransactionType& rightTransactionType);};
+  TransactionType();
+  TransactionType(const kEnumTransactionType& type);
+  kEnumTransactionType GetType() const;
+  void SetType(const kEnumTransactionType& type);
+  bool operator==(const TransactionType& type) const;
+  bool operator!=(const TransactionType& type) const;
+  friend bool operator<(const TransactionType& type_left, const TransactionType& type_right);
+private:
+  kEnumTransactionType type_;
+};
+#endif  //  HOMEBOOKKEEPING_0MODELS_TRANSACTIONTYPE_H_

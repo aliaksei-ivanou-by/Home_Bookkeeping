@@ -1,50 +1,52 @@
-#pragma once
-#include "../include/stdafx.h"
+#ifndef HOMEBOOKKEEPING_0MODELS_CURRECY_H_
+#define HOMEBOOKKEEPING_0MODELS_CURRECY_H_
 
-/*
-Class Currency
-Includes currency name, currency code, status of the activity of the currency.
+//  Class Currency : public Model
+//
+//  Constructors:
+//    Default (name = "", code = "", activity = false)
+//    With name setting (code = "", activity = true)
+//    With name setting and code setting (activity = true)
+//    With name setting, code setting and activity setting
+//
+//  Class member functions:
+//    Get name
+//    Get code
+//    Get activity
+//    Set name
+//    Set code
+//    Set activity
+//    Operator < for sorting models (by name (1), code (2), activity (3))
+//    Output model (name, code, activity -> "name (code, activity)")
+//    Input model (name, code, activity -> "name, amount, activity")
+//
+//  Variables:
+//    name
+//    code
+//    activity
 
-Constructors:
-	Default (default currency is base currency)
-	With the setting of the name of the currency
-	With the setting of the name of the currency, code of the currency
-	With the setting of the name of the currency, code of the currency, status of the activity of the currency
+#include <iostream>
+#include <string>
 
-Class member functions:
-	Get the name of the currency
-	Get the code of the currency
-	Get the status of the activity of the currency
-	Set the name of the currency
-	Set the code of the currency
-	Set the status of the activity of the currency
-	Operator < for sorting currencies
-	Print currency
+#include "home_bookkeeping/0_Models/Model.h"
 
-Will be updated:
-	Base currency
-*/
-
-class Currency
+class Currency : public Model
 {
-private:
-	std::string currencyName;
-	std::string currencyCode;
-	bool currencyActive;
 public:
-	Currency();
-	Currency(const std::string& currencyNameForAdd);
-	Currency(const std::string& currencyNameForAdd, const std::string& currencyCodeForAdd);
-	Currency(const std::string& currencyNameForAdd, const std::string& currencyCodeForAdd, bool currencyActiveForAdd);
-	
-	std::string getCurrencyName() const;
-	std::string getCurrencyCode() const;
-	bool getCurrencyActive() const;
-
-	void setCurrencyName(const std::string& currencyNameForUpdate);
-	void setCurrencyCode(const std::string& currencyCodeForUpdate);
-	void setCurrencyActive(const bool currencyActiveForUpdate);
-
-	friend bool operator<(const Currency& leftCurrency, const Currency& rightCurrency);
-	friend std::ostream& operator<<(std::ostream& outputStream, const Currency& currency);
+  Currency();
+  Currency(const std::string& name);
+  Currency(const std::string& name, const std::string& code);
+  Currency(const std::string& name, const std::string& code, bool activity);
+  std::string GetCode() const;
+  bool GetActivity() const;
+  void SetCode(const std::string& code);
+  void SetActivity(const bool activity);
+  friend bool operator<(const Currency& model_left, const Currency& model_right);
+  friend std::ostream& operator<<(std::ostream& output_stream, const Currency& model);
+  friend std::istream& operator>>(std::istream& input_stream, Currency& model);
+private:
+  std::string code_;
+  bool activity_;
 };
+
+#endif  //  HOMEBOOKKEEPING_0MODELS_CURRECY_H_

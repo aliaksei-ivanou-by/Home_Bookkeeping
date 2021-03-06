@@ -2,6 +2,7 @@
 #include "include/constants.h"
 //#include "include/2_BusinessLogic.h"
 #include "include/3_GUI.h"
+#include "0_Models/Model.h"
 
 int main()
 {

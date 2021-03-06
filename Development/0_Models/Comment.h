@@ -1,33 +1,32 @@
-#pragma once
-#include "../include/stdafx.h"
+#ifndef HOMEBOOKKEEPING_0MODELS_COMMENT_H_
+#define HOMEBOOKKEEPING_0MODELS_COMMENT_H_
 
-/*
-Class Comment
-Includes comment name.
+//  Class Comment : public Model
+//
+//  Constructors:
+//    Default (name = "")
+//    With name setting
+//
+//  Class member functions:
+//    Get name
+//    Set name
+//    Operator < for sorting models (by name)
+//    Output model (name)
+//    Input model (name)
+//
+//  Variables:
+//    name
 
-Constructors:
-	Default (name of the comment is empty)
-	With the setting of the name of the comment
+#include <iostream>
+#include <string>
 
-Class member functions:
-	Get the name of the comment
-	Set the name of the comment
-	Operator < for sorting comments
-	Print comment
-*/
+#include "home_bookkeeping/0_Models/Model.h"
 
-class Comment
+class Comment : public Model
 {
-private:
-	std::string commentName;
 public:
-	Comment();
-	Comment(const std::string& commentNameForAdd);
-
-	std::string getCommentName() const;
-
-	void setCommentName(const std::string& commentNameForUpdate);
-
-	friend bool operator<(const Comment& leftComment, const Comment& rightComment);
-	friend std::ostream& operator<<(std::ostream& outputStream, const Comment& comment);
+  Comment();
+  Comment(const std::string& name);
 };
+
+#endif  //  HOMEBOOKKEEPING_0MODELS_COMMENT_H_

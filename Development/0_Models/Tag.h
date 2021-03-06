@@ -1,33 +1,32 @@
-#pragma once
-#include "../include/stdafx.h"
+#ifndef HOMEBOOKKEEPING_0MODELS_TAG_H_
+#define HOMEBOOKKEEPING_0MODELS_TAG_H_
 
-/*
-Class Tag
-Includes tag name.
+//  Class Tag : public Model
+//
+//  Constructors:
+//    Default (name = "")
+//    With name setting
+//
+//  Class member functions:
+//    Get name
+//    Set name
+//    Operator < for sorting models (by name)
+//    Output model (name)
+//    Input model (name)
+//
+//  Variables:
+//    name
 
-Constructors:
-	Default (name of the tag is empty)
-	With the setting of the name of the tag
+#include <iostream>
+#include <string>
 
-Class member functions:
-	Get the name of the tag
-	Set the name of the tag
-	Operator < for sorting tags
-	Print tag
-*/
+#include "home_bookkeeping/0_Models/Model.h"
 
-class Tag
+class Tag : public Model
 {
-private:
-	std::string tagName;
 public:
-	Tag();
-	Tag(const std::string& tagNameForAdd);
-
-	std::string getTagName() const;
-
-	void setTagName(const std::string& tagNameForUpdate);
-
-	friend bool operator<(const Tag& leftTag, const Tag& rightTag);
-	friend std::ostream& operator<<(std::ostream& outputStream, const Tag& tag);
+  Tag();
+  Tag(const std::string& name);
 };
+
+#endif  //  HOMEBOOKKEEPING_0MODELS_TAG_H_

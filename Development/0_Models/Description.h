@@ -1,33 +1,32 @@
-#pragma once
-#include "../include/stdafx.h"
+#ifndef HOMEBOOKKEEPING_0MODELS_DESCRIPTION_H_
+#define HOMEBOOKKEEPING_0MODELS_DESCRIPTION_H_
 
-/*
-Class Description
-Includes description name.
+//  Class Description : public Model
+//
+//  Constructors:
+//    Default (name = "")
+//    With name setting
+//
+//  Class member functions:
+//    Get name
+//    Set name
+//    Operator < for sorting models (by name)
+//    Output model (name)
+//    Input model (name)
+//
+//  Variables:
+//    name
 
-Constructors:
-	Default (name of the description is empty)
-	With the setting of the name of the description
+#include <iostream>
+#include <string>
 
-Class member functions:
-	Get the name of the description
-	Set the name of the description
-	Operator < for sorting descriptions
-	Print description
-*/
+#include "home_bookkeeping/0_Models/Model.h"
 
-class Description
+class Description : public Model
 {
-private:
-	std::string descriptionName;
 public:
-	Description();
-	Description(const std::string& descriptionNameForAdd);
-
-	std::string getDescriptionName() const;
-
-	void setDescriptionName(const std::string& descriptionNameForUpdate);
-
-	friend bool operator<(const Description& leftDescription, const Description& rightDescription);
-	friend std::ostream& operator<<(std::ostream& outputStream, const Description& description);
+  Description();
+  Description(const std::string& name);
 };
+
+#endif  //  HOMEBOOKKEEPING_0MODELS_DESCRIPTION_H_

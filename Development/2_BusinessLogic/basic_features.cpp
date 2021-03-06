@@ -474,7 +474,7 @@ TagRepositoryIterator FinanceRepository::findTag(std::shared_ptr<Tag> tagForFind
 // Class member function. Update last amount of account in accounts repository with adding new transaction
 void FinanceRepository::updateAccountAmount(Transaction& transactionForAdd)
 {
-	if (transactionForAdd.getTransactionType() == TransactionType(TransactionTypeEnum::Expense))
+	if (transactionForAdd.getTransactionType() == TransactionType(kEnumTransactionType::Expense))
 	{
 		auto amount = transactionForAdd.getTransactionAccountFromLastAmount() - transactionForAdd.getTransactionAmount();
 		transactionForAdd.setTransactionAccountFromLastAmount(amount);
@@ -482,7 +482,7 @@ void FinanceRepository::updateAccountAmount(Transaction& transactionForAdd)
 		transactionForAdd.setTransactionAccountFromCurrentAmount(amount);
 		transactionForAdd.setTransactionAccountToCurrentAmount(amount);
 	}
-	if (transactionForAdd.getTransactionType() == TransactionType(TransactionTypeEnum::Income))
+	if (transactionForAdd.getTransactionType() == TransactionType(kEnumTransactionType::Income))
 	{
 		auto amount = transactionForAdd.getTransactionAccountFromLastAmount() + transactionForAdd.getTransactionAmount();
 		transactionForAdd.setTransactionAccountFromLastAmount(amount);
@@ -490,7 +490,7 @@ void FinanceRepository::updateAccountAmount(Transaction& transactionForAdd)
 		transactionForAdd.setTransactionAccountFromCurrentAmount(amount);
 		transactionForAdd.setTransactionAccountToCurrentAmount(amount);
 	}
-	if (transactionForAdd.getTransactionType() == TransactionType(TransactionTypeEnum::Transfer))
+	if (transactionForAdd.getTransactionType() == TransactionType(kEnumTransactionType::Transfer))
 	{
 		auto amountFrom = transactionForAdd.getTransactionAccountFromLastAmount() - transactionForAdd.getTransactionAmount();
 		transactionForAdd.setTransactionAccountFromLastAmount(amountFrom);
@@ -513,7 +513,7 @@ void FinanceRepository::updateAccountRepository(Transaction& transactionForAdd)
 		bool keyFrom = false;
 		for (auto i = financeRepositoryAccounts.begin(); i != financeRepositoryAccounts.end(); ++i)
 		{
-			if ((**i).getAccountName() == transactionForAdd.getTransactionAccountFrom().getAccountName())
+			if ((**i).GetName() == transactionForAdd.getTransactionAccountFrom().GetName())
 			{
 				keyFrom = true;
 				transactionForAdd.setTransactionAccountPtrFrom(*i);
@@ -527,7 +527,7 @@ void FinanceRepository::updateAccountRepository(Transaction& transactionForAdd)
 		bool keyTo = false;
 		for (auto i = financeRepositoryAccounts.begin(); i != financeRepositoryAccounts.end(); ++i)
 		{
-			if ((**i).getAccountName() == transactionForAdd.getTransactionAccountTo().getAccountName())
+			if ((**i).GetName() == transactionForAdd.getTransactionAccountTo().GetName())
 			{
 				keyTo = true;
 				transactionForAdd.setTransactionAccountPtrTo(*i);
@@ -553,7 +553,7 @@ void FinanceRepository::updateCategoryRepository(Transaction& transactionForAdd)
 		bool keyFrom = false;
 		for (auto i = financeRepositoryCategories.begin(); i != financeRepositoryCategories.end(); ++i)
 		{
-			if ((**i).getCategoryName() == transactionForAdd.getTransactionCategory().getCategoryName())
+			if ((**i).GetName() == transactionForAdd.getTransactionCategory().GetName())
 			{
 				keyFrom = true;
 				transactionForAdd.setTransactionCategoryPtr(*i);
@@ -567,7 +567,7 @@ void FinanceRepository::updateCategoryRepository(Transaction& transactionForAdd)
 		bool keyTo = false;
 		for (auto i = financeRepositoryCategories.begin(); i != financeRepositoryCategories.end(); ++i)
 		{
-			if ((**i).getCategoryName() == transactionForAdd.getTransactionCategory().getCategoryName())
+			if ((**i).GetName() == transactionForAdd.getTransactionCategory().GetName())
 			{
 				keyTo = true;
 				transactionForAdd.setTransactionCategoryPtr(*i);
@@ -593,7 +593,7 @@ void FinanceRepository::updateCurrencyRepository(Transaction& transactionForAdd)
 		bool keyFrom = false;
 		for (auto i = financeRepositoryCurrencies.begin(); i != financeRepositoryCurrencies.end(); ++i)
 		{
-			if ((**i).getCurrencyName() == transactionForAdd.getTransactionCurrency().getCurrencyName())
+			if ((**i).GetName() == transactionForAdd.getTransactionCurrency().GetName())
 			{
 				keyFrom = true;
 				transactionForAdd.setTransactionCurrencyPtr(*i);
@@ -607,7 +607,7 @@ void FinanceRepository::updateCurrencyRepository(Transaction& transactionForAdd)
 		bool keyTo = false;
 		for (auto i = financeRepositoryCurrencies.begin(); i != financeRepositoryCurrencies.end(); ++i)
 		{
-			if ((**i).getCurrencyName() == transactionForAdd.getTransactionCurrency().getCurrencyName())
+			if ((**i).GetName() == transactionForAdd.getTransactionCurrency().GetName())
 			{
 				keyTo = true;
 				transactionForAdd.setTransactionCurrencyPtr(*i);
@@ -633,7 +633,7 @@ void FinanceRepository::updateDescriptionRepository(Transaction& transactionForA
 		bool keyFrom = false;
 		for (auto i = financeRepositoryDescriptions.begin(); i != financeRepositoryDescriptions.end(); ++i)
 		{
-			if ((**i).getDescriptionName() == transactionForAdd.getTransactionDescription().getDescriptionName())
+			if ((**i).GetName() == transactionForAdd.getTransactionDescription().GetName())
 			{
 				keyFrom = true;
 				transactionForAdd.setTransactionDescriptionPtr(*i);
@@ -647,7 +647,7 @@ void FinanceRepository::updateDescriptionRepository(Transaction& transactionForA
 		bool keyTo = false;
 		for (auto i = financeRepositoryDescriptions.begin(); i != financeRepositoryDescriptions.end(); ++i)
 		{
-			if ((**i).getDescriptionName() == transactionForAdd.getTransactionDescription().getDescriptionName())
+			if ((**i).GetName() == transactionForAdd.getTransactionDescription().GetName())
 			{
 				keyTo = true;
 				transactionForAdd.setTransactionDescriptionPtr(*i);
@@ -673,7 +673,7 @@ void FinanceRepository::updatePayeeRepository(Transaction& transactionForAdd)
 		bool keyFrom = false;
 		for (auto i = financeRepositoryPayees.begin(); i != financeRepositoryPayees.end(); ++i)
 		{
-			if ((**i).getPayeeName() == transactionForAdd.getTransactionPayee().getPayeeName())
+			if ((**i).GetName() == transactionForAdd.getTransactionPayee().GetName())
 			{
 				keyFrom = true;
 				transactionForAdd.setTransactionPayeePtr(*i);
@@ -687,7 +687,7 @@ void FinanceRepository::updatePayeeRepository(Transaction& transactionForAdd)
 		bool keyTo = false;
 		for (auto i = financeRepositoryPayees.begin(); i != financeRepositoryPayees.end(); ++i)
 		{
-			if ((**i).getPayeeName() == transactionForAdd.getTransactionPayee().getPayeeName())
+			if ((**i).GetName() == transactionForAdd.getTransactionPayee().GetName())
 			{
 				keyTo = true;
 				transactionForAdd.setTransactionPayeePtr(*i);
@@ -713,7 +713,7 @@ void FinanceRepository::updateCommentRepository(Transaction& transactionForAdd)
 		bool keyFrom = false;
 		for (auto i = financeRepositoryComments.begin(); i != financeRepositoryComments.end(); ++i)
 		{
-			if ((**i).getCommentName() == transactionForAdd.getTransactionComment().getCommentName())
+			if ((**i).GetName() == transactionForAdd.getTransactionComment().GetName())
 			{
 				keyFrom = true;
 				transactionForAdd.setTransactionCommentPtr(*i);
@@ -727,7 +727,7 @@ void FinanceRepository::updateCommentRepository(Transaction& transactionForAdd)
 		bool keyTo = false;
 		for (auto i = financeRepositoryComments.begin(); i != financeRepositoryComments.end(); ++i)
 		{
-			if ((**i).getCommentName() == transactionForAdd.getTransactionComment().getCommentName())
+			if ((**i).GetName() == transactionForAdd.getTransactionComment().GetName())
 			{
 				keyTo = true;
 				transactionForAdd.setTransactionCommentPtr(*i);
@@ -753,7 +753,7 @@ void FinanceRepository::updateTagRepository(Transaction& transactionForAdd)
 		bool keyFrom = false;
 		for (auto i = financeRepositoryTags.begin(); i != financeRepositoryTags.end(); ++i)
 		{
-			if ((**i).getTagName() == transactionForAdd.getTransactionTag().getTagName())
+			if ((**i).GetName() == transactionForAdd.getTransactionTag().GetName())
 			{
 				keyFrom = true;
 				transactionForAdd.setTransactionTagPtr(*i);
@@ -767,7 +767,7 @@ void FinanceRepository::updateTagRepository(Transaction& transactionForAdd)
 		bool keyTo = false;
 		for (auto i = financeRepositoryTags.begin(); i != financeRepositoryTags.end(); ++i)
 		{
-			if ((**i).getTagName() == transactionForAdd.getTransactionTag().getTagName())
+			if ((**i).GetName() == transactionForAdd.getTransactionTag().GetName())
 			{
 				keyTo = true;
 				transactionForAdd.setTransactionTagPtr(*i);

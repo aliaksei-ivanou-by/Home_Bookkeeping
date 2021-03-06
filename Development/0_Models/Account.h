@@ -1,47 +1,46 @@
-#pragma once
-#include "../include/stdafx.h"
-#include "Currency.h"
+#ifndef HOMEBOOKKEEPING_0MODELS_ACCOUNT_H_
+#define HOMEBOOKKEEPING_0MODELS_ACCOUNT_H_
 
-/*
-Class Account
-Includes account name, current account balance, account currency.
+//  Class Account : public Model
+//
+//  Constructors:
+//    Default (name = "")
+//    With name setting
+//    With name setting and amount setting
+//
+//  Class member functions:
+//    Get name
+//    Get amount
+//    Set name
+//    Set amount
+//    Update amount
+//    Operator < for sorting models (by name (1), amount (2))
+//    Output model (name, amount -> "name (amount)")
+//    Input model (name, amount -> "name, amount")
+//
+//  Variables:
+//    name
+//    amount
 
-Constructors:
-	With the assignment of the name of the account
-	With the setting of the name of the account and the initial balance
+#include <iostream>
+#include <string>
 
-Class member functions:
-	Get the name of the account
-	Get the current account balance
-	Set the name of the account
-	Set the current account balance
-	Update the current account balance
-	Operator < for sorting accounts
-	Print account
+#include "home_bookkeeping/0_Models/Model.h"
 
-Wil be updated:
-	Link between Model Account and Model Currency
-*/
-
-class Account
+class Account : public Model
 {
-private:
-	std::string accountName;
-	double accountLastAmount;
-	//Currency accountCurrency;
 public:
-	Account() = delete;
-	Account(const std::string& accountNameForAdd);
-	Account(const std::string& accountNameForAdd, double accounAmountForAdd);
-
-	std::string getAccountName() const;
-	double getAccountAmount() const;
-
-	void setAccountName(const std::string& accountNameForUpdate);
-	void setAccountAmount(const double accountAmountForUpdate);
-
-	void updateAccountAmount(const double accountAmoutForUpdate);
-
-	friend bool operator<(const Account& leftAccount, const Account& rightAccount);
-	friend std::ostream& operator<<(std::ostream& outputStream, const Account& account);
+  Account();
+  Account(const std::string& name);
+  Account(const std::string& name, double amount);
+  double GetAmount() const;
+  void SetAmount(const double amount);
+  void UpdateAmount(const double amount);
+  friend bool operator<(const Account& model_left, const Account& model_right);
+  friend std::ostream& operator<<(std::ostream& output_stream, const Account& model);
+  friend std::istream& operator>>(std::istream& input_stream, Account& model);
+private:
+  double amount_;
 };
+
+#endif  //  HOMEBOOKKEEPING_0MODELS_ACCOUNT_H_

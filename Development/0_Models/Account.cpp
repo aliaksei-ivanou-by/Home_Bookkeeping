@@ -1,55 +1,112 @@
-#include "Account.h"
+#include "home_bookkeeping/0_Models/Account.h"
 
-// Constructors with the assignment of the name of the account
-Account::Account(const std::string& accountNameForAdd):
-	accountName{ accountNameForAdd },
-	accountLastAmount{ 0 }
+//  Constructor
+//  Default (name = "")
+Account::Account():
+  Model{ "" },
+  amount_{ 0 }
 {}
 
-// Constructor with the setting of the name of the account and the initial balance
-Account::Account(const std::string& accountNameForAdd, double accounAmountForAdd):
-	accountName{ accountNameForAdd },
-	accountLastAmount{ accounAmountForAdd }
+//  Constructor
+//  With name setting
+Account::Account(const std::string& name):
+  Model{ name },
+  amount_{ 0 }
 {}
 
-// Class member function. Get the name of the account
-std::string Account::getAccountName() const
+//  Constructor
+//  With name setting and amount setting
+Account::Account(const std::string& name, double amount):
+  Model{ name },
+  amount_{ amount }
+{}
+
+//  Class member function
+//  Get amount
+double Account::GetAmount() const
 {
-	return accountName;
+  return amount_;
 }
 
-// Class member function. Get the current account balance
-double Account::getAccountAmount() const
+//  Class member function
+//  Set amount
+void Account::SetAmount(const double amount)
 {
-	return accountLastAmount;
+  amount_ = amount;
 }
 
-// Class member function. Set the name of the account
-void Account::setAccountName(const std::string& accountNameForUpdate)
+//  Class member function
+//  Update amount
+void Account::UpdateAmount(const double amount)
 {
-	accountName = accountNameForUpdate;
+  amount_ += amount;
 }
 
-// Class member function. Set the current account balance
-void Account::setAccountAmount(const double accountAmountForUpdate)
+//  Class member function
+//  Operator < for sorting models (by name (1), amount (2))
+bool operator<(const Account& model_left, const Account& model_right)
 {
-	accountLastAmount = accountAmountForUpdate;
+  if (model_left.GetName() < model_right.GetName())
+  {
+    return true;
+  }
+  else
+  {
+    if (model_left.GetName() > model_right.GetName())
+    {
+      return false;
+    }
+    else
+    {
+      if (model_left.amount_ < model_right.amount_)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
+  }
 }
 
-// Class member function. Update the current account balance
-void Account::updateAccountAmount(const double accountAmoutForUpdate)
+//  Class member function
+//  Output model (name, amount -> "name (amount)")
+std::ostream& operator<<(std::ostream& outputStream, const Account& model)
 {
-	accountLastAmount += accountAmoutForUpdate;
+  return outputStream << model.GetName() << " (" << model.amount_ << ")";
 }
 
-// Class member function. Operator < for sorting accounts
-bool operator<(const Account& leftAccount, const Account& rightAccount)
+//  Class member function
+//  Input model (name, amount -> "name, amount")
+std::istream& operator>>(std::istream& input_stream, Account& model)
 {
-	return (leftAccount.getAccountName()) < (rightAccount.getAccountName());
-}
-
-// Class member function. Print account
-std::ostream& operator<<(std::ostream& outputStream, const Account& account)
-{
-	return outputStream << account.getAccountName();
+  if (!input_stream)
+  {
+    return input_stream;
+  }
+  std::string name;
+  while (true)
+  {
+    char ch;
+    input_stream.get(ch);
+    if (!input_stream)
+    {
+      return input_stream;
+    }
+    if (ch == ',')
+    {
+      break;
+    }
+    name += ch;
+  }
+  model.SetName(name);
+  double amount;
+  input_stream >> amount;
+  if (!input_stream)
+  {
+    return input_stream;
+  }
+  model.amount_ = amount;
+  return input_stream;
 }
