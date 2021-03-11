@@ -60,8 +60,8 @@ try
 	Comment comment(textCommentForAdd.get_string());
 	Description description(textDesctiptionForAdd.get_string());
 	Tag tag(textTagForAdd.get_string());
-	TransactionStatus transactionStatus(kEnumTransactionStatus::Void);
-	TransactionType transactionType(kEnumTransactionType::Income);
+	Status transactionStatus(kEnumStatus::Void);
+	Type transactionType(kEnumType::Income);
 	Transaction transaction(accountFrom, category, amount, comment, { "" }, description, {}, tag,
 		transactionStatus, transactionType);
 	ptrFinanceRepository->addTransaction(transaction);

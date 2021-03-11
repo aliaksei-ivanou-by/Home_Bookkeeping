@@ -6,12 +6,12 @@ double FinanceRepository::sumExpensesToday() const
 	double result = 0;
 	for (auto i = beginTransactionRepository(); i != endTransactionRepository(); ++i)
 	{
-		if ((**i).getTransactionType().GetType() == kEnumTransactionType::Expense &&
-			(**i).getTransactionTime().GetDay() == Time().GetDay() &&
-			(**i).getTransactionTime().GetMonth() == Time().GetMonth() &&
-			(**i).getTransactionTime().GetYear() == Time().GetYear())
+		if ((**i).GetType().GetType() == kEnumType::Expense &&
+			(**i).GetTime().GetDay() == Time().GetDay() &&
+			(**i).GetTime().GetMonth() == Time().GetMonth() &&
+			(**i).GetTime().GetYear() == Time().GetYear())
 		{
-			result += (**i).getTransactionAmount();
+			result += (**i).GetAmount();
 		}
 	}
 	return result;
@@ -23,11 +23,11 @@ double FinanceRepository::sumExpensesThisMonth() const
 	double result = 0;
 	for (auto i = beginTransactionRepository(); i != endTransactionRepository(); ++i)
 	{
-		if ((**i).getTransactionType().GetType() == kEnumTransactionType::Expense &&
-			(**i).getTransactionTime().GetMonth() == Time().GetMonth() &&
-			(**i).getTransactionTime().GetYear() == Time().GetYear())
+		if ((**i).GetType().GetType() == kEnumType::Expense &&
+			(**i).GetTime().GetMonth() == Time().GetMonth() &&
+			(**i).GetTime().GetYear() == Time().GetYear())
 		{
-			result += (**i).getTransactionAmount();
+			result += (**i).GetAmount();
 		}
 	}
 	return result;
@@ -39,9 +39,9 @@ double FinanceRepository::sumExpensesAllTime() const
 	double result = 0;
 	for (auto i = beginTransactionRepository(); i != endTransactionRepository(); ++i)
 	{
-		if ((**i).getTransactionType().GetType() == kEnumTransactionType::Expense)
+		if ((**i).GetType().GetType() == kEnumType::Expense)
 		{
-			result += (**i).getTransactionAmount();
+			result += (**i).GetAmount();
 		}
 	}
 	return result;
@@ -53,12 +53,12 @@ double FinanceRepository::sumIncomesToday() const
 	double result = 0;
 	for (auto i = beginTransactionRepository(); i != endTransactionRepository(); ++i)
 	{
-		if ((**i).getTransactionType().GetType() == kEnumTransactionType::Income &&
-			(**i).getTransactionTime().GetDay() == Time().GetDay() &&
-			(**i).getTransactionTime().GetMonth() == Time().GetMonth() &&
-			(**i).getTransactionTime().GetYear() == Time().GetYear())
+		if ((**i).GetType().GetType() == kEnumType::Income &&
+			(**i).GetTime().GetDay() == Time().GetDay() &&
+			(**i).GetTime().GetMonth() == Time().GetMonth() &&
+			(**i).GetTime().GetYear() == Time().GetYear())
 		{
-			result += (**i).getTransactionAmount();
+			result += (**i).GetAmount();
 		}
 	}
 	return result;
@@ -70,11 +70,11 @@ double FinanceRepository::sumIncomesThisMonth() const
 	double result = 0;
 	for (auto i = beginTransactionRepository(); i != endTransactionRepository(); ++i)
 	{
-		if ((**i).getTransactionType().GetType() == kEnumTransactionType::Income &&
-			(**i).getTransactionTime().GetMonth() == Time().GetMonth() &&
-			(**i).getTransactionTime().GetYear() == Time().GetYear())
+		if ((**i).GetType().GetType() == kEnumType::Income &&
+			(**i).GetTime().GetMonth() == Time().GetMonth() &&
+			(**i).GetTime().GetYear() == Time().GetYear())
 		{
-			result += (**i).getTransactionAmount();
+			result += (**i).GetAmount();
 		}
 	}
 	return result;
@@ -86,9 +86,9 @@ double FinanceRepository::sumIncomesAllTime() const
 	double result = 0;
 	for (auto i = beginTransactionRepository(); i != endTransactionRepository(); ++i)
 	{
-		if ((**i).getTransactionType().GetType() == kEnumTransactionType::Income)
+		if ((**i).GetType().GetType() == kEnumType::Income)
 		{
-			result += (**i).getTransactionAmount();
+			result += (**i).GetAmount();
 		}
 	}
 	return result;

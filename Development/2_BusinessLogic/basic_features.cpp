@@ -474,30 +474,30 @@ TagRepositoryIterator FinanceRepository::findTag(std::shared_ptr<Tag> tagForFind
 // Class member function. Update last amount of account in accounts repository with adding new transaction
 void FinanceRepository::updateAccountAmount(Transaction& transactionForAdd)
 {
-	if (transactionForAdd.getTransactionType() == TransactionType(kEnumTransactionType::Expense))
+	if (transactionForAdd.GetType() == Type(kEnumType::Expense))
 	{
-		auto amount = transactionForAdd.getTransactionAccountFromLastAmount() - transactionForAdd.getTransactionAmount();
-		transactionForAdd.setTransactionAccountFromLastAmount(amount);
-		transactionForAdd.setTransactionAccountToLastAmount(amount);
-		transactionForAdd.setTransactionAccountFromCurrentAmount(amount);
-		transactionForAdd.setTransactionAccountToCurrentAmount(amount);
+		auto amount = transactionForAdd.GetAmountLastestAccountFrom() - transactionForAdd.GetAmount();
+		transactionForAdd.SetAmountLastestAccountFrom(amount);
+		transactionForAdd.SetAmountLastestAccountTo(amount);
+		transactionForAdd.SetAmountAccountFrom(amount);
+		transactionForAdd.SetAmountAccountTo(amount);
 	}
-	if (transactionForAdd.getTransactionType() == TransactionType(kEnumTransactionType::Income))
+	if (transactionForAdd.GetType() == Type(kEnumType::Income))
 	{
-		auto amount = transactionForAdd.getTransactionAccountFromLastAmount() + transactionForAdd.getTransactionAmount();
-		transactionForAdd.setTransactionAccountFromLastAmount(amount);
-		transactionForAdd.setTransactionAccountToLastAmount(amount);
-		transactionForAdd.setTransactionAccountFromCurrentAmount(amount);
-		transactionForAdd.setTransactionAccountToCurrentAmount(amount);
+		auto amount = transactionForAdd.GetAmountLastestAccountFrom() + transactionForAdd.GetAmount();
+		transactionForAdd.SetAmountLastestAccountFrom(amount);
+		transactionForAdd.SetAmountLastestAccountTo(amount);
+		transactionForAdd.SetAmountAccountFrom(amount);
+		transactionForAdd.SetAmountAccountTo(amount);
 	}
-	if (transactionForAdd.getTransactionType() == TransactionType(kEnumTransactionType::Transfer))
+	if (transactionForAdd.GetType() == Type(kEnumType::Transfer))
 	{
-		auto amountFrom = transactionForAdd.getTransactionAccountFromLastAmount() - transactionForAdd.getTransactionAmount();
-		transactionForAdd.setTransactionAccountFromLastAmount(amountFrom);
-		transactionForAdd.setTransactionAccountFromCurrentAmount(amountFrom);
-		auto amountTo = transactionForAdd.getTransactionAccountToLastAmount() + transactionForAdd.getTransactionAmount();
-		transactionForAdd.setTransactionAccountToLastAmount(amountTo);
-		transactionForAdd.setTransactionAccountToCurrentAmount(amountTo);
+		auto amountFrom = transactionForAdd.GetAmountLastestAccountFrom() - transactionForAdd.GetAmount();
+		transactionForAdd.SetAmountLastestAccountFrom(amountFrom);
+		transactionForAdd.SetAmountAccountFrom(amountFrom);
+		auto amountTo = transactionForAdd.GetAmountLastestAccountTo() + transactionForAdd.GetAmount();
+		transactionForAdd.SetAmountLastestAccountTo(amountTo);
+		transactionForAdd.SetAmountAccountTo(amountTo);
 	}
 }
 
@@ -506,37 +506,37 @@ void FinanceRepository::updateAccountRepository(Transaction& transactionForAdd)
 {
 	if (financeRepositoryAccounts.size() == 0)
 	{
-		financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrFrom());
+		financeRepositoryAccounts.add(transactionForAdd.GetAccountFromPtr());
 	}
 	else
 	{
 		bool keyFrom = false;
 		for (auto i = financeRepositoryAccounts.begin(); i != financeRepositoryAccounts.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionAccountFrom().GetName())
+			if ((**i).GetName() == transactionForAdd.GetAccountFrom().GetName())
 			{
 				keyFrom = true;
-				transactionForAdd.setTransactionAccountPtrFrom(*i);
+				transactionForAdd.SetAccountFromPtr(*i);
 				break;
 			}
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrFrom());
+			financeRepositoryAccounts.add(transactionForAdd.GetAccountFromPtr());
 		}
 		bool keyTo = false;
 		for (auto i = financeRepositoryAccounts.begin(); i != financeRepositoryAccounts.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionAccountTo().GetName())
+			if ((**i).GetName() == transactionForAdd.GetAccountTo().GetName())
 			{
 				keyTo = true;
-				transactionForAdd.setTransactionAccountPtrTo(*i);
+				transactionForAdd.SetAccountToPtr(*i);
 				break;
 			}
 		}
 		if (!keyTo)
 		{
-			financeRepositoryAccounts.add(transactionForAdd.getTransactionAccountPtrTo());
+			financeRepositoryAccounts.add(transactionForAdd.GetAccountToPtr());
 		}
 	}
 }
@@ -546,37 +546,37 @@ void FinanceRepository::updateCategoryRepository(Transaction& transactionForAdd)
 {
 	if (financeRepositoryCategories.size() == 0)
 	{
-		financeRepositoryCategories.add(transactionForAdd.getTransactionCategoryPtr());
+		financeRepositoryCategories.add(transactionForAdd.GetCategoryPtr());
 	}
 	else
 	{
 		bool keyFrom = false;
 		for (auto i = financeRepositoryCategories.begin(); i != financeRepositoryCategories.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionCategory().GetName())
+			if ((**i).GetName() == transactionForAdd.GetCategory().GetName())
 			{
 				keyFrom = true;
-				transactionForAdd.setTransactionCategoryPtr(*i);
+				transactionForAdd.SetCategoryPtr(*i);
 				break;
 			}
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryCategories.add(transactionForAdd.getTransactionCategory());
+			financeRepositoryCategories.add(transactionForAdd.GetCategory());
 		}
 		bool keyTo = false;
 		for (auto i = financeRepositoryCategories.begin(); i != financeRepositoryCategories.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionCategory().GetName())
+			if ((**i).GetName() == transactionForAdd.GetCategory().GetName())
 			{
 				keyTo = true;
-				transactionForAdd.setTransactionCategoryPtr(*i);
+				transactionForAdd.SetCategoryPtr(*i);
 				break;
 			}
 		}
 		if (!keyTo)
 		{
-			financeRepositoryCategories.add(transactionForAdd.getTransactionCategoryPtr());
+			financeRepositoryCategories.add(transactionForAdd.GetCategoryPtr());
 		}
 	}
 }
@@ -586,37 +586,37 @@ void FinanceRepository::updateCurrencyRepository(Transaction& transactionForAdd)
 {
 	if (financeRepositoryCurrencies.size() == 0)
 	{
-		financeRepositoryCurrencies.add(transactionForAdd.getTransactionCurrencyPtr());
+		financeRepositoryCurrencies.add(transactionForAdd.GetCurrencyPtr());
 	}
 	else
 	{
 		bool keyFrom = false;
 		for (auto i = financeRepositoryCurrencies.begin(); i != financeRepositoryCurrencies.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionCurrency().GetName())
+			if ((**i).GetName() == transactionForAdd.GetCurrency().GetName())
 			{
 				keyFrom = true;
-				transactionForAdd.setTransactionCurrencyPtr(*i);
+				transactionForAdd.SetCurrencyPtr(*i);
 				break;
 			}
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryCurrencies.add(transactionForAdd.getTransactionCurrency());
+			financeRepositoryCurrencies.add(transactionForAdd.GetCurrency());
 		}
 		bool keyTo = false;
 		for (auto i = financeRepositoryCurrencies.begin(); i != financeRepositoryCurrencies.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionCurrency().GetName())
+			if ((**i).GetName() == transactionForAdd.GetCurrency().GetName())
 			{
 				keyTo = true;
-				transactionForAdd.setTransactionCurrencyPtr(*i);
+				transactionForAdd.SetCurrencyPtr(*i);
 				break;
 			}
 		}
 		if (!keyTo)
 		{
-			financeRepositoryCurrencies.add(transactionForAdd.getTransactionCurrencyPtr());
+			financeRepositoryCurrencies.add(transactionForAdd.GetCurrencyPtr());
 		}
 	}
 }
@@ -626,37 +626,37 @@ void FinanceRepository::updateDescriptionRepository(Transaction& transactionForA
 {
 	if (financeRepositoryDescriptions.size() == 0)
 	{
-		financeRepositoryDescriptions.add(transactionForAdd.getTransactionDescriptionPtr());
+		financeRepositoryDescriptions.add(transactionForAdd.GetDescriptionPtr());
 	}
 	else
 	{
 		bool keyFrom = false;
 		for (auto i = financeRepositoryDescriptions.begin(); i != financeRepositoryDescriptions.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionDescription().GetName())
+			if ((**i).GetName() == transactionForAdd.GetDescription().GetName())
 			{
 				keyFrom = true;
-				transactionForAdd.setTransactionDescriptionPtr(*i);
+				transactionForAdd.SetDescriptionPtr(*i);
 				break;
 			}
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryDescriptions.add(transactionForAdd.getTransactionDescription());
+			financeRepositoryDescriptions.add(transactionForAdd.GetDescription());
 		}
 		bool keyTo = false;
 		for (auto i = financeRepositoryDescriptions.begin(); i != financeRepositoryDescriptions.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionDescription().GetName())
+			if ((**i).GetName() == transactionForAdd.GetDescription().GetName())
 			{
 				keyTo = true;
-				transactionForAdd.setTransactionDescriptionPtr(*i);
+				transactionForAdd.SetDescriptionPtr(*i);
 				break;
 			}
 		}
 		if (!keyTo)
 		{
-			financeRepositoryDescriptions.add(transactionForAdd.getTransactionDescriptionPtr());
+			financeRepositoryDescriptions.add(transactionForAdd.GetDescriptionPtr());
 		}
 	}
 }
@@ -666,37 +666,37 @@ void FinanceRepository::updatePayeeRepository(Transaction& transactionForAdd)
 {
 	if (financeRepositoryPayees.size() == 0)
 	{
-		financeRepositoryPayees.add(transactionForAdd.getTransactionPayeePtr());
+		financeRepositoryPayees.add(transactionForAdd.GetPayeePtr());
 	}
 	else
 	{
 		bool keyFrom = false;
 		for (auto i = financeRepositoryPayees.begin(); i != financeRepositoryPayees.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionPayee().GetName())
+			if ((**i).GetName() == transactionForAdd.GetPayee().GetName())
 			{
 				keyFrom = true;
-				transactionForAdd.setTransactionPayeePtr(*i);
+				transactionForAdd.SetPayeePtr(*i);
 				break;
 			}
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryPayees.add(transactionForAdd.getTransactionPayee());
+			financeRepositoryPayees.add(transactionForAdd.GetPayee());
 		}
 		bool keyTo = false;
 		for (auto i = financeRepositoryPayees.begin(); i != financeRepositoryPayees.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionPayee().GetName())
+			if ((**i).GetName() == transactionForAdd.GetPayee().GetName())
 			{
 				keyTo = true;
-				transactionForAdd.setTransactionPayeePtr(*i);
+				transactionForAdd.SetPayeePtr(*i);
 				break;
 			}
 		}
 		if (!keyTo)
 		{
-			financeRepositoryPayees.add(transactionForAdd.getTransactionPayeePtr());
+			financeRepositoryPayees.add(transactionForAdd.GetPayeePtr());
 		}
 	}
 }
@@ -706,37 +706,37 @@ void FinanceRepository::updateCommentRepository(Transaction& transactionForAdd)
 {
 	if (financeRepositoryComments.size() == 0)
 	{
-		financeRepositoryComments.add(transactionForAdd.getTransactionCommentPtr());
+		financeRepositoryComments.add(transactionForAdd.GetCommentPtr());
 	}
 	else
 	{
 		bool keyFrom = false;
 		for (auto i = financeRepositoryComments.begin(); i != financeRepositoryComments.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionComment().GetName())
+			if ((**i).GetName() == transactionForAdd.GetComment().GetName())
 			{
 				keyFrom = true;
-				transactionForAdd.setTransactionCommentPtr(*i);
+				transactionForAdd.SetCommentPtr(*i);
 				break;
 			}
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryComments.add(transactionForAdd.getTransactionComment());
+			financeRepositoryComments.add(transactionForAdd.GetComment());
 		}
 		bool keyTo = false;
 		for (auto i = financeRepositoryComments.begin(); i != financeRepositoryComments.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionComment().GetName())
+			if ((**i).GetName() == transactionForAdd.GetComment().GetName())
 			{
 				keyTo = true;
-				transactionForAdd.setTransactionCommentPtr(*i);
+				transactionForAdd.SetCommentPtr(*i);
 				break;
 			}
 		}
 		if (!keyTo)
 		{
-			financeRepositoryComments.add(transactionForAdd.getTransactionCommentPtr());
+			financeRepositoryComments.add(transactionForAdd.GetCommentPtr());
 		}
 	}
 }
@@ -746,37 +746,37 @@ void FinanceRepository::updateTagRepository(Transaction& transactionForAdd)
 {
 	if (financeRepositoryTags.size() == 0)
 	{
-		financeRepositoryTags.add(transactionForAdd.getTransactionTagPtr());
+		financeRepositoryTags.add(transactionForAdd.GetTagPtr());
 	}
 	else
 	{
 		bool keyFrom = false;
 		for (auto i = financeRepositoryTags.begin(); i != financeRepositoryTags.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionTag().GetName())
+			if ((**i).GetName() == transactionForAdd.GetTag().GetName())
 			{
 				keyFrom = true;
-				transactionForAdd.setTransactionTagPtr(*i);
+				transactionForAdd.SetTagPtr(*i);
 				break;
 			}
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryTags.add(transactionForAdd.getTransactionTag());
+			financeRepositoryTags.add(transactionForAdd.GetTag());
 		}
 		bool keyTo = false;
 		for (auto i = financeRepositoryTags.begin(); i != financeRepositoryTags.end(); ++i)
 		{
-			if ((**i).GetName() == transactionForAdd.getTransactionTag().GetName())
+			if ((**i).GetName() == transactionForAdd.GetTag().GetName())
 			{
 				keyTo = true;
-				transactionForAdd.setTransactionTagPtr(*i);
+				transactionForAdd.SetTagPtr(*i);
 				break;
 			}
 		}
 		if (!keyTo)
 		{
-			financeRepositoryTags.add(transactionForAdd.getTransactionTagPtr());
+			financeRepositoryTags.add(transactionForAdd.GetTagPtr());
 		}
 	}
 }

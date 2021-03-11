@@ -60,7 +60,7 @@ void Currency::SetActivity(const bool activity)
   activity_ = activity;
 }
 
-//  Class member function
+//  Friend class member function
 //  Operator < for sorting models (by name (1), code (2), activity (3))
 bool operator<(const Currency& model_left, const Currency& model_right)
 {
@@ -102,14 +102,14 @@ bool operator<(const Currency& model_left, const Currency& model_right)
   }
 }
 
-//  Class member function
+//  Friend class member function
 //  Output model (name, code, activity -> "name (code, activity)")
 std::ostream& operator<<(std::ostream& outputStream, const Currency& model)
 {
   return outputStream << model.GetName() << " ("<< model.code_ << ", " << model.activity_ << ")";
 }
 
-//  Class member function
+//  Friend class member function
 //  Input model (name, code, activity -> "name, amount, activity")
 std::istream& operator>>(std::istream& input_stream, Currency& model)
 {

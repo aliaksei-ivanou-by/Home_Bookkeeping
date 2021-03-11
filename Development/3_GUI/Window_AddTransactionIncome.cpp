@@ -60,8 +60,8 @@ try
 	Description description(textDesctiptionForAdd.get_string());
 	Payee payee(textPayeeForAdd.get_string());
 	Tag tag(textTagForAdd.get_string());
-	TransactionStatus transactionStatus(kEnumTransactionStatus::Void);
-	TransactionType transactionType(kEnumTransactionType::Income);
+	Status transactionStatus(kEnumStatus::Void);
+	Type transactionType(kEnumType::Income);
 	Transaction transaction(account, category, amount, comment, { "" }, description, payee, tag,
 		transactionStatus, transactionType);
 	ptrFinanceRepository->addTransaction(transaction);

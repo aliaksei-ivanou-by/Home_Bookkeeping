@@ -26,6 +26,8 @@
 //    Set day
 //    Set month
 //    Set year
+//    Set date (year, month, day, hour, minute, second)
+//    Check date for correctness
 //    Operator < for sorting times (by day and time)
 //    Output time (year, month, day, hour, minute, second -> "YYYY-MM-DD HH:MM:SS")
 //    Input time (year, month, day, hour, minute, second -> "YYYY-MM-DD HH:MM:SS")
@@ -45,21 +47,24 @@ class Time
 {
 public:
   Time();
-	void SetTime();
-	int GetSecond() const;
-	int GetMinute() const;
-	int GetHour() const;
-	int GetDay() const;
-	int GetMonth() const;
-	int GetYear() const;
-	void SetSecond(const int secondForUpdate);
-	void SetMinute(const int minuteForUpdate);
-	void SetHour(const int hourForUpdate);
-	void SetDay(const int dayForUpdate);
-	void SetMonth(const int monthForUpdate);
-	void SetYear(const int yearForUpdate);
-	friend bool operator<(const Time& time_left, const Time& time_right);
-	friend std::ostream& operator<<(std::ostream& outputStream, const Time& time);
+  friend bool CheckDate(int year, int month, int day, int hour, int minute, int second);
+  void SetTime();
+  int GetSecond() const;
+  int GetMinute() const;
+  int GetHour() const;
+  int GetDay() const;
+  int GetMonth() const;
+  int GetYear() const;
+  void SetSecond(const int second);
+  void SetMinute(const int minute);
+  void SetHour(const int hour);
+  void SetDay(const int day);
+  void SetMonth(const int month);
+  void SetYear(const int year);
+  void SetDate(const int year, const int month, const int day, const int hour, const int minute, const int second);
+  friend bool operator<(const Time& time_left, const Time& time_right);
+  friend std::ostream& operator<<(std::ostream& output_stream, const Time& time);
+  friend std::istream& operator>>(std::istream& input_stream, Time& time);
 private:
   int SetSecond();
   int SetMinute();

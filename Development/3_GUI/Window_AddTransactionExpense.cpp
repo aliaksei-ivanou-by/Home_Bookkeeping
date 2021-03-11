@@ -59,8 +59,8 @@ try
 	Description description(std::string(textDesctiptionForAdd.get_string()));
 	Payee payee(std::string(textPayeeForAdd.get_string()));
 	Tag tag(std::string(textTagForAdd.get_string()));
-	TransactionStatus transactionStatus(kEnumTransactionStatus::Void);
-	TransactionType transactionType(kEnumTransactionType::Expense);
+	Status transactionStatus(kEnumStatus::Void);
+	Type transactionType(kEnumType::Expense);
 	Transaction transaction(account, category, amount, comment, { "" }, description, payee, tag,
 		transactionStatus, transactionType);
 	ptrFinanceRepository->addTransaction(transaction);

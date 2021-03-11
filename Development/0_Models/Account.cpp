@@ -42,7 +42,7 @@ void Account::UpdateAmount(const double amount)
   amount_ += amount;
 }
 
-//  Class member function
+//  Friend class member function
 //  Operator < for sorting models (by name (1), amount (2))
 bool operator<(const Account& model_left, const Account& model_right)
 {
@@ -70,14 +70,14 @@ bool operator<(const Account& model_left, const Account& model_right)
   }
 }
 
-//  Class member function
+//  Friend class member function
 //  Output model (name, amount -> "name (amount)")
 std::ostream& operator<<(std::ostream& outputStream, const Account& model)
 {
   return outputStream << model.GetName() << " (" << model.amount_ << ")";
 }
 
-//  Class member function
+//  Friend class member function
 //  Input model (name, amount -> "name, amount")
 std::istream& operator>>(std::istream& input_stream, Account& model)
 {

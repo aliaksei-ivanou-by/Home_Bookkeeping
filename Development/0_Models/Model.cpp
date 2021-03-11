@@ -26,21 +26,21 @@ void Model::SetName(const std::string& name)
   name_ = name;
 }
 
-//  Class member function
+//  Friend class member function
 //  Operator < for sorting models (by name)
 bool operator<(const Model& model_left, const Model& model_right)
 {
   return (model_left.name_) < (model_right.name_);
 }
 
-//  Class member function
+//  Friend class member function
 //  Output model (name)
 std::ostream& operator<<(std::ostream& output_stream, const Model& model)
 {
   return output_stream << model.name_;
 }
 
-//  Class member function
+//  Friend class member function
 //  Input model (name)
 std::istream& operator>>(std::istream& input_stream, Model& model)
 {
