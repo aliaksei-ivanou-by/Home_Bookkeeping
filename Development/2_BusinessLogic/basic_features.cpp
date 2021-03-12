@@ -7,7 +7,7 @@ FinanceRepository::FinanceRepository()
 // Class member function. Find begin iterator of repository of transactions
 TransactionRepositoryIterator FinanceRepository::beginTransactionRepository() const
 {
-	return financeRepositoryTransactions.begin();
+	return financeRepositoryTransactions.Begin();
 }
 
 // Class member function. Find begin iterator of repository of accounts
@@ -55,7 +55,7 @@ TagRepositoryIterator FinanceRepository::beginTagRepository() const
 // Class member function. Find end iterator of repository of transactions
 TransactionRepositoryIterator FinanceRepository::endTransactionRepository() const
 {
-	return financeRepositoryTransactions.end();
+	return financeRepositoryTransactions.End();
 }
 
 // Class member function. Find end iterator of repository of accounts
@@ -113,7 +113,7 @@ void FinanceRepository::addTransaction(Transaction& transactionForAdd)
 	updateCommentRepository(transactionForAdd);
 	updateTagRepository(transactionForAdd);
 
-	financeRepositoryTransactions.add(transactionForAdd);
+	financeRepositoryTransactions.Add(transactionForAdd);
 }
 
 // Class member function. Add account to repository of accounts
@@ -161,7 +161,7 @@ void FinanceRepository::addTag(const Tag& tagForAdd)
 // Class member function. Remove transaction (shared pointer to transaction) from repository of transactions
 void FinanceRepository::removeTransaction(std::shared_ptr<Transaction> transactionForRemove)
 {
-	financeRepositoryTransactions.remove(transactionForRemove);
+	financeRepositoryTransactions.Remove(transactionForRemove);
 }
 
 // Class member function. Remove account (shared pointer to account) from repository of accounts
@@ -210,7 +210,7 @@ void FinanceRepository::removeTag(std::shared_ptr<Tag> tagForRemove)
 // Class member function. Calculate number of elements in transactions repository
 size_t FinanceRepository::getTransactionsNumber() const
 {
-	return financeRepositoryTransactions.size();
+	return financeRepositoryTransactions.Size();
 }
 
 // Class member function. Calculate number of elements in accounts repository
@@ -258,7 +258,7 @@ size_t FinanceRepository::getTagsNumber() const
 // Class member function. Clear transactions repository
 void FinanceRepository::clearTransactions()
 {
-	financeRepositoryTransactions.clear();
+	financeRepositoryTransactions.Clear();
 }
 
 // Class member function. Clear accounts repository
@@ -426,7 +426,7 @@ void FinanceRepository::printTags(const std::string& delimeter, std::ostream& ou
 // Class member function. Find transaction (shared pointer) in transactions repository
 TransactionRepositoryIterator FinanceRepository::findTransaction(std::shared_ptr<Transaction> transactionForFind) const
 {
-	return financeRepositoryTransactions.find(transactionForFind);
+	return financeRepositoryTransactions.Find(transactionForFind);
 }
 
 // Class member function. Find account (shared pointer) in accounts repository

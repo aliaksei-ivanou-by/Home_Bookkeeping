@@ -1,46 +1,45 @@
-#pragma once
-#include "../include/stdafx.h"
-#include "../include/1_DataAccess_Additional.h"
+#ifndef HOMEBOOKKEEPING_1DATAACCESS_TRANSACTIONREPOSITORY_H_
+#define HOMEBOOKKEEPING_1DATAACCESS_TRANSACTIONREPOSITORY_H_
 
-/*
-Class TransactionRepository
-Includes repository of transactions.
-Transactions can be repeated;
+//  Class TransactionRepository
+//
+//  Constructors:
+//    Default
+//
+//  Class member functions:
+//    Add transaction to repository
+//    Add shared pointer to transaction to repository
+//    Remove shared pointer to transaction from repository
+//    Calculate size of repository
+//    Clear repository
+//    Find shared pointer to transaction in repository
+//    Find begin iterator of repository
+//    Find end iterator of repository
+//
+//  Variables:
+//    repository
 
-Constructors:
-	Default
+#include <iostream>
+#include <set>
 
-Class member functions:
-	Add transaction to repository
-	Add shared pointer to transaction to repository
-	Remove shared pointer to transaction from repository
-	Calculate size of repository
-	Clear repository
-	Find shared pointer to transaction in repository
-	Find begin iterator of repository
-	Find end iterator of repository
-*/
+#include "home_bookkeeping/0_Models/Transaction.h"
 
 using TransactionRepositoryIterator = std::multiset<std::shared_ptr<Transaction>>::iterator;
 
 class TransactionRepository
 {
-private:
-	std::multiset<std::shared_ptr<Transaction>> repository;
 public:
 	TransactionRepository();
-
-	void add(Transaction transactionForAdd);
-	void add(std::shared_ptr<Transaction> transactionForAdd);
-
-	void remove(std::shared_ptr<Transaction> transactionForRemove);
-
-	size_t size() const;
-
-	void clear();
-
-	TransactionRepositoryIterator find(std::shared_ptr<Transaction> transactionForFind) const;
-
-	TransactionRepositoryIterator begin() const;
-	TransactionRepositoryIterator end() const;
+	void Add(Transaction transaction);
+	void Add(std::shared_ptr<Transaction> transaction);
+	void Remove(std::shared_ptr<Transaction> transaction);
+	size_t Size() const;
+	void Clear();
+	TransactionRepositoryIterator Find(std::shared_ptr<Transaction> transaction) const;
+	TransactionRepositoryIterator Begin() const;
+	TransactionRepositoryIterator End() const;
+private:
+  std::multiset<std::shared_ptr<Transaction>> repository_;
 };
+
+#endif  //  HOMEBOOKKEEPING_1DATAACCESS_TRANSACTIONREPOSITORY_H_

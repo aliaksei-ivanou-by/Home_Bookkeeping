@@ -1,53 +1,62 @@
-#include "TransactionRepository.h"
+#include "home_bookkeeping/1_DataAccess/TransactionRepository.h"
 
-// Default constructor
+//  Constructor
+//  Default
 TransactionRepository::TransactionRepository()
 {}
 
-// Class member function. Add transaction to repository
-void TransactionRepository::add(Transaction transactionForAdd)
+//  Class member function
+//  Add transaction to repository
+void TransactionRepository::Add(Transaction transaction)
 {
-	repository.insert(std::make_shared<Transaction>(transactionForAdd));
+  repository_.insert(std::make_shared<Transaction>(transaction));
 }
 
-// Class member function. Add shared pointer to transaction to repository
-void TransactionRepository::add(std::shared_ptr<Transaction> transactionForAdd)
+//  Class member function
+//  Add transaction (shared pointer) to repository
+void TransactionRepository::Add(std::shared_ptr<Transaction> transaction)
 {
-	repository.insert(transactionForAdd);
+  repository_.insert(transaction);
 }
 
-// Class member function. Remove shared pointer to transaction from repository
-void TransactionRepository::remove(std::shared_ptr<Transaction> transactionForRemove)
+//  Class member function
+//  Remove transaction (shared pointer) from repository
+void TransactionRepository::Remove(std::shared_ptr<Transaction> transaction)
 {
-	repository.erase(transactionForRemove);
+  repository_.erase(transaction);
 }
 
-// Class member function. Calculate size of repository
-size_t TransactionRepository::size() const
+//  Class member function
+//  Calculate size of repository
+size_t TransactionRepository::Size() const
 {
-	return repository.size();
+  return repository_.size();
 }
 
-// Class member function. Clear repository
-void TransactionRepository::clear()
+//  Class member function
+//  Clear repository
+void TransactionRepository::Clear()
 {
-	repository.clear();
+  repository_.clear();
 }
 
-// Class member function. Find shared pointer to transaction in repository
-TransactionRepositoryIterator TransactionRepository::find(std::shared_ptr<Transaction> transactionForFind) const
+//  Class member function
+//  Find transaction (shared pointer) in repository
+TransactionRepositoryIterator TransactionRepository::Find(std::shared_ptr<Transaction> transaction) const
 {
-	return repository.find(transactionForFind);
+  return repository_.find(transaction);
 }
 
-// Class member function. Find begin iterator of repository
-TransactionRepositoryIterator TransactionRepository::begin() const
+//  Class member function
+//  Find begin iterator of repository
+TransactionRepositoryIterator TransactionRepository::Begin() const
 {
-	return repository.begin();
+  return repository_.begin();
 }
 
-// Class member function. Find end iterator of repository
-TransactionRepositoryIterator TransactionRepository::end() const
+//  Class member function
+//  Find end iterator of repository
+TransactionRepositoryIterator TransactionRepository::End() const
 {
-	return repository.end();
+  return repository_.end();
 }

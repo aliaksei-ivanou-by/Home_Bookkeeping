@@ -1,5 +1,6 @@
 #pragma once
 #include "../include/stdafx.h"
+#include "../include/1_DataAccess_Additional.h"
 #include "../include/1_DataAccess_Main.h"
 
 /*
