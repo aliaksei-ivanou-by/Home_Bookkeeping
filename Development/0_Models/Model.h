@@ -25,8 +25,8 @@ class Model
 public:
   Model();
   Model(const std::string& name);
-  std::string GetName() const;
-  void SetName(const std::string& name);
+  virtual std::string GetName() const;
+  virtual void SetName(const std::string& name);
   friend bool operator<(const Model& model_left, const Model& model_right);
   friend std::ostream& operator<<(std::ostream& output_stream, const Model& model);
   friend std::istream& operator>>(std::istream& input_stream, Model& model);
