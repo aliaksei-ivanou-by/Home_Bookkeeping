@@ -29,15 +29,15 @@ using CurrencyRepositoryIterator = std::set<std::shared_ptr<Currency>>::iterator
 class CurrencyRepository
 {
 public:
-	CurrencyRepository();
-	void Add(Currency currency);
-	void Add(std::shared_ptr<Currency> currency);
-	void Remove(std::shared_ptr<Currency> currency);
-	size_t Size() const;
-	void Clear();
-	CurrencyRepositoryIterator Find(std::shared_ptr<Currency> currency) const;
-	CurrencyRepositoryIterator Begin() const;
-	CurrencyRepositoryIterator End() const;
+  CurrencyRepository();
+  void Add(Currency currency);
+  void Add(std::shared_ptr<Currency> currency);
+  void Remove(std::shared_ptr<Currency> currency);
+  size_t Size() const;
+  void Clear();
+  CurrencyRepositoryIterator Find(std::shared_ptr<Currency> currency) const;
+  CurrencyRepositoryIterator Begin() const;
+  CurrencyRepositoryIterator End() const;
 private:
   std::set<std::shared_ptr<Currency>> repository_;
 };
