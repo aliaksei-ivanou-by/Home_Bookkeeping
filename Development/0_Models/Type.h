@@ -4,7 +4,7 @@
 //  Class Type
 //
 //  Constructors:
-//    Default (type = "Expense")
+//    Default (type = "Expense", name = "Expense")
 //    With type setting
 //
 //  Class member functions:
@@ -15,8 +15,12 @@
 //    Operator < for sorting types (by type)
 //
 //  Variables:
+//    name
 //    enum class kEnumType
 //    type
+
+#include "home_bookkeeping/0_Models/Model.h"
+#include "home_bookkeeping/include/magic_enum.hpp"
 
 enum class kEnumType
 {
@@ -25,11 +29,13 @@ enum class kEnumType
   Transfer
 };
 
-class Type
+class Type : public Model
 {
 public:
   Type();
+  Type(std::string name) = delete;
   Type(const kEnumType& type);
+  void SetName(std::string name);
   kEnumType GetType() const;
   void SetType(const kEnumType& type);
   bool operator==(const Type& type) const;

@@ -3,14 +3,28 @@
 //  Constructor
 //  Default (type = "Expense")
 Type::Type():
+  Model{ static_cast<std::string>(magic_enum::enum_name(kEnumType::Expense)) },
   type_{ kEnumType::Expense }
 {}
 
 //  Constructor
 //  With type setting
 Type::Type(const kEnumType& type):
+  Model{ static_cast<std::string>(magic_enum::enum_name(type)) },
   type_{ type }
 {}
+
+//  Class member function
+//  Set name
+void Type::SetName(std::string name)
+{
+  auto name_new = magic_enum::enum_cast<kEnumType>(name);
+  if (name_new.has_value())
+  {
+    SetType(name_new.value());
+    Model::SetName(name);
+  }
+}
 
 //  Class member function
 //  Get type
@@ -24,6 +38,7 @@ kEnumType Type::GetType() const
 void Type::SetType(const kEnumType& type)
 {
   type_ = type;
+  SetName(static_cast<std::string>(magic_enum::enum_name(type)));
 }
 
 //  Class member function
