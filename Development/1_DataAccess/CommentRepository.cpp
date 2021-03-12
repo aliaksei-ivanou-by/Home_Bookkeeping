@@ -1,53 +1,62 @@
-#include "CommentRepository.h"
+#include "home_bookkeeping/1_DataAccess/CommentRepository.h"
 
-// Default constructor
+//  Constructor
+//  Default
 CommentRepository::CommentRepository()
 {}
 
-// Class member function. Add comment to repository
-void CommentRepository::add(Comment commentForAdd)
+//  Class member function
+//  Add comment to repository
+void CommentRepository::Add(Comment comment)
 {
-	repository.insert(std::make_shared<Comment>(commentForAdd));
+  repository_.insert(std::make_shared<Comment>(comment));
 }
 
-// Class member function. Add shared pointer to comment to repository
-void CommentRepository::add(std::shared_ptr<Comment> commentForAdd)
+//  Class member function
+//  Add comment (shared pointer) to repository
+void CommentRepository::Add(std::shared_ptr<Comment> comment)
 {
-	repository.insert(commentForAdd);
+  repository_.insert(comment);
 }
 
-// Class member function. Remove shared pointer to comment from repository
-void CommentRepository::remove(std::shared_ptr<Comment> commentForRemove)
+//  Class member function
+//  Remove comment (shared pointer) from repository
+void CommentRepository::Remove(std::shared_ptr<Comment> comment)
 {
-	repository.erase(commentForRemove);
+  repository_.erase(comment);
 }
 
-// Class member function. Calculate size of repository
-size_t CommentRepository::size() const
+//  Class member function
+//  Calculate size of repository
+size_t CommentRepository::Size() const
 {
-	return repository.size();
+  return repository_.size();
 }
 
-// Class member function. Clear repository
-void CommentRepository::clear()
+//  Class member function
+//  Clear repository
+void CommentRepository::Clear()
 {
-	repository.clear();
+  repository_.clear();
 }
 
-// Class member function. Find shared pointer to comment in repository
-CommentRepositoryIterator CommentRepository::find(std::shared_ptr<Comment> commentForFind) const
+//  Class member function
+//  Find comment (shared pointer) in repository
+CommentRepositoryIterator CommentRepository::Find(std::shared_ptr<Comment> comment) const
 {
-	return repository.find(commentForFind);
+  return repository_.find(comment);
 }
 
-// Class member function. Find begin iterator of repository
-CommentRepositoryIterator CommentRepository::begin() const
+//  Class member function
+//  Find begin iterator of repository
+CommentRepositoryIterator CommentRepository::Begin() const
 {
-	return repository.begin();
+  return repository_.begin();
 }
 
-// Class member function. Find end iterator of repository
-CommentRepositoryIterator CommentRepository::end() const
+//  Class member function
+//  Find end iterator of repository
+CommentRepositoryIterator CommentRepository::End() const
 {
-	return repository.end();
+  return repository_.end();
 }

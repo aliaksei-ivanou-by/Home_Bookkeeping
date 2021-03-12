@@ -43,7 +43,7 @@ PayeeRepositoryIterator FinanceRepository::beginPayeeRepository() const
 // Class member function. Find begin iterator of repository of comments
 CommentRepositoryIterator FinanceRepository::beginCommentRepository() const
 {
-	return financeRepositoryComments.begin();
+	return financeRepositoryComments.Begin();
 }
 
 // Class member function. Find begin iterator of repository of tags
@@ -91,7 +91,7 @@ PayeeRepositoryIterator FinanceRepository::endPayeeRepository() const
 // Class member function. Find end iterator of repository of comments
 CommentRepositoryIterator FinanceRepository::endCommentRepository() const
 {
-	return financeRepositoryComments.end();
+	return financeRepositoryComments.End();
 }
 
 // Class member function. Find end iterator of repository of tags
@@ -149,7 +149,7 @@ void FinanceRepository::addPayee(const Payee& payeeForAdd)
 // Class member function. Add comment to repository of comments
 void FinanceRepository::addComment(const Comment& commentForAdd)
 {
-	financeRepositoryComments.add(commentForAdd);
+	financeRepositoryComments.Add(commentForAdd);
 }
 
 // Class member function. Add tag to repository of tags
@@ -198,7 +198,7 @@ void FinanceRepository::removePayee(std::shared_ptr<Payee> payeeForRemove)
 // Class member function. Remove comment (shared pointer to comment) from repository of comments
 void FinanceRepository::removeComment(std::shared_ptr<Comment> commentForRemove)
 {
-	financeRepositoryComments.remove(commentForRemove);
+	financeRepositoryComments.Remove(commentForRemove);
 }
 
 // Class member function. Remove tag (shared pointer to tag) from repository of tags
@@ -246,7 +246,7 @@ size_t FinanceRepository::getPayeesNumber() const
 // Class member function. Calculate number of elements in comments repository
 size_t FinanceRepository::getCommentsNumber() const
 {
-	return financeRepositoryComments.size();
+	return financeRepositoryComments.Size();
 }
 
 // Class member function. Calculate number of elements in tags repository
@@ -294,7 +294,7 @@ void FinanceRepository::clearPayees()
 // Class member function. Clear comments repository
 void FinanceRepository::clearComments()
 {
-	financeRepositoryComments.clear();
+	financeRepositoryComments.Clear();
 }
 
 // Class member function. Clear tags repository
@@ -462,7 +462,7 @@ PayeeRepositoryIterator FinanceRepository::findPayee(std::shared_ptr<Payee> paye
 // Class member function. Find comment (shared pointer) in comments repository
 CommentRepositoryIterator FinanceRepository::findComment(std::shared_ptr<Comment> commentForFind) const
 {
-	return financeRepositoryComments.find(commentForFind);
+	return financeRepositoryComments.Find(commentForFind);
 }
 
 // Class member function. Find tag (shared pointer) in tags repository
@@ -704,14 +704,14 @@ void FinanceRepository::updatePayeeRepository(Transaction& transactionForAdd)
 // Class member function. Update comments repository with adding new transaction
 void FinanceRepository::updateCommentRepository(Transaction& transactionForAdd)
 {
-	if (financeRepositoryComments.size() == 0)
+	if (financeRepositoryComments.Size() == 0)
 	{
-		financeRepositoryComments.add(transactionForAdd.GetCommentPtr());
+		financeRepositoryComments.Add(transactionForAdd.GetCommentPtr());
 	}
 	else
 	{
 		bool keyFrom = false;
-		for (auto i = financeRepositoryComments.begin(); i != financeRepositoryComments.end(); ++i)
+		for (auto i = financeRepositoryComments.Begin(); i != financeRepositoryComments.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetComment().GetName())
 			{
@@ -722,10 +722,10 @@ void FinanceRepository::updateCommentRepository(Transaction& transactionForAdd)
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryComments.add(transactionForAdd.GetComment());
+			financeRepositoryComments.Add(transactionForAdd.GetComment());
 		}
 		bool keyTo = false;
-		for (auto i = financeRepositoryComments.begin(); i != financeRepositoryComments.end(); ++i)
+		for (auto i = financeRepositoryComments.Begin(); i != financeRepositoryComments.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetComment().GetName())
 			{
@@ -736,7 +736,7 @@ void FinanceRepository::updateCommentRepository(Transaction& transactionForAdd)
 		}
 		if (!keyTo)
 		{
-			financeRepositoryComments.add(transactionForAdd.GetCommentPtr());
+			financeRepositoryComments.Add(transactionForAdd.GetCommentPtr());
 		}
 	}
 }
