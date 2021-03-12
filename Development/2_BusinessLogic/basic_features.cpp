@@ -19,7 +19,7 @@ AccountRepositoryIterator FinanceRepository::beginAccountRepository() const
 // Class member function. Find begin iterator of repository of categories
 CategoryRepositoryIterator FinanceRepository::beginCategoryRepository() const
 {
-	return financeRepositoryCategories.begin();
+	return financeRepositoryCategories.Begin();
 }
 
 // Class member function. Find begin iterator of repository of currencies
@@ -67,7 +67,7 @@ AccountRepositoryIterator FinanceRepository::endAccountRepository() const
 // Class member function. Find end iterator of repository of categories
 CategoryRepositoryIterator FinanceRepository::endCategoryRepository() const
 {
-	return financeRepositoryCategories.end();
+	return financeRepositoryCategories.End();
 }
 
 // Class member function. Find end iterator of repository of currencies
@@ -125,7 +125,7 @@ void FinanceRepository::addAccount(const Account& accountForAdd)
 // Class member function. Add category to repository of categories
 void FinanceRepository::addCategory(const Category& categoryForAdd)
 {
-	financeRepositoryCategories.add(categoryForAdd);
+	financeRepositoryCategories.Add(categoryForAdd);
 }
 
 // Class member function. Add currency to repository of currencies
@@ -173,7 +173,7 @@ void FinanceRepository::removeAccount(std::shared_ptr<Account> accountForRemove)
 // Class member function. Remove category(shared pointer to category) from repository of categories
 void FinanceRepository::removeCategory(std::shared_ptr<Category> categoryForRemove)
 {
-	financeRepositoryCategories.remove(categoryForRemove);
+	financeRepositoryCategories.Remove(categoryForRemove);
 
 }
 
@@ -222,7 +222,7 @@ size_t FinanceRepository::getAccountsNumber() const
 // Class member function. Calculate number of elements in categories repository
 size_t FinanceRepository::getCategoriesNumber() const
 {
-	return financeRepositoryCategories.size();
+	return financeRepositoryCategories.Size();
 }
 
 // Class member function. Calculate number of elements in currencies repository
@@ -270,7 +270,7 @@ void FinanceRepository::clearAccounts()
 // Class member function. Clear categories repository
 void FinanceRepository::clearCategories()
 {
-	financeRepositoryCategories.clear();
+	financeRepositoryCategories.Clear();
 }
 
 // Class member function. Clear currencies repository
@@ -438,7 +438,7 @@ AccountRepositoryIterator FinanceRepository::findAccount(std::shared_ptr<Account
 // Class member function. Find category (shared pointer) in categories repository
 CategoryRepositoryIterator FinanceRepository::findCategory(std::shared_ptr<Category> categoryForFind) const
 {
-	return financeRepositoryCategories.find(categoryForFind);
+	return financeRepositoryCategories.Find(categoryForFind);
 }
 
 // Class member function. Find currency (shared pointer) in currencies repository
@@ -544,14 +544,14 @@ void FinanceRepository::updateAccountRepository(Transaction& transactionForAdd)
 // Class member function. Update categories repository with adding new transaction
 void FinanceRepository::updateCategoryRepository(Transaction& transactionForAdd)
 {
-	if (financeRepositoryCategories.size() == 0)
+	if (financeRepositoryCategories.Size() == 0)
 	{
-		financeRepositoryCategories.add(transactionForAdd.GetCategoryPtr());
+		financeRepositoryCategories.Add(transactionForAdd.GetCategoryPtr());
 	}
 	else
 	{
 		bool keyFrom = false;
-		for (auto i = financeRepositoryCategories.begin(); i != financeRepositoryCategories.end(); ++i)
+		for (auto i = financeRepositoryCategories.Begin(); i != financeRepositoryCategories.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetCategory().GetName())
 			{
@@ -562,10 +562,10 @@ void FinanceRepository::updateCategoryRepository(Transaction& transactionForAdd)
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryCategories.add(transactionForAdd.GetCategory());
+			financeRepositoryCategories.Add(transactionForAdd.GetCategory());
 		}
 		bool keyTo = false;
-		for (auto i = financeRepositoryCategories.begin(); i != financeRepositoryCategories.end(); ++i)
+		for (auto i = financeRepositoryCategories.Begin(); i != financeRepositoryCategories.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetCategory().GetName())
 			{
@@ -576,7 +576,7 @@ void FinanceRepository::updateCategoryRepository(Transaction& transactionForAdd)
 		}
 		if (!keyTo)
 		{
-			financeRepositoryCategories.add(transactionForAdd.GetCategoryPtr());
+			financeRepositoryCategories.Add(transactionForAdd.GetCategoryPtr());
 		}
 	}
 }

@@ -1,53 +1,62 @@
-#include "CategoryRepository.h"
+#include "home_bookkeeping/1_DataAccess/CategoryRepository.h"
 
-// Default constructor
+//  Constructor
+//  Default
 CategoryRepository::CategoryRepository()
 {}
 
-// Class member function. Add category to repository
-void CategoryRepository::add(Category categoryForAdd)
+//  Class member function
+//  Add category to repository
+void CategoryRepository::Add(Category category)
 {
-	repository.insert(std::make_shared<Category>(categoryForAdd));
+  repository_.insert(std::make_shared<Category>(category));
 }
 
-// Class member function. Add shared pointer to category to repository
-void CategoryRepository::add(std::shared_ptr<Category> categoryForAdd)
+//  Class member function
+//  Add category (shared pointer) to repository
+void CategoryRepository::Add(std::shared_ptr<Category> category)
 {
-	repository.insert(categoryForAdd);
+  repository_.insert(category);
 }
 
-// Class member function. Remove shared pointer to category from repository
-void CategoryRepository::remove(std::shared_ptr<Category> categoryForRemove)
+//  Class member function
+//  Remove category (shared pointer) from repository
+void CategoryRepository::Remove(std::shared_ptr<Category> category)
 {
-	repository.erase(categoryForRemove);
+  repository_.erase(category);
 }
 
-// Class member function. Calculate size of repository
-size_t CategoryRepository::size() const
+//  Class member function
+//  Calculate size of repository
+size_t CategoryRepository::Size() const
 {
-	return repository.size();
+  return repository_.size();
 }
 
-// Class member function. Clear repository
-void CategoryRepository::clear()
+//  Class member function
+//  Clear repository
+void CategoryRepository::Clear()
 {
-	repository.clear();
+  repository_.clear();
 }
 
-// Class member function. Find shared pointer to category in repository
-CategoryRepositoryIterator CategoryRepository::find(std::shared_ptr<Category> categoryForFind) const
+//  Class member function
+//  Find category (shared pointer) in repository
+CategoryRepositoryIterator CategoryRepository::Find(std::shared_ptr<Category> category) const
 {
-	return repository.find(categoryForFind);
+  return repository_.find(category);
 }
 
-// Class member function. Find begin iterator of repository
-CategoryRepositoryIterator CategoryRepository::begin() const
+//  Class member function
+//  Find begin iterator of repository
+CategoryRepositoryIterator CategoryRepository::Begin() const
 {
-	return repository.begin();
+  return repository_.begin();
 }
 
-// Class member function. Find end iterator of repository
-CategoryRepositoryIterator CategoryRepository::end() const
+//  Class member function
+//  Find end iterator of repository
+CategoryRepositoryIterator CategoryRepository::End() const
 {
-	return repository.end();
+  return repository_.end();
 }
