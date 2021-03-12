@@ -29,15 +29,15 @@ using CommentRepositoryIterator = std::set<std::shared_ptr<Comment>>::iterator;
 class CommentRepository
 {
 public:
-	CommentRepository();
-	void Add(Comment comment);
-	void Add(std::shared_ptr<Comment> comment);
-	void Remove(std::shared_ptr<Comment> comment);
-	size_t Size() const;
-	void Clear();
-	CommentRepositoryIterator Find(std::shared_ptr<Comment> comment) const;
-	CommentRepositoryIterator Begin() const;
-	CommentRepositoryIterator End() const;
+  CommentRepository();
+  void Add(Comment comment);
+  void Add(std::shared_ptr<Comment> comment);
+  void Remove(std::shared_ptr<Comment> comment);
+  size_t Size() const;
+  void Clear();
+  CommentRepositoryIterator Find(std::shared_ptr<Comment> comment) const;
+  CommentRepositoryIterator Begin() const;
+  CommentRepositoryIterator End() const;
 private:
   std::set<std::shared_ptr<Comment>> repository_;
 };
