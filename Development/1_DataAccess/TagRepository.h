@@ -1,45 +1,45 @@
-#pragma once
-#include "../include/stdafx.h"
-#include "../0_Models/Tag.h"
+#ifndef HOMEBOOKKEEPING_1DATAACCESS_TAGREPOSITORY_H_
+#define HOMEBOOKKEEPING_1DATAACCESS_TAGREPOSITORY_H_
 
-/*
-Class TagRepository
-Includes repository of tags.
+//  Class TagRepository
+//
+//  Constructors:
+//    Default
+//
+//  Class member functions:
+//    Add tag to repository
+//    Add tag (shared pointer) to repository
+//    Remove tag (shared pointer) from repository
+//    Calculate size of repository
+//    Clear repository
+//    Find tag (shared pointer) in repository
+//    Find begin iterator of repository
+//    Find end iterator of repository
+//
+//  Variables:
+//    repository
 
-Constructors:
-	Default
+#include <iostream>
+#include <set>
 
-Class member functions:
-	Add tag to repository
-	Add shared pointer to tag to repository
-	Remove shared pointer to tag from repository
-	Calculate size of repository
-	Clear repository
-	Find shared pointer to tag in repository
-	Find begin iterator of repository
-	Find end iterator of repository
-*/
+#include "home_bookkeeping/0_Models/Tag.h"
 
 using TagRepositoryIterator = std::set<std::shared_ptr<Tag>>::iterator;
 
 class TagRepository
 {
-private:
-	std::set<std::shared_ptr<Tag>> repository;
 public:
-	TagRepository();
-
-	void add(Tag tagForAdd);
-	void add(std::shared_ptr<Tag> tagForAdd);
-
-	void remove(std::shared_ptr<Tag> tagForRemove);
-
-	size_t size() const;
-
-	void clear();
-
-	TagRepositoryIterator find(std::shared_ptr<Tag> tagForFind) const;
-
-	TagRepositoryIterator begin() const;
-	TagRepositoryIterator end() const;
+  TagRepository();
+  void Add(Tag tag);
+  void Add(std::shared_ptr<Tag> tag);
+  void Remove(std::shared_ptr<Tag> tag);
+  size_t Size() const;
+  void Clear();
+  TagRepositoryIterator Find(std::shared_ptr<Tag> tag) const;
+  TagRepositoryIterator Begin() const;
+  TagRepositoryIterator End() const;
+private:
+  std::set<std::shared_ptr<Tag>> repository_;
 };
+
+#endif  //  HOMEBOOKKEEPING_1DATAACCESS_TAGREPOSITORY_H_

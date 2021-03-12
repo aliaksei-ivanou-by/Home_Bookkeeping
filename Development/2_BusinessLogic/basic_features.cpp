@@ -49,7 +49,7 @@ CommentRepositoryIterator FinanceRepository::beginCommentRepository() const
 // Class member function. Find begin iterator of repository of tags
 TagRepositoryIterator FinanceRepository::beginTagRepository() const
 {
-	return financeRepositoryTags.begin();
+	return financeRepositoryTags.Begin();
 }
 
 // Class member function. Find end iterator of repository of transactions
@@ -97,7 +97,7 @@ CommentRepositoryIterator FinanceRepository::endCommentRepository() const
 // Class member function. Find end iterator of repository of tags
 TagRepositoryIterator FinanceRepository::endTagRepository() const
 {
-	return financeRepositoryTags.end();
+	return financeRepositoryTags.End();
 }
 
 // Class member function. Add transaction to repository of transactions
@@ -155,7 +155,7 @@ void FinanceRepository::addComment(const Comment& commentForAdd)
 // Class member function. Add tag to repository of tags
 void FinanceRepository::addTag(const Tag& tagForAdd)
 {
-	financeRepositoryTags.add(tagForAdd);
+	financeRepositoryTags.Add(tagForAdd);
 }
 
 // Class member function. Remove transaction (shared pointer to transaction) from repository of transactions
@@ -204,7 +204,7 @@ void FinanceRepository::removeComment(std::shared_ptr<Comment> commentForRemove)
 // Class member function. Remove tag (shared pointer to tag) from repository of tags
 void FinanceRepository::removeTag(std::shared_ptr<Tag> tagForRemove)
 {
-	financeRepositoryTags.remove(tagForRemove);
+	financeRepositoryTags.Remove(tagForRemove);
 }
 
 // Class member function. Calculate number of elements in transactions repository
@@ -252,7 +252,7 @@ size_t FinanceRepository::getCommentsNumber() const
 // Class member function. Calculate number of elements in tags repository
 size_t FinanceRepository::getTagsNumber() const
 {
-	return financeRepositoryTags.size();
+	return financeRepositoryTags.Size();
 }
 
 // Class member function. Clear transactions repository
@@ -300,7 +300,7 @@ void FinanceRepository::clearComments()
 // Class member function. Clear tags repository
 void FinanceRepository::clearTags()
 {
-	financeRepositoryTags.clear();
+	financeRepositoryTags.Clear();
 }
 
 // Class member function. Print transactions repository
@@ -468,7 +468,7 @@ CommentRepositoryIterator FinanceRepository::findComment(std::shared_ptr<Comment
 // Class member function. Find tag (shared pointer) in tags repository
 TagRepositoryIterator FinanceRepository::findTag(std::shared_ptr<Tag> tagForFind) const
 {
-	return financeRepositoryTags.find(tagForFind);
+	return financeRepositoryTags.Find(tagForFind);
 }
 
 // Class member function. Update last amount of account in accounts repository with adding new transaction
@@ -744,14 +744,14 @@ void FinanceRepository::updateCommentRepository(Transaction& transactionForAdd)
 // Class member function. Update tags repository with adding new transaction
 void FinanceRepository::updateTagRepository(Transaction& transactionForAdd)
 {
-	if (financeRepositoryTags.size() == 0)
+	if (financeRepositoryTags.Size() == 0)
 	{
-		financeRepositoryTags.add(transactionForAdd.GetTagPtr());
+		financeRepositoryTags.Add(transactionForAdd.GetTagPtr());
 	}
 	else
 	{
 		bool keyFrom = false;
-		for (auto i = financeRepositoryTags.begin(); i != financeRepositoryTags.end(); ++i)
+		for (auto i = financeRepositoryTags.Begin(); i != financeRepositoryTags.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetTag().GetName())
 			{
@@ -762,10 +762,10 @@ void FinanceRepository::updateTagRepository(Transaction& transactionForAdd)
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryTags.add(transactionForAdd.GetTag());
+			financeRepositoryTags.Add(transactionForAdd.GetTag());
 		}
 		bool keyTo = false;
-		for (auto i = financeRepositoryTags.begin(); i != financeRepositoryTags.end(); ++i)
+		for (auto i = financeRepositoryTags.Begin(); i != financeRepositoryTags.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetTag().GetName())
 			{
@@ -776,7 +776,7 @@ void FinanceRepository::updateTagRepository(Transaction& transactionForAdd)
 		}
 		if (!keyTo)
 		{
-			financeRepositoryTags.add(transactionForAdd.GetTagPtr());
+			financeRepositoryTags.Add(transactionForAdd.GetTagPtr());
 		}
 	}
 }

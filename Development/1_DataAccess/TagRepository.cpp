@@ -1,53 +1,62 @@
-#include "TagRepository.h"
+#include "home_bookkeeping/1_DataAccess/TagRepository.h"
 
-// Default constructor
+//  Constructor
+//  Default
 TagRepository::TagRepository()
 {}
 
-// Class member function. Add tag to repository
-void TagRepository::add(Tag tagForAdd)
+//  Class member function
+//  Add tag to repository
+void TagRepository::Add(Tag tag)
 {
-	repository.insert(std::make_shared<Tag>(tagForAdd));
+  repository_.insert(std::make_shared<Tag>(tag));
 }
 
-// Class member function. Add shared pointer to tag to repository
-void TagRepository::add(std::shared_ptr<Tag> tagForAdd)
+//  Class member function
+//  Add tag (shared pointer) to repository
+void TagRepository::Add(std::shared_ptr<Tag> tag)
 {
-	repository.insert(tagForAdd);
+  repository_.insert(tag);
 }
 
-// Class member function. Remove shared pointer to tag from repository
-void TagRepository::remove(std::shared_ptr<Tag> tagForRemove)
+//  Class member function
+//  Remove tag (shared pointer) from repository
+void TagRepository::Remove(std::shared_ptr<Tag> tag)
 {
-	repository.erase(tagForRemove);
+  repository_.erase(tag);
 }
 
-// Class member function. Calculate size of repository
-size_t TagRepository::size() const
+//  Class member function
+//  Calculate size of repository
+size_t TagRepository::Size() const
 {
-	return repository.size();
+  return repository_.size();
 }
 
-// Class member function. Clear repository
-void TagRepository::clear()
+//  Class member function
+//  Clear repository
+void TagRepository::Clear()
 {
-	repository.clear();
+  repository_.clear();
 }
 
-// Class member function. Find shared pointer to tag in repository
-TagRepositoryIterator TagRepository::find(std::shared_ptr<Tag> tagForFind) const
+//  Class member function
+//  Find tag (shared pointer) in repository
+TagRepositoryIterator TagRepository::Find(std::shared_ptr<Tag> tag) const
 {
-	return repository.find(tagForFind);
+  return repository_.find(tag);
 }
 
-// Class member function. Find begin iterator of repository
-TagRepositoryIterator TagRepository::begin() const
+//  Class member function
+//  Find begin iterator of repository
+TagRepositoryIterator TagRepository::Begin() const
 {
-	return repository.begin();
+  return repository_.begin();
 }
 
-// Class member function. Find end iterator of repository
-TagRepositoryIterator TagRepository::end() const
+//  Class member function
+//  Find end iterator of repository
+TagRepositoryIterator TagRepository::End() const
 {
-	return repository.end();
+  return repository_.end();
 }
