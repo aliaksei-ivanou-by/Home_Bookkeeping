@@ -1,53 +1,62 @@
-#include "PayeeRepository.h"
+#include "home_bookkeeping/1_DataAccess/PayeeRepository.h"
 
-// Default constructor
+//  Constructor
+//  Default
 PayeeRepository::PayeeRepository()
 {}
 
-// Class member function. Add payee to repository
-void PayeeRepository::add(Payee payeeForAdd)
+//  Class member function
+//  Add payee to repository
+void PayeeRepository::Add(Payee payee)
 {
-	repository.insert(std::make_shared<Payee>(payeeForAdd));
+  repository_.insert(std::make_shared<Payee>(payee));
 }
 
-// Class member function. Add shared pointer to payee to repository
-void PayeeRepository::add(std::shared_ptr<Payee> payeeForAdd)
+//  Class member function
+//  Add payee (shared pointer) to repository
+void PayeeRepository::Add(std::shared_ptr<Payee> payee)
 {
-	repository.insert(payeeForAdd);
+  repository_.insert(payee);
 }
 
-// Class member function. Remove shared pointer to payee from repository
-void PayeeRepository::remove(std::shared_ptr<Payee> payeeForRemove)
+//  Class member function
+//  Remove payee (shared pointer) from repository
+void PayeeRepository::Remove(std::shared_ptr<Payee> payee)
 {
-	repository.erase(payeeForRemove);
+  repository_.erase(payee);
 }
 
-// Class member function. Calculate size of repository
-size_t PayeeRepository::size() const
+//  Class member function
+//  Calculate size of repository
+size_t PayeeRepository::Size() const
 {
-	return repository.size();
+  return repository_.size();
 }
 
-// Class member function. Clear repository
-void PayeeRepository::clear()
+//  Class member function
+//  Clear repository
+void PayeeRepository::Clear()
 {
-	repository.clear();
+  repository_.clear();
 }
 
-// Class member function. Find shared pointer to payee in repository
-PayeeRepositoryIterator PayeeRepository::find(std::shared_ptr<Payee> payeeForFind) const
+//  Class member function
+//  Find payee (shared pointer) in repository
+PayeeRepositoryIterator PayeeRepository::Find(std::shared_ptr<Payee> payee) const
 {
-	return repository.find(payeeForFind);
+  return repository_.find(payee);
 }
 
-// Class member function. Find begin iterator of repository
-PayeeRepositoryIterator PayeeRepository::begin() const
+//  Class member function
+//  Find begin iterator of repository
+PayeeRepositoryIterator PayeeRepository::Begin() const
 {
-	return repository.begin();
+  return repository_.begin();
 }
 
-// Class member function. Find end iterator of repository
-PayeeRepositoryIterator PayeeRepository::end() const
+//  Class member function
+//  Find end iterator of repository
+PayeeRepositoryIterator PayeeRepository::End() const
 {
-	return repository.end();
+  return repository_.end();
 }

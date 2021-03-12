@@ -1,45 +1,45 @@
-#pragma once
-#include "../include/stdafx.h"
-#include "../0_Models/Payee.h"
+#ifndef HOMEBOOKKEEPING_1DATAACCESS_PAYEEREPOSITORY_H_
+#define HOMEBOOKKEEPING_1DATAACCESS_PAYEEREPOSITORY_H_
 
-/*
-Class PayeeRepository
-Includes repository of payees.
+//  Class PayeeRepository
+//
+//  Constructors:
+//    Default
+//
+//  Class member functions:
+//    Add payee to repository
+//    Add payee (shared pointer) to repository
+//    Remove payee (shared pointer) from repository
+//    Calculate size of repository
+//    Clear repository
+//    Find payee (shared pointer) in repository
+//    Find begin iterator of repository
+//    Find end iterator of repository
+//
+//  Variables:
+//    repository
 
-Constructors:
-	Default
+#include <iostream>
+#include <set>
 
-Class member functions:
-	Add payee to repository
-	Add shared pointer to payee to repository
-	Remove shared pointer to payee from repository
-	Calculate size of repository
-	Clear repository
-	Find shared pointer to payee in repository
-	Find begin iterator of repository
-	Find end iterator of repository
-*/
+#include "home_bookkeeping/0_Models/Payee.h"
 
 using PayeeRepositoryIterator = std::set<std::shared_ptr<Payee>>::iterator;
 
 class PayeeRepository
 {
-private:
-	std::set<std::shared_ptr<Payee>> repository;
 public:
 	PayeeRepository();
-
-	void add(Payee payeeForAdd);
-	void add(std::shared_ptr<Payee> payeeForAdd);
-
-	void remove(std::shared_ptr<Payee> payeeForRemove);
-
-	size_t size() const;
-
-	void clear();
-
-	PayeeRepositoryIterator find(std::shared_ptr<Payee> payeeForFind) const;
-
-	PayeeRepositoryIterator begin() const;
-	PayeeRepositoryIterator end() const;
+	void Add(Payee payee);
+	void Add(std::shared_ptr<Payee> payee);
+	void Remove(std::shared_ptr<Payee> payee);
+	size_t Size() const;
+	void Clear();
+	PayeeRepositoryIterator Find(std::shared_ptr<Payee> payee) const;
+	PayeeRepositoryIterator Begin() const;
+	PayeeRepositoryIterator End() const;
+private:
+  std::set<std::shared_ptr<Payee>> repository_;
 };
+
+#endif  //  HOMEBOOKKEEPING_1DATAACCESS_PAYEEREPOSITORY_H_

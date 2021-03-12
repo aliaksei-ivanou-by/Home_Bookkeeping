@@ -37,7 +37,7 @@ DescriptionRepositoryIterator FinanceRepository::beginDescriptionRepository() co
 // Class member function. Find begin iterator of repository of payees
 PayeeRepositoryIterator FinanceRepository::beginPayeeRepository() const
 {
-	return financeRepositoryPayees.begin();
+	return financeRepositoryPayees.Begin();
 }
 
 // Class member function. Find begin iterator of repository of comments
@@ -85,7 +85,7 @@ DescriptionRepositoryIterator FinanceRepository::endDescriptionRepository() cons
 // Class member function. Find end iterator of repository of payees
 PayeeRepositoryIterator FinanceRepository::endPayeeRepository() const
 {
-	return financeRepositoryPayees.end();
+	return financeRepositoryPayees.End();
 }
 
 // Class member function. Find end iterator of repository of comments
@@ -143,7 +143,7 @@ void FinanceRepository::addDescription(const Description& descriptionForAdd)
 // Class member function. Add payee to repository of payees
 void FinanceRepository::addPayee(const Payee& payeeForAdd)
 {
-	financeRepositoryPayees.add(payeeForAdd);
+	financeRepositoryPayees.Add(payeeForAdd);
 }
 
 // Class member function. Add comment to repository of comments
@@ -192,7 +192,7 @@ void FinanceRepository::removeDescription(std::shared_ptr<Description> descripti
 // Class member function. Remove payee(shared pointer to payee) from repository of payees
 void FinanceRepository::removePayee(std::shared_ptr<Payee> payeeForRemove)
 {
-	financeRepositoryPayees.remove(payeeForRemove);
+	financeRepositoryPayees.Remove(payeeForRemove);
 }
 
 // Class member function. Remove comment (shared pointer to comment) from repository of comments
@@ -240,7 +240,7 @@ size_t FinanceRepository::getDescriptionsNumber() const
 // Class member function. Calculate number of elements in payees repository
 size_t FinanceRepository::getPayeesNumber() const
 {
-	return financeRepositoryPayees.size();
+	return financeRepositoryPayees.Size();
 }
 
 // Class member function. Calculate number of elements in comments repository
@@ -288,7 +288,7 @@ void FinanceRepository::clearDescriptions()
 // Class member function. Clear payees repository
 void FinanceRepository::clearPayees()
 {
-	financeRepositoryPayees.clear();
+	financeRepositoryPayees.Clear();
 }
 
 // Class member function. Clear comments repository
@@ -456,7 +456,7 @@ DescriptionRepositoryIterator FinanceRepository::findDescription(std::shared_ptr
 // Class member function. Find payee (shared pointer) in payees repository
 PayeeRepositoryIterator FinanceRepository::findPayee(std::shared_ptr<Payee> payeeForFind) const
 {
-	return financeRepositoryPayees.find(payeeForFind);
+	return financeRepositoryPayees.Find(payeeForFind);
 }
 
 // Class member function. Find comment (shared pointer) in comments repository
@@ -664,14 +664,14 @@ void FinanceRepository::updateDescriptionRepository(Transaction& transactionForA
 // Class member function. Update payees repository with adding new transaction
 void FinanceRepository::updatePayeeRepository(Transaction& transactionForAdd)
 {
-	if (financeRepositoryPayees.size() == 0)
+	if (financeRepositoryPayees.Size() == 0)
 	{
-		financeRepositoryPayees.add(transactionForAdd.GetPayeePtr());
+		financeRepositoryPayees.Add(transactionForAdd.GetPayeePtr());
 	}
 	else
 	{
 		bool keyFrom = false;
-		for (auto i = financeRepositoryPayees.begin(); i != financeRepositoryPayees.end(); ++i)
+		for (auto i = financeRepositoryPayees.Begin(); i != financeRepositoryPayees.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetPayee().GetName())
 			{
@@ -682,10 +682,10 @@ void FinanceRepository::updatePayeeRepository(Transaction& transactionForAdd)
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryPayees.add(transactionForAdd.GetPayee());
+			financeRepositoryPayees.Add(transactionForAdd.GetPayee());
 		}
 		bool keyTo = false;
-		for (auto i = financeRepositoryPayees.begin(); i != financeRepositoryPayees.end(); ++i)
+		for (auto i = financeRepositoryPayees.Begin(); i != financeRepositoryPayees.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetPayee().GetName())
 			{
@@ -696,7 +696,7 @@ void FinanceRepository::updatePayeeRepository(Transaction& transactionForAdd)
 		}
 		if (!keyTo)
 		{
-			financeRepositoryPayees.add(transactionForAdd.GetPayeePtr());
+			financeRepositoryPayees.Add(transactionForAdd.GetPayeePtr());
 		}
 	}
 }
