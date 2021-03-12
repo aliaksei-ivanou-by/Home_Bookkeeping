@@ -1,45 +1,45 @@
-#pragma once
-#include "../include/stdafx.h"
-#include "../0_Models/Currency.h"
+#ifndef HOMEBOOKKEEPING_1DATAACCESS_CURRENCYREPOSITORY_H_
+#define HOMEBOOKKEEPING_1DATAACCESS_CURRENCYREPOSITORY_H_
 
-/*
-Class CurrencyRepository
-Includes repository of currencies.
+//  Class CurrencyRepository
+//
+//  Constructors:
+//    Default
+//
+//  Class member functions:
+//    Add currency to repository
+//    Add currency (shared pointer) to repository
+//    Remove currency (shared pointer) from repository
+//    Calculate size of repository
+//    Clear repository
+//    Find currency (shared pointer) in repository
+//    Find begin iterator of repository
+//    Find end iterator of repository
+//
+//  Variables:
+//    repository
 
-Constructors:
-	Default
+#include <iostream>
+#include <set>
 
-Class member functions:
-	Add currency to repository
-	Add shared pointer to currency to repository
-	Remove shared pointer to currency from repository
-	Calculate size of repository
-	Clear repository
-	Find shared pointer to currency in repository
-	Find begin iterator of repository
-	Find end iterator of repository
-*/
+#include "home_bookkeeping/0_Models/Currency.h"
 
 using CurrencyRepositoryIterator = std::set<std::shared_ptr<Currency>>::iterator;
 
 class CurrencyRepository
 {
-private:
-	std::set<std::shared_ptr<Currency>> repository;
 public:
 	CurrencyRepository();
-
-	void add(Currency currencyForAdd);
-	void add(std::shared_ptr<Currency> currencyForAdd);
-
-	void remove(std::shared_ptr<Currency> currencyForRemove);
-
-	size_t size() const;
-
-	void clear();
-
-	CurrencyRepositoryIterator find(std::shared_ptr<Currency> currencyForFind) const;
-
-	CurrencyRepositoryIterator begin() const;
-	CurrencyRepositoryIterator end() const;
+	void Add(Currency currency);
+	void Add(std::shared_ptr<Currency> currency);
+	void Remove(std::shared_ptr<Currency> currency);
+	size_t Size() const;
+	void Clear();
+	CurrencyRepositoryIterator Find(std::shared_ptr<Currency> currency) const;
+	CurrencyRepositoryIterator Begin() const;
+	CurrencyRepositoryIterator End() const;
+private:
+  std::set<std::shared_ptr<Currency>> repository_;
 };
+
+#endif  //  HOMEBOOKKEEPING_1DATAACCESS_CURRENCYREPOSITORY_H_

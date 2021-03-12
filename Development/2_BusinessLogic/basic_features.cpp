@@ -25,7 +25,7 @@ CategoryRepositoryIterator FinanceRepository::beginCategoryRepository() const
 // Class member function. Find begin iterator of repository of currencies
 CurrencyRepositoryIterator FinanceRepository::beginCurrencyRepository() const
 {
-	return financeRepositoryCurrencies.begin();
+	return financeRepositoryCurrencies.Begin();
 }
 
 // Class member function. Find begin iterator of repository of descriptions
@@ -73,7 +73,7 @@ CategoryRepositoryIterator FinanceRepository::endCategoryRepository() const
 // Class member function. Find end iterator of repository of currencies
 CurrencyRepositoryIterator FinanceRepository::endCurrencyRepository() const
 {
-	return financeRepositoryCurrencies.end();
+	return financeRepositoryCurrencies.End();
 }
 
 // Class member function. Find end iterator of repository of descriptions
@@ -131,7 +131,7 @@ void FinanceRepository::addCategory(const Category& categoryForAdd)
 // Class member function. Add currency to repository of currencies
 void FinanceRepository::addCurrency(const Currency& currencyForAdd)
 {
-	financeRepositoryCurrencies.add(currencyForAdd);
+	financeRepositoryCurrencies.Add(currencyForAdd);
 }
 
 // Class member function. Add description to repository of descriptions
@@ -180,7 +180,7 @@ void FinanceRepository::removeCategory(std::shared_ptr<Category> categoryForRemo
 // Class member function. Remove currency (shared pointer to currency) from repository of currencies
 void FinanceRepository::removeCurrency(std::shared_ptr<Currency> currencyForRemove)
 {
-	financeRepositoryCurrencies.remove(currencyForRemove);
+	financeRepositoryCurrencies.Remove(currencyForRemove);
 }
 
 // Class member function. Remove description (shared pointer to description) from repository of descriptions
@@ -228,7 +228,7 @@ size_t FinanceRepository::getCategoriesNumber() const
 // Class member function. Calculate number of elements in currencies repository
 size_t FinanceRepository::getCurrenciesNumber() const
 {
-	return financeRepositoryCurrencies.size();
+	return financeRepositoryCurrencies.Size();
 }
 
 // Class member function. Calculate number of elements in descriptions repository
@@ -276,7 +276,7 @@ void FinanceRepository::clearCategories()
 // Class member function. Clear currencies repository
 void FinanceRepository::clearCurrencies()
 {
-	financeRepositoryCurrencies.clear();
+	financeRepositoryCurrencies.Clear();
 }
 
 // Class member function. Clear descriptions repository
@@ -444,7 +444,7 @@ CategoryRepositoryIterator FinanceRepository::findCategory(std::shared_ptr<Categ
 // Class member function. Find currency (shared pointer) in currencies repository
 CurrencyRepositoryIterator FinanceRepository::findCurrency(std::shared_ptr<Currency> currencyForFind) const
 {
-	return financeRepositoryCurrencies.find(currencyForFind);
+	return financeRepositoryCurrencies.Find(currencyForFind);
 }
 
 // Class member function. Find description (shared pointer) in descriptions repository
@@ -584,14 +584,14 @@ void FinanceRepository::updateCategoryRepository(Transaction& transactionForAdd)
 // Class member function. Update currencies repository with adding new transaction
 void FinanceRepository::updateCurrencyRepository(Transaction& transactionForAdd)
 {
-	if (financeRepositoryCurrencies.size() == 0)
+	if (financeRepositoryCurrencies.Size() == 0)
 	{
-		financeRepositoryCurrencies.add(transactionForAdd.GetCurrencyPtr());
+		financeRepositoryCurrencies.Add(transactionForAdd.GetCurrencyPtr());
 	}
 	else
 	{
 		bool keyFrom = false;
-		for (auto i = financeRepositoryCurrencies.begin(); i != financeRepositoryCurrencies.end(); ++i)
+		for (auto i = financeRepositoryCurrencies.Begin(); i != financeRepositoryCurrencies.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetCurrency().GetName())
 			{
@@ -602,10 +602,10 @@ void FinanceRepository::updateCurrencyRepository(Transaction& transactionForAdd)
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryCurrencies.add(transactionForAdd.GetCurrency());
+			financeRepositoryCurrencies.Add(transactionForAdd.GetCurrency());
 		}
 		bool keyTo = false;
-		for (auto i = financeRepositoryCurrencies.begin(); i != financeRepositoryCurrencies.end(); ++i)
+		for (auto i = financeRepositoryCurrencies.Begin(); i != financeRepositoryCurrencies.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetCurrency().GetName())
 			{
@@ -616,7 +616,7 @@ void FinanceRepository::updateCurrencyRepository(Transaction& transactionForAdd)
 		}
 		if (!keyTo)
 		{
-			financeRepositoryCurrencies.add(transactionForAdd.GetCurrencyPtr());
+			financeRepositoryCurrencies.Add(transactionForAdd.GetCurrencyPtr());
 		}
 	}
 }
