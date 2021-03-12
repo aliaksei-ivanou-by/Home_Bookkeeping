@@ -1,45 +1,45 @@
-#pragma once
-#include "../include/stdafx.h"
-#include "../0_Models/Description.h"
+#ifndef HOMEBOOKKEEPING_1DATAACCESS_DESCRIPTIONREPOSITORY_H_
+#define HOMEBOOKKEEPING_1DATAACCESS_DESCRIPTIONREPOSITORY_H_
 
-/*
-Class DescriptionRepository
-Includes repository of descriptions.
+//  Class DescriptionRepository
+//
+//  Constructors:
+//    Default
+//
+//  Class member functions:
+//    Add description to repository
+//    Add description (shared pointer) to repository
+//    Remove description (shared pointer) from repository
+//    Calculate size of repository
+//    Clear repository
+//    Find description (shared pointer) in repository
+//    Find begin iterator of repository
+//    Find end iterator of repository
+//
+//  Variables:
+//    repository
 
-Constructors:
-	Default
+#include <iostream>
+#include <set>
 
-Class member functions:
-	Add description to repository
-	Add shared pointer to description to repository
-	Remove shared pointer to description from repository
-	Calculate size of repository
-	Clear repository
-	Find shared pointer to description in repository
-	Find begin iterator of repository
-	Find end iterator of repository
-*/
+#include "home_bookkeeping/0_Models/Description.h"
 
 using DescriptionRepositoryIterator = std::set<std::shared_ptr<Description>>::iterator;
 
 class DescriptionRepository
 {
-private:
-	std::set<std::shared_ptr<Description>> repository;
 public:
-	DescriptionRepository();
-
-	void add(Description descriptionForAdd);
-	void add(std::shared_ptr<Description> descriptionForAdd);
-
-	void remove(std::shared_ptr<Description> descriptionForRemove);
-
-	size_t size() const;
-
-	void clear();
-
-	DescriptionRepositoryIterator find(std::shared_ptr<Description> descriptionForFind) const;
-
-	DescriptionRepositoryIterator begin() const;
-	DescriptionRepositoryIterator end() const;
+  DescriptionRepository();
+  void Add(Description description);
+  void Add(std::shared_ptr<Description> description);
+  void Remove(std::shared_ptr<Description> description);
+  size_t Size() const;
+  void Clear();
+  DescriptionRepositoryIterator Find(std::shared_ptr<Description> description) const;
+  DescriptionRepositoryIterator Begin() const;
+  DescriptionRepositoryIterator End() const;
+private:
+  std::set<std::shared_ptr<Description>> repository_;
 };
+
+#endif  //  HOMEBOOKKEEPING_1DATAACCESS_DESCRIPTIONREPOSITORY_H_

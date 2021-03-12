@@ -31,7 +31,7 @@ CurrencyRepositoryIterator FinanceRepository::beginCurrencyRepository() const
 // Class member function. Find begin iterator of repository of descriptions
 DescriptionRepositoryIterator FinanceRepository::beginDescriptionRepository() const
 {
-	return financeRepositoryDescriptions.begin();
+	return financeRepositoryDescriptions.Begin();
 }
 
 // Class member function. Find begin iterator of repository of payees
@@ -79,7 +79,7 @@ CurrencyRepositoryIterator FinanceRepository::endCurrencyRepository() const
 // Class member function. Find end iterator of repository of descriptions
 DescriptionRepositoryIterator FinanceRepository::endDescriptionRepository() const
 {
-	return financeRepositoryDescriptions.end();
+	return financeRepositoryDescriptions.End();
 }
 
 // Class member function. Find end iterator of repository of payees
@@ -137,7 +137,7 @@ void FinanceRepository::addCurrency(const Currency& currencyForAdd)
 // Class member function. Add description to repository of descriptions
 void FinanceRepository::addDescription(const Description& descriptionForAdd)
 {
-	financeRepositoryDescriptions.add(descriptionForAdd);
+	financeRepositoryDescriptions.Add(descriptionForAdd);
 }
 
 // Class member function. Add payee to repository of payees
@@ -186,7 +186,7 @@ void FinanceRepository::removeCurrency(std::shared_ptr<Currency> currencyForRemo
 // Class member function. Remove description (shared pointer to description) from repository of descriptions
 void FinanceRepository::removeDescription(std::shared_ptr<Description> descriptionForRemove)
 {
-	financeRepositoryDescriptions.remove(descriptionForRemove);
+	financeRepositoryDescriptions.Remove(descriptionForRemove);
 }
 
 // Class member function. Remove payee(shared pointer to payee) from repository of payees
@@ -234,7 +234,7 @@ size_t FinanceRepository::getCurrenciesNumber() const
 // Class member function. Calculate number of elements in descriptions repository
 size_t FinanceRepository::getDescriptionsNumber() const
 {
-	return financeRepositoryDescriptions.size();
+	return financeRepositoryDescriptions.Size();
 }
 
 // Class member function. Calculate number of elements in payees repository
@@ -282,7 +282,7 @@ void FinanceRepository::clearCurrencies()
 // Class member function. Clear descriptions repository
 void FinanceRepository::clearDescriptions()
 {
-	financeRepositoryDescriptions.clear();
+	financeRepositoryDescriptions.Clear();
 }
 
 // Class member function. Clear payees repository
@@ -450,7 +450,7 @@ CurrencyRepositoryIterator FinanceRepository::findCurrency(std::shared_ptr<Curre
 // Class member function. Find description (shared pointer) in descriptions repository
 DescriptionRepositoryIterator FinanceRepository::findDescription(std::shared_ptr<Description> descriptionForFind) const
 {
-	return financeRepositoryDescriptions.find(descriptionForFind);
+	return financeRepositoryDescriptions.Find(descriptionForFind);
 }
 
 // Class member function. Find payee (shared pointer) in payees repository
@@ -624,14 +624,14 @@ void FinanceRepository::updateCurrencyRepository(Transaction& transactionForAdd)
 // Class member function. Update descriptions repository with adding new transaction
 void FinanceRepository::updateDescriptionRepository(Transaction& transactionForAdd)
 {
-	if (financeRepositoryDescriptions.size() == 0)
+	if (financeRepositoryDescriptions.Size() == 0)
 	{
-		financeRepositoryDescriptions.add(transactionForAdd.GetDescriptionPtr());
+		financeRepositoryDescriptions.Add(transactionForAdd.GetDescriptionPtr());
 	}
 	else
 	{
 		bool keyFrom = false;
-		for (auto i = financeRepositoryDescriptions.begin(); i != financeRepositoryDescriptions.end(); ++i)
+		for (auto i = financeRepositoryDescriptions.Begin(); i != financeRepositoryDescriptions.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetDescription().GetName())
 			{
@@ -642,10 +642,10 @@ void FinanceRepository::updateDescriptionRepository(Transaction& transactionForA
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryDescriptions.add(transactionForAdd.GetDescription());
+			financeRepositoryDescriptions.Add(transactionForAdd.GetDescription());
 		}
 		bool keyTo = false;
-		for (auto i = financeRepositoryDescriptions.begin(); i != financeRepositoryDescriptions.end(); ++i)
+		for (auto i = financeRepositoryDescriptions.Begin(); i != financeRepositoryDescriptions.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetDescription().GetName())
 			{
@@ -656,7 +656,7 @@ void FinanceRepository::updateDescriptionRepository(Transaction& transactionForA
 		}
 		if (!keyTo)
 		{
-			financeRepositoryDescriptions.add(transactionForAdd.GetDescriptionPtr());
+			financeRepositoryDescriptions.Add(transactionForAdd.GetDescriptionPtr());
 		}
 	}
 }

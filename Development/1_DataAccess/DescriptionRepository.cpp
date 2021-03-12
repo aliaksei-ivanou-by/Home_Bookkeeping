@@ -1,54 +1,63 @@
-#include "DescriptionRepository.h"
+#include "home_bookkeeping/1_DataAccess/DescriptionRepository.h"
 
-// Default constructor
+//  Constructor
+//  Default
 DescriptionRepository::DescriptionRepository()
 {}
 
-// Class member function. Add description to repository
-void DescriptionRepository::add(Description descriptionForAdd)
+//  Class member function
+//  Add description to repository
+void DescriptionRepository::Add(Description description)
 {
-	repository.insert(std::make_shared<Description>(descriptionForAdd));
+  repository_.insert(std::make_shared<Description>(description));
 }
 
-// Class member function. Add shared pointer to description to repository
-void DescriptionRepository::add(std::shared_ptr<Description> descriptionForAdd)
+//  Class member function
+//  Add description (shared pointer) to repository
+void DescriptionRepository::Add(std::shared_ptr<Description> description)
 {
-	repository.insert(descriptionForAdd);
+  repository_.insert(description);
 }
 
-// Class member function. Remove shared pointer to description from repository
-void DescriptionRepository::remove(std::shared_ptr<Description> descriptionForRemove)
+//  Class member function
+//  Remove description (shared pointer) from repository
+void DescriptionRepository::Remove(std::shared_ptr<Description> description)
 {
-	repository.erase(descriptionForRemove);
+  repository_.erase(description);
 }
 
-// Class member function. Calculate size of repository
-size_t DescriptionRepository::size() const
+//  Class member function
+//  Calculate size of repository
+size_t DescriptionRepository::Size() const
 {
-	return repository.size();
+  return repository_.size();
 }
 
-// Class member function. Clear repository
-void DescriptionRepository::clear()
+//  Class member function
+//  Clear repository
+void DescriptionRepository::Clear()
 {
-	repository.clear();
+  repository_.clear();
 }
 
-// Class member function. Find shared pointer to description in repository
-DescriptionRepositoryIterator DescriptionRepository::find(std::shared_ptr<Description> descriptionForFind) const
+//  Class member function
+//  Find description (shared pointer) in repository
+DescriptionRepositoryIterator DescriptionRepository::Find(std::shared_ptr<Description> description) const
 {
-	return repository.find(descriptionForFind);
+  return repository_.find(description);
 }
 
-// Class member function. Find begin iterator of repository
-DescriptionRepositoryIterator DescriptionRepository::begin() const
+//  Class member function
+//  Find begin iterator of repository
+DescriptionRepositoryIterator DescriptionRepository::Begin() const
 {
-	return repository.begin();
+  return repository_.begin();
 
 }
 
-// Class member function. Find end iterator of repository
-DescriptionRepositoryIterator DescriptionRepository::end() const
+//  Class member function
+//  Find end iterator of repository
+DescriptionRepositoryIterator DescriptionRepository::End() const
 {
-	return repository.end();
+  return repository_.end();
 }
