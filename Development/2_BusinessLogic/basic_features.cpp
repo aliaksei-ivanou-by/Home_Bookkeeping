@@ -13,7 +13,7 @@ TransactionRepositoryIterator FinanceRepository::beginTransactionRepository() co
 // Class member function. Find begin iterator of repository of accounts
 AccountRepositoryIterator FinanceRepository::beginAccountRepository() const
 {
-	return financeRepositoryAccounts.begin();
+	return financeRepositoryAccounts.Begin();
 }
 
 // Class member function. Find begin iterator of repository of categories
@@ -61,7 +61,7 @@ TransactionRepositoryIterator FinanceRepository::endTransactionRepository() cons
 // Class member function. Find end iterator of repository of accounts
 AccountRepositoryIterator FinanceRepository::endAccountRepository() const
 {
-	return financeRepositoryAccounts.end();
+	return financeRepositoryAccounts.End();
 }
 
 // Class member function. Find end iterator of repository of categories
@@ -119,7 +119,7 @@ void FinanceRepository::addTransaction(Transaction& transactionForAdd)
 // Class member function. Add account to repository of accounts
 void FinanceRepository::addAccount(const Account& accountForAdd)
 {
-	financeRepositoryAccounts.add(accountForAdd);
+	financeRepositoryAccounts.Add(accountForAdd);
 }
 
 // Class member function. Add category to repository of categories
@@ -167,7 +167,7 @@ void FinanceRepository::removeTransaction(std::shared_ptr<Transaction> transacti
 // Class member function. Remove account (shared pointer to account) from repository of accounts
 void FinanceRepository::removeAccount(std::shared_ptr<Account> accountForRemove)
 {
-	financeRepositoryAccounts.remove(accountForRemove);
+	financeRepositoryAccounts.Remove(accountForRemove);
 }
 
 // Class member function. Remove category(shared pointer to category) from repository of categories
@@ -216,7 +216,7 @@ size_t FinanceRepository::getTransactionsNumber() const
 // Class member function. Calculate number of elements in accounts repository
 size_t FinanceRepository::getAccountsNumber() const
 {
-	return financeRepositoryAccounts.size();
+	return financeRepositoryAccounts.Size();
 }
 
 // Class member function. Calculate number of elements in categories repository
@@ -264,7 +264,7 @@ void FinanceRepository::clearTransactions()
 // Class member function. Clear accounts repository
 void FinanceRepository::clearAccounts()
 {
-	financeRepositoryAccounts.clear();
+	financeRepositoryAccounts.Clear();
 }
 
 // Class member function. Clear categories repository
@@ -432,7 +432,7 @@ TransactionRepositoryIterator FinanceRepository::findTransaction(std::shared_ptr
 // Class member function. Find account (shared pointer) in accounts repository
 AccountRepositoryIterator FinanceRepository::findAccount(std::shared_ptr<Account> accountForFind) const
 {
-	return financeRepositoryAccounts.find(accountForFind);
+	return financeRepositoryAccounts.Find(accountForFind);
 }
 
 // Class member function. Find category (shared pointer) in categories repository
@@ -504,14 +504,14 @@ void FinanceRepository::updateAccountAmount(Transaction& transactionForAdd)
 // Class member function. Update accounts repository with adding new transaction
 void FinanceRepository::updateAccountRepository(Transaction& transactionForAdd)
 {
-	if (financeRepositoryAccounts.size() == 0)
+	if (financeRepositoryAccounts.Size() == 0)
 	{
-		financeRepositoryAccounts.add(transactionForAdd.GetAccountFromPtr());
+		financeRepositoryAccounts.Add(transactionForAdd.GetAccountFromPtr());
 	}
 	else
 	{
 		bool keyFrom = false;
-		for (auto i = financeRepositoryAccounts.begin(); i != financeRepositoryAccounts.end(); ++i)
+		for (auto i = financeRepositoryAccounts.Begin(); i != financeRepositoryAccounts.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetAccountFrom().GetName())
 			{
@@ -522,10 +522,10 @@ void FinanceRepository::updateAccountRepository(Transaction& transactionForAdd)
 		}
 		if (!keyFrom)
 		{
-			financeRepositoryAccounts.add(transactionForAdd.GetAccountFromPtr());
+			financeRepositoryAccounts.Add(transactionForAdd.GetAccountFromPtr());
 		}
 		bool keyTo = false;
-		for (auto i = financeRepositoryAccounts.begin(); i != financeRepositoryAccounts.end(); ++i)
+		for (auto i = financeRepositoryAccounts.Begin(); i != financeRepositoryAccounts.End(); ++i)
 		{
 			if ((**i).GetName() == transactionForAdd.GetAccountTo().GetName())
 			{
@@ -536,7 +536,7 @@ void FinanceRepository::updateAccountRepository(Transaction& transactionForAdd)
 		}
 		if (!keyTo)
 		{
-			financeRepositoryAccounts.add(transactionForAdd.GetAccountToPtr());
+			financeRepositoryAccounts.Add(transactionForAdd.GetAccountToPtr());
 		}
 	}
 }

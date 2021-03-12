@@ -1,53 +1,62 @@
-#include "AccountRepository.h"
+#include "home_bookkeeping/1_DataAccess/AccountRepository.h"
 
-// Default constructor
+//  Constructor
+//  Default
 AccountRepository::AccountRepository()
 {}
 
-// Class member function. Add account to repository
-void AccountRepository::add(Account accountForAdd)
+//  Class member function
+//  Add account to repository
+void AccountRepository::Add(Account account)
 {
-	repository.insert(std::make_shared<Account>(accountForAdd));
+  repository_.insert(std::make_shared<Account>(account));
 }
 
-// Class member function. Add shared pointer to account to repository
-void AccountRepository::add(std::shared_ptr<Account> accountForAdd)
+//  Class member function
+//  Add account (shared pointer) to repository
+void AccountRepository::Add(std::shared_ptr<Account> account)
 {
-	repository.insert(accountForAdd);
+  repository_.insert(account);
 }
 
-// Class member function. Remove shared pointer to account from repository
-void AccountRepository::remove(std::shared_ptr<Account> accountForRemove)
+//  Class member function
+//  Remove account (shared pointer) from repository
+void AccountRepository::Remove(std::shared_ptr<Account> account)
 {
-	repository.erase(accountForRemove);
+  repository_.erase(account);
 }
 
-// Class member function. Calculate size of repository
-size_t AccountRepository::size() const
+//  Class member function
+//  Calculate size of repository
+size_t AccountRepository::Size() const
 {
-	return repository.size();
+  return repository_.size();
 }
 
-// Class member function. Clear repository
-void AccountRepository::clear()
+//  Class member function
+//  Clear repository
+void AccountRepository::Clear()
 {
-	repository.clear();
+  repository_.clear();
 }
 
-// Class member function. Find shared pointer to account in repository
-AccountRepositoryIterator AccountRepository::find(std::shared_ptr<Account> accountForFind) const
+//  Class member function
+//  Find account (shared pointer) in repository
+AccountRepositoryIterator AccountRepository::Find(std::shared_ptr<Account> account) const
 {
-	return repository.find(accountForFind);
+  return repository_.find(account);
 }
 
-// Class member function. Find begin iterator of repository
-AccountRepositoryIterator AccountRepository::begin() const
+//  Class member function
+//  Find begin iterator of repository
+AccountRepositoryIterator AccountRepository::Begin() const
 {
-	return repository.begin();
+  return repository_.begin();
 }
 
-// Class member function. Find end iterator of repository
-AccountRepositoryIterator AccountRepository::end() const
+//  Class member function
+//  Find end iterator of repository
+AccountRepositoryIterator AccountRepository::End() const
 {
-	return repository.end();
+  return repository_.end();
 }

@@ -1,45 +1,45 @@
-#pragma once
-#include "../include/stdafx.h"
-#include "../0_Models/Account.h"
+#ifndef HOMEBOOKKEEPING_1DATAACCESS_ACCOUNTREPOSITORY_H_
+#define HOMEBOOKKEEPING_1DATAACCESS_ACCOUNTREPOSITORY_H_
 
-/*
-Class AccountRepository
-Includes repository of accounts.
+//  Class AccountRepository
+//
+//  Constructors:
+//    Default
+//
+//  Class member functions:
+//    Add account to repository
+//    Add account (shared pointer) to repository
+//    Remove account (shared pointer) from repository
+//    Calculate size of repository
+//    Clear repository
+//    Find account (shared pointer) in repository
+//    Find begin iterator of repository
+//    Find end iterator of repository
+//
+//  Variables:
+//    repository
 
-Constructors:
-	Default
+#include <iostream>
+#include <set>
 
-Class member functions:
-	Add account to repository
-	Add shared pointer to account to repository
-	Remove shared pointer to account from repository
-	Calculate size of repository
-	Clear repository
-	Find shared pointer to account in repository
-	Find begin iterator of repository
-	Find end iterator of repository
-*/
+#include "home_bookkeeping/0_Models/Account.h"
 
 using AccountRepositoryIterator = std::set<std::shared_ptr<Account>>::iterator;
 
 class AccountRepository
 {
-private:
-	std::set<std::shared_ptr<Account>> repository;
 public:
-	AccountRepository();
-
-	void add(Account accountForAdd);
-	void add(std::shared_ptr<Account> accountForAdd);
-
-	void remove(std::shared_ptr<Account> accountForRemove);
-
-	size_t size() const;
-
-	void clear();
-
-	AccountRepositoryIterator find(std::shared_ptr<Account> accountForFind) const;
-
-	AccountRepositoryIterator begin() const;
-	AccountRepositoryIterator end() const;
+  AccountRepository();
+  void Add(Account accountForAdd);
+  void Add(std::shared_ptr<Account> account);
+  void Remove(std::shared_ptr<Account> account);
+  size_t Size() const;
+  void Clear();
+  AccountRepositoryIterator Find(std::shared_ptr<Account> account) const;
+  AccountRepositoryIterator Begin() const;
+  AccountRepositoryIterator End() const;
+private:
+  std::set<std::shared_ptr<Account>> repository_;
 };
+
+#endif  //  HOMEBOOKKEEPING_1DATAACCESS_ACCOUNTREPOSITORY_H_
