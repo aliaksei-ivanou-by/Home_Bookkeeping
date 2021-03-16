@@ -37,7 +37,7 @@ void Account::SetAmount(const double amount)
 
 //  Class member function
 //  Update amount
-void Account::UpdateAmount(const double amount)
+void Account::AppendAmount(const double amount)
 {
   amount_ += amount;
 }

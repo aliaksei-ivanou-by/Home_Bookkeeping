@@ -35,7 +35,7 @@ public:
   Account(const std::string& name, double amount);
   double GetAmount() const;
   void SetAmount(const double amount);
-  void UpdateAmount(const double amount);
+  void AppendAmount(const double amount);
   friend bool operator<(const Account& model_left, const Account& model_right);
   friend std::ostream& operator<<(std::ostream& output_stream, const Account& model);
   friend std::istream& operator>>(std::istream& input_stream, Account& model);
