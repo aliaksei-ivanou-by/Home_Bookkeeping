@@ -58,14 +58,7 @@ bool operator<(const Account& model_left, const Account& model_right)
     }
     else
     {
-      if (model_left.amount_ < model_right.amount_)
-      {
-        return true;
-      }
-      else
-      {
-        return false;
-      }
+      return model_left.amount_ < model_right.amount_;
     }
   }
 }
