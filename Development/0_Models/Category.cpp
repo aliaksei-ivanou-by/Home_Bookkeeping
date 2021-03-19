@@ -3,7 +3,7 @@
 //  Constructor
 //  Default (name = "Unspecified")
 Category::Category():
-  Model{ kNameUnspecified }
+  Model{ }
 {}
 
 //  Constructor

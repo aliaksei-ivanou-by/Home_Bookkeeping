@@ -1,9 +1,9 @@
 #include "home_bookkeeping/0_Models/Model.h"
 
 //  Constructor
-//  Default (name = "")
+//  Default (name = "Unspecified")
 Model::Model() :
-  name_{ "" }
+  name_{ "Unspecified" }
 {}
 
 //  Constructor

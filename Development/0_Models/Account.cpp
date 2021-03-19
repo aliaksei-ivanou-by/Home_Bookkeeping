@@ -1,9 +1,9 @@
 #include "home_bookkeeping/0_Models/Account.h"
 
 //  Constructor
-//  Default (name = "")
+//  Default (name = "Unspecified")
 Account::Account():
-  Model{ "" },
+  Model{ },
   amount_{ 0 }
 {}
 

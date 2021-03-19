@@ -28,8 +28,6 @@ class Category : public Model
 public:
   Category();
   Category(const std::string& name);
-private:
-  std::string kNameUnspecified = "Unspecified";
 };
 
 #endif  //  HOMEBOOKKEEPING_0MODELS_CATEGORY_H_

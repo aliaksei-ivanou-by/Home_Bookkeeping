@@ -4,7 +4,7 @@
 //  Class Account : public Model
 //
 //  Constructors:
-//    Default (name = "")
+//    Default (name = "Unspecified")
 //    With name setting
 //    With name setting and amount setting
 //
@@ -19,6 +19,7 @@
 //    Input model (name, amount -> "name, amount")
 //
 //  Variables:
+//    kNameUnspecified
 //    name
 //    amount
 
@@ -41,6 +42,7 @@ public:
   friend std::istream& operator>>(std::istream& input_stream, Account& model);
 private:
   double amount_;
+  std::string kNameUnspecified = "Unspecified";
 };
 
 #endif  //  HOMEBOOKKEEPING_0MODELS_ACCOUNT_H_
