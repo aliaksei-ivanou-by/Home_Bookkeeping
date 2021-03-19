@@ -29,15 +29,15 @@ using TransactionRepositoryIterator = std::multiset<std::shared_ptr<Transaction>
 class TransactionRepository
 {
 public:
-	TransactionRepository();
-	void Add(Transaction transaction);
-	void Add(std::shared_ptr<Transaction> transaction);
-	void Remove(std::shared_ptr<Transaction> transaction);
-	size_t Size() const;
-	void Clear();
-	TransactionRepositoryIterator Find(std::shared_ptr<Transaction> transaction) const;
-	TransactionRepositoryIterator Begin() const;
-	TransactionRepositoryIterator End() const;
+  TransactionRepository();
+  void Add(Transaction transaction);
+  void Add(std::shared_ptr<Transaction> transaction);
+  void Remove(std::shared_ptr<Transaction> transaction);
+  size_t Size() const;
+  void Clear();
+  TransactionRepositoryIterator Find(std::shared_ptr<Transaction> transaction) const;
+  TransactionRepositoryIterator Begin() const;
+  TransactionRepositoryIterator End() const;
 private:
   std::multiset<std::shared_ptr<Transaction>> repository_;
 };

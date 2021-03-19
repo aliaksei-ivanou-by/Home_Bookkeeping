@@ -29,15 +29,15 @@ using PayeeRepositoryIterator = std::set<std::shared_ptr<Payee>>::iterator;
 class PayeeRepository
 {
 public:
-	PayeeRepository();
-	void Add(Payee payee);
-	void Add(std::shared_ptr<Payee> payee);
-	void Remove(std::shared_ptr<Payee> payee);
-	size_t Size() const;
-	void Clear();
-	PayeeRepositoryIterator Find(std::shared_ptr<Payee> payee) const;
-	PayeeRepositoryIterator Begin() const;
-	PayeeRepositoryIterator End() const;
+  PayeeRepository();
+  void Add(Payee payee);
+  void Add(std::shared_ptr<Payee> payee);
+  void Remove(std::shared_ptr<Payee> payee);
+  size_t Size() const;
+  void Clear();
+  PayeeRepositoryIterator Find(std::shared_ptr<Payee> payee) const;
+  PayeeRepositoryIterator Begin() const;
+  PayeeRepositoryIterator End() const;
 private:
   std::set<std::shared_ptr<Payee>> repository_;
 };
