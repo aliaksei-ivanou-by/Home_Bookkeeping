@@ -252,85 +252,78 @@ void Time::SetDate(const int year, const int month, const int day, const int hou
 //  Operator < for sorting times (by day and time)
 bool operator<(const Time& time_left, const Time& time_right)
 {
-	if (time_left.year_ < time_right.year_)
-	{
-		return true;
-	}
-	else
-	{
-		if (time_left.year_ > time_right.year_)
-		{
-			return false;
-		}
-		else
-		{
-			if (time_left.month_ < time_right.month_)
-			{
-				return true;
-			}
-			else
-			{
-				if (time_left.month_ > time_right.month_)
-				{
-					return false;
-				}
-				else
-				{
-					if (time_left.day_ < time_right.day_)
-					{
-						return true;
-					}
-					else
-					{
-						if (time_left.day_ > time_right.day_)
-						{
-							return false;
-						}
-						else
-						{
-							if (time_left.hour_ < time_right.hour_)
-							{
-								return true;
-							}
-							else
-							{
-								if (time_left.hour_ > time_right.hour_)
-								{
-									return false;
-								}
-								else
-								{
-									if (time_left.minute_ < time_right.minute_)
-									{
-										return true;
-									}
-									else
-									{
-										if (time_left.minute_ > time_right.minute_)
-										{
-											return false;
-										}
-										else
-										{
-											if (time_left.second_ < time_right.second_)
-											{
-												return true;
-											}
-											else
-											{
-												return false;
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	return false;
+  if (time_left.year_ < time_right.year_)
+  {
+    return true;
+  }
+  else
+  {
+    if (time_left.year_ > time_right.year_)
+    {
+      return false;
+    }
+    else
+    {
+      if (time_left.month_ < time_right.month_)
+      {
+        return true;
+      }
+      else
+      {
+        if (time_left.month_ > time_right.month_)
+        {
+          return false;
+        }
+        else
+        {
+          if (time_left.day_ < time_right.day_)
+          {
+            return true;
+          }
+          else
+          {
+            if (time_left.day_ > time_right.day_)
+            {
+              return false;
+            }
+            else
+            {
+              if (time_left.hour_ < time_right.hour_)
+              {
+                return true;
+              }
+              else
+              {
+                if (time_left.hour_ > time_right.hour_)
+                {
+                  return false;
+                }
+                else
+                {
+                  if (time_left.minute_ < time_right.minute_)
+                  {
+                    return true;
+                  }
+                  else
+                  {
+                    if (time_left.minute_ > time_right.minute_)
+                    {
+                      return false;
+                    }
+                    else
+                    {
+                      return time_left.second_ < time_right.second_;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return false;
 }
 
 //  Friend class member function

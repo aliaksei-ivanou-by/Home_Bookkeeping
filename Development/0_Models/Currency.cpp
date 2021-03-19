@@ -88,14 +88,7 @@ bool operator<(const Currency& model_left, const Currency& model_right)
         }
         else
         {
-          if ((model_left.activity_ < model_right.activity_))
-          {
-            return true;
-          }
-          else
-          {
-            return false;
-          }
+          return model_left.activity_ < model_right.activity_;
         }
       }
     }
