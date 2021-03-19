@@ -133,10 +133,24 @@ void FinanceRepository::AddTransaction(Transaction& transaction)
 }
 
 //  Class member function
+//  Add account (default) to account repository
+void FinanceRepository::AddAccount()
+{
+  account_repository_.Add();
+}
+
+//  Class member function
 //  Add account to account repository
 void FinanceRepository::AddAccount(const Account& account)
 {
   account_repository_.Add(account);
+}
+
+//  Class member function
+//  Add category (default) to category repository
+void FinanceRepository::AddCategory()
+{
+  category_repository_.Add();
 }
 
 //  Class member function
@@ -147,10 +161,24 @@ void FinanceRepository::AddCategory(const Category& category)
 }
 
 //  Class member function
+//  Add currency (default) to currency repository
+void FinanceRepository::AddCurrency()
+{
+  currency_repository_.Add();
+}
+
+//  Class member function
 //  Add currency to currency repository
 void FinanceRepository::AddCurrency(const Currency& currency)
 {
   currency_repository_.Add(currency);
+}
+
+//  Class member function
+//  Add description (default) to description repository
+void FinanceRepository::AddDescription()
+{
+  description_repository_.Add();
 }
 
 //  Class member function
@@ -161,6 +189,13 @@ void FinanceRepository::AddDescription(const Description& description)
 }
 
 //  Class member function
+//  Add payee (default) to payee repository
+void FinanceRepository::AddPayee()
+{
+  payee_repository_.Add();
+}
+
+//  Class member function
 //  Add payee to payee repository
 void FinanceRepository::AddPayee(const Payee& payee)
 {
@@ -168,10 +203,24 @@ void FinanceRepository::AddPayee(const Payee& payee)
 }
 
 //  Class member function
+//  Add comment (default) to comment repository
+void FinanceRepository::AddComment()
+{
+  comment_repository_.Add();
+}
+
+//  Class member function
 //  Add comment to comment repository
 void FinanceRepository::AddComment(const Comment& comment)
 {
   comment_repository_.Add(comment);
+}
+
+//  Class member function
+//  Add tag (default) to tag repository
+void FinanceRepository::AddTag()
+{
+  tag_repository_.Add();
 }
 
 //  Class member function

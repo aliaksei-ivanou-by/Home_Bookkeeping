@@ -29,7 +29,9 @@
 //          Find end iterator of tag repository
 //        add element:
 //          Add transaction to transaction repository
+//          Add account (default)  to account repository
 //          Add account to account repository
+//          Add category (default) to category repository
 //          Add category to category repository
 //          Add currency to currency repository
 //          Add description to description repository
@@ -151,12 +153,19 @@ public:
 	FinanceRepository();
   //  basic->add element
   void AddTransaction(Transaction& transaction);
+  void AddAccount();
   void AddAccount(const Account& account);
+  void AddCategory();
   void AddCategory(const Category& category);
+  void AddCurrency();
   void AddCurrency(const Currency& currency);
+  void AddDescription();
   void AddDescription(const Description& description);
+  void AddPayee();
   void AddPayee(const Payee& payee);
+  void AddComment();
   void AddComment(const Comment& comment);
+  void AddTag();
   void AddTag(const Tag& tag);
   //  basic->remove element
   void RemoveTransaction(std::shared_ptr<Transaction> transaction);
