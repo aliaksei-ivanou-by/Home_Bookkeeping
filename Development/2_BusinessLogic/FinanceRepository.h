@@ -1,219 +1,238 @@
-#pragma once
-#include "../include/stdafx.h"
-#include "../include/1_DataAccess_Additional.h"
-#include "../include/1_DataAccess_Main.h"
+#ifndef HOMEBOOKKEEPING_2BUSINESSLOGIC_FINANCENREPOSITORY_H_
+#define HOMEBOOKKEEPING_2BUSINESSLOGIC_FINANCENREPOSITORY_H_
 
-/*
-Class FinanceRepository
-Includes repositories: transactions, categories, comments, payees, accounts, currencies, descriptions, tags.
+//  Class FinanceRepository
+//
+//  Constructors:
+//    Default
+//
+//  Class member functions:
+//    basic:
+//      iterators:
+//        begin:
+//          Find begin iterator of transaction repository
+//          Find begin iterator of account repository
+//          Find begin iterator of category repository
+//          Find begin iterator of currency repository
+//          Find begin iterator of description repository
+//          Find begin iterator of payee repository
+//          Find begin iterator of comment repository
+//          Find begin iterator of tag repository
+//        end:
+//          Find end iterator of transaction repository
+//          Find end iterator of account repository
+//          Find end iterator of category repository
+//          Find end iterator of currency repository
+//          Find end iterator of description repository
+//          Find end iterator of payee repository
+//          Find end iterator of comment repository
+//          Find end iterator of tag repository
+//        add element:
+//          Add transaction to transaction repository
+//          Add account to account repository
+//          Add category to category repository
+//          Add currency to currency repository
+//          Add description to description repository
+//          Add payee to payee repository
+//          Add comment to comment repository
+//          Add tag to tag repository
+//        remove element:
+//          Remove transaction (shared pointer) from transaction repository
+//          Remove account (shared pointer) from account repository
+//          Remove category (shared pointer) from category repository
+//          Remove currency (shared pointer) from currency repository
+//          Remove description (shared pointer) from description repository
+//          Remove payee (shared pointer) from payee repository
+//          Remove comment (shared pointer) from comment repository
+//          Remove tag (shared pointer) from tag repository
+//        number of elements in repository:
+//          Number of transactions in transaction repository
+//          Number of accounts in account repository
+//          Number of categories in category repository
+//          Number of currencies in currency repository
+//          Number of descriptions in description repository
+//          Number of payees in payee repository
+//          Number of comments in comment repository
+//          Number of tags in tag repository
+//        clear repository:
+//          Clear transaction repository
+//          Clear account repository
+//          Clear category repository
+//          Clear currency repository
+//          Clear description repository
+//          Clear payee repository
+//          Clear comment repository
+//          Clear tag repository
+//        print repository:
+//          Print transaction repository
+//          Print account repository
+//          Print category repository
+//          Print currency repository
+//          Print description repository
+//          Print payee repository
+//          Print comment repository
+//          Print tag repository
+//        find:
+//          Find transaction (shared pointer) in transaction repository
+//          Find account (shared pointer) in account repository
+//          Find category (shared pointer) in category repository
+//          Find currency (shared pointer) in currency repository
+//          Find description (shared pointer) in description repository
+//          Find payee (shared pointer) in payee repository
+//          Find comment (shared pointer) in comment repository
+//          Find tag (shared pointer) in tag repository
+//        update repository with adding new transaction:
+//          Update last amount of account in account repository with adding new transaction
+//          Update account repository with adding new transaction
+//          Update category repository with adding new transaction
+//          Update currency repository with adding new transaction
+//          Update description repository with adding new transaction
+//          Update payee repository with adding new transaction
+//          Update comment repository with adding new transaction
+//          Update tag repository with adding new transaction
+//    sum:
+//      expenses:
+//        Calculate sum of today expenses
+//        Calculate sum of this month expenses
+//        Calculate sum of all time expenses
+//      incomes:
+//        Calculate sum of today incomes
+//        Calculate sum of this month incomes
+//        Calculate sum of all time incomes
+//    default repositories:
+//      Set default account repository
+//      Set default category repository
+//      Set default currency repository
+//
+//  Variables:
+//    transaction repository
+//    category repository
+//    comment repository
+//    payee repository
+//    account repository
+//    currency repository
+//    description repository
+//    tag repository
 
-Constructors:
-	Default
+#include <iostream>
 
-Class member functions:
-	basic:
-		iterators:
-			begin:
-				Find begin iterator of repository of transactions
-				Find begin iterator of repository of accounts
-				Find begin iterator of repository of categories
-				Find begin iterator of repository of currencies
-				Find begin iterator of repository of descriptions
-				Find begin iterator of repository of payees
-				Find begin iterator of repository of comments
-				Find begin iterator of repository of tags
-			end:
-				Find end iterator of repository of transactions
-				Find end iterator of repository of accounts
-				Find end iterator of repository of categories
-				Find end iterator of repository of currencies
-				Find end iterator of repository of descriptions
-				Find end iterator of repository of payees
-				Find end iterator of repository of comments
-				Find end iterator of repository of tags
-		add element:
-			Add transaction to repository of transactions
-			Add account to repository of accounts
-			Add category to repository of categories
-			Add currency to repository of currencies
-			Add description to repository of descriptions
-			Add payee to repository of payees
-			Add comment to repository of comments
-			Add tag to repository of tags
-		remove element:
-			Remove transaction (shared pointer to transaction) from repository of transactions
-			Remove account (shared pointer to account) from repository of accounts
-			Remove category (shared pointer to category) from repository of categories
-			Remove currency (shared pointer to currency) from repository of currencies
-			Remove description (shared pointer to description) from repository of descriptions
-			Remove payee (shared pointer to payee) from repository of payees
-			Remove comment (shared pointer to comment) from repository of comments
-			Remove tag (shared pointer to tag) from repository of tags
-		size of element in repository:
-			Calculate number of elements in transactions repository
-			Calculate number of elements in accounts repository
-			Calculate number of elements in categories repository
-			Calculate number of elements in currencies repository
-			Calculate number of elements in descriptions repository
-			Calculate number of elements in payees repository
-			Calculate number of elements in comments repository
-			Calculate number of elements in tags repository
-		clear repository:
-			Clear transactions repository
-			Clear accounts repository
-			Clear categories repository
-			Clear currencies repository
-			Clear descriptions repository
-			Clear payees repository
-			Clear comments repository
-			Clear tags repository
-		print repository:
-			Print transactions repository
-			Print accounts repository
-			Print categories repository
-			Print currencies repository
-			Print descriptions repository
-			Print payees repository
-			Print comments repository
-			Print tags repository
-		find:
-			Find transaction (shared pointer) in transactions repository
-			Find account (shared pointer) in accounts repository
-			Find category (shared pointer) in categories repository
-			Find currency (shared pointer) in currencies repository
-			Find description (shared pointer) in descriptions repository
-			Find payee (shared pointer) in payees repository
-			Find comment (shared pointer) in comments repository
-			Find tag (shared pointer) in tags repository
-		additional:
-			Update last amount of account in accounts repository with adding new transaction
-			Update accounts repository with adding new transaction
-			Update categories repository with adding new transaction
-			Update currencies repository with adding new transaction
-			Update descriptions repository with adding new transaction
-			Update payees repository with adding new transaction
-			Update comments repository with adding new transaction
-			Update tags repository with adding new transaction
-	sum:
-		expenses:
-			Calculate sum of today expenses
-			Calculate sum of this month expenses
-			Calculate sum of all time expenses
-		incomes:
-			Calculate sum of today incomes
-			Calculate sum of this month incomes
-			Calculate sum of all time incomes
-	default repositories:
-		Set default accounts repository
-		Set default categories repository
-		Set default currencies repository
-*/
+#include "home_bookkeeping/1_DataAccess/AccountRepository.h"
+#include "home_bookkeeping/1_DataAccess/CategoryRepository.h"
+#include "home_bookkeeping/1_DataAccess/CommentRepository.h"
+#include "home_bookkeeping/1_DataAccess/CurrencyRepository.h"
+#include "home_bookkeeping/1_DataAccess/DescriptionRepository.h"
+#include "home_bookkeeping/1_DataAccess/PayeeRepository.h"
+#include "home_bookkeeping/1_DataAccess/TagRepository.h"
+#include "home_bookkeeping/1_DataAccess/TransactionRepository.h"
 
 class FinanceRepository
 {
 private:
-	TransactionRepository financeRepositoryTransactions;
-	CategoryRepository financeRepositoryCategories;
-	CommentRepository financeRepositoryComments;
-	PayeeRepository financeRepositoryPayees;
-	AccountRepository financeRepositoryAccounts;
-	CurrencyRepository financeRepositoryCurrencies;
-	DescriptionRepository financeRepositoryDescriptions;
-	TagRepository financeRepositoryTags;
-
-	TransactionRepositoryIterator beginTransactionRepository() const;
-	AccountRepositoryIterator beginAccountRepository() const;
-	CategoryRepositoryIterator beginCategoryRepository() const;
-	CurrencyRepositoryIterator beginCurrencyRepository() const;
-	DescriptionRepositoryIterator beginDescriptionRepository() const;
-	PayeeRepositoryIterator beginPayeeRepository() const;
-	CommentRepositoryIterator beginCommentRepository() const;
-	TagRepositoryIterator beginTagRepository() const;
-
-	TransactionRepositoryIterator endTransactionRepository() const;
-	AccountRepositoryIterator endAccountRepository() const;
-	CategoryRepositoryIterator endCategoryRepository() const;
-	CurrencyRepositoryIterator endCurrencyRepository() const;
-	DescriptionRepositoryIterator endDescriptionRepository() const;
-	PayeeRepositoryIterator endPayeeRepository() const;
-	CommentRepositoryIterator endCommentRepository() const;
-	TagRepositoryIterator endTagRepository() const;
+  //  basic->iterators->begin
+  TransactionRepositoryIterator BeginTransactionRepository() const;
+  AccountRepositoryIterator BeginAccountRepository() const;
+  CategoryRepositoryIterator BeginCategoryRepository() const;
+  CurrencyRepositoryIterator BeginCurrencyRepository() const;
+  DescriptionRepositoryIterator BeginDescriptionRepository() const;
+  PayeeRepositoryIterator BeginPayeeRepository() const;
+  CommentRepositoryIterator BeginCommentRepository() const;
+  TagRepositoryIterator BeginTagRepository() const;
+  //  basic->iterators->end
+  TransactionRepositoryIterator EndTransactionRepository() const;
+  AccountRepositoryIterator EndAccountRepository() const;
+  CategoryRepositoryIterator EndCategoryRepository() const;
+  CurrencyRepositoryIterator EndCurrencyRepository() const;
+  DescriptionRepositoryIterator EndDescriptionRepository() const;
+  PayeeRepositoryIterator EndPayeeRepository() const;
+  CommentRepositoryIterator EndCommentRepository() const;
+  TagRepositoryIterator EndTagRepository() const;
 public:
+  //  constructor->default
 	FinanceRepository();
-
-	void addTransaction(Transaction& transactionForAdd);
-	void addAccount(const Account& accountForAdd);
-	void addCategory(const Category& categoryForAdd);
-	void addCurrency(const Currency& currencyForAdd);
-	void addDescription(const Description& descriptionForAdd);
-	void addPayee(const Payee& payeeForAdd);
-	void addComment(const Comment& commentForAdd);
-	void addTag(const Tag& tagForAdd);
-
-	void removeTransaction(std::shared_ptr<Transaction> transactionForRemove);
-	void removeAccount(std::shared_ptr<Account> accountForRemove);
-	void removeCategory(std::shared_ptr<Category> categoryForRemove);
-	void removeCurrency(std::shared_ptr<Currency> currencyForRemove);
-	void removeDescription(std::shared_ptr<Description> descriptionForRemove);
-	void removePayee(std::shared_ptr<Payee> payeeForRemove);
-	void removeComment(std::shared_ptr<Comment> commentForRemove);
-	void removeTag(std::shared_ptr<Tag> tagForRemove);
-
-	size_t getTransactionsNumber() const;
-	size_t getAccountsNumber() const;
-	size_t getCategoriesNumber() const;
-	size_t getCurrenciesNumber() const;
-	size_t getDescriptionsNumber() const;
-	size_t getPayeesNumber() const;
-	size_t getCommentsNumber() const;
-	size_t getTagsNumber() const;
-
-	void clearTransactions();
-	void clearAccounts();
-	void clearCategories();
-	void clearCurrencies();
-	void clearDescriptions();
-	void clearPayees();
-	void clearComments();
-	void clearTags();
-	
-	void printTransactions(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
-	void printAccounts(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
-	void printCategories(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
-	void printCurrencies(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
-	void printDescriptions(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
-	void printPayees(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
-	void printComments(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
-	void printTags(const std::string& delimeter = "\n", std::ostream& outputStream = std::cout) const;
-
-	TransactionRepositoryIterator findTransaction(std::shared_ptr<Transaction> transactionForFind) const;
-	AccountRepositoryIterator findAccount(std::shared_ptr<Account> accountForFind) const;
-	CategoryRepositoryIterator findCategory(std::shared_ptr<Category> categoryForFind) const;
-	CurrencyRepositoryIterator findCurrency(std::shared_ptr<Currency> currencyForFind) const;
-	DescriptionRepositoryIterator findDescription(std::shared_ptr<Description> descriptionForFind) const;
-	PayeeRepositoryIterator findPayee(std::shared_ptr<Payee> payeeForFind) const;
-	CommentRepositoryIterator findComment(std::shared_ptr<Comment> commentForFind) const;
-	TagRepositoryIterator findTag(std::shared_ptr<Tag> tagForFind) const;
-
-	void updateAccountAmount(Transaction& transactionForAdd);
-
-	void updateAccountRepository(Transaction& transactionForAdd);
-	void updateCategoryRepository(Transaction& transactionForAdd);
-	void updateCurrencyRepository(Transaction& transactionForAdd);
-	void updateDescriptionRepository(Transaction& transactionForAdd);
-	void updatePayeeRepository(Transaction& transactionForAdd);
-	void updateCommentRepository(Transaction& transactionForAdd);
-	void updateTagRepository(Transaction& transactionForAdd);
-
-	double sumExpensesToday() const;
-	double sumExpensesThisMonth() const;
-	double sumExpensesAllTime() const;
-
-	double sumIncomesToday() const;
-	double sumIncomesThisMonth() const;
-	double sumIncomesAllTime() const;
-	
-	void setDefaultCategories();
-	void setDefaultAccounts();
-	void setDefaultCurrencies();
+  //  basic->add element
+  void AddTransaction(Transaction& transaction);
+  void AddAccount(const Account& account);
+  void AddCategory(const Category& category);
+  void AddCurrency(const Currency& currency);
+  void AddDescription(const Description& description);
+  void AddPayee(const Payee& payee);
+  void AddComment(const Comment& comment);
+  void AddTag(const Tag& tag);
+  //  basic->remove element
+  void RemoveTransaction(std::shared_ptr<Transaction> transaction);
+  void RemoveAccount(std::shared_ptr<Account> account);
+  void RemoveCategory(std::shared_ptr<Category> category);
+  void RemoveCurrency(std::shared_ptr<Currency> currency);
+  void RemoveDescription(std::shared_ptr<Description> description);
+  void RemovePayee(std::shared_ptr<Payee> payee);
+  void RemoveComment(std::shared_ptr<Comment> comment);
+  void RemoveTag(std::shared_ptr<Tag> tag);
+  //  basic->number of elements in repository
+  size_t GetTransactionsNumber() const;
+  size_t GetAccountsNumber() const;
+  size_t GetCategoriesNumber() const;
+  size_t GetCurrenciesNumber() const;
+  size_t GetDescriptionsNumber() const;
+  size_t GetPayeesNumber() const;
+  size_t GetCommentsNumber() const;
+  size_t GetTagsNumber() const;
+  //  basic->clear repository
+  void ClearTransactions();
+  void ClearAccounts();
+  void ClearCategories();
+  void ClearCurrencies();
+  void ClearDescriptions();
+  void ClearPayees();
+  void ClearComments();
+  void ClearTags();
+  //  basic->print repository
+  void PrintTransactions(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
+  void PrintAccounts(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
+  void PrintCategories(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
+  void PrintCurrencies(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
+  void PrintDescriptions(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
+  void PrintPayees(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
+  void PrintComments(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
+  void PrintTags(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
+  //  basic->find
+  TransactionRepositoryIterator FindTransaction(std::shared_ptr<Transaction> transaction) const;
+  AccountRepositoryIterator FindAccount(std::shared_ptr<Account> account) const;
+  CategoryRepositoryIterator FindCategory(std::shared_ptr<Category> category) const;
+  CurrencyRepositoryIterator FindCurrency(std::shared_ptr<Currency> currency) const;
+  DescriptionRepositoryIterator FindDescription(std::shared_ptr<Description> description) const;
+  PayeeRepositoryIterator FindPayee(std::shared_ptr<Payee> payee) const;
+  CommentRepositoryIterator FindComment(std::shared_ptr<Comment> comment) const;
+  TagRepositoryIterator FindTag(std::shared_ptr<Tag> tag) const;
+  //  basic->update repository with adding new transaction
+  void UpdateAccountAmount(Transaction& transaction);
+  void UpdateAccountRepository(Transaction& transaction);
+  void UpdateCategoryRepository(Transaction& transaction);
+  void UpdateCurrencyRepository(Transaction& transaction);
+  void UpdateDescriptionRepository(Transaction& transaction);
+  void UpdatePayeeRepository(Transaction& transaction);
+  void UpdateCommentRepository(Transaction& transaction);
+  void UpdateTagRepository(Transaction& transaction);
+  //  sum->expenses
+  double SumExpensesToday() const;
+  double SumExpensesThisMonth() const;
+  double SumExpensesAllTime() const;
+  //  sum->incomes
+  double SumIncomesToday() const;
+  double SumIncomesThisMonth() const;
+  double SumIncomesAllTime() const;
+  //  default repositories
+  void SetDefaultCategories();
+  void SetDefaultAccounts();
+  void SetDefaultCurrencies();
+private:
+  TransactionRepository transaction_repository_;
+  CategoryRepository category_repository_;
+  CommentRepository comment_repository_;
+  PayeeRepository payee_repository_;
+  AccountRepository account_repository_;
+  CurrencyRepository currency_repository_;
+  DescriptionRepository description_repository_;
+  TagRepository tag_repository_;
 };
+
+#endif  //  HOMEBOOKKEEPING_2BUSINESSLOGIC_FINANCENREPOSITORY_H_

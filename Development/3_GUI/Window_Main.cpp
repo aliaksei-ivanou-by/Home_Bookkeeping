@@ -134,7 +134,7 @@ void Window_Main::menuStatisticsLiabilities()
 void Window_Main::menuStatisticsExpensesToday()
 {
 	menuStatisticsText.selection[2].hide();
-	double sum = ptrFinanceRepository->sumExpensesToday();
+	double sum = ptrFinanceRepository->SumExpensesToday();
 	std::ostringstream sumStream;
 	sumStream << std::fixed << std::setprecision(2) << sum;
 	std::string sumString = sumStream.str();
@@ -145,7 +145,7 @@ void Window_Main::menuStatisticsExpensesToday()
 void Window_Main::menuStatisticsExpensesThisMonth()
 {
 	menuStatisticsText.selection[3].hide();
-	double sum = ptrFinanceRepository->sumExpensesThisMonth();
+	double sum = ptrFinanceRepository->SumExpensesThisMonth();
 	std::ostringstream sumStream;
 	sumStream << std::fixed << std::setprecision(2) << sum;
 	std::string sumString = sumStream.str();
@@ -156,7 +156,7 @@ void Window_Main::menuStatisticsExpensesThisMonth()
 void Window_Main::menuStatisticsIncomeThisMonth()
 {
 	menuStatisticsText.selection[4].hide();
-	double sum = ptrFinanceRepository->sumIncomesThisMonth();
+	double sum = ptrFinanceRepository->SumIncomesThisMonth();
 	std::ostringstream sumStream;
 	sumStream << std::fixed << std::setprecision(2) << sum;
 	std::string sumString = sumStream.str();

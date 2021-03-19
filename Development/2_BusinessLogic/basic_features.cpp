@@ -1,782 +1,853 @@
-#include "FinanceRepository.h"
+#include "home_bookkeeping/2_BusinessLogic/FinanceRepository.h"
 
-// Default constructor
+//  Constructor
+//  Default
 FinanceRepository::FinanceRepository()
 {}
 
-// Class member function. Find begin iterator of repository of transactions
-TransactionRepositoryIterator FinanceRepository::beginTransactionRepository() const
+//  Class member function
+//  Find begin iterator of transaction repository
+TransactionRepositoryIterator FinanceRepository::BeginTransactionRepository() const
 {
-	return financeRepositoryTransactions.Begin();
+  return transaction_repository_.Begin();
 }
 
-// Class member function. Find begin iterator of repository of accounts
-AccountRepositoryIterator FinanceRepository::beginAccountRepository() const
+//  Class member function
+//  Find begin iterator of account repository
+AccountRepositoryIterator FinanceRepository::BeginAccountRepository() const
 {
-	return financeRepositoryAccounts.Begin();
+  return account_repository_.Begin();
 }
 
-// Class member function. Find begin iterator of repository of categories
-CategoryRepositoryIterator FinanceRepository::beginCategoryRepository() const
+//  Class member function
+//  Find begin iterator of category repository
+CategoryRepositoryIterator FinanceRepository::BeginCategoryRepository() const
 {
-	return financeRepositoryCategories.Begin();
+  return category_repository_.Begin();
 }
 
-// Class member function. Find begin iterator of repository of currencies
-CurrencyRepositoryIterator FinanceRepository::beginCurrencyRepository() const
+//  Class member function
+//  Find begin iterator of currency repository
+CurrencyRepositoryIterator FinanceRepository::BeginCurrencyRepository() const
 {
-	return financeRepositoryCurrencies.Begin();
+  return currency_repository_.Begin();
 }
 
-// Class member function. Find begin iterator of repository of descriptions
-DescriptionRepositoryIterator FinanceRepository::beginDescriptionRepository() const
+//  Class member function
+//  Find begin iterator of description repository
+DescriptionRepositoryIterator FinanceRepository::BeginDescriptionRepository() const
 {
-	return financeRepositoryDescriptions.Begin();
+  return description_repository_.Begin();
 }
 
-// Class member function. Find begin iterator of repository of payees
-PayeeRepositoryIterator FinanceRepository::beginPayeeRepository() const
+//  Class member function
+//  Find begin iterator of payee repository
+PayeeRepositoryIterator FinanceRepository::BeginPayeeRepository() const
 {
-	return financeRepositoryPayees.Begin();
+  return payee_repository_.Begin();
 }
 
-// Class member function. Find begin iterator of repository of comments
-CommentRepositoryIterator FinanceRepository::beginCommentRepository() const
+//  Class member function
+//  Find begin iterator of comment repository
+CommentRepositoryIterator FinanceRepository::BeginCommentRepository() const
 {
-	return financeRepositoryComments.Begin();
+  return comment_repository_.Begin();
 }
 
-// Class member function. Find begin iterator of repository of tags
-TagRepositoryIterator FinanceRepository::beginTagRepository() const
+//  Class member function
+//  Find begin iterator of tag repository
+TagRepositoryIterator FinanceRepository::BeginTagRepository() const
 {
-	return financeRepositoryTags.Begin();
+  return tag_repository_.Begin();
 }
 
-// Class member function. Find end iterator of repository of transactions
-TransactionRepositoryIterator FinanceRepository::endTransactionRepository() const
+//  Class member function
+//  Find end iterator of transaction repository
+TransactionRepositoryIterator FinanceRepository::EndTransactionRepository() const
 {
-	return financeRepositoryTransactions.End();
+  return transaction_repository_.End();
 }
 
-// Class member function. Find end iterator of repository of accounts
-AccountRepositoryIterator FinanceRepository::endAccountRepository() const
+//  Class member function
+//  Find end iterator of account repository
+AccountRepositoryIterator FinanceRepository::EndAccountRepository() const
 {
-	return financeRepositoryAccounts.End();
+  return account_repository_.End();
 }
 
-// Class member function. Find end iterator of repository of categories
-CategoryRepositoryIterator FinanceRepository::endCategoryRepository() const
+//  Class member function
+//  Find end iterator of category repository
+CategoryRepositoryIterator FinanceRepository::EndCategoryRepository() const
 {
-	return financeRepositoryCategories.End();
+  return category_repository_.End();
 }
 
-// Class member function. Find end iterator of repository of currencies
-CurrencyRepositoryIterator FinanceRepository::endCurrencyRepository() const
+//  Class member function
+//  Find end iterator of currency repository
+CurrencyRepositoryIterator FinanceRepository::EndCurrencyRepository() const
 {
-	return financeRepositoryCurrencies.End();
+  return currency_repository_.End();
 }
 
-// Class member function. Find end iterator of repository of descriptions
-DescriptionRepositoryIterator FinanceRepository::endDescriptionRepository() const
+//  Class member function
+//  Find end iterator of description repository
+DescriptionRepositoryIterator FinanceRepository::EndDescriptionRepository() const
 {
-	return financeRepositoryDescriptions.End();
+	return description_repository_.End();
 }
 
-// Class member function. Find end iterator of repository of payees
-PayeeRepositoryIterator FinanceRepository::endPayeeRepository() const
+//  Class member function
+//  Find end iterator of payee repository
+PayeeRepositoryIterator FinanceRepository::EndPayeeRepository() const
 {
-	return financeRepositoryPayees.End();
+	return payee_repository_.End();
 }
 
-// Class member function. Find end iterator of repository of comments
-CommentRepositoryIterator FinanceRepository::endCommentRepository() const
+//  Class member function
+//  Find end iterator of comment repository
+CommentRepositoryIterator FinanceRepository::EndCommentRepository() const
 {
-	return financeRepositoryComments.End();
+	return comment_repository_.End();
 }
 
-// Class member function. Find end iterator of repository of tags
-TagRepositoryIterator FinanceRepository::endTagRepository() const
+//  Class member function
+//  Find end iterator of tag repository
+TagRepositoryIterator FinanceRepository::EndTagRepository() const
 {
-	return financeRepositoryTags.End();
+  return tag_repository_.End();
 }
 
-// Class member function. Add transaction to repository of transactions
-void FinanceRepository::addTransaction(Transaction& transactionForAdd)
+//  Class member function
+//  Add transaction to transaction repository
+void FinanceRepository::AddTransaction(Transaction& transaction)
 {
-	updateAccountRepository(transactionForAdd);
-	updateAccountAmount(transactionForAdd);
-
-	updateCategoryRepository(transactionForAdd);
-	updateCurrencyRepository(transactionForAdd);
-	updateDescriptionRepository(transactionForAdd);
-	updatePayeeRepository(transactionForAdd);
-	updateCommentRepository(transactionForAdd);
-	updateTagRepository(transactionForAdd);
-
-	financeRepositoryTransactions.Add(transactionForAdd);
+  UpdateAccountRepository(transaction);
+  UpdateAccountAmount(transaction);
+  UpdateCategoryRepository(transaction);
+  UpdateCurrencyRepository(transaction);
+  UpdateDescriptionRepository(transaction);
+  UpdatePayeeRepository(transaction);
+  UpdateCommentRepository(transaction);
+  UpdateTagRepository(transaction);
+  transaction_repository_.Add(transaction);
 }
 
-// Class member function. Add account to repository of accounts
-void FinanceRepository::addAccount(const Account& accountForAdd)
+//  Class member function
+//  Add account to account repository
+void FinanceRepository::AddAccount(const Account& account)
 {
-	financeRepositoryAccounts.Add(accountForAdd);
+  account_repository_.Add(account);
 }
 
-// Class member function. Add category to repository of categories
-void FinanceRepository::addCategory(const Category& categoryForAdd)
+//  Class member function
+//  Add category to category repository
+void FinanceRepository::AddCategory(const Category& category)
 {
-	financeRepositoryCategories.Add(categoryForAdd);
+  category_repository_.Add(category);
 }
 
-// Class member function. Add currency to repository of currencies
-void FinanceRepository::addCurrency(const Currency& currencyForAdd)
+//  Class member function
+//  Add currency to currency repository
+void FinanceRepository::AddCurrency(const Currency& currency)
 {
-	financeRepositoryCurrencies.Add(currencyForAdd);
+  currency_repository_.Add(currency);
 }
 
-// Class member function. Add description to repository of descriptions
-void FinanceRepository::addDescription(const Description& descriptionForAdd)
+//  Class member function
+//  Add description to description repository
+void FinanceRepository::AddDescription(const Description& description)
 {
-	financeRepositoryDescriptions.Add(descriptionForAdd);
+  description_repository_.Add(description);
 }
 
-// Class member function. Add payee to repository of payees
-void FinanceRepository::addPayee(const Payee& payeeForAdd)
+//  Class member function
+//  Add payee to payee repository
+void FinanceRepository::AddPayee(const Payee& payee)
 {
-	financeRepositoryPayees.Add(payeeForAdd);
+  payee_repository_.Add(payee);
 }
 
-// Class member function. Add comment to repository of comments
-void FinanceRepository::addComment(const Comment& commentForAdd)
+//  Class member function
+//  Add comment to comment repository
+void FinanceRepository::AddComment(const Comment& comment)
 {
-	financeRepositoryComments.Add(commentForAdd);
+  comment_repository_.Add(comment);
 }
 
-// Class member function. Add tag to repository of tags
-void FinanceRepository::addTag(const Tag& tagForAdd)
+//  Class member function
+//  Add tag to tag repository
+void FinanceRepository::AddTag(const Tag& tag)
 {
-	financeRepositoryTags.Add(tagForAdd);
+  tag_repository_.Add(tag);
 }
 
-// Class member function. Remove transaction (shared pointer to transaction) from repository of transactions
-void FinanceRepository::removeTransaction(std::shared_ptr<Transaction> transactionForRemove)
+//  Class member function
+//  Remove transaction (shared pointer) from transaction repository
+void FinanceRepository::RemoveTransaction(std::shared_ptr<Transaction> transaction)
 {
-	financeRepositoryTransactions.Remove(transactionForRemove);
+  transaction_repository_.Remove(transaction);
 }
 
-// Class member function. Remove account (shared pointer to account) from repository of accounts
-void FinanceRepository::removeAccount(std::shared_ptr<Account> accountForRemove)
+//  Class member function
+//  Remove account (shared pointer) from account repository
+void FinanceRepository::RemoveAccount(std::shared_ptr<Account> account)
 {
-	financeRepositoryAccounts.Remove(accountForRemove);
+  account_repository_.Remove(account);
 }
 
-// Class member function. Remove category(shared pointer to category) from repository of categories
-void FinanceRepository::removeCategory(std::shared_ptr<Category> categoryForRemove)
+//  Class member function
+//  Remove category (shared pointer) from category repository
+void FinanceRepository::RemoveCategory(std::shared_ptr<Category> category)
 {
-	financeRepositoryCategories.Remove(categoryForRemove);
+  category_repository_.Remove(category);
 
 }
 
-// Class member function. Remove currency (shared pointer to currency) from repository of currencies
-void FinanceRepository::removeCurrency(std::shared_ptr<Currency> currencyForRemove)
+//  Class member function
+//  Remove currency (shared pointer) from currency repository
+void FinanceRepository::RemoveCurrency(std::shared_ptr<Currency> currency)
 {
-	financeRepositoryCurrencies.Remove(currencyForRemove);
+  currency_repository_.Remove(currency);
 }
 
-// Class member function. Remove description (shared pointer to description) from repository of descriptions
-void FinanceRepository::removeDescription(std::shared_ptr<Description> descriptionForRemove)
+//  Class member function
+//  Remove description (shared pointer) from description repository
+void FinanceRepository::RemoveDescription(std::shared_ptr<Description> description)
 {
-	financeRepositoryDescriptions.Remove(descriptionForRemove);
+  description_repository_.Remove(description);
 }
 
-// Class member function. Remove payee(shared pointer to payee) from repository of payees
-void FinanceRepository::removePayee(std::shared_ptr<Payee> payeeForRemove)
+//  Class member function
+//  Remove payee (shared pointer) from payee repository
+void FinanceRepository::RemovePayee(std::shared_ptr<Payee> payee)
 {
-	financeRepositoryPayees.Remove(payeeForRemove);
+  payee_repository_.Remove(payee);
 }
 
-// Class member function. Remove comment (shared pointer to comment) from repository of comments
-void FinanceRepository::removeComment(std::shared_ptr<Comment> commentForRemove)
+//  Class member function
+//  Remove comment (shared pointer) from comment repository
+void FinanceRepository::RemoveComment(std::shared_ptr<Comment> comment)
 {
-	financeRepositoryComments.Remove(commentForRemove);
+  comment_repository_.Remove(comment);
 }
 
-// Class member function. Remove tag (shared pointer to tag) from repository of tags
-void FinanceRepository::removeTag(std::shared_ptr<Tag> tagForRemove)
+//  Class member function
+//  Remove tag (shared pointer) from tag repository
+void FinanceRepository::RemoveTag(std::shared_ptr<Tag> tag)
 {
-	financeRepositoryTags.Remove(tagForRemove);
+  tag_repository_.Remove(tag);
 }
 
-// Class member function. Calculate number of elements in transactions repository
-size_t FinanceRepository::getTransactionsNumber() const
+//  Class member function
+//  Number of transactions in transaction repository
+size_t FinanceRepository::GetTransactionsNumber() const
 {
-	return financeRepositoryTransactions.Size();
+  return transaction_repository_.Size();
 }
 
-// Class member function. Calculate number of elements in accounts repository
-size_t FinanceRepository::getAccountsNumber() const
+//  Class member function
+//  Number of accounts in account repository
+size_t FinanceRepository::GetAccountsNumber() const
 {
-	return financeRepositoryAccounts.Size();
+  return account_repository_.Size();
 }
 
-// Class member function. Calculate number of elements in categories repository
-size_t FinanceRepository::getCategoriesNumber() const
+//  Class member function
+//  Number of categories in category repository
+size_t FinanceRepository::GetCategoriesNumber() const
 {
-	return financeRepositoryCategories.Size();
+  return category_repository_.Size();
 }
 
-// Class member function. Calculate number of elements in currencies repository
-size_t FinanceRepository::getCurrenciesNumber() const
+//  Class member function
+//  Number of currencies in currency repository
+size_t FinanceRepository::GetCurrenciesNumber() const
 {
-	return financeRepositoryCurrencies.Size();
+  return currency_repository_.Size();
 }
 
-// Class member function. Calculate number of elements in descriptions repository
-size_t FinanceRepository::getDescriptionsNumber() const
+//  Class member function
+//  Number of descriptions in description repository
+size_t FinanceRepository::GetDescriptionsNumber() const
 {
-	return financeRepositoryDescriptions.Size();
+  return description_repository_.Size();
 }
 
-// Class member function. Calculate number of elements in payees repository
-size_t FinanceRepository::getPayeesNumber() const
+//  Class member function
+//  Number of payees in payee repository
+size_t FinanceRepository::GetPayeesNumber() const
 {
-	return financeRepositoryPayees.Size();
+  return payee_repository_.Size();
 }
 
-// Class member function. Calculate number of elements in comments repository
-size_t FinanceRepository::getCommentsNumber() const
+//  Class member function
+//  Number of comments in comment repository
+size_t FinanceRepository::GetCommentsNumber() const
 {
-	return financeRepositoryComments.Size();
+  return comment_repository_.Size();
 }
 
-// Class member function. Calculate number of elements in tags repository
-size_t FinanceRepository::getTagsNumber() const
+//  Class member function
+//  Number of tags in tag repository
+size_t FinanceRepository::GetTagsNumber() const
 {
-	return financeRepositoryTags.Size();
+  return tag_repository_.Size();
 }
 
-// Class member function. Clear transactions repository
-void FinanceRepository::clearTransactions()
+//  Class member function
+//  Clear transaction repository
+void FinanceRepository::ClearTransactions()
 {
-	financeRepositoryTransactions.Clear();
+  transaction_repository_.Clear();
 }
 
-// Class member function. Clear accounts repository
-void FinanceRepository::clearAccounts()
+//  Class member function
+//  Clear account repository
+void FinanceRepository::ClearAccounts()
 {
-	financeRepositoryAccounts.Clear();
+  account_repository_.Clear();
 }
 
-// Class member function. Clear categories repository
-void FinanceRepository::clearCategories()
+//  Class member function
+//  Clear category repository
+void FinanceRepository::ClearCategories()
 {
-	financeRepositoryCategories.Clear();
+  category_repository_.Clear();
 }
 
-// Class member function. Clear currencies repository
-void FinanceRepository::clearCurrencies()
+//  Class member function
+//  Clear currency repository
+void FinanceRepository::ClearCurrencies()
 {
-	financeRepositoryCurrencies.Clear();
+  currency_repository_.Clear();
 }
 
-// Class member function. Clear descriptions repository
-void FinanceRepository::clearDescriptions()
+//  Class member function
+//  Clear description repository
+void FinanceRepository::ClearDescriptions()
 {
-	financeRepositoryDescriptions.Clear();
+  description_repository_.Clear();
 }
 
-// Class member function. Clear payees repository
-void FinanceRepository::clearPayees()
+//  Class member function
+//  Clear payee repository
+void FinanceRepository::ClearPayees()
 {
-	financeRepositoryPayees.Clear();
+  payee_repository_.Clear();
 }
 
-// Class member function. Clear comments repository
-void FinanceRepository::clearComments()
+//  Class member function
+//  Clear comment repository
+void FinanceRepository::ClearComments()
 {
-	financeRepositoryComments.Clear();
+  comment_repository_.Clear();
 }
 
-// Class member function. Clear tags repository
-void FinanceRepository::clearTags()
+//  Class member function
+//  Clear tag repository
+void FinanceRepository::ClearTags()
 {
-	financeRepositoryTags.Clear();
+  tag_repository_.Clear();
 }
 
-// Class member function. Print transactions repository
-void FinanceRepository::printTransactions(const std::string& delimeter, std::ostream& outputStream) const
+//  Class member function
+//  Print transaction repository
+void FinanceRepository::PrintTransactions(const std::string& delimeter, std::ostream& output_stream) const
 {
-	auto i = beginTransactionRepository();
-	while (i != endTransactionRepository())
-	{
-		outputStream << **i;
-		++i;
-		if (i != endTransactionRepository())
-		{
-			outputStream << delimeter;
-		}
-	}
+  auto i = BeginTransactionRepository();
+  while (i != EndTransactionRepository())
+  {
+    output_stream << **i;
+    ++i;
+    if (i != EndTransactionRepository())
+    {
+      output_stream << delimeter;
+    }
+  }
 }
 
-// Class member function. Print accounts repository
-void FinanceRepository::printAccounts(const std::string& delimeter, std::ostream& outputStream) const
+//  Class member function
+//  Print account repository
+void FinanceRepository::PrintAccounts(const std::string& delimeter, std::ostream& output_stream) const
 {
-	auto i = beginAccountRepository();
-	while (i != endAccountRepository())
-	{
-		outputStream << **i;
-		++i;
-		if (i != endAccountRepository())
-		{
-			outputStream << delimeter;
-		}
-	}
+  auto i = BeginAccountRepository();
+  while (i != EndAccountRepository())
+  {
+    output_stream << **i;
+    ++i;
+    if (i != EndAccountRepository())
+    {
+      output_stream << delimeter;
+    }
+  }
 }
 
-// Class member function. Print categories repository
-void FinanceRepository::printCategories(const std::string& delimeter, std::ostream& outputStream) const
+//  Class member function
+//  Print category repository
+void FinanceRepository::PrintCategories(const std::string& delimeter, std::ostream& output_stream) const
 {
-	auto i = beginCategoryRepository();
-	while (i != endCategoryRepository())
-	{
-		outputStream << *i;
-		++i;
-		if (i != endCategoryRepository())
-		{
-			outputStream << delimeter;
-		}
-	}
+  auto i = BeginCategoryRepository();
+  while (i != EndCategoryRepository())
+  {
+    output_stream << *i;
+    ++i;
+    if (i != EndCategoryRepository())
+    {
+      output_stream << delimeter;
+    }
+  }
 }
 
-// Class member function. Print currencies repository
-void FinanceRepository::printCurrencies(const std::string& delimeter, std::ostream& outputStream) const
+//  Class member function
+//  Print currency repository
+void FinanceRepository::PrintCurrencies(const std::string& delimeter, std::ostream& output_stream) const
 {
-	auto i = beginCurrencyRepository();
-	while (i != endCurrencyRepository())
-	{
-		outputStream << *i;
-		++i;
-		if (i != endCurrencyRepository())
-		{
-			outputStream << delimeter;
-		}
-	}
+  auto i = BeginCurrencyRepository();
+  while (i != EndCurrencyRepository())
+  {
+    output_stream << *i;
+    ++i;
+    if (i != EndCurrencyRepository())
+    {
+      output_stream << delimeter;
+    }
+  }
 }
 
-// Class member function. Print descriptions repository
-void FinanceRepository::printDescriptions(const std::string& delimeter, std::ostream& outputStream) const
+//  Class member function
+//  Print description repository
+void FinanceRepository::PrintDescriptions(const std::string& delimeter, std::ostream& output_stream) const
 {
-	auto i = beginDescriptionRepository();
-	while (i != endDescriptionRepository())
-	{
-		outputStream << *i;
-		++i;
-		if (i != endDescriptionRepository())
-		{
-			outputStream << delimeter;
-		}
-	}
+  auto i = BeginDescriptionRepository();
+  while (i != EndDescriptionRepository())
+  {
+    output_stream << *i;
+    ++i;
+    if (i != EndDescriptionRepository())
+    {
+      output_stream << delimeter;
+    }
+  }
 }
 
-// Class member function. Print payees repository
-void FinanceRepository::printPayees(const std::string& delimeter, std::ostream& outputStream) const
+//  Class member function
+//  Print payee repository
+void FinanceRepository::PrintPayees(const std::string& delimeter, std::ostream& output_stream) const
 {
-	auto i = beginPayeeRepository();
-	while (i != endPayeeRepository())
-	{
-		outputStream << *i;
-		++i;
-		if (i != endPayeeRepository())
-		{
-			outputStream << delimeter;
-		}
-	}
+  auto i = BeginPayeeRepository();
+  while (i != EndPayeeRepository())
+  {
+    output_stream << *i;
+    ++i;
+    if (i != EndPayeeRepository())
+    {
+      output_stream << delimeter;
+    }
+  }
 }
 
-// Class member function. Print comments repository
-void FinanceRepository::printComments(const std::string& delimeter, std::ostream& outputStream) const
+//  Class member function
+//  Print comment repository
+void FinanceRepository::PrintComments(const std::string& delimeter, std::ostream& output_stream) const
 {
-	auto i = beginCommentRepository();
-	while (i != endCommentRepository())
-	{
-		outputStream << *i;
-		++i;
-		if (i != endCommentRepository())
-		{
-			outputStream << delimeter;
-		}
-	}
+  auto i = BeginCommentRepository();
+  while (i != EndCommentRepository())
+  {
+    output_stream << *i;
+    ++i;
+    if (i != EndCommentRepository())
+    {
+      output_stream << delimeter;
+    }
+  }
 }
 
-// Class member function. Print tags repository
-void FinanceRepository::printTags(const std::string& delimeter, std::ostream& outputStream) const
+//  Class member function
+//  Print tag repository
+void FinanceRepository::PrintTags(const std::string& delimeter, std::ostream& output_stream) const
 {
-	auto i = beginTagRepository();
-	while (i != endTagRepository())
-	{
-		outputStream << *i;
-		++i;
-		if (i != endTagRepository())
-		{
-			outputStream << delimeter;
-		}
-	}
+  auto i = BeginTagRepository();
+  while (i != EndTagRepository())
+  {
+    output_stream << *i;
+    ++i;
+    if (i != EndTagRepository())
+    {
+      output_stream << delimeter;
+    }
+  }
 }
 
-// Class member function. Find transaction (shared pointer) in transactions repository
-TransactionRepositoryIterator FinanceRepository::findTransaction(std::shared_ptr<Transaction> transactionForFind) const
+//  Class member function
+//  Find transaction (shared pointer) in transaction repository
+TransactionRepositoryIterator FinanceRepository::FindTransaction(std::shared_ptr<Transaction> transaction) const
 {
-	return financeRepositoryTransactions.Find(transactionForFind);
+  return transaction_repository_.Find(transaction);
 }
 
-// Class member function. Find account (shared pointer) in accounts repository
-AccountRepositoryIterator FinanceRepository::findAccount(std::shared_ptr<Account> accountForFind) const
+//  Class member function
+//  Find account (shared pointer) in account repository
+AccountRepositoryIterator FinanceRepository::FindAccount(std::shared_ptr<Account> account) const
 {
-	return financeRepositoryAccounts.Find(accountForFind);
+  return account_repository_.Find(account);
 }
 
-// Class member function. Find category (shared pointer) in categories repository
-CategoryRepositoryIterator FinanceRepository::findCategory(std::shared_ptr<Category> categoryForFind) const
+//  Class member function
+//  Find category (shared pointer) in category repository
+CategoryRepositoryIterator FinanceRepository::FindCategory(std::shared_ptr<Category> category) const
 {
-	return financeRepositoryCategories.Find(categoryForFind);
+  return category_repository_.Find(category);
 }
 
-// Class member function. Find currency (shared pointer) in currencies repository
-CurrencyRepositoryIterator FinanceRepository::findCurrency(std::shared_ptr<Currency> currencyForFind) const
+//  Class member function
+//  Find currency (shared pointer) in currency repository
+CurrencyRepositoryIterator FinanceRepository::FindCurrency(std::shared_ptr<Currency> currency) const
 {
-	return financeRepositoryCurrencies.Find(currencyForFind);
+  return currency_repository_.Find(currency);
 }
 
-// Class member function. Find description (shared pointer) in descriptions repository
-DescriptionRepositoryIterator FinanceRepository::findDescription(std::shared_ptr<Description> descriptionForFind) const
+//  Class member function
+//  Find description (shared pointer) in description repository
+DescriptionRepositoryIterator FinanceRepository::FindDescription(std::shared_ptr<Description> description) const
 {
-	return financeRepositoryDescriptions.Find(descriptionForFind);
+  return description_repository_.Find(description);
 }
 
-// Class member function. Find payee (shared pointer) in payees repository
-PayeeRepositoryIterator FinanceRepository::findPayee(std::shared_ptr<Payee> payeeForFind) const
+//  Class member function
+//  Find payee (shared pointer) in payee repository
+PayeeRepositoryIterator FinanceRepository::FindPayee(std::shared_ptr<Payee> payee) const
 {
-	return financeRepositoryPayees.Find(payeeForFind);
+  return payee_repository_.Find(payee);
 }
 
-// Class member function. Find comment (shared pointer) in comments repository
-CommentRepositoryIterator FinanceRepository::findComment(std::shared_ptr<Comment> commentForFind) const
+//  Class member function
+//  Find comment (shared pointer) in comment repository
+CommentRepositoryIterator FinanceRepository::FindComment(std::shared_ptr<Comment> comment) const
 {
-	return financeRepositoryComments.Find(commentForFind);
+  return comment_repository_.Find(comment);
 }
 
-// Class member function. Find tag (shared pointer) in tags repository
-TagRepositoryIterator FinanceRepository::findTag(std::shared_ptr<Tag> tagForFind) const
+//  Class member function
+//  Find tag (shared pointer) in tag repository
+TagRepositoryIterator FinanceRepository::FindTag(std::shared_ptr<Tag> tag) const
 {
-	return financeRepositoryTags.Find(tagForFind);
+  return tag_repository_.Find(tag);
 }
 
-// Class member function. Update last amount of account in accounts repository with adding new transaction
-void FinanceRepository::updateAccountAmount(Transaction& transactionForAdd)
+//  Class member function
+//  Update last amount of account in account repository with adding new transaction
+void FinanceRepository::UpdateAccountAmount(Transaction& transaction)
 {
-	if (transactionForAdd.GetType() == Type(kEnumType::Expense))
-	{
-		auto amount = transactionForAdd.GetAmountLastestAccountFrom() - transactionForAdd.GetAmount();
-		transactionForAdd.SetAmountLastestAccountFrom(amount);
-		transactionForAdd.SetAmountLastestAccountTo(amount);
-		transactionForAdd.SetAmountAccountFrom(amount);
-		transactionForAdd.SetAmountAccountTo(amount);
-	}
-	if (transactionForAdd.GetType() == Type(kEnumType::Income))
-	{
-		auto amount = transactionForAdd.GetAmountLastestAccountFrom() + transactionForAdd.GetAmount();
-		transactionForAdd.SetAmountLastestAccountFrom(amount);
-		transactionForAdd.SetAmountLastestAccountTo(amount);
-		transactionForAdd.SetAmountAccountFrom(amount);
-		transactionForAdd.SetAmountAccountTo(amount);
-	}
-	if (transactionForAdd.GetType() == Type(kEnumType::Transfer))
-	{
-		auto amountFrom = transactionForAdd.GetAmountLastestAccountFrom() - transactionForAdd.GetAmount();
-		transactionForAdd.SetAmountLastestAccountFrom(amountFrom);
-		transactionForAdd.SetAmountAccountFrom(amountFrom);
-		auto amountTo = transactionForAdd.GetAmountLastestAccountTo() + transactionForAdd.GetAmount();
-		transactionForAdd.SetAmountLastestAccountTo(amountTo);
-		transactionForAdd.SetAmountAccountTo(amountTo);
-	}
+  if (transaction.GetType() == Type(kEnumType::Expense))
+  {
+    auto amount = transaction.GetAmountLastestAccountFrom() - transaction.GetAmount();
+    transaction.SetAmountLastestAccountFrom(amount);
+    transaction.SetAmountLastestAccountTo(amount);
+    transaction.SetAmountAccountFrom(amount);
+    transaction.SetAmountAccountTo(amount);
+  }
+  if (transaction.GetType() == Type(kEnumType::Income))
+  {
+    auto amount = transaction.GetAmountLastestAccountFrom() + transaction.GetAmount();
+    transaction.SetAmountLastestAccountFrom(amount);
+    transaction.SetAmountLastestAccountTo(amount);
+    transaction.SetAmountAccountFrom(amount);
+    transaction.SetAmountAccountTo(amount);
+  }
+  if (transaction.GetType() == Type(kEnumType::Transfer))
+  {
+    auto amount_from = transaction.GetAmountLastestAccountFrom() - transaction.GetAmount();
+    transaction.SetAmountLastestAccountFrom(amount_from);
+    transaction.SetAmountAccountFrom(amount_from);
+    auto amount_to = transaction.GetAmountLastestAccountTo() + transaction.GetAmount();
+    transaction.SetAmountLastestAccountTo(amount_to);
+    transaction.SetAmountAccountTo(amount_to);
+  }
 }
 
-// Class member function. Update accounts repository with adding new transaction
-void FinanceRepository::updateAccountRepository(Transaction& transactionForAdd)
+//  Class member function
+//  Update account repository with adding new transaction
+void FinanceRepository::UpdateAccountRepository(Transaction& transaction)
 {
-	if (financeRepositoryAccounts.Size() == 0)
-	{
-		financeRepositoryAccounts.Add(transactionForAdd.GetAccountFromPtr());
-	}
+  if (account_repository_.Size() == 0)
+  {
+    account_repository_.Add(transaction.GetAccountFromPtr());
+  }
 	else
-	{
-		bool keyFrom = false;
-		for (auto i = financeRepositoryAccounts.Begin(); i != financeRepositoryAccounts.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetAccountFrom().GetName())
-			{
-				keyFrom = true;
-				transactionForAdd.SetAccountFromPtr(*i);
-				break;
-			}
-		}
-		if (!keyFrom)
-		{
-			financeRepositoryAccounts.Add(transactionForAdd.GetAccountFromPtr());
-		}
-		bool keyTo = false;
-		for (auto i = financeRepositoryAccounts.Begin(); i != financeRepositoryAccounts.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetAccountTo().GetName())
-			{
-				keyTo = true;
-				transactionForAdd.SetAccountToPtr(*i);
-				break;
-			}
-		}
-		if (!keyTo)
-		{
-			financeRepositoryAccounts.Add(transactionForAdd.GetAccountToPtr());
-		}
-	}
+  {
+    bool keyFrom = false;
+    for (auto i = account_repository_.Begin(); i != account_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetAccountFrom().GetName())
+      {
+        keyFrom = true;
+        transaction.SetAccountFromPtr(*i);
+        break;
+      }
+    }
+    if (!keyFrom)
+    {
+      account_repository_.Add(transaction.GetAccountFromPtr());
+    }
+    bool keyTo = false;
+    for (auto i = account_repository_.Begin(); i != account_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetAccountTo().GetName())
+      {
+        keyTo = true;
+        transaction.SetAccountToPtr(*i);
+        break;
+      }
+    }
+    if (!keyTo)
+    {
+      account_repository_.Add(transaction.GetAccountToPtr());
+    }
+  }
 }
 
-// Class member function. Update categories repository with adding new transaction
-void FinanceRepository::updateCategoryRepository(Transaction& transactionForAdd)
+//  Class member function
+//  Update category repository with adding new transaction
+void FinanceRepository::UpdateCategoryRepository(Transaction& transaction)
 {
-	if (financeRepositoryCategories.Size() == 0)
-	{
-		financeRepositoryCategories.Add(transactionForAdd.GetCategoryPtr());
-	}
-	else
-	{
-		bool keyFrom = false;
-		for (auto i = financeRepositoryCategories.Begin(); i != financeRepositoryCategories.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetCategory().GetName())
-			{
-				keyFrom = true;
-				transactionForAdd.SetCategoryPtr(*i);
-				break;
-			}
-		}
-		if (!keyFrom)
-		{
-			financeRepositoryCategories.Add(transactionForAdd.GetCategory());
-		}
-		bool keyTo = false;
-		for (auto i = financeRepositoryCategories.Begin(); i != financeRepositoryCategories.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetCategory().GetName())
-			{
-				keyTo = true;
-				transactionForAdd.SetCategoryPtr(*i);
-				break;
-			}
-		}
-		if (!keyTo)
-		{
-			financeRepositoryCategories.Add(transactionForAdd.GetCategoryPtr());
-		}
-	}
+  if (category_repository_.Size() == 0)
+  {
+    category_repository_.Add(transaction.GetCategoryPtr());
+  }
+  else
+  {
+    bool keyFrom = false;
+    for (auto i = category_repository_.Begin(); i != category_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetCategory().GetName())
+      {
+        keyFrom = true;
+        transaction.SetCategoryPtr(*i);
+        break;
+      }
+    }
+    if (!keyFrom)
+    {
+      category_repository_.Add(transaction.GetCategory());
+    }
+    bool keyTo = false;
+    for (auto i = category_repository_.Begin(); i != category_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetCategory().GetName())
+      {
+        keyTo = true;
+        transaction.SetCategoryPtr(*i);
+        break;
+      }
+    }
+    if (!keyTo)
+    {
+      category_repository_.Add(transaction.GetCategoryPtr());
+    }
+  }
 }
 
-// Class member function. Update currencies repository with adding new transaction
-void FinanceRepository::updateCurrencyRepository(Transaction& transactionForAdd)
+//  Class member function
+//  Update currency repository with adding new transaction
+void FinanceRepository::UpdateCurrencyRepository(Transaction& transaction)
 {
-	if (financeRepositoryCurrencies.Size() == 0)
-	{
-		financeRepositoryCurrencies.Add(transactionForAdd.GetCurrencyPtr());
-	}
-	else
-	{
-		bool keyFrom = false;
-		for (auto i = financeRepositoryCurrencies.Begin(); i != financeRepositoryCurrencies.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetCurrency().GetName())
-			{
-				keyFrom = true;
-				transactionForAdd.SetCurrencyPtr(*i);
-				break;
-			}
-		}
-		if (!keyFrom)
-		{
-			financeRepositoryCurrencies.Add(transactionForAdd.GetCurrency());
-		}
-		bool keyTo = false;
-		for (auto i = financeRepositoryCurrencies.Begin(); i != financeRepositoryCurrencies.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetCurrency().GetName())
-			{
-				keyTo = true;
-				transactionForAdd.SetCurrencyPtr(*i);
-				break;
-			}
-		}
-		if (!keyTo)
-		{
-			financeRepositoryCurrencies.Add(transactionForAdd.GetCurrencyPtr());
-		}
-	}
+  if (currency_repository_.Size() == 0)
+  {
+    currency_repository_.Add(transaction.GetCurrencyPtr());
+  }
+  else
+  {
+    bool keyFrom = false;
+    for (auto i = currency_repository_.Begin(); i != currency_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetCurrency().GetName())
+      {
+        keyFrom = true;
+        transaction.SetCurrencyPtr(*i);
+        break;
+      }
+    }
+    if (!keyFrom)
+    {
+      currency_repository_.Add(transaction.GetCurrency());
+    }
+    bool keyTo = false;
+    for (auto i = currency_repository_.Begin(); i != currency_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetCurrency().GetName())
+      {
+        keyTo = true;
+        transaction.SetCurrencyPtr(*i);
+        break;
+      }
+    }
+    if (!keyTo)
+    {
+      currency_repository_.Add(transaction.GetCurrencyPtr());
+    }
+  }
 }
 
-// Class member function. Update descriptions repository with adding new transaction
-void FinanceRepository::updateDescriptionRepository(Transaction& transactionForAdd)
+//  Class member function
+//  Update description repository with adding new transaction
+void FinanceRepository::UpdateDescriptionRepository(Transaction& transaction)
 {
-	if (financeRepositoryDescriptions.Size() == 0)
-	{
-		financeRepositoryDescriptions.Add(transactionForAdd.GetDescriptionPtr());
-	}
-	else
-	{
-		bool keyFrom = false;
-		for (auto i = financeRepositoryDescriptions.Begin(); i != financeRepositoryDescriptions.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetDescription().GetName())
-			{
-				keyFrom = true;
-				transactionForAdd.SetDescriptionPtr(*i);
-				break;
-			}
-		}
-		if (!keyFrom)
-		{
-			financeRepositoryDescriptions.Add(transactionForAdd.GetDescription());
-		}
-		bool keyTo = false;
-		for (auto i = financeRepositoryDescriptions.Begin(); i != financeRepositoryDescriptions.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetDescription().GetName())
-			{
-				keyTo = true;
-				transactionForAdd.SetDescriptionPtr(*i);
-				break;
-			}
-		}
-		if (!keyTo)
-		{
-			financeRepositoryDescriptions.Add(transactionForAdd.GetDescriptionPtr());
-		}
-	}
+  if (description_repository_.Size() == 0)
+  {
+    description_repository_.Add(transaction.GetDescriptionPtr());
+  }
+  else
+  {
+    bool keyFrom = false;
+    for (auto i = description_repository_.Begin(); i != description_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetDescription().GetName())
+      {
+        keyFrom = true;
+        transaction.SetDescriptionPtr(*i);
+        break;
+      }
+    }
+    if (!keyFrom)
+    {
+      description_repository_.Add(transaction.GetDescription());
+    }
+    bool keyTo = false;
+    for (auto i = description_repository_.Begin(); i != description_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetDescription().GetName())
+      {
+        keyTo = true;
+        transaction.SetDescriptionPtr(*i);
+        break;
+      }
+    }
+    if (!keyTo)
+    {
+      description_repository_.Add(transaction.GetDescriptionPtr());
+    }
+  }
 }
 
-// Class member function. Update payees repository with adding new transaction
-void FinanceRepository::updatePayeeRepository(Transaction& transactionForAdd)
+//  Class member function
+//  Update payee repository with adding new transaction
+void FinanceRepository::UpdatePayeeRepository(Transaction& transaction)
 {
-	if (financeRepositoryPayees.Size() == 0)
-	{
-		financeRepositoryPayees.Add(transactionForAdd.GetPayeePtr());
-	}
-	else
-	{
-		bool keyFrom = false;
-		for (auto i = financeRepositoryPayees.Begin(); i != financeRepositoryPayees.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetPayee().GetName())
-			{
-				keyFrom = true;
-				transactionForAdd.SetPayeePtr(*i);
-				break;
-			}
-		}
-		if (!keyFrom)
-		{
-			financeRepositoryPayees.Add(transactionForAdd.GetPayee());
-		}
-		bool keyTo = false;
-		for (auto i = financeRepositoryPayees.Begin(); i != financeRepositoryPayees.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetPayee().GetName())
-			{
-				keyTo = true;
-				transactionForAdd.SetPayeePtr(*i);
-				break;
-			}
-		}
-		if (!keyTo)
-		{
-			financeRepositoryPayees.Add(transactionForAdd.GetPayeePtr());
-		}
-	}
+  if (payee_repository_.Size() == 0)
+  {
+    payee_repository_.Add(transaction.GetPayeePtr());
+  }
+  else
+  {
+    bool keyFrom = false;
+    for (auto i = payee_repository_.Begin(); i != payee_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetPayee().GetName())
+      {
+        keyFrom = true;
+        transaction.SetPayeePtr(*i);
+        break;
+      }
+    }
+    if (!keyFrom)
+    {
+      payee_repository_.Add(transaction.GetPayee());
+    }
+    bool keyTo = false;
+    for (auto i = payee_repository_.Begin(); i != payee_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetPayee().GetName())
+      {
+        keyTo = true;
+        transaction.SetPayeePtr(*i);
+        break;
+      }
+    }
+    if (!keyTo)
+    {
+      payee_repository_.Add(transaction.GetPayeePtr());
+    }
+  }
 }
 
-// Class member function. Update comments repository with adding new transaction
-void FinanceRepository::updateCommentRepository(Transaction& transactionForAdd)
+//  Class member function
+//  Update comment repository with adding new transaction
+void FinanceRepository::UpdateCommentRepository(Transaction& transaction)
 {
-	if (financeRepositoryComments.Size() == 0)
-	{
-		financeRepositoryComments.Add(transactionForAdd.GetCommentPtr());
-	}
-	else
-	{
-		bool keyFrom = false;
-		for (auto i = financeRepositoryComments.Begin(); i != financeRepositoryComments.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetComment().GetName())
-			{
-				keyFrom = true;
-				transactionForAdd.SetCommentPtr(*i);
-				break;
-			}
-		}
-		if (!keyFrom)
-		{
-			financeRepositoryComments.Add(transactionForAdd.GetComment());
-		}
-		bool keyTo = false;
-		for (auto i = financeRepositoryComments.Begin(); i != financeRepositoryComments.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetComment().GetName())
-			{
-				keyTo = true;
-				transactionForAdd.SetCommentPtr(*i);
-				break;
-			}
-		}
-		if (!keyTo)
-		{
-			financeRepositoryComments.Add(transactionForAdd.GetCommentPtr());
-		}
-	}
+  if (comment_repository_.Size() == 0)
+  {
+    comment_repository_.Add(transaction.GetCommentPtr());
+  }
+  else
+  {
+    bool keyFrom = false;
+    for (auto i = comment_repository_.Begin(); i != comment_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetComment().GetName())
+      {
+        keyFrom = true;
+        transaction.SetCommentPtr(*i);
+        break;
+      }
+    }
+    if (!keyFrom)
+    {
+      comment_repository_.Add(transaction.GetComment());
+    }
+    bool keyTo = false;
+    for (auto i = comment_repository_.Begin(); i != comment_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetComment().GetName())
+      {
+        keyTo = true;
+        transaction.SetCommentPtr(*i);
+        break;
+      }
+    }
+    if (!keyTo)
+    {
+      comment_repository_.Add(transaction.GetCommentPtr());
+    }
+  }
 }
 
-// Class member function. Update tags repository with adding new transaction
-void FinanceRepository::updateTagRepository(Transaction& transactionForAdd)
+//  Class member function
+//  Update tag repository with adding new transaction
+void FinanceRepository::UpdateTagRepository(Transaction& transaction)
 {
-	if (financeRepositoryTags.Size() == 0)
-	{
-		financeRepositoryTags.Add(transactionForAdd.GetTagPtr());
-	}
-	else
-	{
-		bool keyFrom = false;
-		for (auto i = financeRepositoryTags.Begin(); i != financeRepositoryTags.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetTag().GetName())
-			{
-				keyFrom = true;
-				transactionForAdd.SetTagPtr(*i);
-				break;
-			}
-		}
-		if (!keyFrom)
-		{
-			financeRepositoryTags.Add(transactionForAdd.GetTag());
-		}
-		bool keyTo = false;
-		for (auto i = financeRepositoryTags.Begin(); i != financeRepositoryTags.End(); ++i)
-		{
-			if ((**i).GetName() == transactionForAdd.GetTag().GetName())
-			{
-				keyTo = true;
-				transactionForAdd.SetTagPtr(*i);
-				break;
-			}
-		}
-		if (!keyTo)
-		{
-			financeRepositoryTags.Add(transactionForAdd.GetTagPtr());
-		}
-	}
+  if (tag_repository_.Size() == 0)
+  {
+    tag_repository_.Add(transaction.GetTagPtr());
+  }
+  else
+  {
+    bool keyFrom = false;
+    for (auto i = tag_repository_.Begin(); i != tag_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetTag().GetName())
+      {
+        keyFrom = true;
+        transaction.SetTagPtr(*i);
+        break;
+      }
+    }
+    if (!keyFrom)
+    {
+      tag_repository_.Add(transaction.GetTag());
+    }
+    bool keyTo = false;
+    for (auto i = tag_repository_.Begin(); i != tag_repository_.End(); ++i)
+    {
+      if ((**i).GetName() == transaction.GetTag().GetName())
+      {
+        keyTo = true;
+        transaction.SetTagPtr(*i);
+        break;
+      }
+    }
+    if (!keyTo)
+    {
+      tag_repository_.Add(transaction.GetTagPtr());
+    }
+  }
 }

@@ -1,31 +1,34 @@
-#include "FinanceRepository.h"
+#include "home_bookkeeping/2_BusinessLogic/FinanceRepository.h"
 
-// Class member function. Set default accounts repository
-void FinanceRepository::setDefaultAccounts()
+//  Class member function
+//  Set default account repository
+void FinanceRepository::SetDefaultAccounts()
 {
-	addAccount({ "BYN Cash" });
-	addAccount({ "BYN Card" });
-	addAccount({ "USD Card" });
-	addAccount({ "USD Cash" });
+  AddAccount({ "BYN Cash" });
+  AddAccount({ "BYN Card" });
+  AddAccount({ "USD Card" });
+  AddAccount({ "USD Cash" });
 }
 
-// Class member function. Set default categories repository
-void FinanceRepository::setDefaultCategories()
+//  Class member function
+//  Set default category repository
+void FinanceRepository::SetDefaultCategories()
 {
-	addCategory({ "Bills" });
-	addCategory({ "Financial Expenses" });
-	addCategory({ "Housing" });
-	addCategory({ "Food & Dining" });
-	addCategory({ "Life" });
-	addCategory({ "Transportation" });
-	addCategory({ "Vehicle" });
-	addCategory({ "Shopping" });
+  AddCategory({ "Bills" });
+  AddCategory({ "Financial Expenses" });
+  AddCategory({ "Housing" });
+  AddCategory({ "Food & Dining" });
+  AddCategory({ "Life" });
+  AddCategory({ "Transportation" });
+  AddCategory({ "Vehicle" });
+  AddCategory({ "Shopping" });
 }
 
-// Class member function. Set default currencies repository
-void FinanceRepository::setDefaultCurrencies()
+//  Class member function
+//  Set default currency repository
+void FinanceRepository::SetDefaultCurrencies()
 {
-	addCurrency({ "BYN", "BYN", true });
-	addCurrency({ "USD", "USD", false });
-	addCurrency({ "EURO", "EURO", false });
+  AddCurrency({ "BYN", "BYN", true });
+  AddCurrency({ "USD", "USD", false });
+  AddCurrency({ "EURO", "EURO", false });
 }
