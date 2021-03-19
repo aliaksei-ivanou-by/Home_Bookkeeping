@@ -6,6 +6,13 @@ AccountRepository::AccountRepository()
 {}
 
 //  Class member function
+//  Add account (default) to repository
+void AccountRepository::Add()
+{
+  repository_.insert(std::make_shared<Account>());
+}
+
+//  Class member function
 //  Add account to repository
 void AccountRepository::Add(Account account)
 {

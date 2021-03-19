@@ -7,6 +7,7 @@
 //    Default
 //
 //  Class member functions:
+//    Add currency (default) to repository
 //    Add currency to repository
 //    Add currency (shared pointer) to repository
 //    Remove currency (shared pointer) from repository
@@ -30,6 +31,7 @@ class CurrencyRepository
 {
 public:
   CurrencyRepository();
+  void Add();
   void Add(Currency currency);
   void Add(std::shared_ptr<Currency> currency);
   void Remove(std::shared_ptr<Currency> currency);

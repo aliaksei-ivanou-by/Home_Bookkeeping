@@ -7,6 +7,7 @@
 //    Default
 //
 //  Class member functions:
+//    Add tag (default) to repository
 //    Add tag to repository
 //    Add tag (shared pointer) to repository
 //    Remove tag (shared pointer) from repository
@@ -30,6 +31,7 @@ class TagRepository
 {
 public:
   TagRepository();
+  void Add();
   void Add(Tag tag);
   void Add(std::shared_ptr<Tag> tag);
   void Remove(std::shared_ptr<Tag> tag);

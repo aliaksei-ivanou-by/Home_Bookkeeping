@@ -6,6 +6,13 @@ TagRepository::TagRepository()
 {}
 
 //  Class member function
+//  Add tag (default) to repository
+void TagRepository::Add()
+{
+  repository_.insert(std::make_shared<Tag>());
+}
+
+//  Class member function
 //  Add tag to repository
 void TagRepository::Add(Tag tag)
 {

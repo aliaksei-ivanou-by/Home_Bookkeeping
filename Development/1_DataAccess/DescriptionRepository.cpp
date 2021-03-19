@@ -6,6 +6,13 @@ DescriptionRepository::DescriptionRepository()
 {}
 
 //  Class member function
+//  Add description (default) to repository
+void DescriptionRepository::Add()
+{
+  repository_.insert(std::make_shared<Description>());
+}
+
+//  Class member function
 //  Add description to repository
 void DescriptionRepository::Add(Description description)
 {

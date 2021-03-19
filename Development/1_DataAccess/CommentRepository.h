@@ -7,6 +7,7 @@
 //    Default
 //
 //  Class member functions:
+//    Add comment (default) to repository
 //    Add comment to repository
 //    Add shared pointer to comment to repository
 //    Remove shared pointer to comment from repository
@@ -30,6 +31,7 @@ class CommentRepository
 {
 public:
   CommentRepository();
+  void Add();
   void Add(Comment comment);
   void Add(std::shared_ptr<Comment> comment);
   void Remove(std::shared_ptr<Comment> comment);

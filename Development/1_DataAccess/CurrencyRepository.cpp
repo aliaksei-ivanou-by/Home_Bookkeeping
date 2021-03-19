@@ -6,6 +6,13 @@ CurrencyRepository::CurrencyRepository()
 {}
 
 //  Class member function
+//  Add currency (default) to repository
+void CurrencyRepository::Add()
+{
+  repository_.insert(std::make_shared<Currency>());
+}
+
+//  Class member function
 //  Add currency to repository
 void CurrencyRepository::Add(Currency currency)
 {

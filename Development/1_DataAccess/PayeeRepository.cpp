@@ -6,6 +6,13 @@ PayeeRepository::PayeeRepository()
 {}
 
 //  Class member function
+//  Add payee (default) to repository
+void PayeeRepository::Add()
+{
+  repository_.insert(std::make_shared<Payee>());
+}
+
+//  Class member function
 //  Add payee to repository
 void PayeeRepository::Add(Payee payee)
 {

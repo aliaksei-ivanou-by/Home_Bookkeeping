@@ -6,6 +6,13 @@ CategoryRepository::CategoryRepository()
 {}
 
 //  Class member function
+//  Add category (default) to repository
+void CategoryRepository::Add()
+{
+  repository_.insert(std::make_shared<Category>());
+}
+
+//  Class member function
 //  Add category to repository
 void CategoryRepository::Add(Category category)
 {

@@ -7,6 +7,7 @@
 //    Default
 //
 //  Class member functions:
+//    Add category (default) to repository
 //    Add category to repository
 //    Add category (shared pointer) to repository
 //    Remove category (shared pointer) from repository
@@ -30,6 +31,7 @@ class CategoryRepository
 {
 public:
   CategoryRepository();
+  void Add();
   void Add(Category category);
   void Add(std::shared_ptr<Category> category);
   void Remove(std::shared_ptr<Category> category);

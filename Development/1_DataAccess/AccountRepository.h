@@ -7,6 +7,7 @@
 //    Default
 //
 //  Class member functions:
+//    Add account (default) to repository
 //    Add account to repository
 //    Add account (shared pointer) to repository
 //    Remove account (shared pointer) from repository
@@ -30,7 +31,8 @@ class AccountRepository
 {
 public:
   AccountRepository();
-  void Add(Account accountForAdd);
+  void Add();
+  void Add(Account account);
   void Add(std::shared_ptr<Account> account);
   void Remove(std::shared_ptr<Account> account);
   size_t Size() const;

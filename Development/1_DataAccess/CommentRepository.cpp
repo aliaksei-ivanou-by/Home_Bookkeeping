@@ -6,6 +6,13 @@ CommentRepository::CommentRepository()
 {}
 
 //  Class member function
+//  Add comment (default) to repository
+void CommentRepository::Add()
+{
+  repository_.insert(std::make_shared<Comment>());
+}
+
+//  Class member function
 //  Add comment to repository
 void CommentRepository::Add(Comment comment)
 {

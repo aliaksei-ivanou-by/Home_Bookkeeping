@@ -7,6 +7,7 @@
 //    Default
 //
 //  Class member functions:
+//    Add payee (default) to repository
 //    Add payee to repository
 //    Add payee (shared pointer) to repository
 //    Remove payee (shared pointer) from repository
@@ -30,6 +31,7 @@ class PayeeRepository
 {
 public:
   PayeeRepository();
+  void Add();
   void Add(Payee payee);
   void Add(std::shared_ptr<Payee> payee);
   void Remove(std::shared_ptr<Payee> payee);

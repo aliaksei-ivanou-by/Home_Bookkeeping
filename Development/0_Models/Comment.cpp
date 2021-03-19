@@ -3,7 +3,7 @@
 //  Constructor
 //  Default (name = "")
 Comment::Comment():
-  Model{ "" }
+  Model{ }
 {}
 
 //  Constructor

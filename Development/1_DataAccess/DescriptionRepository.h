@@ -7,6 +7,7 @@
 //    Default
 //
 //  Class member functions:
+//    Add description (default) to repository
 //    Add description to repository
 //    Add description (shared pointer) to repository
 //    Remove description (shared pointer) from repository
@@ -30,6 +31,7 @@ class DescriptionRepository
 {
 public:
   DescriptionRepository();
+  void Add();
   void Add(Description description);
   void Add(std::shared_ptr<Description> description);
   void Remove(std::shared_ptr<Description> description);
