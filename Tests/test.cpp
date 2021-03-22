@@ -2,9 +2,11 @@
 
 TEST(AccountTest, TestNameDefault)
 {
-  std::string name = "Unspecified";
-  Account account = Account();
-  EXPECT_EQ(name, account.GetName());
+  std::string name_expected = "Unspecified";
+  FinanceRepository rep;
+  rep.AddAccount();
+  auto name_repository = rep.GetAccountName(rep.FindAccount("Unspecified"));
+  EXPECT_EQ(name_expected, name_repository);
   EXPECT_TRUE(true);
 }
 
