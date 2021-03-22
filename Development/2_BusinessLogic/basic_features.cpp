@@ -288,6 +288,13 @@ void FinanceRepository::RemoveTag(std::shared_ptr<Tag> tag)
 }
 
 //  Class member function
+//  Get name of account from repository
+std::string FinanceRepository::GetAccountName(AccountRepositoryIterator account) const
+{
+  return (**account).GetName();
+}
+
+//  Class member function
 //  Number of transactions in transaction repository
 size_t FinanceRepository::GetTransactionsNumber() const
 {
@@ -525,6 +532,13 @@ void FinanceRepository::PrintTags(const std::string& delimeter, std::ostream& ou
       output_stream << delimeter;
     }
   }
+}
+
+//  Class member function
+//  Find account in account repository
+AccountRepositoryIterator FinanceRepository::FindAccount(std::string account) const
+{
+  return account_repository_.Find(account);
 }
 
 //  Class member function
