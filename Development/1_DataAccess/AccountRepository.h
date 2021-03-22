@@ -11,9 +11,11 @@
 //    Add account to repository
 //    Add account (shared pointer) to repository
 //    Remove account (shared pointer) from repository
+//    Get name of account from repository
 //    Calculate size of repository
 //    Clear repository
 //    Find account (shared pointer) in repository
+//    Find account in repository
 //    Find begin iterator of repository
 //    Find end iterator of repository
 //
@@ -35,9 +37,11 @@ public:
   void Add(Account account);
   void Add(std::shared_ptr<Account> account);
   void Remove(std::shared_ptr<Account> account);
+  std::string GetName(AccountRepositoryIterator account) const;
   size_t Size() const;
   void Clear();
   AccountRepositoryIterator Find(std::shared_ptr<Account> account) const;
+  AccountRepositoryIterator Find(std::string account) const;
   AccountRepositoryIterator Begin() const;
   AccountRepositoryIterator End() const;
 private:

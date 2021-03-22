@@ -34,6 +34,13 @@ void AccountRepository::Remove(std::shared_ptr<Account> account)
 }
 
 //  Class member function
+//  Get name of account from repository
+std::string AccountRepository::GetName(AccountRepositoryIterator account) const
+{
+  return (**account).GetName();
+}
+
+//  Class member function
 //  Calculate size of repository
 size_t AccountRepository::Size() const
 {
@@ -52,6 +59,20 @@ void AccountRepository::Clear()
 AccountRepositoryIterator AccountRepository::Find(std::shared_ptr<Account> account) const
 {
   return repository_.find(account);
+}
+
+//  Class member function
+//  Find account in repository
+AccountRepositoryIterator AccountRepository::Find(std::string account) const
+{
+  for (auto i = repository_.begin(); i != repository_.end(); ++i)
+  {
+    if ((**i).GetName() == account)
+    {
+      return i;
+    }
+  }
+  return repository_.end();
 }
 
 //  Class member function
