@@ -41,6 +41,13 @@ std::string AccountRepository::GetName(AccountRepositoryIterator account) const
 }
 
 //  Class member function
+//  Get amount of account from repository
+double AccountRepository::GetAmount(AccountRepositoryIterator account) const
+{
+  return (**account).GetAmount();
+}
+
+//  Class member function
 //  Calculate size of repository
 size_t AccountRepository::Size() const
 {
@@ -62,12 +69,26 @@ AccountRepositoryIterator AccountRepository::Find(std::shared_ptr<Account> accou
 }
 
 //  Class member function
-//  Find account in repository
-AccountRepositoryIterator AccountRepository::Find(std::string account) const
+//  Find account with definite name in repository
+AccountRepositoryIterator AccountRepository::Find(std::string name) const
 {
   for (auto i = repository_.begin(); i != repository_.end(); ++i)
   {
-    if ((**i).GetName() == account)
+    if ((**i).GetName() == name)
+    {
+      return i;
+    }
+  }
+  return repository_.end();
+}
+
+//  Class member function
+//  Find account with definite amount in repository
+AccountRepositoryIterator AccountRepository::Find(double amount) const
+{
+  for (auto i = repository_.begin(); i != repository_.end(); ++i)
+  {
+    if ((**i).GetAmount() == amount)
     {
       return i;
     }
