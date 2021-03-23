@@ -295,6 +295,13 @@ std::string FinanceRepository::GetAccountName(AccountRepositoryIterator account)
 }
 
 //  Class member function
+//  Get amount of account from repository
+double FinanceRepository::GetAccountAmount(AccountRepositoryIterator account) const
+{
+  return (**account).GetAmount();
+}
+
+//  Class member function
 //  Number of transactions in transaction repository
 size_t FinanceRepository::GetTransactionsNumber() const
 {
@@ -535,10 +542,17 @@ void FinanceRepository::PrintTags(const std::string& delimeter, std::ostream& ou
 }
 
 //  Class member function
-//  Find account in account repository
-AccountRepositoryIterator FinanceRepository::FindAccount(std::string account) const
+//  Find account with definite name in account repository
+AccountRepositoryIterator FinanceRepository::FindAccount(std::string name) const
 {
-  return account_repository_.Find(account);
+  return account_repository_.Find(name);
+}
+
+//  Class member function
+//  Find account with definite amoune in account repository
+AccountRepositoryIterator FinanceRepository::FindAccount(double amount) const
+{
+  return account_repository_.Find(amount);
 }
 
 //  Class member function
