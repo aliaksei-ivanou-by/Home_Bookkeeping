@@ -302,6 +302,13 @@ double FinanceRepository::GetAccountAmount(AccountRepositoryIterator account) co
 }
 
 //  Class member function
+//  Get name of tag from repository
+std::string FinanceRepository::GetTagName(TagRepositoryIterator tag) const
+{
+  return (**tag).GetName();
+}
+
+//  Class member function
 //  Number of transactions in transaction repository
 size_t FinanceRepository::GetTransactionsNumber() const
 {
@@ -553,6 +560,13 @@ AccountRepositoryIterator FinanceRepository::FindAccount(std::string name) const
 AccountRepositoryIterator FinanceRepository::FindAccount(double amount) const
 {
   return account_repository_.Find(amount);
+}
+
+//  Class member function
+//  Find tag with definite name in tag repository
+TagRepositoryIterator FinanceRepository::FindTag(std::string name) const
+{
+  return tag_repository_.Find(name);
 }
 
 //  Class member function

@@ -47,6 +47,10 @@
 //          Remove payee (shared pointer) from payee repository
 //          Remove comment (shared pointer) from comment repository
 //          Remove tag (shared pointer) from tag repository
+//        get values of model from repository
+//          Get name of account from repository
+//          Get amount of account from repository
+//          Get name of tag from repository
 //        number of elements in repository:
 //          Number of transactions in transaction repository
 //          Number of accounts in account repository
@@ -75,7 +79,9 @@
 //          Print comment repository
 //          Print tag repository
 //        find:
-//          Find account in account repository
+//          Find account with definite name in account repository
+//          Find account with definite amoune in account repository
+//          Find tag with definite name in tag repository
 //          Find transaction (shared pointer) in transaction repository
 //          Find account (shared pointer) in account repository
 //          Find category (shared pointer) in category repository
@@ -180,6 +186,7 @@ public:
   //  basic->get values of model from repository
   std::string GetAccountName(AccountRepositoryIterator account) const;
   double GetAccountAmount(AccountRepositoryIterator account) const;
+  std::string GetTagName(TagRepositoryIterator tag) const;
   //  basic->number of elements in repository
   size_t GetTransactionsNumber() const;
   size_t GetAccountsNumber() const;
@@ -210,6 +217,7 @@ public:
   //  basic->find
   AccountRepositoryIterator FindAccount(std::string name) const;
   AccountRepositoryIterator FindAccount(double amount) const;
+  TagRepositoryIterator FindTag(std::string name) const;
   TransactionRepositoryIterator FindTransaction(std::shared_ptr<Transaction> transaction) const;
   AccountRepositoryIterator FindAccount(std::shared_ptr<Account> account) const;
   CategoryRepositoryIterator FindCategory(std::shared_ptr<Category> category) const;
