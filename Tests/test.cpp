@@ -25,3 +25,23 @@ TEST(AccountTest, TestName)
   EXPECT_EQ(amount_expected, amount_repository);
   EXPECT_TRUE(true);
 }
+
+TEST(TagTest, TestNameDefault)
+{
+  std::string name_expected = "Unspecified";
+  FinanceRepository rep;
+  rep.AddTag();
+  auto name_repository = rep.GetTagName(rep.FindTag("Unspecified"));
+  EXPECT_EQ(name_expected, name_repository);
+  EXPECT_TRUE(true);
+}
+
+TEST(TagTest, TestName)
+{
+  std::string name_expected = "Name1";
+  FinanceRepository rep;
+  rep.AddTag({ "Name1" });
+  auto name_repository = rep.GetTagName(rep.FindTag("Name1"));
+  EXPECT_EQ(name_expected, name_repository);
+  EXPECT_TRUE(true);
+}
