@@ -1,7 +1,7 @@
 #include "home_bookkeeping/0_Models/Comment.h"
 
 //  Constructor
-//  Default (name = "")
+//  Default (name = "Unspecified")
 Comment::Comment():
   Model{ }
 {}

@@ -4,7 +4,7 @@
 //  Class Payee
 //
 //  Constructors:
-//    Default (name = "")
+//    Default (name = "Unspecified")
 //    With name setting
 //
 //  Class member functions:

@@ -4,7 +4,7 @@
 //  Class Tag : public Model
 //
 //  Constructors:
-//    Default (name = "")
+//    Default (name = "Unspecified")
 //    With name setting
 //
 //  Class member functions:

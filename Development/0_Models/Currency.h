@@ -4,8 +4,8 @@
 //  Class Currency : public Model
 //
 //  Constructors:
-//    Default (name = "", code = "", activity = false)
-//    With name setting (code = "", activity = true)
+//    Default (name = "Unspecified", code = "", activity = false)
+//    With name setting (code = "Unspecified", activity = false)
 //    With name setting and code setting (activity = true)
 //    With name setting, code setting and activity setting
 //

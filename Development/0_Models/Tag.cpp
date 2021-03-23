@@ -1,9 +1,9 @@
 #include "home_bookkeeping/0_Models/Tag.h"
 
 //  Constructor
-//  Default (name = "")
+//  Default (name = "Unspecified")
 Tag::Tag():
-  Model{ "" }
+  Model{ }
 {}
 
 //  Constructor

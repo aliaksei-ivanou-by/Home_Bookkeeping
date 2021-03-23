@@ -1,19 +1,19 @@
 #include "home_bookkeeping/0_Models/Currency.h"
 
 //  Constructor
-//  Default (name = "", code = "", activity = false)
+//  Default (name = "Unspecified", code = "Unspecified", activity = false)
 Currency::Currency():
-  Model{ "" },
-  code_{ "" },
+  Model{ },
+  code_{ "Unspecified" },
   activity_{ false }
 {}
 
 //  Constructor
-//  With name setting (code = "", activity = true)
+//  With name setting (code = "Unspecified", activity = false)
 Currency::Currency(const std::string& name):
   Model{ name },
-  code_{ "" },
-  activity_{ true }
+  code_{ "Unspecified" },
+  activity_{ false }
 {}
 
 //  Constructor

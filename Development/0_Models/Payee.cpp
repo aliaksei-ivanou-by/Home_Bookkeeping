@@ -1,9 +1,9 @@
 #include "home_bookkeeping/0_Models/Payee.h"
 
 //  Constructor
-//  Default (name = "")
+//  Default (name = "Unspecified")
 Payee::Payee():
-  Model{ "" }
+  Model{ "Unspecified" }
 {}
 
 //  Constructor
