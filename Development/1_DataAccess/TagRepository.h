@@ -11,9 +11,11 @@
 //    Add tag to repository
 //    Add tag (shared pointer) to repository
 //    Remove tag (shared pointer) from repository
+//    Get name of tag from repository
 //    Calculate size of repository
 //    Clear repository
 //    Find tag (shared pointer) in repository
+//    Find tag with definite name in repository
 //    Find begin iterator of repository
 //    Find end iterator of repository
 //
@@ -35,9 +37,11 @@ public:
   void Add(Tag tag);
   void Add(std::shared_ptr<Tag> tag);
   void Remove(std::shared_ptr<Tag> tag);
+  std::string GetName(TagRepositoryIterator tag) const;
   size_t Size() const;
   void Clear();
   TagRepositoryIterator Find(std::shared_ptr<Tag> tag) const;
+  TagRepositoryIterator Find(std::string name) const;
   TagRepositoryIterator Begin() const;
   TagRepositoryIterator End() const;
 private:

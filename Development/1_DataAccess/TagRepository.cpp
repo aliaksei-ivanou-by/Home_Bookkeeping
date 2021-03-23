@@ -34,6 +34,13 @@ void TagRepository::Remove(std::shared_ptr<Tag> tag)
 }
 
 //  Class member function
+//  Get name of account from repository
+std::string TagRepository::GetName(TagRepositoryIterator tag) const
+{
+  return (**tag).GetName();
+}
+
+//  Class member function
 //  Calculate size of repository
 size_t TagRepository::Size() const
 {
@@ -52,6 +59,20 @@ void TagRepository::Clear()
 TagRepositoryIterator TagRepository::Find(std::shared_ptr<Tag> tag) const
 {
   return repository_.find(tag);
+}
+
+//  Class member function
+//  Find tag with definite name in repository
+TagRepositoryIterator TagRepository::Find(std::string name) const
+{
+  for (auto i = repository_.begin(); i != repository_.end(); ++i)
+  {
+    if ((**i).GetName() == name)
+    {
+      return i;
+    }
+  }
+  return repository_.end();
 }
 
 //  Class member function
