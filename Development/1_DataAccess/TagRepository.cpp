@@ -41,6 +41,13 @@ std::string TagRepository::GetName(TagRepositoryIterator tag) const
 }
 
 //  Class member function
+//  Set name of tag from repository
+void TagRepository::SetName(TagRepositoryIterator tag, const std::string& name)
+{
+  (**tag).SetName(name);
+}
+
+//  Class member function
 //  Calculate size of repository
 size_t TagRepository::Size() const
 {
