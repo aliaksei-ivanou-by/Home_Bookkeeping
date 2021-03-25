@@ -11,9 +11,11 @@
 //    Add comment to repository
 //    Add shared pointer to comment to repository
 //    Remove shared pointer to comment from repository
+//    Get name of comment from repository
 //    Calculate size of repository
 //    Clear repository
 //    Find shared pointer to comment in repository
+//    Find comment with definite name in repository
 //    Find begin iterator of repository
 //    Find end iterator of repository
 //

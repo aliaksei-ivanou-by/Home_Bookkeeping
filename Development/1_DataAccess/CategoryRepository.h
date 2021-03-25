@@ -11,9 +11,11 @@
 //    Add category to repository
 //    Add category (shared pointer) to repository
 //    Remove category (shared pointer) from repository
+//    Get name of category from repository
 //    Calculate size of repository
 //    Clear repository
 //    Find category (shared pointer) in repository
+//    Find category with definite name in repository
 //    Find begin iterator of repository
 //    Find end iterator of repository
 //

@@ -34,6 +34,20 @@ void DescriptionRepository::Remove(std::shared_ptr<Description> description)
 }
 
 //  Class member function
+//  Get name of payee from repository
+std::string DescriptionRepository::GetName(DescriptionRepositoryIterator description) const
+{
+  return (**description).GetName();
+}
+
+//  Class member function
+//  Set name of payee from repository
+void DescriptionRepository::SetName(DescriptionRepositoryIterator description, const std::string& name)
+{
+  (**description).SetName(name);
+}
+
+//  Class member function
 //  Calculate size of repository
 size_t DescriptionRepository::Size() const
 {
@@ -52,6 +66,20 @@ void DescriptionRepository::Clear()
 DescriptionRepositoryIterator DescriptionRepository::Find(std::shared_ptr<Description> description) const
 {
   return repository_.find(description);
+}
+
+//  Class member function
+//  Find payee with definite name in repository
+DescriptionRepositoryIterator DescriptionRepository::Find(const std::string& name) const
+{
+  for (auto i = repository_.begin(); i != repository_.end(); ++i)
+  {
+    if ((**i).GetName() == name)
+    {
+      return i;
+    }
+  }
+  return repository_.end();
 }
 
 //  Class member function
