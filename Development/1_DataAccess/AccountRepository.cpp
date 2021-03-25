@@ -48,6 +48,20 @@ double AccountRepository::GetAmount(AccountRepositoryIterator account) const
 }
 
 //  Class member function
+//  Set name of account from repository
+void AccountRepository::SetName(AccountRepositoryIterator account, const std::string& name)
+{
+  (**account).SetName(name);
+}
+
+//  Class member function
+//  Set amount of account from repository
+void AccountRepository::SetAmount(AccountRepositoryIterator account, const double amount)
+{
+  (**account).SetAmount(amount);
+}
+
+//  Class member function
 //  Calculate size of repository
 size_t AccountRepository::Size() const
 {

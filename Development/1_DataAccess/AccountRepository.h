@@ -13,6 +13,8 @@
 //    Remove account (shared pointer) from repository
 //    Get name of account from repository
 //    Get amount of account from repository
+//    Set name of account from repository
+//    Set amount of account from repository
 //    Calculate size of repository
 //    Clear repository
 //    Find account (shared pointer) in repository
@@ -41,6 +43,8 @@ public:
   void Remove(std::shared_ptr<Account> account);
   std::string GetName(AccountRepositoryIterator account) const;
   double GetAmount(AccountRepositoryIterator account) const;
+  void SetName(AccountRepositoryIterator account, const std::string& name);
+  void SetAmount(AccountRepositoryIterator account, const double amount);
   size_t Size() const;
   void Clear();
   AccountRepositoryIterator Find(std::shared_ptr<Account> account) const;
