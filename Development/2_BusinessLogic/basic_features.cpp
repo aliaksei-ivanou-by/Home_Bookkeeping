@@ -309,6 +309,27 @@ std::string FinanceRepository::GetTagName(TagRepositoryIterator tag) const
 }
 
 //  Class member function
+//  Set name of account from repository
+void FinanceRepository::SetAccountName(AccountRepositoryIterator account, const std::string& name)
+{
+  (**account).SetName(name);
+}
+
+//  Class member function
+//  Set amount of account from repository
+void FinanceRepository::SetAccountAmount(AccountRepositoryIterator account, const double amount)
+{
+  (**account).SetAmount(amount);
+}
+
+//  Class member function
+//  Set name of tag from repository
+void FinanceRepository::SetTagName(TagRepositoryIterator tag, const std::string& name)
+{
+  (**tag).SetName(name);
+}
+
+//  Class member function
 //  Number of transactions in transaction repository
 size_t FinanceRepository::GetTransactionsNumber() const
 {

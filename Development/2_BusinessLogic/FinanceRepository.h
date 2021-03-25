@@ -51,6 +51,10 @@
 //          Get name of account from repository
 //          Get amount of account from repository
 //          Get name of tag from repository
+//        set values of model from repository
+//          Set name of account from repository
+//          Set amount of account from repository
+//          Set name of tag from repository
 //        number of elements in repository:
 //          Number of transactions in transaction repository
 //          Number of accounts in account repository
@@ -136,7 +140,7 @@
 
 class FinanceRepository
 {
-private:
+public:
   //  basic->iterators->begin
   TransactionRepositoryIterator BeginTransactionRepository() const;
   AccountRepositoryIterator BeginAccountRepository() const;
@@ -155,7 +159,6 @@ private:
   PayeeRepositoryIterator EndPayeeRepository() const;
   CommentRepositoryIterator EndCommentRepository() const;
   TagRepositoryIterator EndTagRepository() const;
-public:
   //  constructor->default
 	FinanceRepository();
   //  basic->add element
@@ -187,6 +190,10 @@ public:
   std::string GetAccountName(AccountRepositoryIterator account) const;
   double GetAccountAmount(AccountRepositoryIterator account) const;
   std::string GetTagName(TagRepositoryIterator tag) const;
+  //  basic->set values of model from repository
+  void SetAccountName(AccountRepositoryIterator account, const std::string& name);
+  void SetAccountAmount(AccountRepositoryIterator account, const double amount);
+  void SetTagName(TagRepositoryIterator tag, const std::string& name);
   //  basic->number of elements in repository
   size_t GetTransactionsNumber() const;
   size_t GetAccountsNumber() const;
