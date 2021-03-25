@@ -34,6 +34,20 @@ void PayeeRepository::Remove(std::shared_ptr<Payee> payee)
 }
 
 //  Class member function
+//  Get name of payee from repository
+std::string PayeeRepository::GetName(PayeeRepositoryIterator payee) const
+{
+  return (**payee).GetName();
+}
+
+//  Class member function
+//  Set name of payee from repository
+void PayeeRepository::SetName(PayeeRepositoryIterator payee, const std::string& name)
+{
+  (**payee).SetName(name);
+}
+
+//  Class member function
 //  Calculate size of repository
 size_t PayeeRepository::Size() const
 {
@@ -52,6 +66,20 @@ void PayeeRepository::Clear()
 PayeeRepositoryIterator PayeeRepository::Find(std::shared_ptr<Payee> payee) const
 {
   return repository_.find(payee);
+}
+
+//  Class member function
+//  Find payee with definite name in repository
+PayeeRepositoryIterator PayeeRepository::Find(std::string name) const
+{
+  for (auto i = repository_.begin(); i != repository_.end(); ++i)
+  {
+    if ((**i).GetName() == name)
+    {
+      return i;
+    }
+  }
+  return repository_.end();
 }
 
 //  Class member function

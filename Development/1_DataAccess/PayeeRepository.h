@@ -11,9 +11,12 @@
 //    Add payee to repository
 //    Add payee (shared pointer) to repository
 //    Remove payee (shared pointer) from repository
+//    Get name of payee from repository
+//    Set name of payee from repository
 //    Calculate size of repository
 //    Clear repository
 //    Find payee (shared pointer) in repository
+//    Find payee with definite name in repository
 //    Find begin iterator of repository
 //    Find end iterator of repository
 //
@@ -35,9 +38,12 @@ public:
   void Add(Payee payee);
   void Add(std::shared_ptr<Payee> payee);
   void Remove(std::shared_ptr<Payee> payee);
+  std::string GetName(PayeeRepositoryIterator payee) const;
+  void SetName(PayeeRepositoryIterator payee, const std::string& name);
   size_t Size() const;
   void Clear();
   PayeeRepositoryIterator Find(std::shared_ptr<Payee> payee) const;
+  PayeeRepositoryIterator Find(std::string name) const;
   PayeeRepositoryIterator Begin() const;
   PayeeRepositoryIterator End() const;
 private:
