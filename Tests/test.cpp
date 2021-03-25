@@ -1,5 +1,7 @@
 #include "pch.h"
 
+//  Account
+
 TEST(AccountTest, TestNameDefault)
 {
   std::string name_expected = "Unspecified";
@@ -86,6 +88,64 @@ TEST(AccountTest, TestName)
   EXPECT_TRUE(true);
 }
 
+//  Payee
+
+TEST(PayeeTest, TestNameDefault)
+{
+  std::string name_expected = "Unspecified";
+  std::string name_repository = "";
+  FinanceRepository rep;
+  rep.AddPayee();
+  auto iterator_name = rep.FindPayee("Unspecified");
+  if (iterator_name != rep.EndPayeeRepository())
+  {
+    name_repository = rep.GetPayeeName(iterator_name);
+  }
+  EXPECT_EQ(name_expected, name_repository);
+  EXPECT_TRUE(true);
+}
+
+TEST(PayeeTest, TestNameDefaultWithRename)
+{
+  std::string name_expected = "Unspecified";
+  std::string name_expected_rename = "UnspecifiedRename";
+  std::string name_repository = "";
+  FinanceRepository rep;
+  rep.AddPayee();
+  auto iterator_name = rep.FindPayee("Unspecified");
+  if (iterator_name != rep.EndPayeeRepository())
+  {
+    name_repository = rep.GetPayeeName(iterator_name);
+  }
+  EXPECT_EQ(name_expected, name_repository);
+  EXPECT_TRUE(true);
+  rep.SetPayeeName(iterator_name, "UnspecifiedRename");
+  auto iterator_name_rename = rep.FindPayee("UnspecifiedRename");
+  if (iterator_name_rename != rep.EndPayeeRepository())
+  {
+    name_repository = rep.GetPayeeName(iterator_name_rename);
+  }
+  EXPECT_EQ(name_expected_rename, name_repository);
+  EXPECT_TRUE(true);
+}
+
+TEST(PayeeTest, TestName)
+{
+  std::string name_expected = "Name1";
+  std::string name_repository = "";
+  FinanceRepository rep;
+  rep.AddPayee({ "Name1" });
+  auto iterator_name = rep.FindPayee("Name1");
+  if (iterator_name != rep.EndPayeeRepository())
+  {
+    name_repository = rep.GetPayeeName(iterator_name);
+  }
+  EXPECT_EQ(name_expected, name_repository);
+  EXPECT_TRUE(true);
+}
+
+//  Tag
+
 TEST(TagTest, TestNameDefault)
 {
   std::string name_expected = "Unspecified";
@@ -134,7 +194,7 @@ TEST(TagTest, TestName)
   auto iterator_name = rep.FindTag("Name1");
   if (iterator_name != rep.EndTagRepository())
   {
-    name_repository = rep.GetTagName(rep.FindTag("Name1"));
+    name_repository = rep.GetTagName(iterator_name);
   }
   EXPECT_EQ(name_expected, name_repository);
   EXPECT_TRUE(true);
