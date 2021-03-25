@@ -50,10 +50,20 @@
 //        get values of model from repository
 //          Get name of account from repository
 //          Get amount of account from repository
+//          // Get name of category from repository
+//          // Get name of currency from repository
+//          // Get name of description from repository
+//          Get name of payee from repository
+//          // Get name of comment from repository
 //          Get name of tag from repository
 //        set values of model from repository
 //          Set name of account from repository
 //          Set amount of account from repository
+//          // Set name of category from repository
+//          // Set name of currency from repository
+//          // Set name of description from repository
+//          Set name of payee from repository
+//          // Set name of comment from repository
 //          Set name of tag from repository
 //        number of elements in repository:
 //          Number of transactions in transaction repository
@@ -85,6 +95,7 @@
 //        find:
 //          Find account with definite name in account repository
 //          Find account with definite amoune in account repository
+//          Find payee with definite name in payee repository
 //          Find tag with definite name in tag repository
 //          Find transaction (shared pointer) in transaction repository
 //          Find account (shared pointer) in account repository
@@ -189,10 +200,12 @@ public:
   //  basic->get values of model from repository
   std::string GetAccountName(AccountRepositoryIterator account) const;
   double GetAccountAmount(AccountRepositoryIterator account) const;
+  std::string GetPayeeName(PayeeRepositoryIterator payee) const;
   std::string GetTagName(TagRepositoryIterator tag) const;
   //  basic->set values of model from repository
   void SetAccountName(AccountRepositoryIterator account, const std::string& name);
   void SetAccountAmount(AccountRepositoryIterator account, const double amount);
+  void SetPayeeName(PayeeRepositoryIterator payee, const std::string& name);
   void SetTagName(TagRepositoryIterator tag, const std::string& name);
   //  basic->number of elements in repository
   size_t GetTransactionsNumber() const;
@@ -224,6 +237,7 @@ public:
   //  basic->find
   AccountRepositoryIterator FindAccount(std::string name) const;
   AccountRepositoryIterator FindAccount(double amount) const;
+  PayeeRepositoryIterator FindPayee(std::string name) const;
   TagRepositoryIterator FindTag(std::string name) const;
   TransactionRepositoryIterator FindTransaction(std::shared_ptr<Transaction> transaction) const;
   AccountRepositoryIterator FindAccount(std::shared_ptr<Account> account) const;

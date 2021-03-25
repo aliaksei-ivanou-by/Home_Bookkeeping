@@ -302,6 +302,13 @@ double FinanceRepository::GetAccountAmount(AccountRepositoryIterator account) co
 }
 
 //  Class member function
+//  Get name of payee from repository
+std::string FinanceRepository::GetPayeeName(PayeeRepositoryIterator payee) const
+{
+  return (**payee).GetName();
+}
+
+//  Class member function
 //  Get name of tag from repository
 std::string FinanceRepository::GetTagName(TagRepositoryIterator tag) const
 {
@@ -321,6 +328,14 @@ void FinanceRepository::SetAccountAmount(AccountRepositoryIterator account, cons
 {
   (**account).SetAmount(amount);
 }
+
+//  Class member function
+//  Set name of payee from repository
+void FinanceRepository::SetPayeeName(PayeeRepositoryIterator payee, const std::string& name)
+{
+  (**payee).SetName(name);
+}
+
 
 //  Class member function
 //  Set name of tag from repository
@@ -581,6 +596,13 @@ AccountRepositoryIterator FinanceRepository::FindAccount(std::string name) const
 AccountRepositoryIterator FinanceRepository::FindAccount(double amount) const
 {
   return account_repository_.Find(amount);
+}
+
+//  Class member function
+//  Find payee with definite amoune in payee repository
+PayeeRepositoryIterator FinanceRepository::FindPayee(std::string name) const
+{
+  return payee_repository_.Find(name);
 }
 
 //  Class member function
