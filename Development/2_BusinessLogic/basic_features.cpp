@@ -302,6 +302,13 @@ double FinanceRepository::GetAccountAmount(AccountRepositoryIterator account) co
 }
 
 //  Class member function
+//  Get name of description from repositor
+std::string FinanceRepository::GetDescriptionName(DescriptionRepositoryIterator description) const
+{
+  return (**description).GetName();
+}
+
+//  Class member function
 //  Get name of payee from repository
 std::string FinanceRepository::GetPayeeName(PayeeRepositoryIterator payee) const
 {
@@ -330,12 +337,18 @@ void FinanceRepository::SetAccountAmount(AccountRepositoryIterator account, cons
 }
 
 //  Class member function
+//  Set name of description from repository
+void FinanceRepository::SetDescriptionName(DescriptionRepositoryIterator description, const std::string& name)
+{
+  (**description).SetName(name);
+}
+
+//  Class member function
 //  Set name of payee from repository
 void FinanceRepository::SetPayeeName(PayeeRepositoryIterator payee, const std::string& name)
 {
   (**payee).SetName(name);
 }
-
 
 //  Class member function
 //  Set name of tag from repository
@@ -599,7 +612,14 @@ AccountRepositoryIterator FinanceRepository::FindAccount(double amount) const
 }
 
 //  Class member function
-//  Find payee with definite amoune in payee repository
+//  Find description with definite name in description repository
+DescriptionRepositoryIterator FinanceRepository::FindDescription(std::string name) const
+{
+  return description_repository_.Find(name);
+}
+
+//  Class member function
+//  Find payee with definite name in payee repository
 PayeeRepositoryIterator FinanceRepository::FindPayee(std::string name) const
 {
   return payee_repository_.Find(name);
