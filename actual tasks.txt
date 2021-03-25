@@ -6,4 +6,5 @@
 - output for models
 - logger
 - change type for amount to bcd - binary coded dec (https://github.com/edwig/bcd)
-- SQLite for saving data in database
+- SQLite (or other) for saving data in database
+- Google Test
