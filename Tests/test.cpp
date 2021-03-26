@@ -88,6 +88,62 @@ TEST(AccountTest, TestName)
   EXPECT_TRUE(true);
 }
 
+//  Category
+
+TEST(CategoryTest, TestNameDefault)
+{
+  std::string name_expected = "Unspecified";
+  std::string name_repository = "";
+  FinanceRepository rep;
+  rep.AddCategory();
+  auto iterator_name = rep.FindCategory("Unspecified");
+  if (iterator_name != rep.EndCategoryRepository())
+  {
+    name_repository = rep.GetCategoryName(iterator_name);
+  }
+  EXPECT_EQ(name_expected, name_repository);
+  EXPECT_TRUE(true);
+}
+
+TEST(CategoryTest, TestNameDefaultWithRename)
+{
+  std::string name_expected = "Unspecified";
+  std::string name_expected_rename = "UnspecifiedRename";
+  std::string name_repository = "";
+  FinanceRepository rep;
+  rep.AddCategory();
+  auto iterator_name = rep.FindCategory("Unspecified");
+  if (iterator_name != rep.EndCategoryRepository())
+  {
+    name_repository = rep.GetCategoryName(iterator_name);
+  }
+  EXPECT_EQ(name_expected, name_repository);
+  EXPECT_TRUE(true);
+  rep.SetCategoryName(iterator_name, "UnspecifiedRename");
+  auto iterator_name_rename = rep.FindCategory("UnspecifiedRename");
+  if (iterator_name_rename != rep.EndCategoryRepository())
+  {
+    name_repository = rep.GetCategoryName(iterator_name_rename);
+  }
+  EXPECT_EQ(name_expected_rename, name_repository);
+  EXPECT_TRUE(true);
+}
+
+TEST(CategoryTest, TestName)
+{
+  std::string name_expected = "Name1";
+  std::string name_repository = "";
+  FinanceRepository rep;
+  rep.AddCategory({ "Name1" });
+  auto iterator_name = rep.FindCategory("Name1");
+  if (iterator_name != rep.EndCategoryRepository())
+  {
+    name_repository = rep.GetCategoryName(iterator_name);
+  }
+  EXPECT_EQ(name_expected, name_repository);
+  EXPECT_TRUE(true);
+}
+
 //  Description
 
 TEST(DescriptionTest, TestNameDefault)
