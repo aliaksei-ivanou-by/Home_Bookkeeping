@@ -41,7 +41,7 @@ std::string CommentRepository::GetName(CommentRepositoryIterator comment) const
 }
 
 //  Class member function
-//  Set name of payee from repository
+//  Set name of comment from repository
 void CommentRepository::SetName(CommentRepositoryIterator comment, const std::string& name)
 {
   (**comment).SetName(name);

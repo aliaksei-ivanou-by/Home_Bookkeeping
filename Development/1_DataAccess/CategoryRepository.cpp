@@ -41,7 +41,7 @@ std::string CategoryRepository::GetName(CategoryRepositoryIterator category) con
 }
 
 //  Class member function
-//  Set name of payee from repository
+//  Set name of category from repository
 void CategoryRepository::SetName(CategoryRepositoryIterator category, const std::string& name)
 {
   (**category).SetName(name);
@@ -69,7 +69,7 @@ CategoryRepositoryIterator CategoryRepository::Find(std::shared_ptr<Category> ca
 }
 
 //  Class member function
-//  Find comment with definite name in repository
+//  Find category with definite name in repository
 CategoryRepositoryIterator CategoryRepository::Find(const std::string& name) const
 {
   for (auto i = repository_.begin(); i != repository_.end(); ++i)

@@ -34,7 +34,7 @@ void TagRepository::Remove(std::shared_ptr<Tag> tag)
 }
 
 //  Class member function
-//  Get name of account from repository
+//  Get name of tag from repository
 std::string TagRepository::GetName(TagRepositoryIterator tag) const
 {
   return (**tag).GetName();
