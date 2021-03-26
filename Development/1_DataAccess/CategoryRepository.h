@@ -12,6 +12,7 @@
 //    Add category (shared pointer) to repository
 //    Remove category (shared pointer) from repository
 //    Get name of category from repository
+//    Set name of category from repository
 //    Calculate size of repository
 //    Clear repository
 //    Find category (shared pointer) in repository
@@ -37,9 +38,12 @@ public:
   void Add(Category category);
   void Add(std::shared_ptr<Category> category);
   void Remove(std::shared_ptr<Category> category);
+  std::string GetName(CategoryRepositoryIterator category) const;
+  void SetName(CategoryRepositoryIterator category, const std::string& name);
   size_t Size() const;
   void Clear();
   CategoryRepositoryIterator Find(std::shared_ptr<Category> category) const;
+  CategoryRepositoryIterator Find(const std::string& category) const;
   CategoryRepositoryIterator Begin() const;
   CategoryRepositoryIterator End() const;
 private:

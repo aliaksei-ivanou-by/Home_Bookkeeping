@@ -34,6 +34,20 @@ void CategoryRepository::Remove(std::shared_ptr<Category> category)
 }
 
 //  Class member function
+//  Get name of category from repository
+std::string CategoryRepository::GetName(CategoryRepositoryIterator category) const
+{
+  return (**category).GetName();
+}
+
+//  Class member function
+//  Set name of payee from repository
+void CategoryRepository::SetName(CategoryRepositoryIterator category, const std::string& name)
+{
+  (**category).SetName(name);
+}
+
+//  Class member function
 //  Calculate size of repository
 size_t CategoryRepository::Size() const
 {
@@ -52,6 +66,20 @@ void CategoryRepository::Clear()
 CategoryRepositoryIterator CategoryRepository::Find(std::shared_ptr<Category> category) const
 {
   return repository_.find(category);
+}
+
+//  Class member function
+//  Find comment with definite name in repository
+CategoryRepositoryIterator CategoryRepository::Find(const std::string& name) const
+{
+  for (auto i = repository_.begin(); i != repository_.end(); ++i)
+  {
+    if ((**i).GetName() == name)
+    {
+      return i;
+    }
+  }
+  return repository_.end();
 }
 
 //  Class member function
