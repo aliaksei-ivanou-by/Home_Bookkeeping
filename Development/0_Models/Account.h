@@ -13,13 +13,12 @@
 //    Get amount
 //    Set name
 //    Set amount
-//    Update amount
+//    Append amount
 //    Operator < for sorting models (by name (1), amount (2))
 //    Output model (name, amount -> "name (amount)")
 //    Input model (name, amount -> "name, amount")
 //
 //  Variables:
-//    kNameUnspecified
 //    name
 //    amount
 
@@ -42,7 +41,6 @@ public:
   friend std::istream& operator>>(std::istream& input_stream, Account& model);
 private:
   double amount_;
-  std::string kNameUnspecified = "Unspecified";
 };
 
 #endif  //  HOMEBOOKKEEPING_0MODELS_ACCOUNT_H_

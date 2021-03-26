@@ -16,7 +16,6 @@
 //
 //  Variables:
 //    name
-//    kNameUnspecified
 
 #include <iostream>
 #include <string>

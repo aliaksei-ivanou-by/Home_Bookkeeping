@@ -3,7 +3,7 @@
 //  Constructor
 //  Default (name = "Unspecified")
 Payee::Payee():
-  Model{ "Unspecified" }
+  Model{ }
 {}
 
 //  Constructor
