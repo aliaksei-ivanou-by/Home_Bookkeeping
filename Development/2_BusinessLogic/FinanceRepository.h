@@ -99,7 +99,7 @@
 //          Print payee repository
 //          Print comment repository
 //          Print tag repository
-//        find:
+//        find (definite name):
 //          Find account with definite name in account repository
 //          Find account with definite amoune in account repository
 //          Find category with definite name in category repository
@@ -109,6 +109,7 @@
 //          Find payee with definite name in payee repository
 //          Find comment with definite name in tag repository
 //          Find tag with definite name in tag repository
+//        find (shared pointer):
 //          Find transaction (shared pointer) in transaction repository
 //          Find account (shared pointer) in account repository
 //          Find category (shared pointer) in category repository
@@ -261,7 +262,7 @@ public:
   void PrintPayees(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
   void PrintComments(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
   void PrintTags(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
-  //  basic->find
+  //  basic->find (definite name)
   AccountRepositoryIterator FindAccount(std::string name) const;
   AccountRepositoryIterator FindAccount(double amount) const;
   CategoryRepositoryIterator FindCategory(std::string name) const;
@@ -271,6 +272,7 @@ public:
   PayeeRepositoryIterator FindPayee(std::string name) const;
   CommentRepositoryIterator FindComment(std::string comment) const;
   TagRepositoryIterator FindTag(std::string name) const;
+  //  basic->find (shared pointer)
   TransactionRepositoryIterator FindTransaction(std::shared_ptr<Transaction> transaction) const;
   AccountRepositoryIterator FindAccount(std::shared_ptr<Account> account) const;
   CategoryRepositoryIterator FindCategory(std::shared_ptr<Category> category) const;
