@@ -34,6 +34,69 @@ void CurrencyRepository::Remove(std::shared_ptr<Currency> currency)
 }
 
 //  Class member function
+//  Get name of currency from repository
+std::string CurrencyRepository::GetName(CurrencyRepositoryIterator currency) const
+{
+  return (**currency).GetName();
+}
+
+//  Class member function
+//  Set name of currency from repository
+void CurrencyRepository::SetName(CurrencyRepositoryIterator currency, const std::string& name)
+{
+  (**currency).SetName(name);
+}
+
+//  Class member function
+//  Set code of currency from repository
+void CurrencyRepository::SetCode(CurrencyRepositoryIterator currency, const std::string& code)
+{
+  (**currency).SetCode(code);
+}
+
+//  Class member function
+//  Set activity of currency from repository
+void CurrencyRepository::SetActivity(CurrencyRepositoryIterator currency, const bool activity)
+{
+  (**currency).SetActivity(activity);
+}
+
+//  Class member function
+//  Switch activity of currency from repository
+void CurrencyRepository::Switch(CurrencyRepositoryIterator currency)
+{
+  (**currency).Switch();
+}
+
+//  Class member function
+//  Switch on activity of currency from repository
+void CurrencyRepository::SwitchOn(CurrencyRepositoryIterator currency)
+{
+  (**currency).SwitchOn();
+}
+
+//  Class member function
+//  Switch off activity of currency from repository
+void CurrencyRepository::SwitchOff(CurrencyRepositoryIterator currency)
+{
+  (**currency).SwitchOff();
+}
+
+//  Class member function
+//  Get code of currency from repository
+std::string CurrencyRepository::GetCode(CurrencyRepositoryIterator currency) const
+{
+  return (**currency).GetCode();
+}
+
+//  Class member function
+//  Get activity of currency from repository
+bool CurrencyRepository::GetActivity(CurrencyRepositoryIterator currency) const
+{
+  return (**currency).GetActivity();
+}
+
+//  Class member function
 //  Calculate size of repository
 size_t CurrencyRepository::Size() const
 {
@@ -52,6 +115,34 @@ void CurrencyRepository::Clear()
 CurrencyRepositoryIterator CurrencyRepository::Find(std::shared_ptr<Currency> currency) const
 {
   return repository_.find(currency);
+}
+
+//  Class member function
+//  Find currency with definite name in repository
+CurrencyRepositoryIterator CurrencyRepository::FindName(const std::string& name) const
+{
+  for (auto i = repository_.begin(); i != repository_.end(); ++i)
+  {
+    if ((**i).GetName() == name)
+    {
+      return i;
+    }
+  }
+  return repository_.end();
+}
+
+//  Class member function
+//  Find currency with definite code in repository
+CurrencyRepositoryIterator CurrencyRepository::FindCode(const std::string& code) const
+{
+  for (auto i = repository_.begin(); i != repository_.end(); ++i)
+  {
+    if ((**i).GetCode() == code)
+    {
+      return i;
+    }
+  }
+  return repository_.end();
 }
 
 //  Class member function
