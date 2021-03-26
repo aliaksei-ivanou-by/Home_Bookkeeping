@@ -4,7 +4,7 @@
 //  Class Currency : public Model
 //
 //  Constructors:
-//    Default (name = "Unspecified", code = "", activity = false)
+//    Default (name = "Unspecified", code = "Unspecified", activity = false)
 //    With name setting (code = "Unspecified", activity = false)
 //    With name setting and code setting (activity = true)
 //    With name setting, code setting and activity setting
@@ -16,6 +16,9 @@
 //    Set name
 //    Set code
 //    Set activity
+//    Switch activity
+//    Switch on activity
+//    Switch off activity
 //    Operator < for sorting models (by name (1), code (2), activity (3))
 //    Output model (name, code, activity -> "name (code, activity)")
 //    Input model (name, code, activity -> "name, amount, activity")
@@ -41,6 +44,9 @@ public:
   bool GetActivity() const;
   void SetCode(const std::string& code);
   void SetActivity(const bool activity);
+  void Switch();
+  void SwitchOn();
+  void SwitchOff();
   friend bool operator<(const Currency& model_left, const Currency& model_right);
   friend std::ostream& operator<<(std::ostream& output_stream, const Currency& model);
   friend std::istream& operator>>(std::istream& input_stream, Currency& model);

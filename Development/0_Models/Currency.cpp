@@ -60,6 +60,27 @@ void Currency::SetActivity(const bool activity)
   activity_ = activity;
 }
 
+//  Class member function
+//  Switch activity
+void Currency::Switch()
+{
+  activity_ = !(activity_);
+}
+
+//  Class member function
+//  Switch on activity
+void Currency::SwitchOn()
+{
+  activity_ = true;
+}
+
+//  Class member function
+//  Switch off activity
+void Currency::SwitchOff()
+{
+  activity_ = false;
+}
+
 //  Friend class member function
 //  Operator < for sorting models (by name (1), code (2), activity (3))
 bool operator<(const Currency& model_left, const Currency& model_right)
