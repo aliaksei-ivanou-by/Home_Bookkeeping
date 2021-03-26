@@ -12,6 +12,7 @@
 //    Add shared pointer to comment to repository
 //    Remove shared pointer to comment from repository
 //    Get name of comment from repository
+//    Set name of comment from repository
 //    Calculate size of repository
 //    Clear repository
 //    Find shared pointer to comment in repository
@@ -37,9 +38,12 @@ public:
   void Add(Comment comment);
   void Add(std::shared_ptr<Comment> comment);
   void Remove(std::shared_ptr<Comment> comment);
+  std::string GetName(CommentRepositoryIterator comment) const;
+  void SetName(CommentRepositoryIterator comment, const std::string& name);
   size_t Size() const;
   void Clear();
   CommentRepositoryIterator Find(std::shared_ptr<Comment> comment) const;
+  CommentRepositoryIterator Find(const std::string& comment) const;
   CommentRepositoryIterator Begin() const;
   CommentRepositoryIterator End() const;
 private:

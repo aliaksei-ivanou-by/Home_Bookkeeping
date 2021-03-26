@@ -34,6 +34,20 @@ void CommentRepository::Remove(std::shared_ptr<Comment> comment)
 }
 
 //  Class member function
+//  Get name of comment from repository
+std::string CommentRepository::GetName(CommentRepositoryIterator comment) const
+{
+  return (**comment).GetName();
+}
+
+//  Class member function
+//  Set name of payee from repository
+void CommentRepository::SetName(CommentRepositoryIterator comment, const std::string& name)
+{
+  (**comment).SetName(name);
+}
+
+//  Class member function
 //  Calculate size of repository
 size_t CommentRepository::Size() const
 {
@@ -52,6 +66,20 @@ void CommentRepository::Clear()
 CommentRepositoryIterator CommentRepository::Find(std::shared_ptr<Comment> comment) const
 {
   return repository_.find(comment);
+}
+
+//  Class member function
+//  Find comment with definite name in repository
+CommentRepositoryIterator CommentRepository::Find(const std::string& name) const
+{
+  for (auto i = repository_.begin(); i != repository_.end(); ++i)
+  {
+    if ((**i).GetName() == name)
+    {
+      return i;
+    }
+  }
+  return repository_.end();
 }
 
 //  Class member function
