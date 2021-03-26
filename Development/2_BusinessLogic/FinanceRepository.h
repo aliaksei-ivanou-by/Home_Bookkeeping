@@ -51,7 +51,9 @@
 //          Get name of account from repository
 //          Get amount of account from repository
 //          Get name of category from repository
-//          // Get name of currency from repository
+//          Get name of currency from repository
+//          Get code of currency from repository
+//          Get activity of currency from repository
 //          Get name of description from repository
 //          Get name of payee from repository
 //          Get name of comment from repository
@@ -60,7 +62,12 @@
 //          Set name of account from repository
 //          Set amount of account from repository
 //          Set name of category from repository
-//          // Set name of currency from repository
+//          Set name of currency from repository
+//          Set code of currency from repository
+//          Set activity of currency from repository
+//          Switch activity of currency from repository
+//          Switch on activity of currency from repository
+//          Switch off activity of currency from repository
 //          Set name of description from repository
 //          Set name of payee from repository
 //          Set name of comment from repository
@@ -96,6 +103,8 @@
 //          Find account with definite name in account repository
 //          Find account with definite amoune in account repository
 //          Find category with definite name in category repository
+//          Find currency with definite name in currency repository
+//          Find currency with definite code in currency repository
 //          Find description with definite name in description repository
 //          Find payee with definite name in payee repository
 //          Find comment with definite name in tag repository
@@ -204,6 +213,9 @@ public:
   std::string GetAccountName(AccountRepositoryIterator account) const;
   double GetAccountAmount(AccountRepositoryIterator account) const;
   std::string GetCategoryName(CategoryRepositoryIterator category) const;
+  std::string GetCurrencyName(CurrencyRepositoryIterator currency) const;
+  std::string GetCurrencyCode(CurrencyRepositoryIterator currency) const;
+  bool GetCurrencyActivity(CurrencyRepositoryIterator currency) const;
   std::string GetDescriptionName(DescriptionRepositoryIterator description) const;
   std::string GetPayeeName(PayeeRepositoryIterator payee) const;
   std::string GetCommentName(CommentRepositoryIterator comment) const;
@@ -212,6 +224,12 @@ public:
   void SetAccountName(AccountRepositoryIterator account, const std::string& name);
   void SetAccountAmount(AccountRepositoryIterator account, const double amount);
   void SetCategoryName(CategoryRepositoryIterator category, const std::string& name);
+  void SetCurrencyName(CurrencyRepositoryIterator currency, const std::string& name);
+  void SetCurrencyCode(CurrencyRepositoryIterator currency, const std::string& code);
+  void SetCurrencyActivity(CurrencyRepositoryIterator currency, const bool activity);
+  void SwitchCurrencyActivity(CurrencyRepositoryIterator currency);
+  void SwitchOnCurrencyActivity(CurrencyRepositoryIterator currency);
+  void SwitchOffCurrencyActivity(CurrencyRepositoryIterator currency);
   void SetDescriptionName(DescriptionRepositoryIterator description, const std::string& name);
   void SetPayeeName(PayeeRepositoryIterator payee, const std::string& name);
   void SetCommentName(CommentRepositoryIterator comment, const std::string& name);
@@ -247,6 +265,8 @@ public:
   AccountRepositoryIterator FindAccount(std::string name) const;
   AccountRepositoryIterator FindAccount(double amount) const;
   CategoryRepositoryIterator FindCategory(std::string name) const;
+  CurrencyRepositoryIterator FindCurrencyName(std::string name) const;
+  CurrencyRepositoryIterator FindCurrencyCode(std::string name) const;
   DescriptionRepositoryIterator FindDescription(std::string name) const;
   PayeeRepositoryIterator FindPayee(std::string name) const;
   CommentRepositoryIterator FindComment(std::string comment) const;

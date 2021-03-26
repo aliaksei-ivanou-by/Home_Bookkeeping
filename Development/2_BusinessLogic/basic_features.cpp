@@ -309,6 +309,27 @@ std::string FinanceRepository::GetCategoryName(CategoryRepositoryIterator catego
 }
 
 //  Class member function
+//  Get name of currency from repositor
+std::string FinanceRepository::GetCurrencyName(CurrencyRepositoryIterator currency) const
+{
+  return (**currency).GetName();
+}
+
+//  Class member function
+//  Get code of currency from repositor
+std::string FinanceRepository::GetCurrencyCode(CurrencyRepositoryIterator currency) const
+{
+  return (**currency).GetCode();
+}
+
+//  Class member function
+//  Get activity of currency from repositor
+bool FinanceRepository::GetCurrencyActivity(CurrencyRepositoryIterator currency) const
+{
+  return (**currency).GetActivity();
+}
+
+//  Class member function
 //  Get name of description from repositor
 std::string FinanceRepository::GetDescriptionName(DescriptionRepositoryIterator description) const
 {
@@ -355,6 +376,48 @@ void FinanceRepository::SetAccountAmount(AccountRepositoryIterator account, cons
 void FinanceRepository::SetCategoryName(CategoryRepositoryIterator category, const std::string& name)
 {
   (**category).SetName(name);
+}
+
+//  Class member function
+//  Set name of currency from repository
+void FinanceRepository::SetCurrencyName(CurrencyRepositoryIterator currency, const std::string& name)
+{
+  (**currency).SetName(name);
+}
+
+//  Class member function
+//  Set code of currency from repository
+void FinanceRepository::SetCurrencyCode(CurrencyRepositoryIterator currency, const std::string& code)
+{
+  (**currency).SetCode(code);
+}
+
+//  Class member function
+//  Set activity of currency from repository
+void FinanceRepository::SetCurrencyActivity(CurrencyRepositoryIterator currency, const bool activity)
+{
+  (**currency).SetActivity(activity);
+}
+
+//  Class member function
+//  Switch activity of currency from repository
+void FinanceRepository::SwitchCurrencyActivity(CurrencyRepositoryIterator currency)
+{
+  (**currency).Switch();
+}
+
+//  Class member function
+//  Switch on activity of currency from repository
+void FinanceRepository::SwitchOnCurrencyActivity(CurrencyRepositoryIterator currency)
+{
+  (**currency).SwitchOn();
+}
+
+//  Class member function
+//  Switch off activity of currency from repository
+void FinanceRepository::SwitchOffCurrencyActivity(CurrencyRepositoryIterator currency)
+{
+  (**currency).SwitchOff();
 }
 
 //  Class member function
@@ -644,6 +707,20 @@ AccountRepositoryIterator FinanceRepository::FindAccount(double amount) const
 CategoryRepositoryIterator FinanceRepository::FindCategory(std::string name) const
 {
   return category_repository_.Find(name);
+}
+
+//  Class member function
+//  Find currency with definite name in category repository
+CurrencyRepositoryIterator FinanceRepository::FindCurrencyName(std::string name) const
+{
+  return currency_repository_.FindName(name);
+}
+
+//  Class member function
+//  Find currency with definite code in category repository
+CurrencyRepositoryIterator FinanceRepository::FindCurrencyCode(std::string code) const
+{
+  return currency_repository_.FindCode(code);
 }
 
 //  Class member function
