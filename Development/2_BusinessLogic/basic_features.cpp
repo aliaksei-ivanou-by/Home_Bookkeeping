@@ -302,6 +302,13 @@ double FinanceRepository::GetAccountAmount(AccountRepositoryIterator account) co
 }
 
 //  Class member function
+//  Get name of category from repositor
+std::string FinanceRepository::GetCategoryName(CategoryRepositoryIterator category) const
+{
+  return (**category).GetName();
+}
+
+//  Class member function
 //  Get name of description from repositor
 std::string FinanceRepository::GetDescriptionName(DescriptionRepositoryIterator description) const
 {
@@ -341,6 +348,13 @@ void FinanceRepository::SetAccountName(AccountRepositoryIterator account, const 
 void FinanceRepository::SetAccountAmount(AccountRepositoryIterator account, const double amount)
 {
   (**account).SetAmount(amount);
+}
+
+//  Class member function
+//  Set name of category from repository
+void FinanceRepository::SetCategoryName(CategoryRepositoryIterator category, const std::string& name)
+{
+  (**category).SetName(name);
 }
 
 //  Class member function
@@ -623,6 +637,13 @@ AccountRepositoryIterator FinanceRepository::FindAccount(std::string name) const
 AccountRepositoryIterator FinanceRepository::FindAccount(double amount) const
 {
   return account_repository_.Find(amount);
+}
+
+//  Class member function
+//  Find category with definite name in category repository
+CategoryRepositoryIterator FinanceRepository::FindCategory(std::string name) const
+{
+  return category_repository_.Find(name);
 }
 
 //  Class member function
