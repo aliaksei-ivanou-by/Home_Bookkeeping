@@ -2,7 +2,7 @@
 
 //  Account
 
-TEST(AccountTest, TestNameDefault)
+TEST(AccountTest, TestDefault)
 {
   std::string name_expected = "Unspecified";
   std::string name_repository = "";
@@ -25,7 +25,7 @@ TEST(AccountTest, TestNameDefault)
   EXPECT_TRUE(true);
 }
 
-TEST(AccountTest, TestNameDefaultWithRenameAndReamount)
+TEST(AccountTest, TestDefaultWithRenameAndReamount)
 {
   std::string name_expected = "Unspecified";
   std::string name_expected_rename = "UnspecifiedRename";
@@ -65,7 +65,7 @@ TEST(AccountTest, TestNameDefaultWithRenameAndReamount)
   EXPECT_TRUE(true);
 }
 
-TEST(AccountTest, TestName)
+TEST(AccountTest, TestNameAndAmount)
 {
   std::string name_expected = "Name";
   std::string name_repository = "";
@@ -90,7 +90,7 @@ TEST(AccountTest, TestName)
 
 //  Category
 
-TEST(CategoryTest, TestNameDefault)
+TEST(CategoryTest, TestDefault)
 {
   std::string name_expected = "Unspecified";
   std::string name_repository = "";
@@ -105,7 +105,7 @@ TEST(CategoryTest, TestNameDefault)
   EXPECT_TRUE(true);
 }
 
-TEST(CategoryTest, TestNameDefaultWithRename)
+TEST(CategoryTest, TestDefaultWithRename)
 {
   std::string name_expected = "Unspecified";
   std::string name_expected_rename = "UnspecifiedRename";
@@ -144,9 +144,100 @@ TEST(CategoryTest, TestName)
   EXPECT_TRUE(true);
 }
 
+//  Currency
+
+TEST(CurrencyTest, TestDefault)
+{
+  std::string name_expected = "Unspecified";
+  std::string code_expected = "Unspecified";
+  bool activity_expected = false;
+  std::string name_repository = "";
+  std::string code_repository = "";
+  bool activity_repository = false;
+  FinanceRepository rep;
+  rep.AddCurrency();
+  auto iterator_name = rep.FindCurrencyName("Unspecified");
+  if (iterator_name != rep.EndCurrencyRepository())
+  {
+    name_repository = rep.GetCurrencyName(iterator_name);
+  }
+  auto iterator_code = rep.FindCurrencyCode("Unspecified");
+  if (iterator_name != rep.EndCurrencyRepository())
+  {
+    name_repository = rep.GetCurrencyCode(iterator_name);
+  }
+  if (iterator_name != rep.EndCurrencyRepository())
+  {
+    activity_repository = rep.GetCurrencyActivity(iterator_name);
+  }
+  EXPECT_EQ(activity_expected, activity_repository);
+  EXPECT_TRUE(true);
+}
+
+TEST(CurrencyTest, TestDefaultWithRename)
+{
+  std::string name_expected = "Unspecified";
+  std::string name_expected_rename = "UnspecifiedRename";
+  std::string code_expected = "Unspecified";
+  std::string code_expected_rename = "UnspecifiedRename";
+  bool activity_expected = false;
+  std::string name_repository = "";
+  std::string code_repository = "";
+  bool activity_repository = false;
+  FinanceRepository rep;
+  rep.AddCurrency();
+  auto iterator_name = rep.FindCurrencyName("Unspecified");
+  if (iterator_name != rep.EndCurrencyRepository())
+  {
+    name_repository = rep.GetCurrencyName(iterator_name);
+  }
+  auto iterator_code = rep.FindCurrencyCode("Unspecified");
+  if (iterator_name != rep.EndCurrencyRepository())
+  {
+    name_repository = rep.GetCurrencyCode(iterator_name);
+  }
+  if (iterator_name != rep.EndCurrencyRepository())
+  {
+    activity_repository = rep.GetCurrencyActivity(iterator_name);
+  }
+  EXPECT_EQ(activity_expected, activity_repository);
+  EXPECT_TRUE(true);
+  rep.SetCurrencyName(iterator_name, "UnspecifiedRename");
+  auto iterator_name_rename = rep.FindCurrencyName("UnspecifiedRename");
+  if (iterator_name_rename != rep.EndCurrencyRepository())
+  {
+    name_repository = rep.GetCurrencyName(iterator_name_rename);
+  }
+  EXPECT_EQ(name_expected_rename, name_repository);
+  EXPECT_TRUE(true);
+  rep.SetCurrencyCode(iterator_code, "UnspecifiedRename");
+  auto iterator_code_rename = rep.FindCurrencyName("UnspecifiedRename");
+  if (iterator_code_rename != rep.EndCurrencyRepository())
+  {
+    code_repository = rep.GetCurrencyName(iterator_code_rename);
+  }
+  EXPECT_EQ(code_expected_rename, code_repository);
+  EXPECT_TRUE(true);
+}
+
+TEST(CurrencyTest, TestName)
+{
+  std::string name_expected = "Name1";
+  std::string name_repository = "";
+  FinanceRepository rep;
+  rep.AddCurrency({ "Name1" });
+  auto iterator_name = rep.FindCurrencyName("Name1");
+  if (iterator_name != rep.EndCurrencyRepository())
+  {
+    name_repository = rep.GetCurrencyName(iterator_name);
+  }
+  EXPECT_EQ(name_expected, name_repository);
+  EXPECT_TRUE(true);
+}
+
 //  Description
 
-TEST(DescriptionTest, TestNameDefault)
+TEST(DescriptionTest, TestDefault)
 {
   std::string name_expected = "Unspecified";
   std::string name_repository = "";
@@ -161,7 +252,7 @@ TEST(DescriptionTest, TestNameDefault)
   EXPECT_TRUE(true);
 }
 
-TEST(DescriptionTest, TestNameDefaultWithRename)
+TEST(DescriptionTest, TestDefaultWithRename)
 {
   std::string name_expected = "Unspecified";
   std::string name_expected_rename = "UnspecifiedRename";
@@ -202,7 +293,7 @@ TEST(DescriptionTest, TestName)
 
 //  Payee
 
-TEST(PayeeTest, TestNameDefault)
+TEST(PayeeTest, TestDefault)
 {
   std::string name_expected = "Unspecified";
   std::string name_repository = "";
@@ -217,7 +308,7 @@ TEST(PayeeTest, TestNameDefault)
   EXPECT_TRUE(true);
 }
 
-TEST(PayeeTest, TestNameDefaultWithRename)
+TEST(PayeeTest, TestDefaultWithRename)
 {
   std::string name_expected = "Unspecified";
   std::string name_expected_rename = "UnspecifiedRename";
@@ -258,7 +349,7 @@ TEST(PayeeTest, TestName)
 
 //  Comment
 
-TEST(CommentTest, TestNameDefault)
+TEST(CommentTest, TestDefault)
 {
   std::string name_expected = "Unspecified";
   std::string name_repository = "";
@@ -273,7 +364,7 @@ TEST(CommentTest, TestNameDefault)
   EXPECT_TRUE(true);
 }
 
-TEST(CommentTest, TestNameDefaultWithRename)
+TEST(CommentTest, TestDefaultWithRename)
 {
   std::string name_expected = "Unspecified";
   std::string name_expected_rename = "UnspecifiedRename";
@@ -314,7 +405,7 @@ TEST(CommentTest, TestName)
 
 //  Tag
 
-TEST(TagTest, TestNameDefault)
+TEST(TagTest, TestDefault)
 {
   std::string name_expected = "Unspecified";
   std::string name_repository = "";
@@ -329,7 +420,7 @@ TEST(TagTest, TestNameDefault)
   EXPECT_TRUE(true);
 }
 
-TEST(TagTest, TestNameDefaultWithRename)
+TEST(TagTest, TestDefaultWithRename)
 {
   std::string name_expected = "Unspecified";
   std::string name_expected_rename = "UnspecifiedRename";
