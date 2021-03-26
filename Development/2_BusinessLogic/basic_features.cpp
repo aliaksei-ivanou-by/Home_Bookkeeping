@@ -316,6 +316,13 @@ std::string FinanceRepository::GetPayeeName(PayeeRepositoryIterator payee) const
 }
 
 //  Class member function
+//  Get name of comment from repository
+std::string FinanceRepository::GetCommentName(CommentRepositoryIterator comment) const
+{
+  return (**comment).GetName();
+}
+
+//  Class member function
 //  Get name of tag from repository
 std::string FinanceRepository::GetTagName(TagRepositoryIterator tag) const
 {
@@ -348,6 +355,13 @@ void FinanceRepository::SetDescriptionName(DescriptionRepositoryIterator descrip
 void FinanceRepository::SetPayeeName(PayeeRepositoryIterator payee, const std::string& name)
 {
   (**payee).SetName(name);
+}
+
+//  Class member function
+//  Set name of comment from repository
+void FinanceRepository::SetCommentName(CommentRepositoryIterator comment, const std::string& name)
+{
+  (**comment).SetName(name);
 }
 
 //  Class member function
@@ -623,6 +637,13 @@ DescriptionRepositoryIterator FinanceRepository::FindDescription(std::string nam
 PayeeRepositoryIterator FinanceRepository::FindPayee(std::string name) const
 {
   return payee_repository_.Find(name);
+}
+
+//  Class member function
+//  Find comment with definite name in comment repository
+CommentRepositoryIterator FinanceRepository::FindComment(std::string name) const
+{
+  return comment_repository_.Find(name);
 }
 
 //  Class member function
