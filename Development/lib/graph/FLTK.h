@@ -1,4 +1,7 @@
-#pragma once
+#ifndef HOMEBOOKKEEPING_LIB_GRAPH_FLTK_H_
+#define HOMEBOOKKEEPING_LIB_GRAPH_FLTK_H_
+
+#include <cstdlib>
 
 #include "FL/Fl.H"
 #include "FL/Fl_Window.H" 
@@ -10,4 +13,4 @@
 #include "Fl/Fl_JPEG_Image.H"
 #include "Fl/Fl_GIF_Image.H"
 
-#include <cstdlib>
+#endif  //  HOMEBOOKKEEPING_LIB_GRAPH_FLTK_H_
