@@ -140,6 +140,16 @@
 //      Set default account repository
 //      Set default category repository
 //      Set default currency repository
+//    database:
+//      save:
+//        Save to database transaction repository
+//        Save to database account repository
+//        Save to database category repository
+//        Save to database currency repository
+//        Save to database description repository
+//        Save to database payee repository
+//        Save to database comment repository
+//        Save to database tag repository
 //
 //  Variables:
 //    transaction repository
@@ -150,6 +160,8 @@
 //    currency repository
 //    description repository
 //    tag repository
+//    sqlite3 database
+//    sqlite3 stmt
 
 #include <iostream>
 
@@ -161,6 +173,7 @@
 #include "home_bookkeeping/1_DataAccess/PayeeRepository.h"
 #include "home_bookkeeping/1_DataAccess/TagRepository.h"
 #include "home_bookkeeping/1_DataAccess/TransactionRepository.h"
+#include "home_bookkeeping/lib/sqlite/sqlite3.h"
 
 class FinanceRepository
 {
@@ -184,7 +197,8 @@ public:
   CommentRepositoryIterator EndCommentRepository() const;
   TagRepositoryIterator EndTagRepository() const;
   //  constructor->default
-	FinanceRepository();
+  FinanceRepository();
+  ~FinanceRepository();
   //  basic->add element
   void AddTransaction(Transaction& transaction);
   void AddAccount();
@@ -302,6 +316,8 @@ public:
   void SetDefaultCategories();
   void SetDefaultAccounts();
   void SetDefaultCurrencies();
+  //  database->save
+  void SaveToDatabaseAccounts() const;
 private:
   TransactionRepository transaction_repository_;
   CategoryRepository category_repository_;
@@ -311,6 +327,8 @@ private:
   CurrencyRepository currency_repository_;
   DescriptionRepository description_repository_;
   TagRepository tag_repository_;
+  sqlite3* database_;
+  sqlite3_stmt* database_stmt_;
 };
 
 #endif  //  HOMEBOOKKEEPING_2BUSINESSLOGIC_FINANCENREPOSITORY_H_

@@ -3,7 +3,14 @@
 //  Constructor
 //  Default
 FinanceRepository::FinanceRepository()
-{}
+{
+  sqlite3_open("database.db", &database_);
+}
+
+FinanceRepository::~FinanceRepository()
+{
+  sqlite3_close(database_);
+}
 
 //  Class member function
 //  Find begin iterator of transaction repository
