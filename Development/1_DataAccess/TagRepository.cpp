@@ -95,3 +95,21 @@ TagRepositoryIterator TagRepository::End() const
 {
   return repository_.end();
 }
+
+//  Class member function
+//  Make command to create table in database for repository
+std::string TagRepository::MakeCommandToCreateTableInDatabase() const
+{
+  return "CREATE TABLE IF NOT EXISTS Tags(id INT, name VARCHAR(255);";
+}
+
+//  Class member function
+//  Make command to insert repository to database
+std::string TagRepository::MakeCommandToInsertToTableToDatabase(size_t id, TagRepositoryIterator iterator) const
+{
+  return "INSERT INTO Tags VALUES(" +
+    std::to_string(id)
+    + ", '" +
+    (**iterator).GetName()
+    + ")";
+}
