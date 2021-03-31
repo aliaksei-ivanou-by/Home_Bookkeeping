@@ -20,6 +20,7 @@
 //
 //  Class member functions:
 //    Get time
+//    Get time in string format
 //    Get account from
 //    Get account to
 //    Get category
@@ -142,6 +143,7 @@ public:
     const double amount);
   Transaction(const Transaction& transaction);
   Time GetTime() const;
+  std::string GetStringTime() const;
   Account GetAccountFrom() const;
   Account GetAccountTo() const;
   Category GetCategory() const;

@@ -140,6 +140,13 @@ Time Transaction::GetTime() const
 }
 
 //  Class member function
+//  Get time in string format
+std::string Transaction::GetStringTime() const
+{
+  return time_.GetStringTime();
+}
+
+//  Class member function
 //  Get account from
 Account Transaction::GetAccountFrom() const
 {

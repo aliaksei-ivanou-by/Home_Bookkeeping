@@ -248,6 +248,15 @@ void Time::SetDate(const int year, const int month, const int day, const int hou
   }
 }
 
+//  Class member function
+//  Get current time in string format
+std::string Time::GetStringTime() const
+{
+  std::stringstream string_stream;
+  string_stream << this;
+  return string_stream.str();
+}
+
 //  Friend class member function
 //  Operator < for sorting times (by day and time)
 bool operator<(const Time& time_left, const Time& time_right)
