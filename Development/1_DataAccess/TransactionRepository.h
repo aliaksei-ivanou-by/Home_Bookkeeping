@@ -15,6 +15,8 @@
 //    Find shared pointer to transaction in repository
 //    Find begin iterator of repository
 //    Find end iterator of repository
+//    Make command to create table in database for repository
+//    Make command to insert repository to database
 //
 //  Variables:
 //    repository
@@ -38,6 +40,8 @@ public:
   TransactionRepositoryIterator Find(std::shared_ptr<Transaction> transaction) const;
   TransactionRepositoryIterator Begin() const;
   TransactionRepositoryIterator End() const;
+  std::string MakeCommandToCreateTableInDatabase() const;
+  std::string MakeCommandToInsertToTableToDatabase(size_t counter, TransactionRepositoryIterator iterator) const;
 private:
   std::multiset<std::shared_ptr<Transaction>> repository_;
 };
