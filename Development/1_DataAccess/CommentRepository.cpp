@@ -95,3 +95,21 @@ CommentRepositoryIterator CommentRepository::End() const
 {
   return repository_.end();
 }
+
+//  Class member function
+//  Make command to create table in database for repository
+std::string CommentRepository::MakeCommandToCreateTableInDatabase() const
+{
+  return "CREATE TABLE IF NOT EXISTS Comments(id INT, name VARCHAR(255);";
+}
+
+//  Class member function
+//  Make command to insert repository to database
+std::string CommentRepository::MakeCommandToInsertToTableToDatabase(size_t id, CommentRepositoryIterator iterator) const
+{
+  return "INSERT INTO Comments VALUES(" +
+    std::to_string(id)
+    + ", '" +
+    (**iterator).GetName()
+    + ")";
+}
