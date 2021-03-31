@@ -65,7 +65,7 @@ TransactionRepositoryIterator TransactionRepository::End() const
 //  Make command to create table in database for repository
 std::string TransactionRepository::MakeCommandToCreateTableInDatabase() const
 {
-  return "CREATE TABLE IF NOT EXISTS Transactions(id INT, time VARCHAR(255), account_from VARCHAR(255), account_to VARCHAR(255), category VARCHAR(255), amount DOUBLE, amount_account_from DOUBLE, amount_acount_to DOUBLE, comment VARCHAR(255), currency VARCHAR(255), description VARCHAR(255), payee VARCHAR(255), tag VARCHAR(255), status VARCHAR(255), type VARCHAR(255);";
+  return "CREATE TABLE IF NOT EXISTS Transactions(id INT, time VARCHAR(255), account_from VARCHAR(255), account_to VARCHAR(255), category VARCHAR(255), amount DOUBLE, amount_account_from DOUBLE, amount_acount_to DOUBLE, comment VARCHAR(255), currency VARCHAR(255), description VARCHAR(255), payee VARCHAR(255), tag VARCHAR(255), status VARCHAR(255), type VARCHAR(255));";
 }
 
 //  Class member function
@@ -76,31 +76,31 @@ std::string TransactionRepository::MakeCommandToInsertToTableToDatabase(size_t i
     std::to_string(id)
     + ", '" +
     (**iterator).GetStringTime()
-    + ", '" +
+    + "', '" +
     (**iterator).GetAccountFrom().GetName()
-    + ", '" +
+    + "', '" +
     (**iterator).GetAccountTo().GetName()
-    + ", '" +
+    + "', '" +
     (**iterator).GetCategory().GetName()
-    + ", '" +
+    + "', " +
     std::to_string((**iterator).GetAmount())
-    + ", '" +
+    + ", " +
     std::to_string((**iterator).GetAmountAccountFrom())
-    + ", '" +
+    + ", " +
     std::to_string((**iterator).GetAmountAccountTo())
     + ", '" +
     (**iterator).GetComment().GetName()
-    + ", '" +
+    + "', '" +
     (**iterator).GetCurrency().GetName()
-    + ", '" +
+    + "', '" +
     (**iterator).GetDescription().GetName()
-    + ", '" +
+    + "', '" +
     (**iterator).GetPayee().GetName()
-    + ", '" +
+    + "', '" +
     (**iterator).GetTag().GetName()
-    + ", '" +
+    + "', '" +
     (**iterator).GetStatus().GetName()
-    + ", '" +
+    + "', '" +
     (**iterator).GetType().GetName()
-    + ")";
+    + "')";
 }

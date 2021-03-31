@@ -253,7 +253,7 @@ void Time::SetDate(const int year, const int month, const int day, const int hou
 std::string Time::GetStringTime() const
 {
   std::stringstream string_stream;
-  string_stream << this;
+  string_stream << *this;
   return string_stream.str();
 }
 

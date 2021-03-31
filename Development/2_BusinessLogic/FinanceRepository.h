@@ -317,7 +317,14 @@ public:
   void SetDefaultAccounts();
   void SetDefaultCurrencies();
   //  database->save
-  void SaveToDatabaseAccounts() const;
+  void SaveToDatabaseTransactions(std::ostream& output_stream = std::cerr) const;
+  void SaveToDatabaseAccounts(std::ostream& output_stream = std::cerr) const;
+  void SaveToDatabaseCategories(std::ostream& output_stream = std::cerr) const;
+  void SaveToDatabaseCurrencies(std::ostream& output_stream = std::cerr) const;
+  void SaveToDatabaseDescriptions(std::ostream& output_stream = std::cerr) const;
+  void SaveToDatabasePayees(std::ostream& output_stream = std::cerr) const;
+  void SaveToDatabaseComments(std::ostream& output_stream = std::cerr) const;
+  void SaveToDatabaseTags(std::ostream& output_stream = std::cerr) const;
 private:
   TransactionRepository transaction_repository_;
   CategoryRepository category_repository_;
