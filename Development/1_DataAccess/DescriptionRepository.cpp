@@ -96,3 +96,21 @@ DescriptionRepositoryIterator DescriptionRepository::End() const
 {
   return repository_.end();
 }
+
+//  Class member function
+//  Make command to create table in database for repository
+std::string DescriptionRepository::MakeCommandToCreateTableInDatabase() const
+{
+  return "CREATE TABLE IF NOT EXISTS Descriptions(id INT, name VARCHAR(255);";
+}
+
+//  Class member function
+//  Make command to insert repository to database
+std::string DescriptionRepository::MakeCommandToInsertToTableToDatabase(size_t id, DescriptionRepositoryIterator iterator) const
+{
+  return "INSERT INTO Descriptions VALUES(" +
+    std::to_string(id)
+    + ", '" +
+    (**iterator).GetName()
+    + ")";
+}
