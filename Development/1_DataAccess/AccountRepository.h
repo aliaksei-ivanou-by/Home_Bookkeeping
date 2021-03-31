@@ -22,6 +22,8 @@
 //    Find account with definite amount in repository
 //    Find begin iterator of repository
 //    Find end iterator of repository
+//    Make command to create table in database for repository
+//    Make command to insert repository to database
 //
 //  Variables:
 //    repository
@@ -30,6 +32,7 @@
 #include <set>
 
 #include "home_bookkeeping/0_Models/Account.h"
+#include "home_bookkeeping/lib/sqlite/sqlite3.h"
 
 using AccountRepositoryIterator = std::set<std::shared_ptr<Account>>::iterator;
 
@@ -52,6 +55,8 @@ public:
   AccountRepositoryIterator Find(double amount) const;
   AccountRepositoryIterator Begin() const;
   AccountRepositoryIterator End() const;
+  std::string MakeCommandToCreateTableInDatabase() const;
+  std::string MakeCommandToInsertToTableToDatabase(size_t counter, AccountRepositoryIterator iterator) const;
 private:
   std::set<std::shared_ptr<Account>> repository_;
 };

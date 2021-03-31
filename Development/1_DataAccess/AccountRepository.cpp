@@ -123,3 +123,23 @@ AccountRepositoryIterator AccountRepository::End() const
 {
   return repository_.end();
 }
+
+//  Class member function
+//  Make command to create table in database for repository
+std::string AccountRepository::MakeCommandToCreateTableInDatabase() const
+{
+  return "CREATE TABLE IF NOT EXISTS Accounts(id INT, name VARCHAR(255), amount DOUBLE);";
+}
+
+//  Class member function
+//  Make command to insert repository to database
+std::string AccountRepository::MakeCommandToInsertToTableToDatabase(size_t id, AccountRepositoryIterator iterator) const
+{
+  return "INSERT INTO Accounts VALUES(" + 
+    std::to_string(id) 
+    + ", '" + 
+    (**iterator).GetName() 
+    + "', " + 
+    std::to_string((**iterator).GetAmount())
+    + ")";
+}
