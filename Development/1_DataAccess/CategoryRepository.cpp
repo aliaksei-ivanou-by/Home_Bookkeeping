@@ -95,3 +95,21 @@ CategoryRepositoryIterator CategoryRepository::End() const
 {
   return repository_.end();
 }
+
+//  Class member function
+//  Make command to create table in database for repository
+std::string CategoryRepository::MakeCommandToCreateTableInDatabase() const
+{
+  return "CREATE TABLE IF NOT EXISTS Categories(id INT, name VARCHAR(255);";
+}
+
+//  Class member function
+//  Make command to insert repository to database
+std::string CategoryRepository::MakeCommandToInsertToTableToDatabase(size_t id, CategoryRepositoryIterator iterator) const
+{
+  return "INSERT INTO Categories VALUES(" +
+    std::to_string(id)
+    + ", '" +
+    (**iterator).GetName()
+    + ")";
+}
