@@ -62,15 +62,15 @@ TransactionRepositoryIterator TransactionRepository::End() const
 }
 
 //  Class member function
-//  Make command to create table in database for repository
-std::string TransactionRepository::MakeCommandToCreateTableInDatabase() const
+//  Make command to create table for repository in database
+std::string TransactionRepository::MakeCommandToCreateRepositoryInDatabase() const
 {
-  return "CREATE TABLE IF NOT EXISTS Transactions(id INT, time VARCHAR(255), account_from VARCHAR(255), account_to VARCHAR(255), category VARCHAR(255), amount DOUBLE, amount_account_from DOUBLE, amount_acount_to DOUBLE, comment VARCHAR(255), currency VARCHAR(255), description VARCHAR(255), payee VARCHAR(255), tag VARCHAR(255), status VARCHAR(255), type VARCHAR(255));";
+  return "CREATE TABLE IF NOT EXISTS Transactions(id INTEGER NOT NULL PRIMARY KEY, time VARCHAR(255) NOT NULL, account_from VARCHAR(255) NOT NULL, account_to VARCHAR(255) NOT NULL, category VARCHAR(255) NOT NULL, amount DOUBLE NOT NULL, amount_account_from DOUBLE NOT NULL, amount_acount_to DOUBLE NOT NULL, comment VARCHAR(255) NOT NULL, currency VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, payee VARCHAR(255), tag VARCHAR(255) NOT NULL, status VARCHAR(255) NOT NULL, type VARCHAR(255) NOT NULL);";
 }
 
 //  Class member function
-//  Make command to insert repository to database
-std::string TransactionRepository::MakeCommandToInsertToTableToDatabase(size_t id, TransactionRepositoryIterator iterator) const
+//  Make command to insert repository to database to table
+std::string TransactionRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, TransactionRepositoryIterator iterator) const
 {
   return "INSERT INTO Transactions VALUES(" +
     std::to_string(id)
@@ -103,4 +103,11 @@ std::string TransactionRepository::MakeCommandToInsertToTableToDatabase(size_t i
     + "', '" +
     (**iterator).GetType().GetName()
     + "')";
+}
+
+//  Class member function
+//  Make command to remove table for repository from database
+std::string TransactionRepository::MakeCommandToRemoveRepositoryFromDatabase() const
+{
+  return "DROP TABLE IF EXISTS Transactions";
 }
