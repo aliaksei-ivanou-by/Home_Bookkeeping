@@ -97,19 +97,26 @@ CategoryRepositoryIterator CategoryRepository::End() const
 }
 
 //  Class member function
-//  Make command to create table in database for repository
-std::string CategoryRepository::MakeCommandToCreateTableInDatabase() const
+//  Make command to create table for repository in database
+std::string CategoryRepository::MakeCommandToCreateRepositoryInDatabase() const
 {
-  return "CREATE TABLE IF NOT EXISTS Categories(id INT, name VARCHAR(255);";
+  return "CREATE TABLE IF NOT EXISTS Categories(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL;";
 }
 
 //  Class member function
-//  Make command to insert repository to database
-std::string CategoryRepository::MakeCommandToInsertToTableToDatabase(size_t id, CategoryRepositoryIterator iterator) const
+//  Make command to insert repository to database to table
+std::string CategoryRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, CategoryRepositoryIterator iterator) const
 {
   return "INSERT INTO Categories VALUES(" +
     std::to_string(id)
     + ", '" +
     (**iterator).GetName()
     + ")";
+}
+
+//  Class member function
+//  Make command to remove table for repository from database
+std::string CategoryRepository::MakeCommandToRemoveRepositoryFromDatabase() const
+{
+  return "DROP TABLE IF EXISTS Categories";
 }
