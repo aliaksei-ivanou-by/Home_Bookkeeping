@@ -6,12 +6,12 @@ void FinanceRepository::SaveToDatabaseTransactions(std::ostream& output_stream) 
 {
   char* err = 0;
   int rc = 0;
-  rc = sqlite3_exec(database_, "DROP TABLE IF EXISTS Transactions", NULL, NULL, &err);
+  rc = sqlite3_exec(database_, transaction_repository_.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &err);
   if (rc != SQLITE_OK)
   {
     output_stream << "error: " << err << '\n';
   }
-  rc = sqlite3_exec(database_, transaction_repository_.MakeCommandToCreateTableInDatabase().c_str(), NULL, NULL, &err);
+  rc = sqlite3_exec(database_, transaction_repository_.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &err);
   if (rc != SQLITE_OK)
   {
     output_stream << "error: " << err << '\n';
@@ -19,7 +19,7 @@ void FinanceRepository::SaveToDatabaseTransactions(std::ostream& output_stream) 
   size_t j = 0;
   for (auto i = transaction_repository_.Begin(); i != transaction_repository_.End(); ++i)
   {
-    std::string str = transaction_repository_.MakeCommandToInsertToTableToDatabase(j, i);
+    std::string str = transaction_repository_.MakeCommandToInsertRepositoryToDatabase(j, i);
     rc = sqlite3_exec(database_, str.c_str(), NULL, NULL, &err);
     if (rc != SQLITE_OK)
     {
@@ -35,12 +35,12 @@ void FinanceRepository::SaveToDatabaseAccounts(std::ostream& output_stream) cons
 {
   char* err = 0;
   int rc = 0;
-  rc = sqlite3_exec(database_, "DROP TABLE IF EXISTS Accounts", NULL, NULL, &err);
+  rc = sqlite3_exec(database_, account_repository_.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &err);
   if (rc != SQLITE_OK)
   {
     output_stream << "error: " << err << '\n';
   }
-  rc = sqlite3_exec(database_, account_repository_.MakeCommandToCreateTableInDatabase().c_str(), NULL, NULL, &err);
+  rc = sqlite3_exec(database_, account_repository_.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &err);
   if (rc != SQLITE_OK)
   {
     output_stream << "error: " << err << '\n';
@@ -48,7 +48,7 @@ void FinanceRepository::SaveToDatabaseAccounts(std::ostream& output_stream) cons
   size_t j = 0;
   for (auto i = account_repository_.Begin(); i != account_repository_.End(); ++i)
   {
-    std::string str = account_repository_.MakeCommandToInsertToTableToDatabase(j, i);
+    std::string str = account_repository_.MakeCommandToInsertRepositoryToDatabase(j, i);
     rc = sqlite3_exec(database_, str.c_str(), NULL, NULL, &err);
     if (rc != SQLITE_OK)
     {
