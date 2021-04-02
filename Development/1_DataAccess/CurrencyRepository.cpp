@@ -160,15 +160,15 @@ CurrencyRepositoryIterator CurrencyRepository::End() const
 }
 
 //  Class member function
-//  Make command to create table in database for repository
-std::string CurrencyRepository::MakeCommandToCreateTableInDatabase() const
+//  Make command to create table for repository in database
+std::string CurrencyRepository::MakeCommandToCreateRepositoryInDatabase() const
 {
-  return "CREATE TABLE IF NOT EXISTS Comments(id INT, name VARCHAR(255), code VARCHAR(255), activity BOOL;";
+  return "CREATE TABLE IF NOT EXISTS Comments(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL, code VARCHAR(255) NOT NULL, activity BOOL NOT NULL;";
 }
 
 //  Class member function
-//  Make command to insert repository to database
-std::string CurrencyRepository::MakeCommandToInsertToTableToDatabase(size_t id, CurrencyRepositoryIterator iterator) const
+//  Make command to insert repository to database to table
+std::string CurrencyRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, CurrencyRepositoryIterator iterator) const
 {
   return "INSERT INTO Comments VALUES(" +
     std::to_string(id)
@@ -179,4 +179,11 @@ std::string CurrencyRepository::MakeCommandToInsertToTableToDatabase(size_t id, 
     + ", '" +
     std::to_string((**iterator).GetActivity())
     + ")";
+}
+
+//  Class member function
+//  Make command to remove table for repository from database
+std::string CurrencyRepository::MakeCommandToRemoveRepositoryFromDatabase() const
+{
+  return "DROP TABLE IF EXISTS Currencies";
 }
