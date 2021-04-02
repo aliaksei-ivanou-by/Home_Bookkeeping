@@ -22,8 +22,9 @@
 //    Find account with definite amount in repository
 //    Find begin iterator of repository
 //    Find end iterator of repository
-//    Make command to create table in database for repository
-//    Make command to insert repository to database
+//    Make command to create table for repository in database
+//    Make command to insert repository to database to table
+//    Make command to remove table for repository from database
 //
 //  Variables:
 //    repository
@@ -55,8 +56,9 @@ public:
   AccountRepositoryIterator Find(double amount) const;
   AccountRepositoryIterator Begin() const;
   AccountRepositoryIterator End() const;
-  std::string MakeCommandToCreateTableInDatabase() const;
-  std::string MakeCommandToInsertToTableToDatabase(size_t counter, AccountRepositoryIterator iterator) const;
+  std::string MakeCommandToCreateRepositoryInDatabase() const;
+  std::string MakeCommandToInsertRepositoryToDatabase(size_t counter, AccountRepositoryIterator iterator) const;
+  std::string MakeCommandToRemoveRepositoryFromDatabase() const;
 private:
   std::set<std::shared_ptr<Account>> repository_;
 };
