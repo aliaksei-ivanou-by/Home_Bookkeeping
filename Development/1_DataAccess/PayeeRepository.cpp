@@ -100,7 +100,7 @@ PayeeRepositoryIterator PayeeRepository::End() const
 //  Make command to create table for repository in database
 std::string PayeeRepository::MakeCommandToCreateRepositoryInDatabase() const
 {
-  return "CREATE TABLE IF NOT EXISTS Payees(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL;";
+  return "CREATE TABLE IF NOT EXISTS Payees(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL);";
 }
 
 //  Class member function
@@ -111,7 +111,7 @@ std::string PayeeRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, 
     std::to_string(id)
     + ", '" +
     (**iterator).GetName()
-    + ")";
+    + "')";
 }
 
 //  Class member function
