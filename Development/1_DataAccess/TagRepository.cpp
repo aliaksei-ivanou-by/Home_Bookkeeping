@@ -100,7 +100,7 @@ TagRepositoryIterator TagRepository::End() const
 //  Make command to create table for repository in database
 std::string TagRepository::MakeCommandToCreateRepositoryInDatabase() const
 {
-  return "CREATE TABLE IF NOT EXISTS Tags(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL;";
+  return "CREATE TABLE IF NOT EXISTS Tags(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL);";
 }
 
 //  Class member function
@@ -111,7 +111,7 @@ std::string TagRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, Ta
     std::to_string(id)
     + ", '" +
     (**iterator).GetName()
-    + ")";
+    + "')";
 }
 
 //  Class member function
