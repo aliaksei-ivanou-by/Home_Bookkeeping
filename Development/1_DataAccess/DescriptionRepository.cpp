@@ -101,7 +101,7 @@ DescriptionRepositoryIterator DescriptionRepository::End() const
 //  Make command to create table for repository in database
 std::string DescriptionRepository::MakeCommandToCreateRepositoryInDatabase() const
 {
-  return "CREATE TABLE IF NOT EXISTS Descriptions(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL;";
+  return "CREATE TABLE IF NOT EXISTS Descriptions(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL);";
 }
 
 //  Class member function
@@ -112,7 +112,7 @@ std::string DescriptionRepository::MakeCommandToInsertRepositoryToDatabase(size_
     std::to_string(id)
     + ", '" +
     (**iterator).GetName()
-    + ")";
+    + "')";
 }
 
 //  Class member function
