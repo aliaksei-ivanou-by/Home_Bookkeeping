@@ -100,7 +100,7 @@ CategoryRepositoryIterator CategoryRepository::End() const
 //  Make command to create table for repository in database
 std::string CategoryRepository::MakeCommandToCreateRepositoryInDatabase() const
 {
-  return "CREATE TABLE IF NOT EXISTS Categories(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL;";
+  return "CREATE TABLE IF NOT EXISTS Categories(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL);";
 }
 
 //  Class member function
@@ -111,7 +111,7 @@ std::string CategoryRepository::MakeCommandToInsertRepositoryToDatabase(size_t i
     std::to_string(id)
     + ", '" +
     (**iterator).GetName()
-    + ")";
+    + "')";
 }
 
 //  Class member function
