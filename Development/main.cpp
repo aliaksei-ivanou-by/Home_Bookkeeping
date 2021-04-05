@@ -9,7 +9,7 @@ int main()
   Transaction tr2({ "BYN VISA" }, { "BYN Cash" }, { "Transfer" }, 10);
   a.AddTransaction(tr);
   a.AddTransaction(tr);
-  a.AddTransaction(tr);
+  a.AddTransaction(tr); 
   a.AddTransaction(tr1);
   a.AddTransaction(tr1);
   a.AddTransaction(tr1);
@@ -24,12 +24,8 @@ int main()
   std::cout << '\n';
   std::cout << a.SumExpensesAllTime();
   std::cout << '\n';
-  a.SaveToDatabaseAccounts();
-  a.SaveToDatabaseTransactions();
    Transaction tr3({ "USD Cash" }, { "Bills" }, 10);
   a.AddTransaction(tr3);
-  a.SaveToDatabaseAccounts();
-  a.SaveToDatabaseTransactions();
   Window_Main win(Point(100, 100), 600, 600, "Finance System", std::make_shared<FinanceRepository>(a));
   return gui_main();
 }
