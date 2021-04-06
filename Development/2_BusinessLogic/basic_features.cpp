@@ -7,6 +7,8 @@ FinanceRepository::FinanceRepository()
   sqlite3_open("database.db", &database_);
 }
 
+//  Destructor
+//  Default
 FinanceRepository::~FinanceRepository()
 {
   sqlite3_close(database_);
@@ -126,7 +128,7 @@ TagRepositoryIterator FinanceRepository::EndTagRepository() const
 
 //  Class member function
 //  Add transaction to transaction repository
-void FinanceRepository::AddTransaction(Transaction& transaction)
+void FinanceRepository::AddTransaction(Transaction&& transaction)
 {
   UpdateAccountRepository(transaction);
   UpdateAccountAmount(transaction);

@@ -64,7 +64,7 @@ try
   Type transactionType(kEnumType::Income);
   Transaction transaction(accountFrom, category, amount, comment, { "" }, description, {}, tag,
     transactionStatus, transactionType);
-  ptrFinanceRepository->AddTransaction(transaction);
+  ptrFinanceRepository->AddTransaction(std::move(transaction));
   std::cout << Time() << " : REPOSITORY : Operation -> Transaction added\n";
   button_pushed = true;
   hide();

@@ -6,6 +6,9 @@
 //  Constructors:
 //    Default
 //
+//  Destructors:
+//    Default
+//
 //  Class member functions:
 //    basic:
 //      iterators:
@@ -198,9 +201,10 @@ public:
   TagRepositoryIterator EndTagRepository() const;
   //  constructor->default
   FinanceRepository();
+  //  destructor->default
   ~FinanceRepository();
   //  basic->add element
-  void AddTransaction(Transaction& transaction);
+  void AddTransaction(Transaction&& transaction);
   void AddAccount();
   void AddAccount(const Account& account);
   void AddCategory();
