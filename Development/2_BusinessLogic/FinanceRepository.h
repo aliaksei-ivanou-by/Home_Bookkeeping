@@ -139,10 +139,10 @@
 //        Calculate sum of today incomes
 //        Calculate sum of this month incomes
 //        Calculate sum of all time incomes
-//    default repositories:
-//      Set default account repository
-//      Set default category repository
-//      Set default currency repository
+//    add default models to repository:
+//      Add default accounts to account repository
+//      Add default categories to category repository
+//      Add default currencies to currency repository
 //    database:
 //      save:
 //        Save to database transaction repository
@@ -167,6 +167,8 @@
 //    sqlite3 stmt
 
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 #include "home_bookkeeping/1_DataAccess/AccountRepository.h"
 #include "home_bookkeeping/1_DataAccess/CategoryRepository.h"
@@ -177,6 +179,8 @@
 #include "home_bookkeeping/1_DataAccess/TagRepository.h"
 #include "home_bookkeeping/1_DataAccess/TransactionRepository.h"
 #include "home_bookkeeping/lib/sqlite/sqlite3.h"
+#include "home_bookkeeping/lib/logger/Log.h"
+#include "home_bookkeeping/lib/logger/Initializers/RollingFileInitializer.h"
 
 class FinanceRepository
 {
@@ -316,19 +320,19 @@ public:
   double SumIncomesToday() const;
   double SumIncomesThisMonth() const;
   double SumIncomesAllTime() const;
-  //  default repositories
-  void SetDefaultCategories();
-  void SetDefaultAccounts();
-  void SetDefaultCurrencies();
+  //  add default models to repository
+  void AddDefaultCategories();
+  void AddDefaultAccounts();
+  void AddDefaultCurrencies();
   //  database->save
-  void SaveToDatabaseTransactions(std::ostream& output_stream = std::cerr) const;
-  void SaveToDatabaseAccounts(std::ostream& output_stream = std::cerr) const;
-  void SaveToDatabaseCategories(std::ostream& output_stream = std::cerr) const;
-  void SaveToDatabaseCurrencies(std::ostream& output_stream = std::cerr) const;
-  void SaveToDatabaseDescriptions(std::ostream& output_stream = std::cerr) const;
-  void SaveToDatabasePayees(std::ostream& output_stream = std::cerr) const;
-  void SaveToDatabaseComments(std::ostream& output_stream = std::cerr) const;
-  void SaveToDatabaseTags(std::ostream& output_stream = std::cerr) const;
+  void SaveToDatabaseTransactions() const;
+  void SaveToDatabaseAccounts() const;
+  void SaveToDatabaseCategories() const;
+  void SaveToDatabaseCurrencies() const;
+  void SaveToDatabaseDescriptions() const;
+  void SaveToDatabasePayees() const;
+  void SaveToDatabaseComments() const;
+  void SaveToDatabaseTags() const;
 private:
   TransactionRepository transaction_repository_;
   CategoryRepository category_repository_;
