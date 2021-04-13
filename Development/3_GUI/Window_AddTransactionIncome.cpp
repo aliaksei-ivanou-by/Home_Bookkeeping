@@ -65,13 +65,12 @@ try
   Transaction transaction(account, category, amount, comment, { "" }, description, payee, tag,
     transactionStatus, transactionType);
   ptrFinanceRepository->AddTransaction(std::move(transaction));
-  std::cout << Time() << " : REPOSITORY : Operation -> Transaction added\n";
   button_pushed = true;
   hide();
 }
 catch (...)
 {
-  std::cout << Time() << " : SYSTEM : Error -> Transaction no added\n";
+  PLOG_ERROR << "Transaction no added";
   button_pushed = true;
   hide();
 }

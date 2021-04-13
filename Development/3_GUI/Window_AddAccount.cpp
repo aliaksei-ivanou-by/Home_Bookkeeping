@@ -5,13 +5,12 @@ try
 {
   Account account(textAccountForAdd.get_string());
   ptrFinanceRepository->AddAccount(account);
-  std::cout << Time() << " : REPOSITORY : Add Account: \n" << account << '\n';
   button_pushed = true;
   hide();
 }
 catch (...)
 {
-  std::cout << Time() << " : SYSTEM : Error -> Account no added\n";
+  PLOG_ERROR << "Account no added";
   button_pushed = true;
   hide();
 }

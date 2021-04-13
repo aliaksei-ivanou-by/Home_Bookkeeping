@@ -94,44 +94,28 @@ void Window_Main::menuMainAddTransactionTransfer()
 }
 
 void Window_Main::menuMainTransactions()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Transactions\n";
-}
+{}
 
 void Window_Main::menuMainAccounts()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Accounts\n";
-}
+{}
 
 void Window_Main::menuMainPlanned()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Planned\n";
-}
+{}
 
 void Window_Main::menuMainReports()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Reports\n";
-}
+{}
 
 void Window_Main::menuMainBudget()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Budget\n";
-}
+{}
 
 void Window_Main::menuMainStatistics()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics\n";
-}
+{}
 
 void Window_Main::menuStatisticsNetWorth()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics Net Worth\n";
-}
+{}
 
 void Window_Main::menuStatisticsLiabilities()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics Liablilities\n";
-}
+{}
 
 void Window_Main::menuStatisticsExpensesToday()
 {
@@ -167,64 +151,40 @@ void Window_Main::menuStatisticsIncomeThisMonth()
 }
 
 void Window_Main::menuStatisticsTextNetWorth()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics Text Net Worth\n";
-}
+{}
 
 void Window_Main::menuStatisticsTextLiabilities()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics Text Liabilities\n";
-}
+{}
 
 void Window_Main::menuStatisticsTextExpensesToday()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics Text Expenses Today\n";
-}
+{}
 
 void Window_Main::menuStatisticsTextExpensesThisMonth()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics Text Expenses This Month\n";
-}
+{}
 
 void Window_Main::menuStatisticsTextIncomeThisMonth()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Statistics Text Income This Month\n";
-}
+{}
 
 void Window_Main::menuFooterAddAccount()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Add Account\n";
-}
+{}
 
 void Window_Main::menuFooterAddAccountGroup()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Add Account Group\n";
-}
+{}
 
 void Window_Main::menuFooterAddBudget()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Add Budget\n";
-}
+{}
 
 void Window_Main::menuFooterImport()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Import\n";
-}
+{}
 
 void Window_Main::menuFooterExport()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Export\n";
-}
+{}
 
 void Window_Main::menuFooterSettings()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Settings\n";
-}
+{}
 
 void Window_Main::menuFooterHelp()
-{
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Help\n";
-}
+{}
 
 void Window_Main::cbMenuMainAddTransactionExpense(Address, Address pw)
 {
@@ -377,6 +337,5 @@ void Window_Main::cbQuit(Address, Address pw)
 void Window_Main::quit()
 {
   button_pushed = true;
-  std::cout << Time() << " : SYSTEM : Window -> Main Window : Button -> Quit\n";
   hide();
 }

@@ -163,8 +163,6 @@
 //    currency repository
 //    description repository
 //    tag repository
-//    sqlite3 database
-//    sqlite3 stmt
 
 #include <iostream>
 #include <chrono>
@@ -178,9 +176,10 @@
 #include "home_bookkeeping/1_DataAccess/PayeeRepository.h"
 #include "home_bookkeeping/1_DataAccess/TagRepository.h"
 #include "home_bookkeeping/1_DataAccess/TransactionRepository.h"
-#include "home_bookkeeping/lib/sqlite/sqlite3.h"
+
 #include "home_bookkeeping/lib/logger/Log.h"
 #include "home_bookkeeping/lib/logger/Initializers/RollingFileInitializer.h"
+#include "home_bookkeeping/2_BusinessLogic/DatabaseManager.h"
 
 class FinanceRepository
 {
@@ -324,15 +323,6 @@ public:
   void AddDefaultCategories();
   void AddDefaultAccounts();
   void AddDefaultCurrencies();
-  //  database->save
-  void SaveToDatabaseTransactions() const;
-  void SaveToDatabaseAccounts() const;
-  void SaveToDatabaseCategories() const;
-  void SaveToDatabaseCurrencies() const;
-  void SaveToDatabaseDescriptions() const;
-  void SaveToDatabasePayees() const;
-  void SaveToDatabaseComments() const;
-  void SaveToDatabaseTags() const;
 private:
   TransactionRepository transaction_repository_;
   CategoryRepository category_repository_;
@@ -342,8 +332,7 @@ private:
   CurrencyRepository currency_repository_;
   DescriptionRepository description_repository_;
   TagRepository tag_repository_;
-  sqlite3* database_;
-  sqlite3_stmt* database_stmt_;
+  DatabaseManager* database_manager_;
 };
 
 #endif  //  HOMEBOOKKEEPING_2BUSINESSLOGIC_FINANCENREPOSITORY_H_

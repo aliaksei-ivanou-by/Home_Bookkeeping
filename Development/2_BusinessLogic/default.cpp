@@ -9,8 +9,6 @@ void FinanceRepository::AddDefaultAccounts()
   AddAccount({ "USD Card" });
   AddAccount({ "USD Cash" });
   PLOG_INFO << "Add to repository of Accounts default Accounts";
-  SaveToDatabaseAccounts();
-  PLOG_INFO << "Add to database of Accounts default Accounts";
 }
 
 //  Class member function
@@ -26,8 +24,6 @@ void FinanceRepository::AddDefaultCategories()
   AddCategory({ "Vehicle" });
   AddCategory({ "Shopping" });
   PLOG_INFO << "Add to repository of Categories default Categories";
-  SaveToDatabaseCategories();
-  PLOG_INFO << "Add to database of Categories default Categories";
 }
 
 //  Class member function
@@ -38,6 +34,4 @@ void FinanceRepository::AddDefaultCurrencies()
   AddCurrency({ "USD", "USD", false });
   AddCurrency({ "EURO", "EURO", false });
   PLOG_INFO << "Add to repository of Currencies default Currencies";
-  SaveToDatabaseCurrencies();
-  PLOG_INFO << "Add to database of Currencies default Currencies";
 }

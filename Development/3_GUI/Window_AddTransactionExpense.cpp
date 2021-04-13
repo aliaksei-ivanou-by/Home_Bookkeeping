@@ -52,24 +52,47 @@ void Window_AddTransactionExpense::Window_AddTransactionExpense_OK()
 try
 {
   Account account(std::string(textAccountForAdd.get_string()));
+  if (account.GetName() == "")
+  {
+    account = Account();
+  }
   Category category(std::string(textCategoryForAdd.get_string()));
+  if (category.GetName() == "")
+  {
+    category = Category();
+  }
   double amount = std::stod((textAmountForAdd.get_string()));
   Comment comment(std::string(textCommentForAdd.get_string()));
+  if (comment.GetName() == "")
+  {
+    comment = Comment();
+  }
   Description description(std::string(textDesctiptionForAdd.get_string()));
+  if (description.GetName() == "")
+  {
+    description = Description();
+  }
   Payee payee(std::string(textPayeeForAdd.get_string()));
+  if (payee.GetName() == "")
+  {
+    payee = Payee();
+  }
   Tag tag(std::string(textTagForAdd.get_string()));
+  if (tag.GetName() == "")
+  {
+    tag = Tag();
+  }
   Status transactionStatus(kEnumStatus::Void);
   Type transactionType(kEnumType::Expense);
   Transaction transaction(account, category, amount, comment, { "" }, description, payee, tag,
     transactionStatus, transactionType);
   ptrFinanceRepository->AddTransaction(std::move(transaction));
-  std::cout << Time() << " : REPOSITORY : Operation -> Transaction added\n";
   button_pushed = true;
   hide();
 }
 catch (...)
 {
-  std::cout << Time() << " : SYSTEM : Error -> Transaction no added\n";
+  PLOG_ERROR << "Transaction no added";
   button_pushed = true;
   hide();
 }
