@@ -143,7 +143,7 @@ void FinanceRepository::AddTransaction(Transaction&& transaction)
   UpdateTagRepository(transaction);
   transaction_repository_.Add(transaction);
   PLOG_INFO << "Add transaction to repository";
-  database_manager_->SaveToDatabaseTransactions(transaction_repository_);
+  database_manager_->SaveToDatabaseTransactions(std::move(transaction_repository_));
 }
 
 //  Class member function
