@@ -1,6 +1,54 @@
 #ifndef HOMEBOOKKEEPING_2BUSINESSLOGIC_DATABASEMANAGER_H_
 #define HOMEBOOKKEEPING_2BUSINESSLOGIC_DATABASEMANAGER_H_
 
+//  Class DatabaseManager
+//
+//  Constructors:
+//    Default
+//
+//  Destructors:
+//    Default
+//
+//  Class member functions:
+//      create table 'Transactions' in database
+//      remove table 'Transactions' in database
+//      insert transactions to table 'Transactions' in database
+//      save transactions to table 'Transactions' in database
+//      create table 'Accounts' in database
+//      remove table 'Accounts' in database
+//      insert accounts to table 'Accounts' in database
+//      save accounts to table 'Accounts' in database
+//      create table 'Categories' in database
+//      remove table 'Categories' in database
+//      insert categories to table 'Categories' in database
+//      save categories to table 'Categories' in database
+//      create table 'Currencies' in database
+//      remove table 'Currencies' in database
+//      insert currencies to table 'Currencies' in database
+//      save currencies to table 'Currencies' in database
+//      create table 'Descriptions' in database
+//      remove table 'Descriptions' in database
+//      insert descriptions to table 'Descriptions' in database
+//      save descriptions to table 'Descriptions' in database
+//      create table 'Payees' in database
+//      remove table 'Payees' in database
+//      insert payees to table 'Payees' in database
+//      save payees to table 'Payees' in database
+//      create table 'Comments' in database
+//      remove table 'Comments' in database
+//      insert comments to table 'Comments' in database
+//      save comments to table 'Comments' in database
+//      create table 'Tags' in database
+//      remove table 'Tags' in database
+//      insert tags to table 'Tags' in database
+//      save tags to table 'Tags' in database
+//
+//  Variables:
+//      Database;
+//      Prepared Statement Object;
+//      SQL Command Status
+//      SQL Command Error Message
+
 #include "home_bookkeeping/1_DataAccess/AccountRepository.h"
 #include "home_bookkeeping/1_DataAccess/CategoryRepository.h"
 #include "home_bookkeeping/1_DataAccess/CommentRepository.h"

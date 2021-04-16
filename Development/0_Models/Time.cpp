@@ -347,9 +347,9 @@ std::ostream& operator<<(std::ostream& outputStream, const Time& time)
     (time.day_ < 10 ? "0" : "") << time.day_ <<
     '_' <<
     (time.hour_ < 10 ? "0" : "") << time.hour_ <<
-    ':' <<
+    '-' <<
     (time.minute_ < 10 ? "0" : "") << time.minute_ <<
-    ':' <<
+    '-' <<
     (time.second_ < 10 ? "0" : "") << time.second_;
 }
 

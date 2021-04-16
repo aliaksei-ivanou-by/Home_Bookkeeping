@@ -163,6 +163,7 @@
 //    currency repository
 //    description repository
 //    tag repository
+//    Database Manager
 
 #include <iostream>
 #include <chrono>
