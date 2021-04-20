@@ -1,5 +1,7 @@
 #include "home_bookkeeping/2_BusinessLogic/DatabaseManager.h"
 
+//  Constructor
+//  Default
 DatabaseManager::DatabaseManager():
   database_error_{ 0 },
   database_status_{ 0 },
@@ -10,12 +12,16 @@ DatabaseManager::DatabaseManager():
   PLOG_INFO << "Open database";
 }
 
+//  Destructor
+//  Default
 DatabaseManager::~DatabaseManager()
 {
   sqlite3_close(database_);
   PLOG_INFO << "Close database";
 }
 
+//  Class member function
+//  Create table 'Transactions' in database
 void DatabaseManager::CreateTableTransactionsInDatabase(TransactionRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
@@ -26,6 +32,8 @@ void DatabaseManager::CreateTableTransactionsInDatabase(TransactionRepository&& 
   PLOG_INFO << "Create table 'Transactions' in database";
 }
 
+//  Class member function
+//  Remove table 'Transactions' in database
 void DatabaseManager::RemoveTableTransactionsInDatabase(TransactionRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
@@ -36,6 +44,8 @@ void DatabaseManager::RemoveTableTransactionsInDatabase(TransactionRepository&& 
   PLOG_INFO << "Remove table 'Transactions' in database if exists";
 }
 
+//  Class member function
+//  Insert transactions to table 'Transactions' in database
 void DatabaseManager::InsertTransactionsToTableTransactionsInDatabase(TransactionRepository&& repository)
 {
   size_t j = 0;
@@ -51,6 +61,8 @@ void DatabaseManager::InsertTransactionsToTableTransactionsInDatabase(Transactio
   PLOG_INFO << "Insert transactions to table 'Transactions' in database";
 }
 
+//  Class member function
+//  Save transactions to table 'Transactions' in database
 void DatabaseManager::SaveToDatabaseTransactions(TransactionRepository&& repository)
 {
   RemoveTableTransactionsInDatabase(std::move(repository));
@@ -59,6 +71,8 @@ void DatabaseManager::SaveToDatabaseTransactions(TransactionRepository&& reposit
   PLOG_INFO << "Save transactions to table 'Transactions' in database";
 }
 
+//  Class member function
+//  Create table 'Accounts' in database
 void DatabaseManager::CreateTableAccountsInDatabase(AccountRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
@@ -69,6 +83,8 @@ void DatabaseManager::CreateTableAccountsInDatabase(AccountRepository&& reposito
   PLOG_INFO << "Create table 'Accounts' in database";
 }
 
+//  Class member function
+//  Remove table 'Accounts' in database
 void DatabaseManager::RemoveTableAccountsInDatabase(AccountRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
@@ -79,6 +95,8 @@ void DatabaseManager::RemoveTableAccountsInDatabase(AccountRepository&& reposito
   PLOG_INFO << "Remove table 'Accounts' in database if exists";
 }
 
+//  Class member function
+//  Insert accounts to table 'Accounts' in database
 void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&& repository)
 {
   size_t j = 0;
@@ -94,6 +112,8 @@ void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&
   PLOG_INFO << "Insert accounts to table 'Accounts' in database";
 }
 
+//  Class member function
+//  Save accounts to table 'Accounts' in database
 void DatabaseManager::SaveToDatabaseAccounts(AccountRepository&& repository)
 {
   RemoveTableAccountsInDatabase(std::move(repository));
@@ -102,6 +122,8 @@ void DatabaseManager::SaveToDatabaseAccounts(AccountRepository&& repository)
   PLOG_INFO << "Save accounts to table 'Accounts' in database";
 }
 
+//  Class member function
+//  Create table 'Categories' in database
 void DatabaseManager::CreateTableCategoriesInDatabase(CategoryRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
@@ -112,6 +134,8 @@ void DatabaseManager::CreateTableCategoriesInDatabase(CategoryRepository&& repos
   PLOG_INFO << "Create table 'Categories' in database";
 }
 
+//  Class member function
+//  Remove table 'Categories' in database
 void DatabaseManager::RemoveTableCategoriesInDatabase(CategoryRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
@@ -122,6 +146,8 @@ void DatabaseManager::RemoveTableCategoriesInDatabase(CategoryRepository&& repos
   PLOG_INFO << "Remove table 'Categories' in database if exists";
 }
 
+//  Class member function
+//  Insert categories to table 'Categories' in database
 void DatabaseManager::InsertCategoriesToTableCategoriesInDatabase(CategoryRepository&& repository)
 {
   size_t j = 0;
@@ -137,6 +163,8 @@ void DatabaseManager::InsertCategoriesToTableCategoriesInDatabase(CategoryReposi
   PLOG_INFO << "Insert categories to table 'Categories' in database";
 }
 
+//  Class member function
+//  Save categories to table 'Categories' in database
 void DatabaseManager::SaveToDatabaseCategories(CategoryRepository&& repository)
 {
   RemoveTableCategoriesInDatabase(std::move(repository));
@@ -145,6 +173,8 @@ void DatabaseManager::SaveToDatabaseCategories(CategoryRepository&& repository)
   PLOG_INFO << "Save categories to table 'Categories' in database";
 }
 
+//  Class member function
+//  Create table 'Currencies' in database
 void DatabaseManager::CreateTableCurrenciesInDatabase(CurrencyRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
@@ -155,6 +185,8 @@ void DatabaseManager::CreateTableCurrenciesInDatabase(CurrencyRepository&& repos
   PLOG_INFO << "Create table 'Currencies' in database";
 }
 
+//  Class member function
+//  Remove table 'Currencies' in database
 void DatabaseManager::RemoveTableCurrenciesInDatabase(CurrencyRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
@@ -165,6 +197,8 @@ void DatabaseManager::RemoveTableCurrenciesInDatabase(CurrencyRepository&& repos
   PLOG_INFO << "Remove table 'Currencies' in database if exists";
 }
 
+//  Class member function
+//  Insert currencies to table 'Currencies' in database
 void DatabaseManager::InsertCurrenciesToTableCurrenciesInDatabase(CurrencyRepository&& repository)
 {
   size_t j = 0;
@@ -180,6 +214,8 @@ void DatabaseManager::InsertCurrenciesToTableCurrenciesInDatabase(CurrencyReposi
   PLOG_INFO << "Insert currencies to table 'Currencies' in database";
 }
 
+//  Class member function
+//  Save currencies to table 'Currencies' in database
 void DatabaseManager::SaveToDatabaseCurrencies(CurrencyRepository&& repository)
 {
   RemoveTableCurrenciesInDatabase(std::move(repository));
@@ -188,6 +224,8 @@ void DatabaseManager::SaveToDatabaseCurrencies(CurrencyRepository&& repository)
   PLOG_INFO << "Save currencies to table 'Currencies' in database";
 }
 
+//  Class member function
+//  Create table 'Descriptions' in database
 void DatabaseManager::CreateTableDescriptionsInDatabase(DescriptionRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
@@ -198,6 +236,8 @@ void DatabaseManager::CreateTableDescriptionsInDatabase(DescriptionRepository&& 
   PLOG_INFO << "Create table 'Descriptions' in database";
 }
 
+//  Class member function
+//  Remove table 'Descriptions' in database
 void DatabaseManager::RemoveTableDescriptionsInDatabase(DescriptionRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
@@ -208,6 +248,8 @@ void DatabaseManager::RemoveTableDescriptionsInDatabase(DescriptionRepository&& 
   PLOG_INFO << "Remove table 'Descriptions' in database if exists";
 }
 
+//  Class member function
+//  Insert descriptions to table 'Descriptions' in database
 void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository)
 {
   size_t j = 0;
@@ -223,6 +265,8 @@ void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(Descriptio
   PLOG_INFO << "Insert descriptions to table 'Descriptions' in database";
 }
 
+//  Class member function
+//  Save descriptions to table 'Descriptions' in database
 void DatabaseManager::SaveToDatabaseDescriptions(DescriptionRepository&& repository)
 {
   RemoveTableDescriptionsInDatabase(std::move(repository));
@@ -231,6 +275,8 @@ void DatabaseManager::SaveToDatabaseDescriptions(DescriptionRepository&& reposit
   PLOG_INFO << "Save descriptions to table 'Descriptions' in database";
 }
 
+//  Class member function
+//  Create table 'Payees' in database
 void DatabaseManager::CreateTablePayeesInDatabase(PayeeRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
@@ -241,6 +287,8 @@ void DatabaseManager::CreateTablePayeesInDatabase(PayeeRepository&& repository)
   PLOG_INFO << "Create table 'Payees' in database";
 }
 
+//  Class member function
+//  Remove table 'Payees' in database
 void DatabaseManager::RemoveTablePayeesInDatabase(PayeeRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
@@ -251,6 +299,8 @@ void DatabaseManager::RemoveTablePayeesInDatabase(PayeeRepository&& repository)
   PLOG_INFO << "Remove table 'Payees' in database if exists";
 }
 
+//  Class member function
+//  Insert payees to table 'Payees' in database
 void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository)
 {
   size_t j = 0;
@@ -266,6 +316,8 @@ void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repo
   PLOG_INFO << "Insert payees to table 'Payees' in database";
 }
 
+//  Class member function
+//  Save payees to table 'Payees' in database
 void DatabaseManager::SaveToDatabasePayees(PayeeRepository&& repository)
 {
   RemoveTablePayeesInDatabase(std::move(repository));
@@ -274,6 +326,8 @@ void DatabaseManager::SaveToDatabasePayees(PayeeRepository&& repository)
   PLOG_INFO << "Save payees to table 'Payees' in database";
 }
 
+//  Class member function
+//  Create table 'Comments' in database
 void DatabaseManager::CreateTableCommentsInDatabase(CommentRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
@@ -284,6 +338,8 @@ void DatabaseManager::CreateTableCommentsInDatabase(CommentRepository&& reposito
   PLOG_INFO << "Create table 'Comments' in database";
 }
 
+//  Class member function
+//  Remove table 'Comments' in database
 void DatabaseManager::RemoveTableCommentsInDatabase(CommentRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
@@ -294,6 +350,8 @@ void DatabaseManager::RemoveTableCommentsInDatabase(CommentRepository&& reposito
   PLOG_INFO << "Remove table 'Comments' in database if exists";
 }
 
+//  Class member function
+//  Insert comments to table 'Comments' in database
 void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository)
 {
   size_t j = 0;
@@ -309,6 +367,8 @@ void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&
   PLOG_INFO << "Insert comments to table 'Comments' in database";
 }
 
+//  Class member function
+//  Save comments to table 'Comments' in database
 void DatabaseManager::SaveToDatabaseComments(CommentRepository&& repository)
 {
   RemoveTableCommentsInDatabase(std::move(repository));
@@ -317,6 +377,8 @@ void DatabaseManager::SaveToDatabaseComments(CommentRepository&& repository)
   PLOG_INFO << "Save comments to table 'Comments' in database";
 }
 
+//  Class member function
+//  Create table 'Tags' in database
 void DatabaseManager::CreateTableTagsInDatabase(TagRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
@@ -327,6 +389,8 @@ void DatabaseManager::CreateTableTagsInDatabase(TagRepository&& repository)
   PLOG_INFO << "Create table 'Tags' in database";
 }
 
+//  Class member function
+//  Remove table 'Tags' in database
 void DatabaseManager::RemoveTableTagsInDatabase(TagRepository&& repository)
 {
   database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
@@ -337,6 +401,8 @@ void DatabaseManager::RemoveTableTagsInDatabase(TagRepository&& repository)
   PLOG_INFO << "Remove table 'Tags' in database if exists";
 }
 
+//  Class member function
+//  Insert tags to table 'Tags' in database
 void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository)
 {
   size_t j = 0;
@@ -352,6 +418,8 @@ void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository
   PLOG_INFO << "Insert tags to table 'Tags' in database";
 }
 
+//  Class member function
+//  Save tags to table 'Tags' in database
 void DatabaseManager::SaveToDatabaseTags(TagRepository&& repository)
 {
   RemoveTableTagsInDatabase(std::move(repository));
