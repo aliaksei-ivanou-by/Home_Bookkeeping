@@ -9,6 +9,7 @@ TEST(TransactionTest, TestAddOneTransactionType1)
   std::string account_repository = "";
   std::string category_repository = "";
   double amount_repository = DBL_MIN;
+
   //  Act
   FinanceRepository rep;
   Transaction tr({ "BYN Cash" }, { "Bills" }, 10);
@@ -23,9 +24,8 @@ TEST(TransactionTest, TestAddOneTransactionType1)
   {
     category_repository = rep.GetCategoryName(iterator_category);
   }
+
   //  Assert
   EXPECT_EQ(account_expected, account_repository);
-  EXPECT_TRUE(true);
   EXPECT_EQ(category_expected, category_repository);
-  EXPECT_TRUE(true);
 }

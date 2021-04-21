@@ -5,6 +5,7 @@ TEST(CommentTest, TestDefault)
   //  Arrange
   std::string name_expected = "Unspecified";
   std::string name_repository = "";
+
   //  Act
   FinanceRepository rep;
   rep.AddComment();
@@ -13,9 +14,9 @@ TEST(CommentTest, TestDefault)
   {
     name_repository = rep.GetCommentName(iterator_name);
   }
+
   //  Assert
   EXPECT_EQ(name_expected, name_repository);
-  EXPECT_TRUE(true);
 }
 
 TEST(CommentTest, TestDefaultWithRename)
@@ -24,7 +25,9 @@ TEST(CommentTest, TestDefaultWithRename)
   std::string name_expected = "Unspecified";
   std::string name_expected_rename = "UnspecifiedRename";
   std::string name_repository = "";
-  //  Act (1)
+  std::string name_repository_rename = "";
+
+  //  Act
   FinanceRepository rep;
   rep.AddComment();
   auto iterator_name = rep.FindComment("Unspecified");
@@ -32,19 +35,16 @@ TEST(CommentTest, TestDefaultWithRename)
   {
     name_repository = rep.GetCommentName(iterator_name);
   }
-  //  Assert (1)
-  EXPECT_EQ(name_expected, name_repository);
-  EXPECT_TRUE(true);
-  //  Act (2)
   rep.SetCommentName(iterator_name, "UnspecifiedRename");
   auto iterator_name_rename = rep.FindComment("UnspecifiedRename");
   if (iterator_name_rename != rep.EndCommentRepository())
   {
-    name_repository = rep.GetCommentName(iterator_name_rename);
+    name_repository_rename = rep.GetCommentName(iterator_name_rename);
   }
-  //  Assert (2)
-  EXPECT_EQ(name_expected_rename, name_repository);
-  EXPECT_TRUE(true);
+
+  //  Assert
+  EXPECT_EQ(name_expected, name_repository);
+  EXPECT_EQ(name_expected_rename, name_repository_rename);
 }
 
 TEST(CommentTest, TestName)
@@ -52,6 +52,7 @@ TEST(CommentTest, TestName)
   //  Arrange
   std::string name_expected = "Name1";
   std::string name_repository = "";
+
   //  Act
   FinanceRepository rep;
   rep.AddComment({ "Name1" });
@@ -60,7 +61,7 @@ TEST(CommentTest, TestName)
   {
     name_repository = rep.GetCommentName(iterator_name);
   }
+
   //  Assert
   EXPECT_EQ(name_expected, name_repository);
-  EXPECT_TRUE(true);
 }

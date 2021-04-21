@@ -5,6 +5,7 @@ TEST(TagTest, TestDefault)
   //  Arrange
   std::string name_expected = "Unspecified";
   std::string name_repository = "";
+
   //  Act
   FinanceRepository rep;
   rep.AddTag();
@@ -13,9 +14,9 @@ TEST(TagTest, TestDefault)
   {
     name_repository = rep.GetTagName(iterator_name);
   }
+
   //  Assert
   EXPECT_EQ(name_expected, name_repository);
-  EXPECT_TRUE(true);
 }
 
 TEST(TagTest, TestDefaultWithRename)
@@ -24,7 +25,9 @@ TEST(TagTest, TestDefaultWithRename)
   std::string name_expected = "Unspecified";
   std::string name_expected_rename = "UnspecifiedRename";
   std::string name_repository = "";
-  //  Act (1)
+  std::string name_repository_rename = "";
+
+  //  Act
   FinanceRepository rep;
   rep.AddTag();
   auto iterator_name = rep.FindTag("Unspecified");
@@ -32,19 +35,16 @@ TEST(TagTest, TestDefaultWithRename)
   {
     name_repository = rep.GetTagName(iterator_name);
   }
-  //  Assert (1)
-  EXPECT_EQ(name_expected, name_repository);
-  EXPECT_TRUE(true);
-  //  Act (2)
   rep.SetTagName(iterator_name, "UnspecifiedRename");
   auto iterator_name_rename = rep.FindTag("UnspecifiedRename");
   if (iterator_name_rename != rep.EndTagRepository())
   {
-    name_repository = rep.GetTagName(iterator_name_rename);
+    name_repository_rename = rep.GetTagName(iterator_name_rename);
   }
-  //  Assert (2)
-  EXPECT_EQ(name_expected_rename, name_repository);
-  EXPECT_TRUE(true);
+
+  //  Assert
+  EXPECT_EQ(name_expected, name_repository);
+  EXPECT_EQ(name_expected_rename, name_repository_rename);
 }
 
 TEST(TagTest, TestName)
@@ -52,6 +52,7 @@ TEST(TagTest, TestName)
   //  Arrange
   std::string name_expected = "Name1";
   std::string name_repository = "";
+
   //  Act
   FinanceRepository rep;
   rep.AddTag({ "Name1" });
@@ -60,7 +61,7 @@ TEST(TagTest, TestName)
   {
     name_repository = rep.GetTagName(iterator_name);
   }
+
   //  Assert
   EXPECT_EQ(name_expected, name_repository);
-  EXPECT_TRUE(true);
 }

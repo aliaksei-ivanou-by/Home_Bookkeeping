@@ -5,6 +5,7 @@ TEST(DescriptionTest, TestDefault)
   //  Arrange
   std::string name_expected = "Unspecified";
   std::string name_repository = "";
+
   //  Act
   FinanceRepository rep;
   rep.AddDescription();
@@ -13,9 +14,9 @@ TEST(DescriptionTest, TestDefault)
   {
     name_repository = rep.GetDescriptionName(iterator_name);
   }
+
   //  Assert
   EXPECT_EQ(name_expected, name_repository);
-  EXPECT_TRUE(true);
 }
 
 TEST(DescriptionTest, TestDefaultWithRename)
@@ -24,7 +25,9 @@ TEST(DescriptionTest, TestDefaultWithRename)
   std::string name_expected = "Unspecified";
   std::string name_expected_rename = "UnspecifiedRename";
   std::string name_repository = "";
-  //  Act (1)
+  std::string name_repository_rename = "";
+
+  //  Act
   FinanceRepository rep;
   rep.AddDescription();
   auto iterator_name = rep.FindDescription("Unspecified");
@@ -32,19 +35,16 @@ TEST(DescriptionTest, TestDefaultWithRename)
   {
     name_repository = rep.GetDescriptionName(iterator_name);
   }
-  //  Assert (1)
-  EXPECT_EQ(name_expected, name_repository);
-  EXPECT_TRUE(true);
-  //  Act (2)
   rep.SetDescriptionName(iterator_name, "UnspecifiedRename");
   auto iterator_name_rename = rep.FindDescription("UnspecifiedRename");
   if (iterator_name_rename != rep.EndDescriptionRepository())
   {
-    name_repository = rep.GetDescriptionName(iterator_name_rename);
+    name_repository_rename = rep.GetDescriptionName(iterator_name_rename);
   }
-  //  Assert (2)
-  EXPECT_EQ(name_expected_rename, name_repository);
-  EXPECT_TRUE(true);
+
+  //  Assert
+  EXPECT_EQ(name_expected, name_repository);
+  EXPECT_EQ(name_expected_rename, name_repository_rename);
 }
 
 TEST(DescriptionTest, TestName)
@@ -52,6 +52,7 @@ TEST(DescriptionTest, TestName)
   //  Arrange
   std::string name_expected = "Name1";
   std::string name_repository = "";
+
   // Act
   FinanceRepository rep;
   rep.AddDescription({ "Name1" });
@@ -60,7 +61,7 @@ TEST(DescriptionTest, TestName)
   {
     name_repository = rep.GetDescriptionName(iterator_name);
   }
+
   //  Assert
   EXPECT_EQ(name_expected, name_repository);
-  EXPECT_TRUE(true);
 }
