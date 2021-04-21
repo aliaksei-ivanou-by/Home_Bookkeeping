@@ -5,7 +5,8 @@
 Currency::Currency():
   Model{ },
   code_{ "Unspecified" },
-  activity_{ false }
+  activity_{ false },
+  precision_{ 2 }
 {}
 
 //  Constructor
@@ -13,7 +14,8 @@ Currency::Currency():
 Currency::Currency(const std::string& name):
   Model{ name },
   code_{ "Unspecified" },
-  activity_{ false }
+  activity_{ false },
+  precision_{ 2 }
 {}
 
 //  Constructor
@@ -21,7 +23,8 @@ Currency::Currency(const std::string& name):
 Currency::Currency(const std::string& name, const std::string& code):
   Model{ name },
   code_{ code },
-  activity_{ true }
+  activity_{ true },
+  precision_{ 2 }
 {}
 
 //  Constructor
@@ -29,7 +32,17 @@ Currency::Currency(const std::string& name, const std::string& code):
 Currency::Currency(const std::string& name, const std::string& code, bool activity):
   Model{ name },
   code_{ code },
-  activity_{ activity }
+  activity_{ activity },
+  precision_{ 2 }
+{}
+
+//  Constructor
+//  With name setting, code setting, activity setting and precision setting
+Currency::Currency(const std::string& name, const std::string& code, bool activity, int precision):
+  Model{ name },
+  code_{ code },
+  activity_{ activity },
+  precision_{ precision }
 {}
 
 //  Class member function
@@ -44,6 +57,13 @@ std::string Currency::GetCode() const
 bool Currency::GetActivity() const
 {
   return activity_;
+}
+
+//  Class member function
+//  Get precision
+int Currency::GetPrecision() const
+{
+  return precision_;
 }
 
 //  Class member function
@@ -79,6 +99,13 @@ void Currency::SwitchOn()
 void Currency::SwitchOff()
 {
   activity_ = false;
+}
+
+//  Class member function
+//  Set precision
+void Currency::SetPrecision(const int precision)
+{
+  precision_ = precision;
 }
 
 //  Friend class member function
@@ -124,7 +151,7 @@ std::ostream& operator<<(std::ostream& outputStream, const Currency& model)
 }
 
 //  Friend class member function
-//  Input model (name, code, activity -> "name, amount, activity")
+//  Input model (name, code, activity -> "name, amount, activity, precision")
 std::istream& operator>>(std::istream& input_stream, Currency& model)
 {
   if (!input_stream)
@@ -164,11 +191,27 @@ std::istream& operator>>(std::istream& input_stream, Currency& model)
   }
   model.SetCode(code);
   bool activity;
-  input_stream >> activity;
+  while (true)
+  {
+    char ch;
+    input_stream.get(ch);
+    if (!input_stream)
+    {
+      return input_stream;
+    }
+    if (ch == ',')
+    {
+      break;
+    }
+    activity = ch;
+  }
+  model.SetActivity(activity);
+  int precision;
+  input_stream >> precision;
   if (!input_stream)
   {
     return input_stream;
   }
-  model.SetActivity(activity);
+  model.SetPrecision(precision);
   return input_stream;
 }

@@ -213,6 +213,7 @@ private:
   std::shared_ptr<Tag> tag_;
   std::shared_ptr<Status> status_;
   std::shared_ptr<Type> type_;
+  int currency_precision = 2;
 };
 
 #endif  //  HOMEBOOKKEEPING_0MODELS_TRANSACTION_H_
