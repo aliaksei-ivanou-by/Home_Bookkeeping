@@ -143,16 +143,6 @@
 //      Add default accounts to account repository
 //      Add default categories to category repository
 //      Add default currencies to currency repository
-//    database:
-//      save:
-//        Save to database transaction repository
-//        Save to database account repository
-//        Save to database category repository
-//        Save to database currency repository
-//        Save to database description repository
-//        Save to database payee repository
-//        Save to database comment repository
-//        Save to database tag repository
 //
 //  Variables:
 //    transaction repository

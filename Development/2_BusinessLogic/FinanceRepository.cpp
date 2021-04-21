@@ -1241,3 +1241,139 @@ void FinanceRepository::UpdateTagRepository(Transaction& transaction)
   }
   database_manager_->SaveToDatabaseTags(std::move(tag_repository_));
 }
+
+//  Class member function
+//  Calculate sum of today expenses
+double FinanceRepository::SumExpensesToday() const
+{
+  double result = 0;
+  for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
+  {
+    if ((**i).GetType().GetType() == kEnumType::Expense &&
+      (**i).GetTime().GetDay() == Time().GetDay() &&
+      (**i).GetTime().GetMonth() == Time().GetMonth() &&
+      (**i).GetTime().GetYear() == Time().GetYear())
+    {
+      result += (**i).GetAmount();
+    }
+  }
+  return result;
+}
+
+//  Class member function
+//  Calculate sum of this month expenses
+double FinanceRepository::SumExpensesThisMonth() const
+{
+  double result = 0;
+  for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
+  {
+    if ((**i).GetType().GetType() == kEnumType::Expense &&
+      (**i).GetTime().GetMonth() == Time().GetMonth() &&
+      (**i).GetTime().GetYear() == Time().GetYear())
+    {
+      result += (**i).GetAmount();
+    }
+  }
+  return result;
+}
+
+//  Class member function
+//  Calculate sum of all time expenses
+double FinanceRepository::SumExpensesAllTime() const
+{
+  double result = 0;
+  for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
+  {
+    if ((**i).GetType().GetType() == kEnumType::Expense)
+    {
+      result += (**i).GetAmount();
+    }
+  }
+  return result;
+}
+
+//  Class member function
+//  Calculate sum of today incomes
+double FinanceRepository::SumIncomesToday() const
+{
+  double result = 0;
+  for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
+  {
+    if ((**i).GetType().GetType() == kEnumType::Income &&
+      (**i).GetTime().GetDay() == Time().GetDay() &&
+      (**i).GetTime().GetMonth() == Time().GetMonth() &&
+      (**i).GetTime().GetYear() == Time().GetYear())
+    {
+      result += (**i).GetAmount();
+    }
+  }
+  return result;
+}
+
+//  Class member function
+//  Calculate sum of this month incomes
+double FinanceRepository::SumIncomesThisMonth() const
+{
+  double result = 0;
+  for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
+  {
+    if ((**i).GetType().GetType() == kEnumType::Income &&
+      (**i).GetTime().GetMonth() == Time().GetMonth() &&
+      (**i).GetTime().GetYear() == Time().GetYear())
+    {
+      result += (**i).GetAmount();
+    }
+  }
+  return result;
+}
+
+//  Class member function
+//  Calculate sum of all time incomes
+double FinanceRepository::SumIncomesAllTime() const
+{
+  double result = 0;
+  for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
+  {
+    if ((**i).GetType().GetType() == kEnumType::Income)
+    {
+      result += (**i).GetAmount();
+    }
+  }
+  return result;
+}
+
+//  Class member function
+//  Add default accounts to account repository
+void FinanceRepository::AddDefaultAccounts()
+{
+  AddAccount({ "BYN Cash" });
+  AddAccount({ "BYN Card" });
+  AddAccount({ "USD Card" });
+  AddAccount({ "USD Cash" });
+  PLOG_INFO << "Add to repository of Accounts default Accounts";
+}
+
+//  Class member function
+//  Add default categories to category repository
+void FinanceRepository::AddDefaultCategories()
+{
+  AddCategory({ "Bills" });
+  AddCategory({ "Financial Expenses" });
+  AddCategory({ "Housing" });
+  AddCategory({ "Food & Dining" });
+  AddCategory({ "Life" });
+  AddCategory({ "Transportation" });
+  AddCategory({ "Vehicle" });
+  AddCategory({ "Shopping" });
+  PLOG_INFO << "Add to repository of Categories default Categories";
+}
+
+//  Class member function
+//  Add default currencies to currency repository
+void FinanceRepository::AddDefaultCurrencies()
+{
+  AddCurrency({ "BYN", "BYN", true });
+  AddCurrency({ "USD", "USD", false });
+  AddCurrency({ "EURO", "EURO", false });
+  PLOG_INFO << "Add to repository of Currencies default Currencies";
+}
