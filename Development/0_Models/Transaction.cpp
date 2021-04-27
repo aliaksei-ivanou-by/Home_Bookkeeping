@@ -20,9 +20,9 @@ Transaction::Transaction(
   account_from_{ std::make_shared<Account>(account_from) },
   account_to_{ account_from_ },
   category_{ std::make_shared<Category>(category) },
-  amount_{ (floor(amount * (pow(10, 2))) / (pow(10, 2))) },
-  amount_account_from_{ 0.0 },
-  amount_account_to_{ 0.0 },
+  amount_{ NUM(amount) },
+  amount_account_from_{ NUM(0.0) },
+  amount_account_to_{ NUM(0.0) },
   comment_{ std::make_shared<Comment>(comment) },
   currency_{ std::make_shared<Currency>(currency) },
   description_{ std::make_shared<Description>(description) },
@@ -53,9 +53,9 @@ Transaction::Transaction(
   account_from_{ std::make_shared<Account>(account_from) },
   account_to_{ std::make_shared<Account>(account_to) },
   category_{ std::make_shared<Category>(category) },
-  amount_{ (floor(amount * (pow(10, 2))) / (pow(10, 2))) },
-  amount_account_from_{ 0.0 },
-  amount_account_to_{ 0.0 },
+  amount_{ NUM(amount) },
+  amount_account_from_{ NUM(0.0) },
+  amount_account_to_{ NUM(0.0) },
   comment_{ std::make_shared<Comment>(comment) },
   currency_{ std::make_shared<Currency>(currency) },
   description_{ std::make_shared<Description>(description) },
@@ -76,9 +76,9 @@ Transaction::Transaction(
   account_from_{ std::make_shared<Account>(account_from) },
   account_to_{ account_from_ },
   category_{ std::make_shared<Category>(category) },
-  amount_{ (floor(amount * (pow(10, 2))) / (pow(10, 2))) },
-  amount_account_from_{ 0.0 },
-  amount_account_to_{ 0.0 },
+  amount_{ NUM(amount) },
+  amount_account_from_{ NUM(0.0) },
+  amount_account_to_{ NUM(0.0) },
   comment_{ std::make_shared<Comment>(Comment()) },
   currency_{ std::make_shared<Currency>(Currency()) },
   description_{ std::make_shared<Description>(Description()) },
@@ -100,9 +100,9 @@ Transaction::Transaction(
   account_from_{ std::make_shared<Account>(account_from) },
   account_to_{ std::make_shared<Account>(account_to) },
   category_{ std::make_shared<Category>(category) },
-  amount_{ (floor(amount * (pow(10, 2))) / (pow(10, 2))) },
-  amount_account_from_{ 0.0 },
-  amount_account_to_{ 0.0 },
+  amount_{ NUM(amount) },
+  amount_account_from_{ NUM(0.0) },
+  amount_account_to_{ NUM(0.0) },
   comment_{ std::make_shared<Comment>(Comment()) },
   currency_{ std::make_shared<Currency>(Currency()) },
   description_{ std::make_shared<Description>(Description()) },
@@ -169,35 +169,35 @@ Category Transaction::GetCategory() const
 
 //  Class member function
 //  Get amount
-double Transaction::GetAmount() const
+NUM Transaction::GetAmount() const
 {
   return amount_;
 }
 
 //  Class member function
 //  Get amount of the account from
-double Transaction::GetAmountAccountFrom() const
+NUM Transaction::GetAmountAccountFrom() const
 {
   return amount_account_from_;
 }
 
 //  Class member function
 //  Get amount of the account to
-double Transaction::GetAmountAccountTo() const
+NUM Transaction::GetAmountAccountTo() const
 {
   return amount_account_to_;
 }
 
 //  Class member function
 //  Get lastest amount of the account from
-double Transaction::GetAmountLastestAccountFrom() const
+NUM Transaction::GetAmountLastestAccountFrom() const
 {
   return (*account_from_).GetAmount();
 }
 
 //  Class member function
 //  Get lastest amount of the account to
-double Transaction::GetAmountLastestAccountTo() const
+NUM Transaction::GetAmountLastestAccountTo() const
 {
   return (*account_to_).GetAmount();
 }
@@ -353,6 +353,13 @@ void Transaction::SetCategory(const Category& category)
 //  Set amount
 void Transaction::SetAmount(const double amount)
 {
+  amount_ = NUM(amount);
+}
+
+//  Class member function
+//  Set amount
+void Transaction::SetAmount(const NUM amount)
+{
   amount_ = amount;
 }
 
@@ -360,12 +367,24 @@ void Transaction::SetAmount(const double amount)
 //  Set amount of the account from
 void Transaction::SetAmountAccountFrom(const double amount)
 {
+  amount_account_from_ = NUM(amount);
+}
+
+//  Class member function
+//  Set amount of the account from
+void Transaction::SetAmountAccountFrom(const NUM amount)
+{
   amount_account_from_ = amount;
 }
 
 //  Class member function
 //  Set amount of the account to
 void Transaction::SetAmountAccountTo(const double amount)
+{
+  amount_account_to_ = NUM(amount);
+}
+
+void Transaction::SetAmountAccountTo(const NUM amount)
 {
   amount_account_to_ = amount;
 }
@@ -377,9 +396,21 @@ void Transaction::SetAmountLastestAccountFrom(const double amount)
   (*account_from_).SetAmount(amount);
 }
 
+void Transaction::SetAmountLastestAccountFrom(const NUM amount)
+{
+  (*account_from_).SetAmount(amount);
+}
+
 //  Class member function
 //  Set lastest amount of the account to
 void Transaction::SetAmountLastestAccountTo(const double amount)
+{
+  (*account_to_).SetAmount(amount);
+}
+
+//  Class member function
+//  Set lastest amount of the account to
+void Transaction::SetAmountLastestAccountTo(const NUM amount)
 {
   (*account_to_).SetAmount(amount);
 }

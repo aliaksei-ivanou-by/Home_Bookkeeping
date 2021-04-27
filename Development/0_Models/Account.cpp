@@ -4,26 +4,26 @@
 //  Default (name = "Unspecified")
 Account::Account():
   Model{ },
-  amount_{ 0 }
+  amount_{ NUM(0.0) }
 {}
 
 //  Constructor
 //  With name setting
 Account::Account(const std::string& name):
   Model{ name },
-  amount_{ 0 }
+  amount_{ NUM(0.0) }
 {}
 
 //  Constructor
 //  With name setting and amount setting
 Account::Account(const std::string& name, double amount):
   Model{ name },
-  amount_{ amount }
+  amount_{ NUM(amount) }
 {}
 
 //  Class member function
 //  Get amount
-double Account::GetAmount() const
+NUM Account::GetAmount() const
 {
   return amount_;
 }
@@ -32,12 +32,26 @@ double Account::GetAmount() const
 //  Set amount
 void Account::SetAmount(const double amount)
 {
+  amount_ = NUM(amount);
+}
+
+//  Class member function
+//  Set amount
+void Account::SetAmount(const NUM amount)
+{
   amount_ = amount;
 }
 
 //  Class member function
 //  Append amount
 void Account::AppendAmount(const double amount)
+{
+  amount_ += NUM(amount);
+}
+
+//  Class member function
+//  Append amount
+void Account::AppendAmount(const NUM amount)
 {
   amount_ += amount;
 }

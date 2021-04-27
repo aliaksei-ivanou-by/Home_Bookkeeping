@@ -351,7 +351,7 @@ std::string FinanceRepository::GetAccountName(AccountRepositoryIterator account)
 
 //  Class member function
 //  Get amount of account from repository
-double FinanceRepository::GetAccountAmount(AccountRepositoryIterator account) const
+NUM FinanceRepository::GetAccountAmount(AccountRepositoryIterator account) const
 {
   return (**account).GetAmount();
 }
@@ -1244,9 +1244,9 @@ void FinanceRepository::UpdateTagRepository(Transaction& transaction)
 
 //  Class member function
 //  Calculate sum of today expenses
-double FinanceRepository::SumExpensesToday() const
+NUM FinanceRepository::SumExpensesToday() const
 {
-  double result = 0;
+  NUM result = NUM(0.0);
   for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
   {
     if ((**i).GetType().GetType() == kEnumType::Expense &&
@@ -1262,9 +1262,9 @@ double FinanceRepository::SumExpensesToday() const
 
 //  Class member function
 //  Calculate sum of this month expenses
-double FinanceRepository::SumExpensesThisMonth() const
+NUM FinanceRepository::SumExpensesThisMonth() const
 {
-  double result = 0;
+  NUM result = NUM(0.0);
   for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
   {
     if ((**i).GetType().GetType() == kEnumType::Expense &&
@@ -1279,9 +1279,9 @@ double FinanceRepository::SumExpensesThisMonth() const
 
 //  Class member function
 //  Calculate sum of all time expenses
-double FinanceRepository::SumExpensesAllTime() const
+NUM FinanceRepository::SumExpensesAllTime() const
 {
-  double result = 0;
+  NUM result = NUM(0.0);
   for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
   {
     if ((**i).GetType().GetType() == kEnumType::Expense)
@@ -1294,9 +1294,9 @@ double FinanceRepository::SumExpensesAllTime() const
 
 //  Class member function
 //  Calculate sum of today incomes
-double FinanceRepository::SumIncomesToday() const
+NUM FinanceRepository::SumIncomesToday() const
 {
-  double result = 0;
+  NUM result = NUM(0.0);
   for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
   {
     if ((**i).GetType().GetType() == kEnumType::Income &&
@@ -1312,9 +1312,9 @@ double FinanceRepository::SumIncomesToday() const
 
 //  Class member function
 //  Calculate sum of this month incomes
-double FinanceRepository::SumIncomesThisMonth() const
+NUM FinanceRepository::SumIncomesThisMonth() const
 {
-  double result = 0;
+  NUM result = NUM(0.0);
   for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
   {
     if ((**i).GetType().GetType() == kEnumType::Income &&
@@ -1329,9 +1329,9 @@ double FinanceRepository::SumIncomesThisMonth() const
 
 //  Class member function
 //  Calculate sum of all time incomes
-double FinanceRepository::SumIncomesAllTime() const
+NUM FinanceRepository::SumIncomesAllTime() const
 {
-  double result = 0;
+  NUM result = NUM(0.0);
   for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
   {
     if ((**i).GetType().GetType() == kEnumType::Income)

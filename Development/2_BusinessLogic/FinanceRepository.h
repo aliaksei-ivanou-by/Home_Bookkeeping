@@ -224,7 +224,7 @@ public:
   void RemoveTag(std::shared_ptr<Tag> tag);
   //  basic->get values of model from repository
   std::string GetAccountName(AccountRepositoryIterator account) const;
-  double GetAccountAmount(AccountRepositoryIterator account) const;
+  NUM GetAccountAmount(AccountRepositoryIterator account) const;
   std::string GetCategoryName(CategoryRepositoryIterator category) const;
   std::string GetCurrencyName(CurrencyRepositoryIterator currency) const;
   std::string GetCurrencyCode(CurrencyRepositoryIterator currency) const;
@@ -303,13 +303,13 @@ public:
   void UpdateCommentRepository(Transaction& transaction);
   void UpdateTagRepository(Transaction& transaction);
   //  sum->expenses
-  double SumExpensesToday() const;
-  double SumExpensesThisMonth() const;
-  double SumExpensesAllTime() const;
+  NUM SumExpensesToday() const;
+  NUM SumExpensesThisMonth() const;
+  NUM SumExpensesAllTime() const;
   //  sum->incomes
-  double SumIncomesToday() const;
-  double SumIncomesThisMonth() const;
-  double SumIncomesAllTime() const;
+  NUM SumIncomesToday() const;
+  NUM SumIncomesThisMonth() const;
+  NUM SumIncomesAllTime() const;
   //  add default models to repository
   void AddDefaultCategories();
   void AddDefaultAccounts();

@@ -46,7 +46,7 @@ public:
   void Add(std::shared_ptr<Account> account);
   void Remove(std::shared_ptr<Account> account);
   std::string GetName(AccountRepositoryIterator account) const;
-  double GetAmount(AccountRepositoryIterator account) const;
+  NUM GetAmount(AccountRepositoryIterator account) const;
   void SetName(AccountRepositoryIterator account, const std::string& name);
   void SetAmount(AccountRepositoryIterator account, const double amount);
   size_t Size() const;

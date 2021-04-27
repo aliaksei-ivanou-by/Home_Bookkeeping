@@ -147,11 +147,11 @@ public:
   Account GetAccountFrom() const;
   Account GetAccountTo() const;
   Category GetCategory() const;
-  double GetAmount() const;
-  double GetAmountAccountFrom() const;
-  double GetAmountAccountTo() const;
-  double GetAmountLastestAccountFrom() const;
-  double GetAmountLastestAccountTo() const;
+  NUM GetAmount() const;
+  NUM GetAmountAccountFrom() const;
+  NUM GetAmountAccountTo() const;
+  NUM GetAmountLastestAccountFrom() const;
+  NUM GetAmountLastestAccountTo() const;
   Comment GetComment() const;
   Currency GetCurrency() const;
   Description GetDescription() const;
@@ -174,10 +174,15 @@ public:
   void SetAccountTo(const Account& account_to);
   void SetCategory(const Category& category);
   void SetAmount(const double amount);
+  void SetAmount(const NUM amount);
   void SetAmountLastestAccountFrom(const double amount);
+  void SetAmountLastestAccountFrom(const NUM amount);
   void SetAmountLastestAccountTo(const double amount);
+  void SetAmountLastestAccountTo(const NUM amount);
   void SetAmountAccountFrom(const double amount);
+  void SetAmountAccountFrom(const NUM amount);
   void SetAmountAccountTo(const double amount);
+  void SetAmountAccountTo(const NUM amount);
   void SetComment(const Comment& comment);
   void SetCurrency(const Currency& currency);
   void SetDescription(const Description& description);
@@ -203,9 +208,9 @@ private:
   std::shared_ptr<Account> account_from_;
   std::shared_ptr<Account> account_to_;
   std::shared_ptr<Category> category_;
-  double amount_;
-  double amount_account_from_;
-  double amount_account_to_;
+  NUM amount_;
+  NUM amount_account_from_;
+  NUM amount_account_to_;
   std::shared_ptr<Comment> comment_;
   std::shared_ptr<Currency> currency_;
   std::shared_ptr<Description> description_;
@@ -213,7 +218,6 @@ private:
   std::shared_ptr<Tag> tag_;
   std::shared_ptr<Status> status_;
   std::shared_ptr<Type> type_;
-  int currency_precision = 2;
 };
 
 #endif  //  HOMEBOOKKEEPING_0MODELS_TRANSACTION_H_

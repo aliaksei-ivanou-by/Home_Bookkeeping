@@ -83,11 +83,11 @@ std::string TransactionRepository::MakeCommandToInsertRepositoryToDatabase(size_
     + "', '" +
     (**iterator).GetCategory().GetName()
     + "', " +
-    std::to_string((**iterator).GetAmount())
+    std::to_string((**iterator).GetAmount().getAsDouble())
     + ", " +
-    std::to_string((**iterator).GetAmountAccountFrom())
+    std::to_string((**iterator).GetAmountAccountFrom().getAsDouble())
     + ", " +
-    std::to_string((**iterator).GetAmountAccountTo())
+    std::to_string((**iterator).GetAmountAccountTo().getAsDouble())
     + ", '" +
     (**iterator).GetComment().GetName()
     + "', '" +

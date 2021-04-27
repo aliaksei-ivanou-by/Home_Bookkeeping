@@ -42,7 +42,7 @@ std::string AccountRepository::GetName(AccountRepositoryIterator account) const
 
 //  Class member function
 //  Get amount of account from repository
-double AccountRepository::GetAmount(AccountRepositoryIterator account) const
+NUM AccountRepository::GetAmount(AccountRepositoryIterator account) const
 {
   return (**account).GetAmount();
 }
@@ -102,7 +102,7 @@ AccountRepositoryIterator AccountRepository::Find(double amount) const
 {
   for (auto i = repository_.begin(); i != repository_.end(); ++i)
   {
-    if ((**i).GetAmount() == amount)
+    if ((**i).GetAmount() == NUM(amount))
     {
       return i;
     }
@@ -140,7 +140,7 @@ std::string AccountRepository::MakeCommandToInsertRepositoryToDatabase(size_t id
     + ", '" + 
     (**iterator).GetName() 
     + "', " + 
-    std::to_string((**iterator).GetAmount())
+    std::to_string((**iterator).GetAmount().getAsDouble())
     + ")";
 }
 
