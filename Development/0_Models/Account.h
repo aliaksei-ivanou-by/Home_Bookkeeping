@@ -29,7 +29,7 @@
 
 #include "home_bookkeeping/0_Models/Model.h"
 
-using NUM = dec::decimal<4>;
+using NUM = dec::decimal<6>;
 
 class Account : public Model
 {
