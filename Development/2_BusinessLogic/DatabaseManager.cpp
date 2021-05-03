@@ -24,7 +24,11 @@ DatabaseManager::~DatabaseManager()
 //  Create table 'Transactions' in database
 void DatabaseManager::CreateTableTransactionsInDatabase(TransactionRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
+  const std::string sql_request_first_part = "CREATE TABLE Transactions";
+  const std::string sql_request_second_part = "(id SERIAL PRIMARY KEY, time TEXT NOT NULL, account_from TEXT NOT NULL, account_to TEXT NOT NULL, category TEXT NOT NULL, amount DOUBLE NOT NULL, amount_account_from DOUBLE NOT NULL, amount_acount_to DOUBLE NOT NULL, comment TEXT NOT NULL, currency TEXT NOT NULL, description VARCHAR(255) NOT NULL, payee VARCHAR(255), tag VARCHAR(255) NOT NULL, status VARCHAR(255) NOT NULL, type TEXT NOT NULL);";
+  const std::string sql_request = sql_request_first_part + sql_request_second_part;
+
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -36,7 +40,8 @@ void DatabaseManager::CreateTableTransactionsInDatabase(TransactionRepository&& 
 //  Remove table 'Transactions' in database
 void DatabaseManager::RemoveTableTransactionsInDatabase(TransactionRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
+  const std::string sql_request = "DROP TABLE IF EXISTS Transactions";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -87,7 +92,8 @@ void DatabaseManager::CreateTableAccountsInDatabase(AccountRepository&& reposito
 //  Remove table 'Accounts' in database
 void DatabaseManager::RemoveTableAccountsInDatabase(AccountRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
+  const std::string sql_request = "DROP TABLE IF EXISTS Accounts";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -138,7 +144,8 @@ void DatabaseManager::CreateTableCategoriesInDatabase(CategoryRepository&& repos
 //  Remove table 'Categories' in database
 void DatabaseManager::RemoveTableCategoriesInDatabase(CategoryRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
+  const std::string sql_request = "DROP TABLE IF EXISTS Categories";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -189,7 +196,8 @@ void DatabaseManager::CreateTableCurrenciesInDatabase(CurrencyRepository&& repos
 //  Remove table 'Currencies' in database
 void DatabaseManager::RemoveTableCurrenciesInDatabase(CurrencyRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
+  const std::string sql_request = "DROP TABLE IF EXISTS Currencies";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -240,7 +248,8 @@ void DatabaseManager::CreateTableDescriptionsInDatabase(DescriptionRepository&& 
 //  Remove table 'Descriptions' in database
 void DatabaseManager::RemoveTableDescriptionsInDatabase(DescriptionRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
+  const std::string sql_request = "DROP TABLE IF EXISTS Descriptions";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -291,7 +300,8 @@ void DatabaseManager::CreateTablePayeesInDatabase(PayeeRepository&& repository)
 //  Remove table 'Payees' in database
 void DatabaseManager::RemoveTablePayeesInDatabase(PayeeRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
+  const std::string sql_request = "DROP TABLE IF EXISTS Payees";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -342,7 +352,8 @@ void DatabaseManager::CreateTableCommentsInDatabase(CommentRepository&& reposito
 //  Remove table 'Comments' in database
 void DatabaseManager::RemoveTableCommentsInDatabase(CommentRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
+  const std::string sql_request = "DROP TABLE IF EXISTS Comments";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -393,7 +404,8 @@ void DatabaseManager::CreateTableTagsInDatabase(TagRepository&& repository)
 //  Remove table 'Tags' in database
 void DatabaseManager::RemoveTableTagsInDatabase(TagRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToRemoveRepositoryFromDatabase().c_str(), NULL, NULL, &database_error_);
+  const std::string sql_request = "DROP TABLE IF EXISTS Tags";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;

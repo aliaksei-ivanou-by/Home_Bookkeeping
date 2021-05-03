@@ -113,10 +113,3 @@ std::string CategoryRepository::MakeCommandToInsertRepositoryToDatabase(size_t i
     (**iterator).GetName()
     + "')";
 }
-
-//  Class member function
-//  Make command to remove table for repository from database
-std::string CategoryRepository::MakeCommandToRemoveRepositoryFromDatabase() const
-{
-  return "DROP TABLE IF EXISTS Categories";
-}

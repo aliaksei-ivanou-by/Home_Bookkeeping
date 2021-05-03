@@ -180,10 +180,3 @@ std::string CurrencyRepository::MakeCommandToInsertRepositoryToDatabase(size_t i
     std::to_string((**iterator).GetActivity())
     + ")";
 }
-
-//  Class member function
-//  Make command to remove table for repository from database
-std::string CurrencyRepository::MakeCommandToRemoveRepositoryFromDatabase() const
-{
-  return "DROP TABLE IF EXISTS Currencies";
-}

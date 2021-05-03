@@ -143,10 +143,3 @@ std::string AccountRepository::MakeCommandToInsertRepositoryToDatabase(size_t id
     std::to_string((**iterator).GetAmount().getAsDouble())
     + ")";
 }
-
-//  Class member function
-//  Make command to remove table for repository from database
-std::string AccountRepository::MakeCommandToRemoveRepositoryFromDatabase() const
-{
-  return "DROP TABLE IF EXISTS Accounts";
-}

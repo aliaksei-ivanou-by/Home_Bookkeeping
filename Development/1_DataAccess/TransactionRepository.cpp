@@ -65,7 +65,7 @@ TransactionRepositoryIterator TransactionRepository::End() const
 //  Make command to create table for repository in database
 std::string TransactionRepository::MakeCommandToCreateRepositoryInDatabase() const
 {
-  return "CREATE TABLE IF NOT EXISTS Transactions(id INTEGER NOT NULL PRIMARY KEY, time VARCHAR(255) NOT NULL, account_from VARCHAR(255) NOT NULL, account_to VARCHAR(255) NOT NULL, category VARCHAR(255) NOT NULL, amount DOUBLE NOT NULL, amount_account_from DOUBLE NOT NULL, amount_acount_to DOUBLE NOT NULL, comment VARCHAR(255) NOT NULL, currency VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, payee VARCHAR(255), tag VARCHAR(255) NOT NULL, status VARCHAR(255) NOT NULL, type VARCHAR(255) NOT NULL);";
+  return "CREATE TABLE IF NOT EXISTS Transactions(id SERIAL PRIMARY KEY, time VARCHAR(255) NOT NULL, account_from VARCHAR(255) NOT NULL, account_to VARCHAR(255) NOT NULL, category VARCHAR(255) NOT NULL, amount DOUBLE NOT NULL, amount_account_from DOUBLE NOT NULL, amount_acount_to DOUBLE NOT NULL, comment VARCHAR(255) NOT NULL, currency VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, payee VARCHAR(255), tag VARCHAR(255) NOT NULL, status VARCHAR(255) NOT NULL, type VARCHAR(255) NOT NULL);";
 }
 
 //  Class member function
@@ -103,11 +103,4 @@ std::string TransactionRepository::MakeCommandToInsertRepositoryToDatabase(size_
     + "', '" +
     (**iterator).GetType().GetName()
     + "')";
-}
-
-//  Class member function
-//  Make command to remove table for repository from database
-std::string TransactionRepository::MakeCommandToRemoveRepositoryFromDatabase() const
-{
-  return "DROP TABLE IF EXISTS Transactions";
 }

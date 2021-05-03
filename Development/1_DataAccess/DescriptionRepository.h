@@ -21,7 +21,6 @@
 //    Find end iterator of repository
 //    Make command to create table for repository in database
 //    Make command to insert repository to database to table
-//    Make command to remove table for repository from database
 //
 //  Variables:
 //    repository
@@ -51,7 +50,6 @@ public:
   DescriptionRepositoryIterator End() const;
   std::string MakeCommandToCreateRepositoryInDatabase() const;
   std::string MakeCommandToInsertRepositoryToDatabase(size_t counter, DescriptionRepositoryIterator iterator) const;
-  std::string MakeCommandToRemoveRepositoryFromDatabase() const;
 private:
   std::set<std::shared_ptr<Description>> repository_;
 };

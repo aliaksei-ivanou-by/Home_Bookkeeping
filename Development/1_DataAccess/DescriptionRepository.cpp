@@ -114,10 +114,3 @@ std::string DescriptionRepository::MakeCommandToInsertRepositoryToDatabase(size_
     (**iterator).GetName()
     + "')";
 }
-
-//  Class member function
-//  Make command to remove table for repository from database
-std::string DescriptionRepository::MakeCommandToRemoveRepositoryFromDatabase() const
-{
-  return "DROP TABLE IF EXISTS Descriptions";
-}
