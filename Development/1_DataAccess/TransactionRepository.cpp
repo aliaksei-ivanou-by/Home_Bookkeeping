@@ -62,13 +62,6 @@ TransactionRepositoryIterator TransactionRepository::End() const
 }
 
 //  Class member function
-//  Make command to create table for repository in database
-std::string TransactionRepository::MakeCommandToCreateRepositoryInDatabase() const
-{
-  return "CREATE TABLE IF NOT EXISTS Transactions(id SERIAL PRIMARY KEY, time VARCHAR(255) NOT NULL, account_from VARCHAR(255) NOT NULL, account_to VARCHAR(255) NOT NULL, category VARCHAR(255) NOT NULL, amount DOUBLE NOT NULL, amount_account_from DOUBLE NOT NULL, amount_acount_to DOUBLE NOT NULL, comment VARCHAR(255) NOT NULL, currency VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, payee VARCHAR(255), tag VARCHAR(255) NOT NULL, status VARCHAR(255) NOT NULL, type VARCHAR(255) NOT NULL);";
-}
-
-//  Class member function
 //  Make command to insert repository to database to table
 std::string TransactionRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, TransactionRepositoryIterator iterator) const
 {

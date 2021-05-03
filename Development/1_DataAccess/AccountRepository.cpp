@@ -125,13 +125,6 @@ AccountRepositoryIterator AccountRepository::End() const
 }
 
 //  Class member function
-//  Make command to create table for repository in database
-std::string AccountRepository::MakeCommandToCreateRepositoryInDatabase() const
-{
-  return "CREATE TABLE IF NOT EXISTS Accounts(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL, amount DOUBLE NOT NULL);";
-}
-
-//  Class member function
 //  Make command to insert repository to database to table
 std::string AccountRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, AccountRepositoryIterator iterator) const
 {

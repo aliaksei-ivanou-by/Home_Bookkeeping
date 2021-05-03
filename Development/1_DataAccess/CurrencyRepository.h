@@ -27,7 +27,6 @@
 //    Find currency with definite code in repository
 //    Find begin iterator of repository
 //    Find end iterator of repository
-//    Make command to create table for repository in database
 //    Make command to insert repository to database to table
 //
 //  Variables:
@@ -64,7 +63,6 @@ public:
   CurrencyRepositoryIterator FindCode(const std::string& category) const;
   CurrencyRepositoryIterator Begin() const;
   CurrencyRepositoryIterator End() const;
-  std::string MakeCommandToCreateRepositoryInDatabase() const;
   std::string MakeCommandToInsertRepositoryToDatabase(size_t counter, CurrencyRepositoryIterator iterator) const;
 private:
   std::set<std::shared_ptr<Currency>> repository_;

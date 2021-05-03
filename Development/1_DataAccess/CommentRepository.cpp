@@ -97,13 +97,6 @@ CommentRepositoryIterator CommentRepository::End() const
 }
 
 //  Class member function
-//  Make command to create table for repository in database
-std::string CommentRepository::MakeCommandToCreateRepositoryInDatabase() const
-{
-  return "CREATE TABLE IF NOT EXISTS Comments(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL);";
-}
-
-//  Class member function
 //  Make command to insert repository to database to table
 std::string CommentRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, CommentRepositoryIterator iterator) const
 {

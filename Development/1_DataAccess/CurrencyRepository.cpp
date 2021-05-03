@@ -160,13 +160,6 @@ CurrencyRepositoryIterator CurrencyRepository::End() const
 }
 
 //  Class member function
-//  Make command to create table for repository in database
-std::string CurrencyRepository::MakeCommandToCreateRepositoryInDatabase() const
-{
-  return "CREATE TABLE IF NOT EXISTS Currencies(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL, code VARCHAR(255) NOT NULL, activity BOOL NOT NULL);";
-}
-
-//  Class member function
 //  Make command to insert repository to database to table
 std::string CurrencyRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, CurrencyRepositoryIterator iterator) const
 {

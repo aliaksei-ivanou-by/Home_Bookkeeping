@@ -24,10 +24,23 @@ DatabaseManager::~DatabaseManager()
 //  Create table 'Transactions' in database
 void DatabaseManager::CreateTableTransactionsInDatabase(TransactionRepository&& repository)
 {
-  const std::string sql_request_first_part = "CREATE TABLE Transactions";
-  const std::string sql_request_second_part = "(id SERIAL PRIMARY KEY, time TEXT NOT NULL, account_from TEXT NOT NULL, account_to TEXT NOT NULL, category TEXT NOT NULL, amount DOUBLE NOT NULL, amount_account_from DOUBLE NOT NULL, amount_acount_to DOUBLE NOT NULL, comment TEXT NOT NULL, currency TEXT NOT NULL, description VARCHAR(255) NOT NULL, payee VARCHAR(255), tag VARCHAR(255) NOT NULL, status VARCHAR(255) NOT NULL, type TEXT NOT NULL);";
-  const std::string sql_request = sql_request_first_part + sql_request_second_part;
-
+  const std::string sql_request = std::string("CREATE TABLE Transactions(") + 
+    "id SERIAL PRIMARY KEY, " + 
+    "time TEXT NOT NULL, " + 
+    "account_from TEXT NOT NULL, " + 
+    "account_to TEXT NOT NULL, " + 
+    "category TEXT NOT NULL, " + 
+    "amount DOUBLE NOT NULL, " + 
+    "amount_account_from DOUBLE NOT NULL, " + 
+    "amount_acount_to DOUBLE NOT NULL, " + 
+    "comment TEXT NOT NULL, " + 
+    "currency TEXT NOT NULL, " + 
+    "description TEXT NOT NULL, " + 
+    "payee TEXT NOT NULL, " + 
+    "tag TEXT NOT NULL, " + 
+    "status TEXT NOT NULL, " + 
+    "type TEXT NOT NULL" + 
+    ");";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -80,7 +93,12 @@ void DatabaseManager::SaveToDatabaseTransactions(TransactionRepository&& reposit
 //  Create table 'Accounts' in database
 void DatabaseManager::CreateTableAccountsInDatabase(AccountRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
+  std::string sql_request = std::string("CREATE TABLE Accounts(") + 
+    "id SERIAL PRIMARY KEY, " + 
+    "name TEXT NOT NULL, " + 
+    "amount DOUBLE NOT NULL" + 
+    ");";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -132,7 +150,11 @@ void DatabaseManager::SaveToDatabaseAccounts(AccountRepository&& repository)
 //  Create table 'Categories' in database
 void DatabaseManager::CreateTableCategoriesInDatabase(CategoryRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
+  std::string sql_request = std::string("CREATE TABLE Categories(") + 
+    "id SERIAL PRIMARY KEY, " + 
+    "name TEXT NOT NULL" + 
+    ");";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -184,7 +206,13 @@ void DatabaseManager::SaveToDatabaseCategories(CategoryRepository&& repository)
 //  Create table 'Currencies' in database
 void DatabaseManager::CreateTableCurrenciesInDatabase(CurrencyRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
+  std::string sql_request = std::string("CREATE TABLE Currencies(") + 
+    "id SERIAL PRIMARY KEY, " + 
+    "name TEXT NOT NULL, " + 
+    "code TEXT NOT NULL, " + 
+    "activity BOOL NOT NULL" + 
+    ");";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -236,7 +264,11 @@ void DatabaseManager::SaveToDatabaseCurrencies(CurrencyRepository&& repository)
 //  Create table 'Descriptions' in database
 void DatabaseManager::CreateTableDescriptionsInDatabase(DescriptionRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
+  std::string sql_request = std::string("CREATE TABLE Descriptions(") + 
+    "id SERIAL PRIMARY KEY, " + 
+    "name TEXT NOT NULL" + 
+    ");";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -288,7 +320,11 @@ void DatabaseManager::SaveToDatabaseDescriptions(DescriptionRepository&& reposit
 //  Create table 'Payees' in database
 void DatabaseManager::CreateTablePayeesInDatabase(PayeeRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
+  std::string sql_request = std::string("CREATE TABLE Payees(") + 
+    "id SERIAL PRIMARY KEY, " + 
+    "name TEXT NOT NULL" + 
+    ");";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -340,7 +376,11 @@ void DatabaseManager::SaveToDatabasePayees(PayeeRepository&& repository)
 //  Create table 'Comments' in database
 void DatabaseManager::CreateTableCommentsInDatabase(CommentRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
+  std::string sql_request = std::string("CREATE TABLE Comments(") + 
+    "id SERIAL PRIMARY KEY, " + 
+    "name TEXT NOT NULL" + 
+    ");";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
@@ -392,7 +432,10 @@ void DatabaseManager::SaveToDatabaseComments(CommentRepository&& repository)
 //  Create table 'Tags' in database
 void DatabaseManager::CreateTableTagsInDatabase(TagRepository&& repository)
 {
-  database_status_ = sqlite3_exec(database_, repository.MakeCommandToCreateRepositoryInDatabase().c_str(), NULL, NULL, &database_error_);
+  std::string sql_request = std::string("CREATE TABLE Tags(") + 
+    "id SERIAL PRIMARY KEY, " + 
+    "name TEXT NOT NULL);";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;

@@ -19,7 +19,6 @@
 //    Find tag with definite name in repository
 //    Find begin iterator of repository
 //    Find end iterator of repository
-//    Make command to create table for repository in database
 //    Make command to insert repository to database to table
 //
 //  Variables:
@@ -48,7 +47,6 @@ public:
   TagRepositoryIterator Find(std::string name) const;
   TagRepositoryIterator Begin() const;
   TagRepositoryIterator End() const;
-  std::string MakeCommandToCreateRepositoryInDatabase() const;
   std::string MakeCommandToInsertRepositoryToDatabase(size_t counter, TagRepositoryIterator iterator) const;
 private:
   std::set<std::shared_ptr<Tag>> repository_;
