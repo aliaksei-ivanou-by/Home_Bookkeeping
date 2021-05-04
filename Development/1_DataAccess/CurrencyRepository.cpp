@@ -10,6 +10,7 @@ CurrencyRepository::CurrencyRepository()
 void CurrencyRepository::Add()
 {
   repository_.insert(std::make_shared<Currency>());
+  PLOG_INFO << "Add currency to currency repository";
 }
 
 //  Class member function
@@ -17,6 +18,7 @@ void CurrencyRepository::Add()
 void CurrencyRepository::Add(Currency currency)
 {
   repository_.insert(std::make_shared<Currency>(currency));
+  PLOG_INFO << "Add currency to currency repository";
 }
 
 //  Class member function
@@ -24,6 +26,7 @@ void CurrencyRepository::Add(Currency currency)
 void CurrencyRepository::Add(std::shared_ptr<Currency> currency)
 {
   repository_.insert(currency);
+  PLOG_INFO << "Add currency to currency repository";
 }
 
 //  Class member function
@@ -31,6 +34,7 @@ void CurrencyRepository::Add(std::shared_ptr<Currency> currency)
 void CurrencyRepository::Remove(std::shared_ptr<Currency> currency)
 {
   repository_.erase(currency);
+  PLOG_INFO << "Remove currency from currency repository";
 }
 
 //  Class member function
@@ -45,6 +49,7 @@ std::string CurrencyRepository::GetName(CurrencyRepositoryIterator currency) con
 void CurrencyRepository::SetName(CurrencyRepositoryIterator currency, const std::string& name)
 {
   (**currency).SetName(name);
+  PLOG_INFO << "Set new name of currency in currency repository";
 }
 
 //  Class member function
@@ -52,6 +57,7 @@ void CurrencyRepository::SetName(CurrencyRepositoryIterator currency, const std:
 void CurrencyRepository::SetCode(CurrencyRepositoryIterator currency, const std::string& code)
 {
   (**currency).SetCode(code);
+  PLOG_INFO << "Set new code of currency in currency repository";
 }
 
 //  Class member function
@@ -59,6 +65,7 @@ void CurrencyRepository::SetCode(CurrencyRepositoryIterator currency, const std:
 void CurrencyRepository::SetActivity(CurrencyRepositoryIterator currency, const bool activity)
 {
   (**currency).SetActivity(activity);
+  PLOG_INFO << "Set new activity of currency in currency repository";
 }
 
 //  Class member function
@@ -66,6 +73,7 @@ void CurrencyRepository::SetActivity(CurrencyRepositoryIterator currency, const 
 void CurrencyRepository::Switch(CurrencyRepositoryIterator currency)
 {
   (**currency).Switch();
+  PLOG_INFO << "Switch activity of currency in currency repository";
 }
 
 //  Class member function
@@ -73,6 +81,7 @@ void CurrencyRepository::Switch(CurrencyRepositoryIterator currency)
 void CurrencyRepository::SwitchOn(CurrencyRepositoryIterator currency)
 {
   (**currency).SwitchOn();
+  PLOG_INFO << "Switch on activity of currency in currency repository";
 }
 
 //  Class member function
@@ -80,6 +89,7 @@ void CurrencyRepository::SwitchOn(CurrencyRepositoryIterator currency)
 void CurrencyRepository::SwitchOff(CurrencyRepositoryIterator currency)
 {
   (**currency).SwitchOff();
+  PLOG_INFO << "Switch off activity of currency in currency repository";
 }
 
 //  Class member function
@@ -108,6 +118,7 @@ size_t CurrencyRepository::Size() const
 void CurrencyRepository::Clear()
 {
   repository_.clear();
+  PLOG_INFO << "Clear currency repository";
 }
 
 //  Class member function

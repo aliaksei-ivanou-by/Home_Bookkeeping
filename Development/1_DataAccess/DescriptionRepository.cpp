@@ -10,6 +10,7 @@ DescriptionRepository::DescriptionRepository()
 void DescriptionRepository::Add()
 {
   repository_.insert(std::make_shared<Description>());
+  PLOG_INFO << "Add description to description repository";
 }
 
 //  Class member function
@@ -17,6 +18,7 @@ void DescriptionRepository::Add()
 void DescriptionRepository::Add(Description description)
 {
   repository_.insert(std::make_shared<Description>(description));
+  PLOG_INFO << "Add description to description repository";
 }
 
 //  Class member function
@@ -24,6 +26,7 @@ void DescriptionRepository::Add(Description description)
 void DescriptionRepository::Add(std::shared_ptr<Description> description)
 {
   repository_.insert(description);
+  PLOG_INFO << "Add description to description repository";
 }
 
 //  Class member function
@@ -31,6 +34,7 @@ void DescriptionRepository::Add(std::shared_ptr<Description> description)
 void DescriptionRepository::Remove(std::shared_ptr<Description> description)
 {
   repository_.erase(description);
+  PLOG_INFO << "Remove description from description repository";
 }
 
 //  Class member function
@@ -45,6 +49,7 @@ std::string DescriptionRepository::GetName(DescriptionRepositoryIterator descrip
 void DescriptionRepository::SetName(DescriptionRepositoryIterator description, const std::string& name)
 {
   (**description).SetName(name);
+  PLOG_INFO << "Set new name of description in description repository";
 }
 
 //  Class member function
@@ -59,6 +64,7 @@ size_t DescriptionRepository::Size() const
 void DescriptionRepository::Clear()
 {
   repository_.clear();
+  PLOG_INFO << "Clear description repository";
 }
 
 //  Class member function

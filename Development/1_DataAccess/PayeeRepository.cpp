@@ -10,6 +10,7 @@ PayeeRepository::PayeeRepository()
 void PayeeRepository::Add()
 {
   repository_.insert(std::make_shared<Payee>());
+  PLOG_INFO << "Add payee to payee repository";
 }
 
 //  Class member function
@@ -17,6 +18,7 @@ void PayeeRepository::Add()
 void PayeeRepository::Add(Payee payee)
 {
   repository_.insert(std::make_shared<Payee>(payee));
+  PLOG_INFO << "Add payee to payee repository";
 }
 
 //  Class member function
@@ -24,6 +26,7 @@ void PayeeRepository::Add(Payee payee)
 void PayeeRepository::Add(std::shared_ptr<Payee> payee)
 {
   repository_.insert(payee);
+  PLOG_INFO << "Add payee to payee repository";
 }
 
 //  Class member function
@@ -31,6 +34,7 @@ void PayeeRepository::Add(std::shared_ptr<Payee> payee)
 void PayeeRepository::Remove(std::shared_ptr<Payee> payee)
 {
   repository_.erase(payee);
+  PLOG_INFO << "Remove payee from payee repository";
 }
 
 //  Class member function
@@ -45,6 +49,7 @@ std::string PayeeRepository::GetName(PayeeRepositoryIterator payee) const
 void PayeeRepository::SetName(PayeeRepositoryIterator payee, const std::string& name)
 {
   (**payee).SetName(name);
+  PLOG_INFO << "Set new name of payee in payee repository";
 }
 
 //  Class member function
@@ -59,6 +64,7 @@ size_t PayeeRepository::Size() const
 void PayeeRepository::Clear()
 {
   repository_.clear();
+  PLOG_INFO << "Clear payee repository";
 }
 
 //  Class member function

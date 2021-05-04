@@ -10,6 +10,7 @@ TransactionRepository::TransactionRepository()
 void TransactionRepository::Add(Transaction transaction)
 {
   repository_.insert(std::make_shared<Transaction>(transaction));
+  PLOG_INFO << "Add transaction to transaction repository";
 }
 
 //  Class member function
@@ -17,6 +18,7 @@ void TransactionRepository::Add(Transaction transaction)
 void TransactionRepository::Add(std::shared_ptr<Transaction> transaction)
 {
   repository_.insert(transaction);
+  PLOG_INFO << "Add transaction to transaction repository";
 }
 
 //  Class member function
@@ -24,6 +26,7 @@ void TransactionRepository::Add(std::shared_ptr<Transaction> transaction)
 void TransactionRepository::Remove(std::shared_ptr<Transaction> transaction)
 {
   repository_.erase(transaction);
+  PLOG_INFO << "Remove transaction from transaction repository";
 }
 
 //  Class member function
@@ -38,6 +41,7 @@ size_t TransactionRepository::Size() const
 void TransactionRepository::Clear()
 {
   repository_.clear();
+  PLOG_INFO << "Clear transaction repository";
 }
 
 //  Class member function

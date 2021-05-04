@@ -10,6 +10,7 @@ CommentRepository::CommentRepository()
 void CommentRepository::Add()
 {
   repository_.insert(std::make_shared<Comment>());
+  PLOG_INFO << "Add comment to comment repository";
 }
 
 //  Class member function
@@ -17,6 +18,7 @@ void CommentRepository::Add()
 void CommentRepository::Add(Comment comment)
 {
   repository_.insert(std::make_shared<Comment>(comment));
+  PLOG_INFO << "Add comment to comment repository";
 }
 
 //  Class member function
@@ -24,6 +26,7 @@ void CommentRepository::Add(Comment comment)
 void CommentRepository::Add(std::shared_ptr<Comment> comment)
 {
   repository_.insert(comment);
+  PLOG_INFO << "Add comment to comment repository";
 }
 
 //  Class member function
@@ -31,6 +34,7 @@ void CommentRepository::Add(std::shared_ptr<Comment> comment)
 void CommentRepository::Remove(std::shared_ptr<Comment> comment)
 {
   repository_.erase(comment);
+  PLOG_INFO << "Remove comment from comment repository";
 }
 
 //  Class member function
@@ -45,6 +49,7 @@ std::string CommentRepository::GetName(CommentRepositoryIterator comment) const
 void CommentRepository::SetName(CommentRepositoryIterator comment, const std::string& name)
 {
   (**comment).SetName(name);
+  PLOG_INFO << "Set new name of comment in comment repository";
 }
 
 //  Class member function
@@ -59,6 +64,7 @@ size_t CommentRepository::Size() const
 void CommentRepository::Clear()
 {
   repository_.clear();
+  PLOG_INFO << "Clear comment repository";
 }
 
 //  Class member function

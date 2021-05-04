@@ -10,6 +10,7 @@ CategoryRepository::CategoryRepository()
 void CategoryRepository::Add()
 {
   repository_.insert(std::make_shared<Category>());
+  PLOG_INFO << "Add category to category repository";
 }
 
 //  Class member function
@@ -17,6 +18,7 @@ void CategoryRepository::Add()
 void CategoryRepository::Add(Category category)
 {
   repository_.insert(std::make_shared<Category>(category));
+  PLOG_INFO << "Add category to category repository";
 }
 
 //  Class member function
@@ -24,6 +26,7 @@ void CategoryRepository::Add(Category category)
 void CategoryRepository::Add(std::shared_ptr<Category> category)
 {
   repository_.insert(category);
+  PLOG_INFO << "Add category to category repository";
 }
 
 //  Class member function
@@ -31,6 +34,7 @@ void CategoryRepository::Add(std::shared_ptr<Category> category)
 void CategoryRepository::Remove(std::shared_ptr<Category> category)
 {
   repository_.erase(category);
+  PLOG_INFO << "Remove category from category repository";
 }
 
 //  Class member function
@@ -45,6 +49,7 @@ std::string CategoryRepository::GetName(CategoryRepositoryIterator category) con
 void CategoryRepository::SetName(CategoryRepositoryIterator category, const std::string& name)
 {
   (**category).SetName(name);
+  PLOG_INFO << "Set new name of category in category repository";
 }
 
 //  Class member function
@@ -59,6 +64,7 @@ size_t CategoryRepository::Size() const
 void CategoryRepository::Clear()
 {
   repository_.clear();
+  PLOG_INFO << "Clear category repository";
 }
 
 //  Class member function

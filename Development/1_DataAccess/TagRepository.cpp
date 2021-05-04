@@ -10,6 +10,7 @@ TagRepository::TagRepository()
 void TagRepository::Add()
 {
   repository_.insert(std::make_shared<Tag>());
+  PLOG_INFO << "Add tag to tag repository";
 }
 
 //  Class member function
@@ -17,6 +18,7 @@ void TagRepository::Add()
 void TagRepository::Add(Tag tag)
 {
   repository_.insert(std::make_shared<Tag>(tag));
+  PLOG_INFO << "Add tag to tag repository";
 }
 
 //  Class member function
@@ -24,6 +26,7 @@ void TagRepository::Add(Tag tag)
 void TagRepository::Add(std::shared_ptr<Tag> tag)
 {
   repository_.insert(tag);
+  PLOG_INFO << "Add tag to tag repository";
 }
 
 //  Class member function
@@ -31,6 +34,7 @@ void TagRepository::Add(std::shared_ptr<Tag> tag)
 void TagRepository::Remove(std::shared_ptr<Tag> tag)
 {
   repository_.erase(tag);
+  PLOG_INFO << "Remove tag from tag repository";
 }
 
 //  Class member function
@@ -45,6 +49,7 @@ std::string TagRepository::GetName(TagRepositoryIterator tag) const
 void TagRepository::SetName(TagRepositoryIterator tag, const std::string& name)
 {
   (**tag).SetName(name);
+  PLOG_INFO << "Set new name of tag in tag repository";
 }
 
 //  Class member function
@@ -59,6 +64,7 @@ size_t TagRepository::Size() const
 void TagRepository::Clear()
 {
   repository_.clear();
+  PLOG_INFO << "Clear tag repository";
 }
 
 //  Class member function

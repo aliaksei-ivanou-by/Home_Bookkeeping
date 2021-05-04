@@ -10,6 +10,7 @@ AccountRepository::AccountRepository()
 void AccountRepository::Add()
 {
   repository_.insert(std::make_shared<Account>());
+  PLOG_INFO << "Add account to account repository";
 }
 
 //  Class member function
@@ -17,6 +18,7 @@ void AccountRepository::Add()
 void AccountRepository::Add(Account account)
 {
   repository_.insert(std::make_shared<Account>(account));
+  PLOG_INFO << "Add account to account repository";
 }
 
 //  Class member function
@@ -24,6 +26,7 @@ void AccountRepository::Add(Account account)
 void AccountRepository::Add(std::shared_ptr<Account> account)
 {
   repository_.insert(account);
+  PLOG_INFO << "Add account to account repository";
 }
 
 //  Class member function
@@ -31,6 +34,7 @@ void AccountRepository::Add(std::shared_ptr<Account> account)
 void AccountRepository::Remove(std::shared_ptr<Account> account)
 {
   repository_.erase(account);
+  PLOG_INFO << "Remove account from account repository";
 }
 
 //  Class member function
@@ -52,6 +56,7 @@ NUM AccountRepository::GetAmount(AccountRepositoryIterator account) const
 void AccountRepository::SetName(AccountRepositoryIterator account, const std::string& name)
 {
   (**account).SetName(name);
+  PLOG_INFO << "Set new name of account in account repository";
 }
 
 //  Class member function
@@ -59,6 +64,7 @@ void AccountRepository::SetName(AccountRepositoryIterator account, const std::st
 void AccountRepository::SetAmount(AccountRepositoryIterator account, const double amount)
 {
   (**account).SetAmount(amount);
+  PLOG_INFO << "Set new amount of account in account repository";
 }
 
 //  Class member function
@@ -73,6 +79,7 @@ size_t AccountRepository::Size() const
 void AccountRepository::Clear()
 {
   repository_.clear();
+  PLOG_INFO << "Clear account repository";
 }
 
 //  Class member function
