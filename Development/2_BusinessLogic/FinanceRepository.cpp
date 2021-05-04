@@ -141,7 +141,9 @@ void FinanceRepository::AddTransaction(Transaction&& transaction)
   UpdateTagRepository(transaction);
   transaction_repository_.Add(transaction);
   PLOG_INFO << "Add transaction to repository";
-  database_manager_->SaveToDatabaseTransactions(std::move(transaction_repository_));
+  database_manager_->InsertAccountToTableAccountsInDatabase(std::move(transaction.GetAccountFrom()));
+
+  //database_manager_->SaveToDatabaseTransactions(std::move(transaction_repository_));
 }
 
 //  Class member function
@@ -155,11 +157,17 @@ void FinanceRepository::AddAccount()
 
 //  Class member function
 //  Add account to account repository
-void FinanceRepository::AddAccount(const Account& account)
+void FinanceRepository::AddAccount(Account&& account)
 {
   account_repository_.Add(account);
   PLOG_INFO << "Add Account to repository";
   database_manager_->SaveToDatabaseAccounts(std::move(account_repository_));
+}
+
+void FinanceRepository::AddAccountToDB(Account&& account)
+{
+  database_manager_->InsertAccountToTableAccountsInDatabase(std::move(account));
+  PLOG_INFO << "Add Account to Database";
 }
 
 //  Class member function

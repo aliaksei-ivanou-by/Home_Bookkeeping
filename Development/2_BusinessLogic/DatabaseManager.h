@@ -10,6 +10,7 @@
 //    Default
 //
 //  Class member functions:
+//      create all tables in database
 //      create table 'Transactions' in database
 //      remove table 'Transactions' in database
 //      insert transactions to table 'Transactions' in database
@@ -68,42 +69,45 @@ public:
   DatabaseManager();
   ~DatabaseManager();
 
-  void CreateTableTransactionsInDatabase(TransactionRepository&& repository);
+  void CreateAllTablesInDatabase();
+
+  void CreateTableTransactionsInDatabase();
   void RemoveTableTransactionsInDatabase(TransactionRepository&& repository);
   void InsertTransactionsToTableTransactionsInDatabase(TransactionRepository&& repository);
   void SaveToDatabaseTransactions(TransactionRepository&& repository);
 
-  void CreateTableAccountsInDatabase(AccountRepository&& repository);
-  void RemoveTableAccountsInDatabase(AccountRepository&& repository);
+  void CreateTableAccountsInDatabase();
+  void RemoveTableAccountsInDatabase();
   void InsertAccountsToTableAccountsInDatabase(AccountRepository&& repository);
+  void InsertAccountToTableAccountsInDatabase(Account&& account);
   void SaveToDatabaseAccounts(AccountRepository&& repository);
 
-  void CreateTableCategoriesInDatabase(CategoryRepository&& repository);
+  void CreateTableCategoriesInDatabase();
   void RemoveTableCategoriesInDatabase(CategoryRepository&& repository);
   void InsertCategoriesToTableCategoriesInDatabase(CategoryRepository&& repository);
   void SaveToDatabaseCategories(CategoryRepository&& repository);
 
-  void CreateTableCurrenciesInDatabase(CurrencyRepository&& repository);
+  void CreateTableCurrenciesInDatabase();
   void RemoveTableCurrenciesInDatabase(CurrencyRepository&& repository);
   void InsertCurrenciesToTableCurrenciesInDatabase(CurrencyRepository&& repository);
   void SaveToDatabaseCurrencies(CurrencyRepository&& repository);
 
-  void CreateTableDescriptionsInDatabase(DescriptionRepository&& repository);
+  void CreateTableDescriptionsInDatabase();
   void RemoveTableDescriptionsInDatabase(DescriptionRepository&& repository);
   void InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository);
   void SaveToDatabaseDescriptions(DescriptionRepository&& repository);
 
-  void CreateTablePayeesInDatabase(PayeeRepository&& repository);
+  void CreateTablePayeesInDatabase();
   void RemoveTablePayeesInDatabase(PayeeRepository&& repository);
   void InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository);
   void SaveToDatabasePayees(PayeeRepository&& repository);
 
-  void CreateTableCommentsInDatabase(CommentRepository&& repository);
+  void CreateTableCommentsInDatabase();
   void RemoveTableCommentsInDatabase(CommentRepository&& repository);
   void InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository);
   void SaveToDatabaseComments(CommentRepository&& repository);
 
-  void CreateTableTagsInDatabase(TagRepository&& repository);
+  void CreateTableTagsInDatabase();
   void RemoveTableTagsInDatabase(TagRepository&& repository);
   void InsertTagsToTableTagsInDatabase(TagRepository&& repository);
   void SaveToDatabaseTags(TagRepository&& repository);

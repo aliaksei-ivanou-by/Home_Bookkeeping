@@ -4,7 +4,7 @@ void Window_AddAccount::OK()
 try
 {
   Account account(textAccountForAdd.get_string());
-  ptrFinanceRepository->AddAccount(account);
+  ptrFinanceRepository->AddAccount(std::move(account));
   button_pushed = true;
   hide();
 }

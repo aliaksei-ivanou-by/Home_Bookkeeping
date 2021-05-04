@@ -21,8 +21,22 @@ DatabaseManager::~DatabaseManager()
 }
 
 //  Class member function
+//  Create all tables in database
+void DatabaseManager::CreateAllTablesInDatabase()
+{
+  CreateTableTransactionsInDatabase();
+  CreateTableAccountsInDatabase();
+  CreateTableCategoriesInDatabase();
+  CreateTableCurrenciesInDatabase();
+  CreateTableDescriptionsInDatabase();
+  CreateTablePayeesInDatabase();
+  CreateTableCommentsInDatabase();
+  CreateTableTagsInDatabase();
+}
+
+//  Class member function
 //  Create table 'Transactions' in database
-void DatabaseManager::CreateTableTransactionsInDatabase(TransactionRepository&& repository)
+void DatabaseManager::CreateTableTransactionsInDatabase()
 {
   const std::string sql_request = std::string("CREATE TABLE Transactions(") + 
     "id SERIAL PRIMARY KEY, " + 
@@ -84,20 +98,18 @@ void DatabaseManager::InsertTransactionsToTableTransactionsInDatabase(Transactio
 void DatabaseManager::SaveToDatabaseTransactions(TransactionRepository&& repository)
 {
   RemoveTableTransactionsInDatabase(std::move(repository));
-  CreateTableTransactionsInDatabase(std::move(repository));
+  CreateTableTransactionsInDatabase();
   InsertTransactionsToTableTransactionsInDatabase(std::move(repository));
   PLOG_INFO << "Save transactions to table 'Transactions' in database";
 }
 
 //  Class member function
 //  Create table 'Accounts' in database
-void DatabaseManager::CreateTableAccountsInDatabase(AccountRepository&& repository)
+void DatabaseManager::CreateTableAccountsInDatabase()
 {
   std::string sql_request = std::string("CREATE TABLE Accounts(") + 
-    "id SERIAL PRIMARY KEY, " + 
-    "name TEXT NOT NULL, " + 
-    "amount DOUBLE NOT NULL" + 
-    ");";
+    "name TEXT NOT NULL" + ", " + 
+    "amount DOUBLE NOT NULL" + ");";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -108,9 +120,10 @@ void DatabaseManager::CreateTableAccountsInDatabase(AccountRepository&& reposito
 
 //  Class member function
 //  Remove table 'Accounts' in database
-void DatabaseManager::RemoveTableAccountsInDatabase(AccountRepository&& repository)
+void DatabaseManager::RemoveTableAccountsInDatabase()
 {
-  const std::string sql_request = "DROP TABLE IF EXISTS Accounts";
+  const std::string sql_request =
+    "DROP TABLE IF EXISTS Accounts";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -123,37 +136,62 @@ void DatabaseManager::RemoveTableAccountsInDatabase(AccountRepository&& reposito
 //  Insert accounts to table 'Accounts' in database
 void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&& repository)
 {
-  size_t j = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
-    database_status_ = sqlite3_exec(database_, repository.MakeCommandToInsertRepositoryToDatabase(j, i).c_str(), NULL, NULL, &database_error_);
+    const std::string sql_request =
+      std::string(
+      "INSERT INTO Accounts VALUES('"
+      ) +
+      (**i).GetName()
+      + "', " +
+      dec::toString((**i).GetAmount())
+      + ")";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
       PLOG_ERROR << "SQL Insert Error: " << database_error_;
     }
-    ++j;
   }
   PLOG_INFO << "Insert accounts to table 'Accounts' in database";
+}
+
+//  Class member function
+//  Insert account to table 'Accounts' in database
+void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& account)
+{
+  const std::string sql_request =
+    std::string(
+    "INSERT INTO Accounts VALUES('"
+    ) + 
+    account.GetName()
+    + "', " + 
+    dec::toString(account.GetAmount())
+    + ");";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+  if (database_status_ != SQLITE_OK)
+  {
+    PLOG_ERROR << "SQL Insert Error: " << database_error_;
+  }
+  PLOG_INFO << "Insert account to table 'Accounts' in database";
 }
 
 //  Class member function
 //  Save accounts to table 'Accounts' in database
 void DatabaseManager::SaveToDatabaseAccounts(AccountRepository&& repository)
 {
-  RemoveTableAccountsInDatabase(std::move(repository));
-  CreateTableAccountsInDatabase(std::move(repository));
+  RemoveTableAccountsInDatabase();
+  CreateTableAccountsInDatabase();
   InsertAccountsToTableAccountsInDatabase(std::move(repository));
   PLOG_INFO << "Save accounts to table 'Accounts' in database";
 }
 
 //  Class member function
 //  Create table 'Categories' in database
-void DatabaseManager::CreateTableCategoriesInDatabase(CategoryRepository&& repository)
+void DatabaseManager::CreateTableCategoriesInDatabase()
 {
   std::string sql_request = std::string("CREATE TABLE Categories(") + 
     "id SERIAL PRIMARY KEY, " + 
-    "name TEXT NOT NULL" + 
-    ");";
+    "name TEXT NOT NULL" + ");";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -197,21 +235,20 @@ void DatabaseManager::InsertCategoriesToTableCategoriesInDatabase(CategoryReposi
 void DatabaseManager::SaveToDatabaseCategories(CategoryRepository&& repository)
 {
   RemoveTableCategoriesInDatabase(std::move(repository));
-  CreateTableCategoriesInDatabase(std::move(repository));
+  CreateTableCategoriesInDatabase();
   InsertCategoriesToTableCategoriesInDatabase(std::move(repository));
   PLOG_INFO << "Save categories to table 'Categories' in database";
 }
 
 //  Class member function
 //  Create table 'Currencies' in database
-void DatabaseManager::CreateTableCurrenciesInDatabase(CurrencyRepository&& repository)
+void DatabaseManager::CreateTableCurrenciesInDatabase()
 {
   std::string sql_request = std::string("CREATE TABLE Currencies(") + 
     "id SERIAL PRIMARY KEY, " + 
     "name TEXT NOT NULL, " + 
     "code TEXT NOT NULL, " + 
-    "activity BOOL NOT NULL" + 
-    ");";
+    "activity BOOL NOT NULL" + ");";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -255,19 +292,18 @@ void DatabaseManager::InsertCurrenciesToTableCurrenciesInDatabase(CurrencyReposi
 void DatabaseManager::SaveToDatabaseCurrencies(CurrencyRepository&& repository)
 {
   RemoveTableCurrenciesInDatabase(std::move(repository));
-  CreateTableCurrenciesInDatabase(std::move(repository));
+  CreateTableCurrenciesInDatabase();
   InsertCurrenciesToTableCurrenciesInDatabase(std::move(repository));
   PLOG_INFO << "Save currencies to table 'Currencies' in database";
 }
 
 //  Class member function
 //  Create table 'Descriptions' in database
-void DatabaseManager::CreateTableDescriptionsInDatabase(DescriptionRepository&& repository)
+void DatabaseManager::CreateTableDescriptionsInDatabase()
 {
   std::string sql_request = std::string("CREATE TABLE Descriptions(") + 
     "id SERIAL PRIMARY KEY, " + 
-    "name TEXT NOT NULL" + 
-    ");";
+    "name TEXT NOT NULL" + ");";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -311,19 +347,18 @@ void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(Descriptio
 void DatabaseManager::SaveToDatabaseDescriptions(DescriptionRepository&& repository)
 {
   RemoveTableDescriptionsInDatabase(std::move(repository));
-  CreateTableDescriptionsInDatabase(std::move(repository));
+  CreateTableDescriptionsInDatabase();
   InsertDescriptionsToTableDescriptionsInDatabase(std::move(repository));
   PLOG_INFO << "Save descriptions to table 'Descriptions' in database";
 }
 
 //  Class member function
 //  Create table 'Payees' in database
-void DatabaseManager::CreateTablePayeesInDatabase(PayeeRepository&& repository)
+void DatabaseManager::CreateTablePayeesInDatabase()
 {
   std::string sql_request = std::string("CREATE TABLE Payees(") + 
     "id SERIAL PRIMARY KEY, " + 
-    "name TEXT NOT NULL" + 
-    ");";
+    "name TEXT NOT NULL" + ");";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -367,19 +402,18 @@ void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repo
 void DatabaseManager::SaveToDatabasePayees(PayeeRepository&& repository)
 {
   RemoveTablePayeesInDatabase(std::move(repository));
-  CreateTablePayeesInDatabase(std::move(repository));
+  CreateTablePayeesInDatabase();
   InsertPayeesToTablePayeesInDatabase(std::move(repository));
   PLOG_INFO << "Save payees to table 'Payees' in database";
 }
 
 //  Class member function
 //  Create table 'Comments' in database
-void DatabaseManager::CreateTableCommentsInDatabase(CommentRepository&& repository)
+void DatabaseManager::CreateTableCommentsInDatabase()
 {
   std::string sql_request = std::string("CREATE TABLE Comments(") + 
     "id SERIAL PRIMARY KEY, " + 
-    "name TEXT NOT NULL" + 
-    ");";
+    "name TEXT NOT NULL" + ");";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -423,18 +457,18 @@ void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&
 void DatabaseManager::SaveToDatabaseComments(CommentRepository&& repository)
 {
   RemoveTableCommentsInDatabase(std::move(repository));
-  CreateTableCommentsInDatabase(std::move(repository));
+  CreateTableCommentsInDatabase();
   InsertCommentsToTableCommentsInDatabase(std::move(repository));
   PLOG_INFO << "Save comments to table 'Comments' in database";
 }
 
 //  Class member function
 //  Create table 'Tags' in database
-void DatabaseManager::CreateTableTagsInDatabase(TagRepository&& repository)
+void DatabaseManager::CreateTableTagsInDatabase()
 {
   std::string sql_request = std::string("CREATE TABLE Tags(") + 
     "id SERIAL PRIMARY KEY, " + 
-    "name TEXT NOT NULL);";
+    "name TEXT NOT NULL" + ");";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -478,7 +512,7 @@ void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository
 void DatabaseManager::SaveToDatabaseTags(TagRepository&& repository)
 {
   RemoveTableTagsInDatabase(std::move(repository));
-  CreateTableTagsInDatabase(std::move(repository));
+  CreateTableTagsInDatabase();
   InsertTagsToTableTagsInDatabase(std::move(repository));
   PLOG_INFO << "Save tags to table 'Tags' in database";
 }

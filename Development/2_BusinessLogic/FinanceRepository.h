@@ -34,6 +34,7 @@
 //          Add transaction to transaction repository
 //          Add account (default)  to account repository
 //          Add account to account repository
+//          Add account to database
 //          Add category (default) to category repository
 //          Add category to category repository
 //          Add currency to currency repository
@@ -200,7 +201,8 @@ public:
   //  basic->add element
   void AddTransaction(Transaction&& transaction);
   void AddAccount();
-  void AddAccount(const Account& account);
+  void AddAccount(Account&& account);
+  void AddAccountToDB(Account&& account);
   void AddCategory();
   void AddCategory(const Category& category);
   void AddCurrency();

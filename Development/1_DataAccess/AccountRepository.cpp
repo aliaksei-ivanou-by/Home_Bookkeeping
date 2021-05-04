@@ -123,16 +123,3 @@ AccountRepositoryIterator AccountRepository::End() const
 {
   return repository_.end();
 }
-
-//  Class member function
-//  Make command to insert repository to database to table
-std::string AccountRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, AccountRepositoryIterator iterator) const
-{
-  return "INSERT INTO Accounts VALUES(" + 
-    std::to_string(id) 
-    + ", '" + 
-    (**iterator).GetName() 
-    + "', " + 
-    std::to_string((**iterator).GetAmount().getAsDouble())
-    + ")";
-}
