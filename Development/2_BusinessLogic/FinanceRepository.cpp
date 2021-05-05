@@ -31,7 +31,7 @@ AccountRepositoryIterator FinanceRepository::BeginAccountRepository() const
 
 //  Class member function
 //  Find begin iterator of category repository
-CategoryRepositoryIterator FinanceRepository::BeginCategoryRepository() const
+CategoryRepositoryConstIterator FinanceRepository::BeginCategoryRepository() const
 {
   return category_repository_.Begin();
 }
@@ -87,7 +87,7 @@ AccountRepositoryIterator FinanceRepository::EndAccountRepository() const
 
 //  Class member function
 //  Find end iterator of category repository
-CategoryRepositoryIterator FinanceRepository::EndCategoryRepository() const
+CategoryRepositoryConstIterator FinanceRepository::EndCategoryRepository() const
 {
   return category_repository_.End();
 }
@@ -152,7 +152,8 @@ void FinanceRepository::AddAccount()
 {
   account_repository_.Add();
   PLOG_INFO << "Add Account to repository";
-  database_manager_->SaveToDatabaseAccounts(std::move(account_repository_));
+  AddAccountToDB(std::move(Account()));
+  //database_manager_->SaveToDatabaseAccounts(std::move(account_repository_));
 }
 
 //  Class member function
@@ -161,7 +162,8 @@ void FinanceRepository::AddAccount(Account&& account)
 {
   account_repository_.Add(account);
   PLOG_INFO << "Add Account to repository";
-  database_manager_->SaveToDatabaseAccounts(std::move(account_repository_));
+  AddAccountToDB(std::move(account));
+  //database_manager_->SaveToDatabaseAccounts(std::move(account_repository_));
 }
 
 void FinanceRepository::AddAccountToDB(Account&& account)
@@ -368,7 +370,7 @@ NUM FinanceRepository::GetAccountAmount(AccountRepositoryIterator account) const
 //  Get name of category from repositor
 std::string FinanceRepository::GetCategoryName(CategoryRepositoryIterator category) const
 {
-  return (**category).GetName();
+  return category->first->GetName();
 }
 
 //  Class member function
@@ -442,7 +444,7 @@ void FinanceRepository::SetAccountAmount(AccountRepositoryIterator account, cons
 //  Set name of category from repository
 void FinanceRepository::SetCategoryName(CategoryRepositoryIterator category, const std::string& name)
 {
-  (**category).SetName(name);
+  category->first->SetName(name);
   PLOG_INFO << "Update name of Category in repository";
   database_manager_->SaveToDatabaseCategories(std::move(category_repository_));
 }
@@ -704,7 +706,7 @@ void FinanceRepository::PrintCategories(const std::string& delimeter, std::ostre
   auto i = BeginCategoryRepository();
   while (i != EndCategoryRepository())
   {
-    output_stream << *i;
+    output_stream << i->first;
     ++i;
     if (i != EndCategoryRepository())
     {
@@ -809,7 +811,7 @@ AccountRepositoryIterator FinanceRepository::FindAccount(double amount) const
 
 //  Class member function
 //  Find category with definite name in category repository
-CategoryRepositoryIterator FinanceRepository::FindCategory(std::string name) const
+CategoryRepositoryConstIterator FinanceRepository::FindCategory(std::string name) const
 {
   return category_repository_.Find(name);
 }
@@ -872,7 +874,7 @@ AccountRepositoryIterator FinanceRepository::FindAccount(std::shared_ptr<Account
 
 //  Class member function
 //  Find category (shared pointer) in category repository
-CategoryRepositoryIterator FinanceRepository::FindCategory(std::shared_ptr<Category> category) const
+CategoryRepositoryConstIterator FinanceRepository::FindCategory(std::shared_ptr<Category> category) const
 {
   return category_repository_.Find(category);
 }
@@ -1011,10 +1013,10 @@ void FinanceRepository::UpdateCategoryRepository(Transaction& transaction)
     bool keyFrom = false;
     for (auto i = category_repository_.Begin(); i != category_repository_.End(); ++i)
     {
-      if ((**i).GetName() == transaction.GetCategory().GetName())
+      if (i->first->GetName() == transaction.GetCategory().GetName())
       {
         keyFrom = true;
-        transaction.SetCategoryPtr(*i);
+        transaction.SetCategoryPtr(i->first);
         break;
       }
     }
@@ -1025,10 +1027,10 @@ void FinanceRepository::UpdateCategoryRepository(Transaction& transaction)
     bool keyTo = false;
     for (auto i = category_repository_.Begin(); i != category_repository_.End(); ++i)
     {
-      if ((**i).GetName() == transaction.GetCategory().GetName())
+      if (i->first->GetName() == transaction.GetCategory().GetName())
       {
         keyTo = true;
-        transaction.SetCategoryPtr(*i);
+        transaction.SetCategoryPtr(i->first);
         break;
       }
     }

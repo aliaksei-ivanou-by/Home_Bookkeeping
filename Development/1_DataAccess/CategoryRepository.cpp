@@ -5,50 +5,74 @@
 CategoryRepository::CategoryRepository()
 {}
 
+//  Class member function (private)
+//  Add category (shared pointer) to repository
+void CategoryRepository::AddCategory(std::shared_ptr<Category> category)
+{
+  for (auto& i : repository_)
+  {
+    if (i.first->GetName() == category->GetName())
+    {
+      ++i.second;
+      PLOG_INFO << "Add category to category repository (counter + 1)";
+      return;
+    }
+  }
+  repository_[category] = 1;
+  PLOG_INFO << "Add category to category repository";
+}
+
 //  Class member function
 //  Add category (default) to repository
 void CategoryRepository::Add()
 {
-  repository_.insert(std::make_shared<Category>());
-  PLOG_INFO << "Add category to category repository";
+  std::shared_ptr<Category> category_temp = std::make_shared<Category>(Category());
+  AddCategory(category_temp);
 }
 
 //  Class member function
 //  Add category to repository
 void CategoryRepository::Add(Category category)
 {
-  repository_.insert(std::make_shared<Category>(category));
-  PLOG_INFO << "Add category to category repository";
+  std::shared_ptr<Category> category_temp = std::make_shared<Category>(category);
+  AddCategory(category_temp);
 }
 
 //  Class member function
 //  Add category (shared pointer) to repository
 void CategoryRepository::Add(std::shared_ptr<Category> category)
 {
-  repository_.insert(category);
-  PLOG_INFO << "Add category to category repository";
+  AddCategory(category);
 }
 
 //  Class member function
 //  Remove category (shared pointer) from repository
 void CategoryRepository::Remove(std::shared_ptr<Category> category)
 {
-  repository_.erase(category);
-  PLOG_INFO << "Remove category from category repository";
+  auto iterator = repository_.find(category);
+  if (iterator != repository_.end())
+  {
+    repository_.erase(iterator);
+    PLOG_INFO << "Remove category from category repository";
+  }
+  else
+  {
+    PLOG_ERROR << "Category repository haven't got category '" << category->GetName() << "'";
+  }
 }
 
 //  Class member function
 //  Get name of category from repository
 std::string CategoryRepository::GetName(CategoryRepositoryIterator category) const
 {
-  return (**category).GetName();
+  return category->first->GetName();
 }
 
 //  Class member function
 //  Set name of category from repository
 void CategoryRepository::SetName(CategoryRepositoryIterator category, const std::string& name)
 {
-  (**category).SetName(name);
+  category->first->SetName(name);
   PLOG_INFO << "Set new name of category in category repository";
 }
 
@@ -69,18 +93,18 @@ void CategoryRepository::Clear()
 
 //  Class member function
 //  Find category (shared pointer) in repository
-CategoryRepositoryIterator CategoryRepository::Find(std::shared_ptr<Category> category) const
+CategoryRepositoryConstIterator CategoryRepository::Find(std::shared_ptr<Category> category) const
 {
   return repository_.find(category);
 }
 
 //  Class member function
 //  Find category with definite name in repository
-CategoryRepositoryIterator CategoryRepository::Find(const std::string& name) const
+CategoryRepositoryConstIterator CategoryRepository::Find(const std::string& name) const
 {
   for (auto i = repository_.begin(); i != repository_.end(); ++i)
   {
-    if ((**i).GetName() == name)
+    if (i->first->GetName() == name)
     {
       return i;
     }
@@ -90,25 +114,25 @@ CategoryRepositoryIterator CategoryRepository::Find(const std::string& name) con
 
 //  Class member function
 //  Find begin iterator of repository
-CategoryRepositoryIterator CategoryRepository::Begin() const
+CategoryRepositoryConstIterator CategoryRepository::Begin() const
 {
   return repository_.begin();
 }
 
 //  Class member function
 //  Find end iterator of repository
-CategoryRepositoryIterator CategoryRepository::End() const
+CategoryRepositoryConstIterator CategoryRepository::End() const
 {
   return repository_.end();
 }
 
 //  Class member function
 //  Make command to insert repository to database to table
-std::string CategoryRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, CategoryRepositoryIterator iterator) const
+std::string CategoryRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, CategoryRepositoryConstIterator iterator) const
 {
   return "INSERT INTO Categories VALUES(" +
     std::to_string(id)
     + ", '" +
-    (**iterator).GetName()
+    iterator->first->GetName()
     + "')";
 }

@@ -160,6 +160,9 @@
 #include <chrono>
 #include <thread>
 
+#include "home_bookkeeping/lib/logger/Log.h"
+#include "home_bookkeeping/lib/logger/Initializers/RollingFileInitializer.h"
+
 #include "home_bookkeeping/1_DataAccess/AccountRepository.h"
 #include "home_bookkeeping/1_DataAccess/CategoryRepository.h"
 #include "home_bookkeeping/1_DataAccess/CommentRepository.h"
@@ -169,8 +172,6 @@
 #include "home_bookkeeping/1_DataAccess/TagRepository.h"
 #include "home_bookkeeping/1_DataAccess/TransactionRepository.h"
 
-#include "home_bookkeeping/lib/logger/Log.h"
-#include "home_bookkeeping/lib/logger/Initializers/RollingFileInitializer.h"
 #include "home_bookkeeping/2_BusinessLogic/DatabaseManager.h"
 
 class FinanceRepository
@@ -179,7 +180,7 @@ public:
   //  basic->iterators->begin
   TransactionRepositoryIterator BeginTransactionRepository() const;
   AccountRepositoryIterator BeginAccountRepository() const;
-  CategoryRepositoryIterator BeginCategoryRepository() const;
+  CategoryRepositoryConstIterator BeginCategoryRepository() const;
   CurrencyRepositoryIterator BeginCurrencyRepository() const;
   DescriptionRepositoryIterator BeginDescriptionRepository() const;
   PayeeRepositoryIterator BeginPayeeRepository() const;
@@ -188,7 +189,7 @@ public:
   //  basic->iterators->end
   TransactionRepositoryIterator EndTransactionRepository() const;
   AccountRepositoryIterator EndAccountRepository() const;
-  CategoryRepositoryIterator EndCategoryRepository() const;
+  CategoryRepositoryConstIterator EndCategoryRepository() const;
   CurrencyRepositoryIterator EndCurrencyRepository() const;
   DescriptionRepositoryIterator EndDescriptionRepository() const;
   PayeeRepositoryIterator EndPayeeRepository() const;
@@ -279,7 +280,7 @@ public:
   //  basic->find (definite name)
   AccountRepositoryIterator FindAccount(std::string name) const;
   AccountRepositoryIterator FindAccount(double amount) const;
-  CategoryRepositoryIterator FindCategory(std::string name) const;
+  CategoryRepositoryConstIterator FindCategory(std::string name) const;
   CurrencyRepositoryIterator FindCurrencyName(std::string name) const;
   CurrencyRepositoryIterator FindCurrencyCode(std::string name) const;
   DescriptionRepositoryIterator FindDescription(std::string name) const;
@@ -289,7 +290,7 @@ public:
   //  basic->find (shared pointer)
   TransactionRepositoryIterator FindTransaction(std::shared_ptr<Transaction> transaction) const;
   AccountRepositoryIterator FindAccount(std::shared_ptr<Account> account) const;
-  CategoryRepositoryIterator FindCategory(std::shared_ptr<Category> category) const;
+  CategoryRepositoryConstIterator FindCategory(std::shared_ptr<Category> category) const;
   CurrencyRepositoryIterator FindCurrency(std::shared_ptr<Currency> currency) const;
   DescriptionRepositoryIterator FindDescription(std::shared_ptr<Description> description) const;
   PayeeRepositoryIterator FindPayee(std::shared_ptr<Payee> payee) const;

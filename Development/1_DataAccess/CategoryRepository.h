@@ -25,11 +25,13 @@
 //    repository
 
 #include <iostream>
-#include <set>
+#include <map>
+#include <utility>
 
 #include "home_bookkeeping/0_Models/Category.h"
 
-using CategoryRepositoryIterator = std::set<std::shared_ptr<Category>>::iterator;
+using CategoryRepositoryIterator = std::map<std::shared_ptr<Category>, int>::iterator;
+using CategoryRepositoryConstIterator = std::map<std::shared_ptr<Category>, int>::const_iterator;
 
 class CategoryRepository
 {
@@ -43,13 +45,14 @@ public:
   void SetName(CategoryRepositoryIterator category, const std::string& name);
   size_t Size() const;
   void Clear();
-  CategoryRepositoryIterator Find(std::shared_ptr<Category> category) const;
-  CategoryRepositoryIterator Find(const std::string& category) const;
-  CategoryRepositoryIterator Begin() const;
-  CategoryRepositoryIterator End() const;
-  std::string MakeCommandToInsertRepositoryToDatabase(size_t counter, CategoryRepositoryIterator iterator) const;
+  CategoryRepositoryConstIterator Find(std::shared_ptr<Category> category) const;
+  CategoryRepositoryConstIterator Find(const std::string& category) const;
+  CategoryRepositoryConstIterator Begin() const;
+  CategoryRepositoryConstIterator End() const;
+  std::string MakeCommandToInsertRepositoryToDatabase(size_t counter, CategoryRepositoryConstIterator iterator) const;
 private:
-  std::set<std::shared_ptr<Category>> repository_;
+  void AddCategory(std::shared_ptr<Category> category);
+  std::map<std::shared_ptr<Category>, int> repository_;
 };
 
 #endif  //  HOMEBOOKKEEPING_1DATAACCESS_CATEGORYREPOSITORY_H_
