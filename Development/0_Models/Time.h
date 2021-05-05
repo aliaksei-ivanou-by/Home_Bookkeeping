@@ -45,6 +45,9 @@
 #include <string>
 #include <sstream>
 
+#include "home_bookkeeping/lib/logger/Log.h"
+#include "home_bookkeeping/lib/logger/Initializers/RollingFileInitializer.h"
+
 class Time
 {
 public:
