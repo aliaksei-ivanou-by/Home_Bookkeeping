@@ -71,6 +71,7 @@ int Currency::GetPrecision() const
 void Currency::SetCode(const std::string& code)
 {
   code_ = code;
+  PLOG_INFO << "Set new code";
 }
 
 //  Class member function
@@ -78,6 +79,7 @@ void Currency::SetCode(const std::string& code)
 void Currency::SetActivity(const bool activity)
 {
   activity_ = activity;
+  PLOG_INFO << "Set new activity";
 }
 
 //  Class member function
@@ -85,6 +87,7 @@ void Currency::SetActivity(const bool activity)
 void Currency::Switch()
 {
   activity_ = !(activity_);
+  PLOG_INFO << "Switch activity";
 }
 
 //  Class member function
@@ -92,6 +95,7 @@ void Currency::Switch()
 void Currency::SwitchOn()
 {
   activity_ = true;
+  PLOG_INFO << "Switch on activity";
 }
 
 //  Class member function
@@ -99,6 +103,7 @@ void Currency::SwitchOn()
 void Currency::SwitchOff()
 {
   activity_ = false;
+  PLOG_INFO << "Switch off activity";
 }
 
 //  Class member function
@@ -106,6 +111,7 @@ void Currency::SwitchOff()
 void Currency::SetPrecision(const int precision)
 {
   precision_ = precision;
+  PLOG_INFO << "Set new precision";
 }
 
 //  Friend class member function

@@ -33,6 +33,7 @@ NUM Account::GetAmount() const
 void Account::SetAmount(const double amount)
 {
   amount_ = NUM(amount);
+  PLOG_INFO << "Set new amount";
 }
 
 //  Class member function
@@ -40,6 +41,7 @@ void Account::SetAmount(const double amount)
 void Account::SetAmount(const NUM amount)
 {
   amount_ = amount;
+  PLOG_INFO << "Set new amount";
 }
 
 //  Class member function
@@ -47,6 +49,7 @@ void Account::SetAmount(const NUM amount)
 void Account::AppendAmount(const double amount)
 {
   amount_ += NUM(amount);
+  PLOG_INFO << "Append amount";
 }
 
 //  Class member function
@@ -54,6 +57,7 @@ void Account::AppendAmount(const double amount)
 void Account::AppendAmount(const NUM amount)
 {
   amount_ += amount;
+  PLOG_INFO << "Append amount";
 }
 
 //  Friend class member function

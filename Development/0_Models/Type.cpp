@@ -23,6 +23,7 @@ void Type::SetName(const std::string& name)
   {
     SetType(name_new.value());
     Model::SetName(name);
+    PLOG_INFO << "Set new type";
   }
 }
 

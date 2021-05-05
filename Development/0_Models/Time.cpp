@@ -129,6 +129,7 @@ void Time::SetTime()
 {
   Time time;
   *this = time;
+  PLOG_INFO << "Set new daytime";
 }
 
 //  Class member function
@@ -181,6 +182,7 @@ void Time::SetSecond(const int second)
   {
     second_ = second;
   }
+  PLOG_INFO << "Set new second";
 }
 
 //  Class member function
@@ -201,6 +203,7 @@ void Time::SetHour(const int hour)
   {
     hour_ = hour;
   }
+  PLOG_INFO << "Set new hour";
 }
 
 //  Class member function
@@ -211,6 +214,7 @@ void Time::SetDay(const int day)
   {
     day_ = day;
   }
+  PLOG_INFO << "Set new day";
 }
 
 //  Class member function
@@ -221,6 +225,7 @@ void Time::SetMonth(const int month)
   {
     month_ = month;
   }
+  PLOG_INFO << "Set new month";
 }
 
 //  Class member function
@@ -231,6 +236,7 @@ void Time::SetYear(const int year)
   {
     year_ = year;
   }
+  PLOG_INFO << "Set new year";
 }
 
 //  Class member function
@@ -246,6 +252,7 @@ void Time::SetDate(const int year, const int month, const int day, const int hou
     minute_ = minute;
     second_ = second;
   }
+  PLOG_INFO << "Set new daytime";
 }
 
 //  Class member function

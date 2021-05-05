@@ -326,6 +326,7 @@ std::shared_ptr<Type> Transaction::GetTypePtr() const
 void Transaction::SetTime(const Time& time)
 {
   time_ = time;
+  PLOG_INFO << "Set new daytime";
 }
 
 //  Class member function
@@ -333,6 +334,7 @@ void Transaction::SetTime(const Time& time)
 void Transaction::SetAccountFrom(const Account& account_from)
 {
   *account_from_ = account_from;
+  PLOG_INFO << "Set new account from";
 }
 
 //  Class member function
@@ -340,6 +342,7 @@ void Transaction::SetAccountFrom(const Account& account_from)
 void Transaction::SetAccountTo(const Account& account_to)
 {
   *account_to_ = account_to;
+  PLOG_INFO << "Set new account to";
 }
 
 //  Class member function
@@ -347,6 +350,7 @@ void Transaction::SetAccountTo(const Account& account_to)
 void Transaction::SetCategory(const Category& category)
 {
   *category_ = category;
+  PLOG_INFO << "Set new category";
 }
 
 //  Class member function
@@ -354,6 +358,7 @@ void Transaction::SetCategory(const Category& category)
 void Transaction::SetAmount(const double amount)
 {
   amount_ = NUM(amount);
+  PLOG_INFO << "Set new amount";
 }
 
 //  Class member function
@@ -361,6 +366,7 @@ void Transaction::SetAmount(const double amount)
 void Transaction::SetAmount(const NUM amount)
 {
   amount_ = amount;
+  PLOG_INFO << "Set new amount";
 }
 
 //  Class member function
@@ -368,6 +374,7 @@ void Transaction::SetAmount(const NUM amount)
 void Transaction::SetAmountAccountFrom(const double amount)
 {
   amount_account_from_ = NUM(amount);
+  PLOG_INFO << "Set new amount for account from";
 }
 
 //  Class member function
@@ -375,6 +382,7 @@ void Transaction::SetAmountAccountFrom(const double amount)
 void Transaction::SetAmountAccountFrom(const NUM amount)
 {
   amount_account_from_ = amount;
+  PLOG_INFO << "Set new amount for account from";
 }
 
 //  Class member function
@@ -382,11 +390,13 @@ void Transaction::SetAmountAccountFrom(const NUM amount)
 void Transaction::SetAmountAccountTo(const double amount)
 {
   amount_account_to_ = NUM(amount);
+  PLOG_INFO << "Set new amount for account to";
 }
 
 void Transaction::SetAmountAccountTo(const NUM amount)
 {
   amount_account_to_ = amount;
+  PLOG_INFO << "Set new amount for account to";
 }
 
 //  Class member function
@@ -394,11 +404,13 @@ void Transaction::SetAmountAccountTo(const NUM amount)
 void Transaction::SetAmountLastestAccountFrom(const double amount)
 {
   (*account_from_).SetAmount(amount);
+  PLOG_INFO << "Set new lastest amount for account from";
 }
 
 void Transaction::SetAmountLastestAccountFrom(const NUM amount)
 {
   (*account_from_).SetAmount(amount);
+  PLOG_INFO << "Set new lastest amount for account from";
 }
 
 //  Class member function
@@ -406,6 +418,7 @@ void Transaction::SetAmountLastestAccountFrom(const NUM amount)
 void Transaction::SetAmountLastestAccountTo(const double amount)
 {
   (*account_to_).SetAmount(amount);
+  PLOG_INFO << "Set new lastest amount for account to";
 }
 
 //  Class member function
@@ -413,6 +426,7 @@ void Transaction::SetAmountLastestAccountTo(const double amount)
 void Transaction::SetAmountLastestAccountTo(const NUM amount)
 {
   (*account_to_).SetAmount(amount);
+  PLOG_INFO << "Set new lastest amount for account to";
 }
 
 //  Class member function
@@ -420,6 +434,7 @@ void Transaction::SetAmountLastestAccountTo(const NUM amount)
 void Transaction::SetComment(const Comment& comment)
 {
   *comment_ = comment;
+  PLOG_INFO << "Set new comment";
 }
 
 //  Class member function
@@ -427,6 +442,7 @@ void Transaction::SetComment(const Comment& comment)
 void Transaction::SetCurrency(const Currency& currency)
 {
   *currency_ = currency;
+  PLOG_INFO << "Set new currency";
 }
 
 //  Class member function
@@ -434,6 +450,7 @@ void Transaction::SetCurrency(const Currency& currency)
 void Transaction::SetDescription(const Description& description)
 {
   *description_ = description;
+  PLOG_INFO << "Set new description";
 }
 
 //  Class member function
@@ -441,6 +458,7 @@ void Transaction::SetDescription(const Description& description)
 void Transaction::SetPayee(const Payee& payee)
 {
   *payee_ = payee;
+  PLOG_INFO << "Set new payee";
 }
 
 //  Class member function
@@ -448,6 +466,7 @@ void Transaction::SetPayee(const Payee& payee)
 void Transaction::SetTag(const Tag& tag)
 {
   *tag_ = tag;
+  PLOG_INFO << "Set new tag";
 }
 
 //  Class member function
@@ -455,6 +474,7 @@ void Transaction::SetTag(const Tag& tag)
 void Transaction::SetStatus(const Status& status)
 {
   *status_ = status;
+  PLOG_INFO << "Set new status";
 }
 
 //  Class member function
@@ -462,6 +482,7 @@ void Transaction::SetStatus(const Status& status)
 void Transaction::SetType(const Type& type)
 {
   *type_ = type;
+  PLOG_INFO << "Set new type";
 }
 
 //  Class member function
@@ -469,6 +490,7 @@ void Transaction::SetType(const Type& type)
 void Transaction::SetAccountFromPtr(std::shared_ptr<Account> account_from)
 {
   account_from_ = account_from;
+  PLOG_INFO << "Set new account from";
 }
 
 //  Class member function
@@ -476,6 +498,7 @@ void Transaction::SetAccountFromPtr(std::shared_ptr<Account> account_from)
 void Transaction::SetAccountToPtr(std::shared_ptr<Account> account_to)
 {
   account_to_ = account_to;
+  PLOG_INFO << "Set new account to";
 }
 
 //  Class member function
@@ -483,6 +506,7 @@ void Transaction::SetAccountToPtr(std::shared_ptr<Account> account_to)
 void Transaction::SetCategoryPtr(std::shared_ptr<Category> category)
 {
   category_ = category;
+  PLOG_INFO << "Set new category";
 }
 
 //  Class member function
@@ -490,6 +514,7 @@ void Transaction::SetCategoryPtr(std::shared_ptr<Category> category)
 void Transaction::SetCommentPtr(std::shared_ptr<Comment> comment)
 {
   comment_ = comment;
+  PLOG_INFO << "Set new comment";
 }
 
 //  Class member function
@@ -497,6 +522,7 @@ void Transaction::SetCommentPtr(std::shared_ptr<Comment> comment)
 void Transaction::SetCurrencyPtr(std::shared_ptr<Currency> currency)
 {
   currency_ = currency;
+  PLOG_INFO << "Set new currency";
 }
 
 //  Class member function
@@ -504,6 +530,7 @@ void Transaction::SetCurrencyPtr(std::shared_ptr<Currency> currency)
 void Transaction::SetDescriptionPtr(std::shared_ptr<Description> description)
 {
   description_ = description;
+  PLOG_INFO << "Set new description";
 }
 
 //  Class member function
@@ -511,6 +538,7 @@ void Transaction::SetDescriptionPtr(std::shared_ptr<Description> description)
 void Transaction::SetPayeePtr(std::shared_ptr<Payee> payee)
 {
   payee_ = payee;
+  PLOG_INFO << "Set new payee";
 }
 
 //  Class member function
@@ -518,6 +546,7 @@ void Transaction::SetPayeePtr(std::shared_ptr<Payee> payee)
 void Transaction::SetTagPtr(std::shared_ptr<Tag> tag)
 {
   tag_ = tag;
+  PLOG_INFO << "Set new tag";
 }
 
 //  Class member function
@@ -525,6 +554,7 @@ void Transaction::SetTagPtr(std::shared_ptr<Tag> tag)
 void Transaction::SetStatusPtr(std::shared_ptr<Status> status)
 {
   status_ = status;
+  PLOG_INFO << "Set new status";
 }
 
 //  Class member function
@@ -532,6 +562,7 @@ void Transaction::SetStatusPtr(std::shared_ptr<Status> status)
 void Transaction::SetTypePtr(std::shared_ptr<Type> type)
 {
   type_ = type;
+  PLOG_INFO << "Set new type";
 }
 
 //  Class member function

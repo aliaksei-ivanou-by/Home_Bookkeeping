@@ -23,6 +23,7 @@ void Status::SetName(const std::string& name)
   {
     SetStatus(name_new.value());
     Model::SetName(name);
+    PLOG_INFO << "Set new status";
   }
 }
 
@@ -38,6 +39,7 @@ kEnumStatus Status::GetStatus() const
 void Status::SetStatus(const kEnumStatus& status)
 {
   status_ = status;
+  PLOG_INFO << "Set new status";
 }
 
 //  Class member function

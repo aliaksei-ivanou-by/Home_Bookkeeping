@@ -24,6 +24,7 @@ std::string Model::GetName() const
 void Model::SetName(const std::string& name)
 {
   name_ = name;
+  PLOG_INFO << "Set new name";
 }
 
 //  Friend class member function

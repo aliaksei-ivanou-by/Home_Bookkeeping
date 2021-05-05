@@ -20,6 +20,9 @@
 #include <iostream>
 #include <string>
 
+#include "home_bookkeeping/lib/logger/Log.h"
+#include "home_bookkeeping/lib/logger/Initializers/RollingFileInitializer.h"
+
 class Model
 {
 public:
