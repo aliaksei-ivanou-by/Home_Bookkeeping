@@ -30,7 +30,6 @@
 #include <set>
 
 #include "home_bookkeeping/0_Models/Account.h"
-#include "home_bookkeeping/lib/sqlite/sqlite3.h"
 
 using AccountRepositoryIterator = std::set<std::shared_ptr<Account>>::iterator;
 

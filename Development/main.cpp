@@ -1,6 +1,4 @@
-//  #include "home_bookkeeping/2_BusinessLogic/FinanceRepository.h"
 #include "home_bookkeeping/3_GUI/Window_Main.h"
-#include "home_bookkeeping/2_BusinessLogic/DatabaseManager.h"
 
 int main()
 {

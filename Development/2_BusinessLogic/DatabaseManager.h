@@ -50,6 +50,10 @@
 //      SQL Command Status
 //      SQL Command Error Message
 
+#include "home_bookkeeping/lib/sqlite/sqlite3.h"
+#include "home_bookkeeping/lib/logger/Log.h"
+#include "home_bookkeeping/lib/logger/Initializers/RollingFileInitializer.h"
+
 #include "home_bookkeeping/1_DataAccess/AccountRepository.h"
 #include "home_bookkeeping/1_DataAccess/CategoryRepository.h"
 #include "home_bookkeeping/1_DataAccess/CommentRepository.h"
@@ -58,10 +62,6 @@
 #include "home_bookkeeping/1_DataAccess/PayeeRepository.h"
 #include "home_bookkeeping/1_DataAccess/TagRepository.h"
 #include "home_bookkeeping/1_DataAccess/TransactionRepository.h"
-
-#include "home_bookkeeping/lib/sqlite/sqlite3.h"
-#include "home_bookkeeping/lib/logger/Log.h"
-#include "home_bookkeeping/lib/logger/Initializers/RollingFileInitializer.h"
 
 class DatabaseManager
 {

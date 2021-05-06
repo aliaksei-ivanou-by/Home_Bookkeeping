@@ -1,8 +1,9 @@
 #ifndef HOMEBOOKKEEPING_3GUI_WINDOWMAIN_H_
 #define HOMEBOOKKEEPING_3GUI_WINDOWMAIN_H_
 
-#include "home_bookkeeping/2_BusinessLogic/FinanceRepository.h"
 #include "home_bookkeeping/lib/graph/graph_lib.h"
+
+#include "home_bookkeeping/2_BusinessLogic/FinanceRepository.h"
 
 #include "home_bookkeeping/3_GUI/Window_AddAccount.h"
 #include "home_bookkeeping/3_GUI/Window_AddTransactionExpense.h"

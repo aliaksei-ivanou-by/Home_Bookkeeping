@@ -25,11 +25,7 @@
 #include <iostream>
 #include <string>
 
-#include "home_bookkeeping/lib/decimal/decimal.h"
-
 #include "home_bookkeeping/0_Models/Model.h"
-
-using NUM = dec::decimal<6>;
 
 class Account : public Model
 {

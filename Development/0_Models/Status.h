@@ -23,8 +23,9 @@
 //    enum class kEnumStatus
 //    status
 
-#include "home_bookkeeping/0_Models/Model.h"
 #include "home_bookkeeping/lib/enum/magic_enum.hpp"
+
+#include "home_bookkeeping/0_Models/Model.h"
 
 enum class kEnumStatus
 {

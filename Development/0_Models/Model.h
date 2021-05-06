@@ -22,6 +22,9 @@
 
 #include "home_bookkeeping/lib/logger/Log.h"
 #include "home_bookkeeping/lib/logger/Initializers/RollingFileInitializer.h"
+#include "home_bookkeeping/lib/decimal/decimal.h"
+
+using NUM = dec::decimal<6>;
 
 class Model
 {
