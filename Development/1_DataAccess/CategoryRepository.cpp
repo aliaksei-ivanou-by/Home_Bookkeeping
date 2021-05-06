@@ -134,5 +134,7 @@ std::string CategoryRepository::MakeCommandToInsertRepositoryToDatabase(size_t i
     std::to_string(id)
     + ", '" +
     iterator->first->GetName()
-    + "')";
+     + "', " +
+    std::to_string(iterator->second)
+    + ")";
 }
