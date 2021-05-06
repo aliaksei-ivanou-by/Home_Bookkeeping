@@ -19,7 +19,6 @@
 //    Find payee with definite name in repository
 //    Find begin iterator of repository
 //    Find end iterator of repository
-//    Make command to insert repository to database to table
 //
 //  Variables:
 //    repository
@@ -47,7 +46,6 @@ public:
   PayeeRepositoryIterator Find(std::string name) const;
   PayeeRepositoryIterator Begin() const;
   PayeeRepositoryIterator End() const;
-  std::string MakeCommandToInsertRepositoryToDatabase(size_t counter, PayeeRepositoryIterator iterator) const;
 private:
   std::set<std::shared_ptr<Payee>> repository_;
 };

@@ -101,14 +101,3 @@ TagRepositoryIterator TagRepository::End() const
 {
   return repository_.end();
 }
-
-//  Class member function
-//  Make command to insert repository to database to table
-std::string TagRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, TagRepositoryIterator iterator) const
-{
-  return "INSERT INTO Tags VALUES(" +
-    std::to_string(id)
-    + ", '" +
-    (**iterator).GetName()
-    + "')";
-}

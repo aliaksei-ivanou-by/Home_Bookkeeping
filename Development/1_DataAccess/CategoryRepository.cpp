@@ -125,16 +125,3 @@ CategoryRepositoryConstIterator CategoryRepository::End() const
 {
   return repository_.end();
 }
-
-//  Class member function
-//  Make command to insert repository to database to table
-std::string CategoryRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, CategoryRepositoryConstIterator iterator) const
-{
-  return "INSERT INTO Categories VALUES(" +
-    std::to_string(id)
-    + ", '" +
-    iterator->first->GetName()
-     + "', " +
-    std::to_string(iterator->second)
-    + ")";
-}

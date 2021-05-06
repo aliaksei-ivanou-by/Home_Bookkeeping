@@ -83,7 +83,23 @@ void DatabaseManager::InsertTransactionsToTableTransactionsInDatabase(Transactio
   size_t j = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
-    database_status_ = sqlite3_exec(database_, repository.MakeCommandToInsertRepositoryToDatabase(j, i).c_str(), NULL, NULL, &database_error_);
+    const std::string sql_request = std::string("INSERT INTO Transactions VALUES(") +
+      std::to_string(j) + ", '" +
+      (**i).GetStringTime() + "', '" +
+      (**i).GetAccountFrom().GetName() + "', '" +
+      (**i).GetAccountTo().GetName() + "', '" +
+      (**i).GetCategory().GetName() + "', " +
+      std::to_string((**i).GetAmount().getAsDouble()) + ", " +
+      std::to_string((**i).GetAmountAccountFrom().getAsDouble()) + ", " +
+      std::to_string((**i).GetAmountAccountTo().getAsDouble()) + ", '" +
+      (**i).GetComment().GetName() + "', '" +
+      (**i).GetCurrency().GetName() + "', '" +
+      (**i).GetDescription().GetName() + "', '" +
+      (**i).GetPayee().GetName() + "', '" +
+      (**i).GetTag().GetName() + "', '" +
+      (**i).GetStatus().GetName() + "', '" +
+      (**i).GetType().GetName() + "')";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
       PLOG_ERROR << "SQL Insert Error: " << database_error_;
@@ -122,8 +138,7 @@ void DatabaseManager::CreateTableAccountsInDatabase()
 //  Remove table 'Accounts' in database
 void DatabaseManager::RemoveTableAccountsInDatabase()
 {
-  const std::string sql_request =
-    "DROP TABLE IF EXISTS Accounts";
+  const std::string sql_request = "DROP TABLE IF EXISTS Accounts";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -138,14 +153,9 @@ void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&
 {
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
-    const std::string sql_request =
-      std::string(
-      "INSERT INTO Accounts VALUES('"
-      ) +
-      (**i).GetName()
-      + "', " +
-      dec::toString((**i).GetAmount())
-      + ")";
+    const std::string sql_request = std::string("INSERT INTO Accounts VALUES('") +
+      (**i).GetName() + "', " +
+      dec::toString((**i).GetAmount()) + ")";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -159,14 +169,9 @@ void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&
 //  Insert account to table 'Accounts' in database
 void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& account)
 {
-  const std::string sql_request =
-    std::string(
-    "INSERT INTO Accounts VALUES('"
-    ) + 
-    account.GetName()
-    + "', " + 
-    dec::toString(account.GetAmount())
-    + ");";
+  const std::string sql_request = std::string("INSERT INTO Accounts VALUES('") + 
+    account.GetName() + "', " + 
+    dec::toString(account.GetAmount()) + ");";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -221,7 +226,11 @@ void DatabaseManager::InsertCategoriesToTableCategoriesInDatabase(CategoryReposi
   size_t j = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
-    database_status_ = sqlite3_exec(database_, repository.MakeCommandToInsertRepositoryToDatabase(j, i).c_str(), NULL, NULL, &database_error_);
+    const std::string sql_request = std::string("INSERT INTO Categories VALUES(") +
+      std::to_string(j) + ", '" +
+      i->first->GetName() + "', " +
+      std::to_string(i->second) + ")";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
       PLOG_ERROR << "SQL Insert Error: " << database_error_;
@@ -278,7 +287,12 @@ void DatabaseManager::InsertCurrenciesToTableCurrenciesInDatabase(CurrencyReposi
   size_t j = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
-    database_status_ = sqlite3_exec(database_, repository.MakeCommandToInsertRepositoryToDatabase(j, i).c_str(), NULL, NULL, &database_error_);
+    const std::string sql_request = std::string("INSERT INTO Currencies VALUES(") +
+      std::to_string(j) + ", '" +
+      (**i).GetName() + "', '" +
+      (**i).GetCode() + "', " +
+      std::to_string((**i).GetActivity()) + ")";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
       PLOG_ERROR << "SQL Insert Error: " << database_error_;
@@ -333,7 +347,10 @@ void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(Descriptio
   size_t j = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
-    database_status_ = sqlite3_exec(database_, repository.MakeCommandToInsertRepositoryToDatabase(j, i).c_str(), NULL, NULL, &database_error_);
+    const std::string sql_request = std::string("INSERT INTO Descriptions VALUES(") +
+      std::to_string(j) + ", '" +
+      (**i).GetName() + "')";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
       PLOG_ERROR << "SQL Insert Error: " << database_error_;
@@ -388,7 +405,10 @@ void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repo
   size_t j = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
-    database_status_ = sqlite3_exec(database_, repository.MakeCommandToInsertRepositoryToDatabase(j, i).c_str(), NULL, NULL, &database_error_);
+    const std::string sql_request = std::string("INSERT INTO Payees VALUES(") +
+      std::to_string(j) + ", '" +
+      (**i).GetName() + "')";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
       PLOG_ERROR << "SQL Insert Error: " << database_error_;
@@ -443,7 +463,10 @@ void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&
   size_t j = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
-    database_status_ = sqlite3_exec(database_, repository.MakeCommandToInsertRepositoryToDatabase(j, i).c_str(), NULL, NULL, &database_error_);
+    const std::string sql_request = std::string("INSERT INTO Comments VALUES(") +
+      std::to_string(j) + ", '" +
+      (**i).GetName() + "')";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
       PLOG_ERROR << "SQL Insert Error: " << database_error_;
@@ -498,7 +521,10 @@ void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository
   size_t j = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
-    database_status_ = sqlite3_exec(database_, repository.MakeCommandToInsertRepositoryToDatabase(j, i).c_str(), NULL, NULL, &database_error_);
+    const std::string sql_request = std::string("INSERT INTO Tags VALUES(") +
+      std::to_string(j) + ", '" +
+      (**i).GetName() + "')";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
       PLOG_ERROR << "SQL Insert Error: " << database_error_;

@@ -169,18 +169,3 @@ CurrencyRepositoryIterator CurrencyRepository::End() const
 {
   return repository_.end();
 }
-
-//  Class member function
-//  Make command to insert repository to database to table
-std::string CurrencyRepository::MakeCommandToInsertRepositoryToDatabase(size_t id, CurrencyRepositoryIterator iterator) const
-{
-  return "INSERT INTO Currencies VALUES(" +
-    std::to_string(id)
-    + ", '" +
-    (**iterator).GetName()
-    + "', '" +
-    (**iterator).GetCode()
-    + "', " +
-    std::to_string((**iterator).GetActivity())
-    + ")";
-}

@@ -19,7 +19,6 @@
 //    Find category with definite name in repository
 //    Find begin iterator of repository
 //    Find end iterator of repository
-//    Make command to insert repository to database to table
 //
 //  Variables:
 //    repository
@@ -49,7 +48,6 @@ public:
   CategoryRepositoryConstIterator Find(const std::string& category) const;
   CategoryRepositoryConstIterator Begin() const;
   CategoryRepositoryConstIterator End() const;
-  std::string MakeCommandToInsertRepositoryToDatabase(size_t counter, CategoryRepositoryConstIterator iterator) const;
 private:
   void AddCategory(std::shared_ptr<Category> category);
   std::map<std::shared_ptr<Category>, int> repository_;
