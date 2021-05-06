@@ -1004,41 +1004,7 @@ void FinanceRepository::UpdateAccountRepository(Transaction& transaction)
 //  Update category repository with adding new transaction
 void FinanceRepository::UpdateCategoryRepository(Transaction& transaction)
 {
-  if (category_repository_.Size() == 0)
-  {
-    category_repository_.Add(transaction.GetCategoryPtr());
-  }
-  else
-  {
-    bool keyFrom = false;
-    for (auto i = category_repository_.Begin(); i != category_repository_.End(); ++i)
-    {
-      if (i->first->GetName() == transaction.GetCategory().GetName())
-      {
-        keyFrom = true;
-        transaction.SetCategoryPtr(i->first);
-        break;
-      }
-    }
-    if (!keyFrom)
-    {
-      category_repository_.Add(transaction.GetCategory());
-    }
-    bool keyTo = false;
-    for (auto i = category_repository_.Begin(); i != category_repository_.End(); ++i)
-    {
-      if (i->first->GetName() == transaction.GetCategory().GetName())
-      {
-        keyTo = true;
-        transaction.SetCategoryPtr(i->first);
-        break;
-      }
-    }
-    if (!keyTo)
-    {
-      category_repository_.Add(transaction.GetCategoryPtr());
-    }
-  }
+  category_repository_.Add(transaction.GetCategoryPtr());
   database_manager_->SaveToDatabaseCategories(std::move(category_repository_));
 }
 

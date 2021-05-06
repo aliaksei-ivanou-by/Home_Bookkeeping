@@ -191,7 +191,8 @@ void DatabaseManager::CreateTableCategoriesInDatabase()
 {
   std::string sql_request = std::string("CREATE TABLE Categories(") + 
     "id SERIAL PRIMARY KEY, " + 
-    "name TEXT NOT NULL" + ");";
+    "name TEXT NOT NULL, " + 
+    "counter INTEGER NOT NULL" + ");";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
