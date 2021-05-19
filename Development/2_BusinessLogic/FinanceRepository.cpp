@@ -59,7 +59,7 @@ PayeeRepositoryIterator FinanceRepository::BeginPayeeRepository() const
 
 //  Class member function
 //  Find begin iterator of comment repository
-CommentRepositoryIterator FinanceRepository::BeginCommentRepository() const
+CommentRepositoryConstIterator FinanceRepository::BeginCommentRepository() const
 {
   return comment_repository_.Begin();
 }
@@ -115,7 +115,7 @@ PayeeRepositoryIterator FinanceRepository::EndPayeeRepository() const
 
 //  Class member function
 //  Find end iterator of comment repository
-CommentRepositoryIterator FinanceRepository::EndCommentRepository() const
+CommentRepositoryConstIterator FinanceRepository::EndCommentRepository() const
 {
 	return comment_repository_.End();
 }
@@ -412,7 +412,7 @@ std::string FinanceRepository::GetPayeeName(PayeeRepositoryIterator payee) const
 //  Get name of comment from repository
 std::string FinanceRepository::GetCommentName(CommentRepositoryIterator comment) const
 {
-  return (**comment).GetName();
+  return comment->first->GetName();
 }
 
 //  Class member function
@@ -525,7 +525,7 @@ void FinanceRepository::SetPayeeName(PayeeRepositoryIterator payee, const std::s
 //  Set name of comment from repository
 void FinanceRepository::SetCommentName(CommentRepositoryIterator comment, const std::string& name)
 {
-  (**comment).SetName(name);
+  comment->first->SetName(name);
   PLOG_INFO << "Update name of Comment in repository";
   database_manager_->SaveToDatabaseComments(std::move(comment_repository_));
 }
@@ -770,7 +770,7 @@ void FinanceRepository::PrintComments(const std::string& delimeter, std::ostream
   auto i = BeginCommentRepository();
   while (i != EndCommentRepository())
   {
-    output_stream << *i;
+    output_stream << i->first;
     ++i;
     if (i != EndCommentRepository())
     {
@@ -846,7 +846,7 @@ PayeeRepositoryIterator FinanceRepository::FindPayee(std::string name) const
 
 //  Class member function
 //  Find comment with definite name in comment repository
-CommentRepositoryIterator FinanceRepository::FindComment(std::string name) const
+CommentRepositoryConstIterator FinanceRepository::FindComment(std::string name) const
 {
   return comment_repository_.Find(name);
 }
@@ -902,7 +902,7 @@ PayeeRepositoryIterator FinanceRepository::FindPayee(std::shared_ptr<Payee> paye
 
 //  Class member function
 //  Find comment (shared pointer) in comment repository
-CommentRepositoryIterator FinanceRepository::FindComment(std::shared_ptr<Comment> comment) const
+CommentRepositoryConstIterator FinanceRepository::FindComment(std::shared_ptr<Comment> comment) const
 {
   return comment_repository_.Find(comment);
 }
@@ -1138,41 +1138,7 @@ void FinanceRepository::UpdatePayeeRepository(Transaction& transaction)
 //  Update comment repository with adding new transaction
 void FinanceRepository::UpdateCommentRepository(Transaction& transaction)
 {
-  if (comment_repository_.Size() == 0)
-  {
-    comment_repository_.Add(transaction.GetCommentPtr());
-  }
-  else
-  {
-    bool keyFrom = false;
-    for (auto i = comment_repository_.Begin(); i != comment_repository_.End(); ++i)
-    {
-      if ((**i).GetName() == transaction.GetComment().GetName())
-      {
-        keyFrom = true;
-        transaction.SetCommentPtr(*i);
-        break;
-      }
-    }
-    if (!keyFrom)
-    {
-      comment_repository_.Add(transaction.GetComment());
-    }
-    bool keyTo = false;
-    for (auto i = comment_repository_.Begin(); i != comment_repository_.End(); ++i)
-    {
-      if ((**i).GetName() == transaction.GetComment().GetName())
-      {
-        keyTo = true;
-        transaction.SetCommentPtr(*i);
-        break;
-      }
-    }
-    if (!keyTo)
-    {
-      comment_repository_.Add(transaction.GetCommentPtr());
-    }
-  }
+  comment_repository_.Add(transaction.GetCommentPtr());
   database_manager_->SaveToDatabaseComments(std::move(comment_repository_));
 }
 

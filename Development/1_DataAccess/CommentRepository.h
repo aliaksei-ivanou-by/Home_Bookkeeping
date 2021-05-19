@@ -24,11 +24,12 @@
 //    repository
 
 #include <iostream>
-#include <set>
+#include <map>
 
 #include "home_bookkeeping/0_Models/Comment.h"
 
-using CommentRepositoryIterator = std::set<std::shared_ptr<Comment>>::iterator;
+using CommentRepositoryIterator = std::map<std::shared_ptr<Comment>, int>::iterator;
+using CommentRepositoryConstIterator = std::map<std::shared_ptr<Comment>, int>::const_iterator;
 
 class CommentRepository
 {
@@ -42,12 +43,13 @@ public:
   void SetName(CommentRepositoryIterator comment, const std::string& name);
   size_t Size() const;
   void Clear();
-  CommentRepositoryIterator Find(std::shared_ptr<Comment> comment) const;
-  CommentRepositoryIterator Find(const std::string& comment) const;
-  CommentRepositoryIterator Begin() const;
-  CommentRepositoryIterator End() const;
+  CommentRepositoryConstIterator Find(std::shared_ptr<Comment> comment) const;
+  CommentRepositoryConstIterator Find(const std::string& comment) const;
+  CommentRepositoryConstIterator Begin() const;
+  CommentRepositoryConstIterator End() const;
 private:
-  std::set<std::shared_ptr<Comment>> repository_;
+  void AddComment(std::shared_ptr<Comment> comment);
+  std::map<std::shared_ptr<Comment>, int> repository_;
 };
 
 #endif  //  HOMEBOOKKEEPING_1DATAACCESS_COMMENTREPOSITORY_H_

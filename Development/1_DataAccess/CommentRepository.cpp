@@ -5,50 +5,74 @@
 CommentRepository::CommentRepository()
 {}
 
+//  Class member function (private)
+//  Add comment (shared pointer) to repository
+void CommentRepository::AddComment(std::shared_ptr<Comment> comment)
+{
+  for (auto& i : repository_)
+  {
+    if (i.first->GetName() == comment->GetName())
+    {
+      ++i.second;
+      PLOG_INFO << "Add comment to comment repository (counter + 1)";
+      return;
+    }
+  }
+  repository_[comment] = 1;
+  PLOG_INFO << "Add comment to comment repository";
+}
+
 //  Class member function
 //  Add comment (default) to repository
 void CommentRepository::Add()
 {
-  repository_.insert(std::make_shared<Comment>());
-  PLOG_INFO << "Add comment to comment repository";
+  std::shared_ptr<Comment> comment_temp = std::make_shared<Comment>(Comment());
+  AddComment(comment_temp);
 }
 
 //  Class member function
 //  Add comment to repository
 void CommentRepository::Add(Comment comment)
 {
-  repository_.insert(std::make_shared<Comment>(comment));
-  PLOG_INFO << "Add comment to comment repository";
+  std::shared_ptr<Comment> comment_temp = std::make_shared<Comment>(comment);
+  AddComment(comment_temp);
 }
 
 //  Class member function
 //  Add comment (shared pointer) to repository
 void CommentRepository::Add(std::shared_ptr<Comment> comment)
 {
-  repository_.insert(comment);
-  PLOG_INFO << "Add comment to comment repository";
+  AddComment(comment);
 }
 
 //  Class member function
 //  Remove comment (shared pointer) from repository
 void CommentRepository::Remove(std::shared_ptr<Comment> comment)
 {
-  repository_.erase(comment);
-  PLOG_INFO << "Remove comment from comment repository";
+  auto iterator = repository_.find(comment);
+  if (iterator != repository_.end())
+  {
+    repository_.erase(iterator);
+    PLOG_INFO << "Remove comment from comment repository";
+  }
+  else
+  {
+    PLOG_ERROR << "Comment repository haven't got comment '" << comment->GetName() << "'";
+  }
 }
 
 //  Class member function
 //  Get name of comment from repository
 std::string CommentRepository::GetName(CommentRepositoryIterator comment) const
 {
-  return (**comment).GetName();
+  return comment->first->GetName();
 }
 
 //  Class member function
 //  Set name of comment from repository
 void CommentRepository::SetName(CommentRepositoryIterator comment, const std::string& name)
 {
-  (**comment).SetName(name);
+  comment->first->SetName(name);
   PLOG_INFO << "Set new name of comment in comment repository";
 }
 
@@ -69,18 +93,18 @@ void CommentRepository::Clear()
 
 //  Class member function
 //  Find comment (shared pointer) in repository
-CommentRepositoryIterator CommentRepository::Find(std::shared_ptr<Comment> comment) const
+CommentRepositoryConstIterator CommentRepository::Find(std::shared_ptr<Comment> comment) const
 {
   return repository_.find(comment);
 }
 
 //  Class member function
 //  Find comment with definite name in repository
-CommentRepositoryIterator CommentRepository::Find(const std::string& name) const
+CommentRepositoryConstIterator CommentRepository::Find(const std::string& name) const
 {
   for (auto i = repository_.begin(); i != repository_.end(); ++i)
   {
-    if ((**i).GetName() == name)
+    if (i->first->GetName() == name)
     {
       return i;
     }
@@ -90,14 +114,14 @@ CommentRepositoryIterator CommentRepository::Find(const std::string& name) const
 
 //  Class member function
 //  Find begin iterator of repository
-CommentRepositoryIterator CommentRepository::Begin() const
+CommentRepositoryConstIterator CommentRepository::Begin() const
 {
   return repository_.begin();
 }
 
 //  Class member function
 //  Find end iterator of repository
-CommentRepositoryIterator CommentRepository::End() const
+CommentRepositoryConstIterator CommentRepository::End() const
 {
   return repository_.end();
 }

@@ -184,7 +184,7 @@ public:
   CurrencyRepositoryIterator BeginCurrencyRepository() const;
   DescriptionRepositoryIterator BeginDescriptionRepository() const;
   PayeeRepositoryIterator BeginPayeeRepository() const;
-  CommentRepositoryIterator BeginCommentRepository() const;
+  CommentRepositoryConstIterator BeginCommentRepository() const;
   TagRepositoryIterator BeginTagRepository() const;
   //  basic->iterators->end
   TransactionRepositoryIterator EndTransactionRepository() const;
@@ -193,7 +193,7 @@ public:
   CurrencyRepositoryIterator EndCurrencyRepository() const;
   DescriptionRepositoryIterator EndDescriptionRepository() const;
   PayeeRepositoryIterator EndPayeeRepository() const;
-  CommentRepositoryIterator EndCommentRepository() const;
+  CommentRepositoryConstIterator EndCommentRepository() const;
   TagRepositoryIterator EndTagRepository() const;
   //  constructor->default
   FinanceRepository();
@@ -285,7 +285,7 @@ public:
   CurrencyRepositoryIterator FindCurrencyCode(std::string name) const;
   DescriptionRepositoryIterator FindDescription(std::string name) const;
   PayeeRepositoryIterator FindPayee(std::string name) const;
-  CommentRepositoryIterator FindComment(std::string comment) const;
+  CommentRepositoryConstIterator FindComment(std::string comment) const;
   TagRepositoryIterator FindTag(std::string name) const;
   //  basic->find (shared pointer)
   TransactionRepositoryIterator FindTransaction(std::shared_ptr<Transaction> transaction) const;
@@ -294,7 +294,7 @@ public:
   CurrencyRepositoryIterator FindCurrency(std::shared_ptr<Currency> currency) const;
   DescriptionRepositoryIterator FindDescription(std::shared_ptr<Description> description) const;
   PayeeRepositoryIterator FindPayee(std::shared_ptr<Payee> payee) const;
-  CommentRepositoryIterator FindComment(std::shared_ptr<Comment> comment) const;
+  CommentRepositoryConstIterator FindComment(std::shared_ptr<Comment> comment) const;
   TagRepositoryIterator FindTag(std::shared_ptr<Tag> tag) const;
   //  basic->update repository with adding new transaction
   void UpdateAccountAmount(Transaction& transaction);
