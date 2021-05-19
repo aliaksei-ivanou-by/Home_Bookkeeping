@@ -317,8 +317,9 @@ void DatabaseManager::SaveToDatabaseCurrencies(CurrencyRepository&& repository)
 void DatabaseManager::CreateTableDescriptionsInDatabase()
 {
   std::string sql_request = std::string("CREATE TABLE Descriptions(") + 
-    "id SERIAL PRIMARY KEY, " + 
-    "name TEXT NOT NULL" + ");";
+    "id SERIAL PRIMARY KEY, " +
+    "name TEXT NOT NULL, " +
+    "counter INTEGER NOT NULL" + ");";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -349,7 +350,8 @@ void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(Descriptio
   {
     const std::string sql_request = std::string("INSERT INTO Descriptions VALUES(") +
       std::to_string(j) + ", '" +
-      (**i).GetName() + "')";
+      i->first->GetName() + "', " +
+      std::to_string(i->second) + ")";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {

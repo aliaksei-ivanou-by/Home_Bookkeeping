@@ -24,11 +24,12 @@
 //    repository
 
 #include <iostream>
-#include <set>
+#include <map>
 
 #include "home_bookkeeping/0_Models/Description.h"
 
-using DescriptionRepositoryIterator = std::set<std::shared_ptr<Description>>::iterator;
+using DescriptionRepositoryIterator = std::map<std::shared_ptr<Description>, int>::iterator;
+using DescriptionRepositoryConstIterator = std::map<std::shared_ptr<Description>, int>::const_iterator;
 
 class DescriptionRepository
 {
@@ -42,12 +43,13 @@ public:
   void SetName(DescriptionRepositoryIterator description, const std::string& name);
   size_t Size() const;
   void Clear();
-  DescriptionRepositoryIterator Find(std::shared_ptr<Description> description) const;
-  DescriptionRepositoryIterator Find(const std::string& description) const;
-  DescriptionRepositoryIterator Begin() const;
-  DescriptionRepositoryIterator End() const;
+  DescriptionRepositoryConstIterator Find(std::shared_ptr<Description> description) const;
+  DescriptionRepositoryConstIterator Find(const std::string& description) const;
+  DescriptionRepositoryConstIterator Begin() const;
+  DescriptionRepositoryConstIterator End() const;
 private:
-  std::set<std::shared_ptr<Description>> repository_;
+  void AddDescription(std::shared_ptr<Description> description);
+  std::map<std::shared_ptr<Description>, int> repository_;
 };
 
 #endif  //  HOMEBOOKKEEPING_1DATAACCESS_DESCRIPTIONREPOSITORY_H_

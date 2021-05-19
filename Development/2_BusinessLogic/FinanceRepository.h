@@ -182,7 +182,7 @@ public:
   AccountRepositoryIterator BeginAccountRepository() const;
   CategoryRepositoryConstIterator BeginCategoryRepository() const;
   CurrencyRepositoryIterator BeginCurrencyRepository() const;
-  DescriptionRepositoryIterator BeginDescriptionRepository() const;
+  DescriptionRepositoryConstIterator BeginDescriptionRepository() const;
   PayeeRepositoryIterator BeginPayeeRepository() const;
   CommentRepositoryConstIterator BeginCommentRepository() const;
   TagRepositoryIterator BeginTagRepository() const;
@@ -191,7 +191,7 @@ public:
   AccountRepositoryIterator EndAccountRepository() const;
   CategoryRepositoryConstIterator EndCategoryRepository() const;
   CurrencyRepositoryIterator EndCurrencyRepository() const;
-  DescriptionRepositoryIterator EndDescriptionRepository() const;
+  DescriptionRepositoryConstIterator EndDescriptionRepository() const;
   PayeeRepositoryIterator EndPayeeRepository() const;
   CommentRepositoryConstIterator EndCommentRepository() const;
   TagRepositoryIterator EndTagRepository() const;
@@ -283,7 +283,7 @@ public:
   CategoryRepositoryConstIterator FindCategory(std::string name) const;
   CurrencyRepositoryIterator FindCurrencyName(std::string name) const;
   CurrencyRepositoryIterator FindCurrencyCode(std::string name) const;
-  DescriptionRepositoryIterator FindDescription(std::string name) const;
+  DescriptionRepositoryConstIterator FindDescription(std::string name) const;
   PayeeRepositoryIterator FindPayee(std::string name) const;
   CommentRepositoryConstIterator FindComment(std::string comment) const;
   TagRepositoryIterator FindTag(std::string name) const;
@@ -292,7 +292,7 @@ public:
   AccountRepositoryIterator FindAccount(std::shared_ptr<Account> account) const;
   CategoryRepositoryConstIterator FindCategory(std::shared_ptr<Category> category) const;
   CurrencyRepositoryIterator FindCurrency(std::shared_ptr<Currency> currency) const;
-  DescriptionRepositoryIterator FindDescription(std::shared_ptr<Description> description) const;
+  DescriptionRepositoryConstIterator FindDescription(std::shared_ptr<Description> description) const;
   PayeeRepositoryIterator FindPayee(std::shared_ptr<Payee> payee) const;
   CommentRepositoryConstIterator FindComment(std::shared_ptr<Comment> comment) const;
   TagRepositoryIterator FindTag(std::shared_ptr<Tag> tag) const;

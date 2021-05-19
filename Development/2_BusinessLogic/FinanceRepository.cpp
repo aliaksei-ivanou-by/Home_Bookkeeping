@@ -45,7 +45,7 @@ CurrencyRepositoryIterator FinanceRepository::BeginCurrencyRepository() const
 
 //  Class member function
 //  Find begin iterator of description repository
-DescriptionRepositoryIterator FinanceRepository::BeginDescriptionRepository() const
+DescriptionRepositoryConstIterator FinanceRepository::BeginDescriptionRepository() const
 {
   return description_repository_.Begin();
 }
@@ -101,7 +101,7 @@ CurrencyRepositoryIterator FinanceRepository::EndCurrencyRepository() const
 
 //  Class member function
 //  Find end iterator of description repository
-DescriptionRepositoryIterator FinanceRepository::EndDescriptionRepository() const
+DescriptionRepositoryConstIterator FinanceRepository::EndDescriptionRepository() const
 {
 	return description_repository_.End();
 }
@@ -398,7 +398,7 @@ bool FinanceRepository::GetCurrencyActivity(CurrencyRepositoryIterator currency)
 //  Get name of description from repositor
 std::string FinanceRepository::GetDescriptionName(DescriptionRepositoryIterator description) const
 {
-  return (**description).GetName();
+  return description->first->GetName();
 }
 
 //  Class member function
@@ -507,7 +507,7 @@ void FinanceRepository::SwitchOffCurrencyActivity(CurrencyRepositoryIterator cur
 //  Set name of description from repository
 void FinanceRepository::SetDescriptionName(DescriptionRepositoryIterator description, const std::string& name)
 {
-  (**description).SetName(name);
+  description->first->SetName(name);
   PLOG_INFO << "Update name of Description in repository";
   database_manager_->SaveToDatabaseDescriptions(std::move(description_repository_));
 }
@@ -738,7 +738,7 @@ void FinanceRepository::PrintDescriptions(const std::string& delimeter, std::ost
   auto i = BeginDescriptionRepository();
   while (i != EndDescriptionRepository())
   {
-    output_stream << *i;
+    output_stream << i->first;
     ++i;
     if (i != EndDescriptionRepository())
     {
@@ -832,7 +832,7 @@ CurrencyRepositoryIterator FinanceRepository::FindCurrencyCode(std::string code)
 
 //  Class member function
 //  Find description with definite name in description repository
-DescriptionRepositoryIterator FinanceRepository::FindDescription(std::string name) const
+DescriptionRepositoryConstIterator FinanceRepository::FindDescription(std::string name) const
 {
   return description_repository_.Find(name);
 }
@@ -888,7 +888,7 @@ CurrencyRepositoryIterator FinanceRepository::FindCurrency(std::shared_ptr<Curre
 
 //  Class member function
 //  Find description (shared pointer) in description repository
-DescriptionRepositoryIterator FinanceRepository::FindDescription(std::shared_ptr<Description> description) const
+DescriptionRepositoryConstIterator FinanceRepository::FindDescription(std::shared_ptr<Description> description) const
 {
   return description_repository_.Find(description);
 }
@@ -1054,41 +1054,7 @@ void FinanceRepository::UpdateCurrencyRepository(Transaction& transaction)
 //  Update description repository with adding new transaction
 void FinanceRepository::UpdateDescriptionRepository(Transaction& transaction)
 {
-  if (description_repository_.Size() == 0)
-  {
-    description_repository_.Add(transaction.GetDescriptionPtr());
-  }
-  else
-  {
-    bool keyFrom = false;
-    for (auto i = description_repository_.Begin(); i != description_repository_.End(); ++i)
-    {
-      if ((**i).GetName() == transaction.GetDescription().GetName())
-      {
-        keyFrom = true;
-        transaction.SetDescriptionPtr(*i);
-        break;
-      }
-    }
-    if (!keyFrom)
-    {
-      description_repository_.Add(transaction.GetDescription());
-    }
-    bool keyTo = false;
-    for (auto i = description_repository_.Begin(); i != description_repository_.End(); ++i)
-    {
-      if ((**i).GetName() == transaction.GetDescription().GetName())
-      {
-        keyTo = true;
-        transaction.SetDescriptionPtr(*i);
-        break;
-      }
-    }
-    if (!keyTo)
-    {
-      description_repository_.Add(transaction.GetDescriptionPtr());
-    }
-  }
+  description_repository_.Add(transaction.GetDescriptionPtr());
   database_manager_->SaveToDatabaseDescriptions(std::move(description_repository_));
 }
 

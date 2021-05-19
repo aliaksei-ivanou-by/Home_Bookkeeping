@@ -5,28 +5,44 @@
 DescriptionRepository::DescriptionRepository()
 {}
 
+//  Class member function (private)
+//  Add comment (shared pointer) to repository
+void DescriptionRepository::AddDescription(std::shared_ptr<Description> description)
+{
+  for (auto& i : repository_)
+  {
+    if (i.first->GetName() == description->GetName())
+    {
+      ++i.second;
+      PLOG_INFO << "Add description to description repository (counter + 1)";
+      return;
+    }
+  }
+  repository_[description] = 1;
+  PLOG_INFO << "Add description to description repository";
+}
+
 //  Class member function
 //  Add description (default) to repository
 void DescriptionRepository::Add()
 {
-  repository_.insert(std::make_shared<Description>());
-  PLOG_INFO << "Add description to description repository";
+  std::shared_ptr<Description> description_temp = std::make_shared<Description>(Description());
+  AddDescription(description_temp);
 }
 
 //  Class member function
 //  Add description to repository
 void DescriptionRepository::Add(Description description)
 {
-  repository_.insert(std::make_shared<Description>(description));
-  PLOG_INFO << "Add description to description repository";
+  std::shared_ptr<Description> description_temp = std::make_shared<Description>(description);
+  AddDescription(description_temp);
 }
 
 //  Class member function
 //  Add description (shared pointer) to repository
 void DescriptionRepository::Add(std::shared_ptr<Description> description)
 {
-  repository_.insert(description);
-  PLOG_INFO << "Add description to description repository";
+  AddDescription(description);
 }
 
 //  Class member function
@@ -41,14 +57,14 @@ void DescriptionRepository::Remove(std::shared_ptr<Description> description)
 //  Get name of description from repository
 std::string DescriptionRepository::GetName(DescriptionRepositoryIterator description) const
 {
-  return (**description).GetName();
+  return description->first->GetName();
 }
 
 //  Class member function
 //  Set name of description from repository
 void DescriptionRepository::SetName(DescriptionRepositoryIterator description, const std::string& name)
 {
-  (**description).SetName(name);
+  description->first->SetName(name);
   PLOG_INFO << "Set new name of description in description repository";
 }
 
@@ -69,18 +85,18 @@ void DescriptionRepository::Clear()
 
 //  Class member function
 //  Find description (shared pointer) in repository
-DescriptionRepositoryIterator DescriptionRepository::Find(std::shared_ptr<Description> description) const
+DescriptionRepositoryConstIterator DescriptionRepository::Find(std::shared_ptr<Description> description) const
 {
   return repository_.find(description);
 }
 
 //  Class member function
 //  Find description with definite name in repository
-DescriptionRepositoryIterator DescriptionRepository::Find(const std::string& name) const
+DescriptionRepositoryConstIterator DescriptionRepository::Find(const std::string& name) const
 {
   for (auto i = repository_.begin(); i != repository_.end(); ++i)
   {
-    if ((**i).GetName() == name)
+    if (i->first->GetName() == name)
     {
       return i;
     }
@@ -90,7 +106,7 @@ DescriptionRepositoryIterator DescriptionRepository::Find(const std::string& nam
 
 //  Class member function
 //  Find begin iterator of repository
-DescriptionRepositoryIterator DescriptionRepository::Begin() const
+DescriptionRepositoryConstIterator DescriptionRepository::Begin() const
 {
   return repository_.begin();
 
@@ -98,7 +114,7 @@ DescriptionRepositoryIterator DescriptionRepository::Begin() const
 
 //  Class member function
 //  Find end iterator of repository
-DescriptionRepositoryIterator DescriptionRepository::End() const
+DescriptionRepositoryConstIterator DescriptionRepository::End() const
 {
   return repository_.end();
 }
