@@ -183,7 +183,7 @@ public:
   CategoryRepositoryConstIterator BeginCategoryRepository() const;
   CurrencyRepositoryIterator BeginCurrencyRepository() const;
   DescriptionRepositoryConstIterator BeginDescriptionRepository() const;
-  PayeeRepositoryIterator BeginPayeeRepository() const;
+  PayeeRepositoryConstIterator BeginPayeeRepository() const;
   CommentRepositoryConstIterator BeginCommentRepository() const;
   TagRepositoryIterator BeginTagRepository() const;
   //  basic->iterators->end
@@ -192,7 +192,7 @@ public:
   CategoryRepositoryConstIterator EndCategoryRepository() const;
   CurrencyRepositoryIterator EndCurrencyRepository() const;
   DescriptionRepositoryConstIterator EndDescriptionRepository() const;
-  PayeeRepositoryIterator EndPayeeRepository() const;
+  PayeeRepositoryConstIterator EndPayeeRepository() const;
   CommentRepositoryConstIterator EndCommentRepository() const;
   TagRepositoryIterator EndTagRepository() const;
   //  constructor->default
@@ -284,7 +284,7 @@ public:
   CurrencyRepositoryIterator FindCurrencyName(std::string name) const;
   CurrencyRepositoryIterator FindCurrencyCode(std::string name) const;
   DescriptionRepositoryConstIterator FindDescription(std::string name) const;
-  PayeeRepositoryIterator FindPayee(std::string name) const;
+  PayeeRepositoryConstIterator FindPayee(std::string name) const;
   CommentRepositoryConstIterator FindComment(std::string comment) const;
   TagRepositoryIterator FindTag(std::string name) const;
   //  basic->find (shared pointer)
@@ -293,7 +293,7 @@ public:
   CategoryRepositoryConstIterator FindCategory(std::shared_ptr<Category> category) const;
   CurrencyRepositoryIterator FindCurrency(std::shared_ptr<Currency> currency) const;
   DescriptionRepositoryConstIterator FindDescription(std::shared_ptr<Description> description) const;
-  PayeeRepositoryIterator FindPayee(std::shared_ptr<Payee> payee) const;
+  PayeeRepositoryConstIterator FindPayee(std::shared_ptr<Payee> payee) const;
   CommentRepositoryConstIterator FindComment(std::shared_ptr<Comment> comment) const;
   TagRepositoryIterator FindTag(std::shared_ptr<Tag> tag) const;
   //  basic->update repository with adding new transaction

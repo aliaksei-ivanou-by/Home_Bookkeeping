@@ -24,11 +24,12 @@
 //    repository
 
 #include <iostream>
-#include <set>
+#include <map>
 
 #include "home_bookkeeping/0_Models/Payee.h"
 
-using PayeeRepositoryIterator = std::set<std::shared_ptr<Payee>>::iterator;
+using PayeeRepositoryIterator = std::map<std::shared_ptr<Payee>, int>::iterator;
+using PayeeRepositoryConstIterator = std::map<std::shared_ptr<Payee>, int>::const_iterator;
 
 class PayeeRepository
 {
@@ -42,12 +43,13 @@ public:
   void SetName(PayeeRepositoryIterator payee, const std::string& name);
   size_t Size() const;
   void Clear();
-  PayeeRepositoryIterator Find(std::shared_ptr<Payee> payee) const;
-  PayeeRepositoryIterator Find(std::string name) const;
-  PayeeRepositoryIterator Begin() const;
-  PayeeRepositoryIterator End() const;
+  PayeeRepositoryConstIterator Find(std::shared_ptr<Payee> payee) const;
+  PayeeRepositoryConstIterator Find(std::string name) const;
+  PayeeRepositoryConstIterator Begin() const;
+  PayeeRepositoryConstIterator End() const;
 private:
-  std::set<std::shared_ptr<Payee>> repository_;
+  void AddPayee(std::shared_ptr<Payee> payee);
+  std::map<std::shared_ptr<Payee>, int> repository_;
 };
 
 #endif  //  HOMEBOOKKEEPING_1DATAACCESS_PAYEEREPOSITORY_H_

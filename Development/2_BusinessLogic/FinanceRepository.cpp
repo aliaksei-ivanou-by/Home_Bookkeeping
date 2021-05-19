@@ -52,7 +52,7 @@ DescriptionRepositoryConstIterator FinanceRepository::BeginDescriptionRepository
 
 //  Class member function
 //  Find begin iterator of payee repository
-PayeeRepositoryIterator FinanceRepository::BeginPayeeRepository() const
+PayeeRepositoryConstIterator FinanceRepository::BeginPayeeRepository() const
 {
   return payee_repository_.Begin();
 }
@@ -108,7 +108,7 @@ DescriptionRepositoryConstIterator FinanceRepository::EndDescriptionRepository()
 
 //  Class member function
 //  Find end iterator of payee repository
-PayeeRepositoryIterator FinanceRepository::EndPayeeRepository() const
+PayeeRepositoryConstIterator FinanceRepository::EndPayeeRepository() const
 {
 	return payee_repository_.End();
 }
@@ -405,7 +405,7 @@ std::string FinanceRepository::GetDescriptionName(DescriptionRepositoryIterator 
 //  Get name of payee from repository
 std::string FinanceRepository::GetPayeeName(PayeeRepositoryIterator payee) const
 {
-  return (**payee).GetName();
+  return payee->first->GetName();
 }
 
 //  Class member function
@@ -516,7 +516,7 @@ void FinanceRepository::SetDescriptionName(DescriptionRepositoryIterator descrip
 //  Set name of payee from repository
 void FinanceRepository::SetPayeeName(PayeeRepositoryIterator payee, const std::string& name)
 {
-  (**payee).SetName(name);
+  payee->first->SetName(name);
   PLOG_INFO << "Update name of Payee in repository";
   database_manager_->SaveToDatabasePayees(std::move(payee_repository_));
 }
@@ -754,7 +754,7 @@ void FinanceRepository::PrintPayees(const std::string& delimeter, std::ostream& 
   auto i = BeginPayeeRepository();
   while (i != EndPayeeRepository())
   {
-    output_stream << *i;
+    output_stream << i->first;
     ++i;
     if (i != EndPayeeRepository())
     {
@@ -839,7 +839,7 @@ DescriptionRepositoryConstIterator FinanceRepository::FindDescription(std::strin
 
 //  Class member function
 //  Find payee with definite name in payee repository
-PayeeRepositoryIterator FinanceRepository::FindPayee(std::string name) const
+PayeeRepositoryConstIterator FinanceRepository::FindPayee(std::string name) const
 {
   return payee_repository_.Find(name);
 }
@@ -895,7 +895,7 @@ DescriptionRepositoryConstIterator FinanceRepository::FindDescription(std::share
 
 //  Class member function
 //  Find payee (shared pointer) in payee repository
-PayeeRepositoryIterator FinanceRepository::FindPayee(std::shared_ptr<Payee> payee) const
+PayeeRepositoryConstIterator FinanceRepository::FindPayee(std::shared_ptr<Payee> payee) const
 {
   return payee_repository_.Find(payee);
 }
@@ -1062,41 +1062,7 @@ void FinanceRepository::UpdateDescriptionRepository(Transaction& transaction)
 //  Update payee repository with adding new transaction
 void FinanceRepository::UpdatePayeeRepository(Transaction& transaction)
 {
-  if (payee_repository_.Size() == 0)
-  {
-    payee_repository_.Add(transaction.GetPayeePtr());
-  }
-  else
-  {
-    bool keyFrom = false;
-    for (auto i = payee_repository_.Begin(); i != payee_repository_.End(); ++i)
-    {
-      if ((**i).GetName() == transaction.GetPayee().GetName())
-      {
-        keyFrom = true;
-        transaction.SetPayeePtr(*i);
-        break;
-      }
-    }
-    if (!keyFrom)
-    {
-      payee_repository_.Add(transaction.GetPayee());
-    }
-    bool keyTo = false;
-    for (auto i = payee_repository_.Begin(); i != payee_repository_.End(); ++i)
-    {
-      if ((**i).GetName() == transaction.GetPayee().GetName())
-      {
-        keyTo = true;
-        transaction.SetPayeePtr(*i);
-        break;
-      }
-    }
-    if (!keyTo)
-    {
-      payee_repository_.Add(transaction.GetPayeePtr());
-    }
-  }
+  payee_repository_.Add(transaction.GetPayeePtr());
   database_manager_->SaveToDatabasePayees(std::move(payee_repository_));
 }
 

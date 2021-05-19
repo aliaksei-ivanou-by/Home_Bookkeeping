@@ -5,28 +5,44 @@
 PayeeRepository::PayeeRepository()
 {}
 
+//  Class member function (private)
+//  Add comment (shared pointer) to repository
+void PayeeRepository::AddPayee(std::shared_ptr<Payee> payee)
+{
+  for (auto& i : repository_)
+  {
+    if (i.first->GetName() == payee->GetName())
+    {
+      ++i.second;
+      PLOG_INFO << "Add payee to payee repository (counter + 1)";
+      return;
+    }
+  }
+  repository_[payee] = 1;
+  PLOG_INFO << "Add payee to payee repository";
+}
+
 //  Class member function
 //  Add payee (default) to repository
 void PayeeRepository::Add()
 {
-  repository_.insert(std::make_shared<Payee>());
-  PLOG_INFO << "Add payee to payee repository";
+  std::shared_ptr<Payee> payee_temp = std::make_shared<Payee>(Payee());
+  AddPayee(payee_temp);
 }
 
 //  Class member function
 //  Add payee to repository
 void PayeeRepository::Add(Payee payee)
 {
-  repository_.insert(std::make_shared<Payee>(payee));
-  PLOG_INFO << "Add payee to payee repository";
+  std::shared_ptr<Payee> payee_temp = std::make_shared<Payee>(payee);
+  AddPayee(payee_temp);
 }
 
 //  Class member function
 //  Add payee (shared pointer) to repository
 void PayeeRepository::Add(std::shared_ptr<Payee> payee)
 {
-  repository_.insert(payee);
-  PLOG_INFO << "Add payee to payee repository";
+  AddPayee(payee);
 }
 
 //  Class member function
@@ -41,14 +57,14 @@ void PayeeRepository::Remove(std::shared_ptr<Payee> payee)
 //  Get name of payee from repository
 std::string PayeeRepository::GetName(PayeeRepositoryIterator payee) const
 {
-  return (**payee).GetName();
+  return payee->first->GetName();
 }
 
 //  Class member function
 //  Set name of payee from repository
 void PayeeRepository::SetName(PayeeRepositoryIterator payee, const std::string& name)
 {
-  (**payee).SetName(name);
+  payee->first->SetName(name);
   PLOG_INFO << "Set new name of payee in payee repository";
 }
 
@@ -69,18 +85,18 @@ void PayeeRepository::Clear()
 
 //  Class member function
 //  Find payee (shared pointer) in repository
-PayeeRepositoryIterator PayeeRepository::Find(std::shared_ptr<Payee> payee) const
+PayeeRepositoryConstIterator PayeeRepository::Find(std::shared_ptr<Payee> payee) const
 {
   return repository_.find(payee);
 }
 
 //  Class member function
 //  Find payee with definite name in repository
-PayeeRepositoryIterator PayeeRepository::Find(std::string name) const
+PayeeRepositoryConstIterator PayeeRepository::Find(std::string name) const
 {
   for (auto i = repository_.begin(); i != repository_.end(); ++i)
   {
-    if ((**i).GetName() == name)
+    if (i->first->GetName() == name)
     {
       return i;
     }
@@ -90,14 +106,14 @@ PayeeRepositoryIterator PayeeRepository::Find(std::string name) const
 
 //  Class member function
 //  Find begin iterator of repository
-PayeeRepositoryIterator PayeeRepository::Begin() const
+PayeeRepositoryConstIterator PayeeRepository::Begin() const
 {
   return repository_.begin();
 }
 
 //  Class member function
 //  Find end iterator of repository
-PayeeRepositoryIterator PayeeRepository::End() const
+PayeeRepositoryConstIterator PayeeRepository::End() const
 {
   return repository_.end();
 }
