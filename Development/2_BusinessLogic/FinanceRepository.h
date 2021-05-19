@@ -185,7 +185,7 @@ public:
   DescriptionRepositoryConstIterator BeginDescriptionRepository() const;
   PayeeRepositoryConstIterator BeginPayeeRepository() const;
   CommentRepositoryConstIterator BeginCommentRepository() const;
-  TagRepositoryIterator BeginTagRepository() const;
+  TagRepositoryConstIterator BeginTagRepository() const;
   //  basic->iterators->end
   TransactionRepositoryIterator EndTransactionRepository() const;
   AccountRepositoryIterator EndAccountRepository() const;
@@ -194,7 +194,7 @@ public:
   DescriptionRepositoryConstIterator EndDescriptionRepository() const;
   PayeeRepositoryConstIterator EndPayeeRepository() const;
   CommentRepositoryConstIterator EndCommentRepository() const;
-  TagRepositoryIterator EndTagRepository() const;
+  TagRepositoryConstIterator EndTagRepository() const;
   //  constructor->default
   FinanceRepository();
   //  destructor->default
@@ -286,7 +286,7 @@ public:
   DescriptionRepositoryConstIterator FindDescription(std::string name) const;
   PayeeRepositoryConstIterator FindPayee(std::string name) const;
   CommentRepositoryConstIterator FindComment(std::string comment) const;
-  TagRepositoryIterator FindTag(std::string name) const;
+  TagRepositoryConstIterator FindTag(std::string name) const;
   //  basic->find (shared pointer)
   TransactionRepositoryIterator FindTransaction(std::shared_ptr<Transaction> transaction) const;
   AccountRepositoryIterator FindAccount(std::shared_ptr<Account> account) const;
@@ -295,7 +295,7 @@ public:
   DescriptionRepositoryConstIterator FindDescription(std::shared_ptr<Description> description) const;
   PayeeRepositoryConstIterator FindPayee(std::shared_ptr<Payee> payee) const;
   CommentRepositoryConstIterator FindComment(std::shared_ptr<Comment> comment) const;
-  TagRepositoryIterator FindTag(std::shared_ptr<Tag> tag) const;
+  TagRepositoryConstIterator FindTag(std::shared_ptr<Tag> tag) const;
   //  basic->update repository with adding new transaction
   void UpdateAccountAmount(Transaction& transaction);
   void UpdateAccountRepository(Transaction& transaction);

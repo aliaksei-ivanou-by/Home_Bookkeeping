@@ -24,11 +24,12 @@
 //    repository
 
 #include <iostream>
-#include <set>
+#include <map>
 
 #include "home_bookkeeping/0_Models/Tag.h"
 
-using TagRepositoryIterator = std::set<std::shared_ptr<Tag>>::iterator;
+using TagRepositoryIterator = std::map<std::shared_ptr<Tag>, int>::iterator;
+using TagRepositoryConstIterator = std::map<std::shared_ptr<Tag>, int>::const_iterator;
 
 class TagRepository
 {
@@ -42,12 +43,13 @@ public:
   void SetName(TagRepositoryIterator tag, const std::string& name);
   size_t Size() const;
   void Clear();
-  TagRepositoryIterator Find(std::shared_ptr<Tag> tag) const;
-  TagRepositoryIterator Find(std::string name) const;
-  TagRepositoryIterator Begin() const;
-  TagRepositoryIterator End() const;
+  TagRepositoryConstIterator Find(std::shared_ptr<Tag> tag) const;
+  TagRepositoryConstIterator Find(std::string name) const;
+  TagRepositoryConstIterator Begin() const;
+  TagRepositoryConstIterator End() const;
 private:
-  std::set<std::shared_ptr<Tag>> repository_;
+  void AddTag(std::shared_ptr<Tag> tag);
+  std::map<std::shared_ptr<Tag>, int> repository_;
 };
 
 #endif  //  HOMEBOOKKEEPING_1DATAACCESS_TAGREPOSITORY_H_

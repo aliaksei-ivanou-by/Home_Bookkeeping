@@ -66,7 +66,7 @@ CommentRepositoryConstIterator FinanceRepository::BeginCommentRepository() const
 
 //  Class member function
 //  Find begin iterator of tag repository
-TagRepositoryIterator FinanceRepository::BeginTagRepository() const
+TagRepositoryConstIterator FinanceRepository::BeginTagRepository() const
 {
   return tag_repository_.Begin();
 }
@@ -122,7 +122,7 @@ CommentRepositoryConstIterator FinanceRepository::EndCommentRepository() const
 
 //  Class member function
 //  Find end iterator of tag repository
-TagRepositoryIterator FinanceRepository::EndTagRepository() const
+TagRepositoryConstIterator FinanceRepository::EndTagRepository() const
 {
   return tag_repository_.End();
 }
@@ -419,7 +419,7 @@ std::string FinanceRepository::GetCommentName(CommentRepositoryIterator comment)
 //  Get name of tag from repository
 std::string FinanceRepository::GetTagName(TagRepositoryIterator tag) const
 {
-  return (**tag).GetName();
+  return tag->first->GetName();
 }
 
 //  Class member function
@@ -534,7 +534,7 @@ void FinanceRepository::SetCommentName(CommentRepositoryIterator comment, const 
 //  Set name of tag from repository
 void FinanceRepository::SetTagName(TagRepositoryIterator tag, const std::string& name)
 {
-  (**tag).SetName(name);
+  tag->first->SetName(name);
   PLOG_INFO << "Update name of Tag in repository";
   database_manager_->SaveToDatabaseTags(std::move(tag_repository_));
 }
@@ -786,7 +786,7 @@ void FinanceRepository::PrintTags(const std::string& delimeter, std::ostream& ou
   auto i = BeginTagRepository();
   while (i != EndTagRepository())
   {
-    output_stream << *i;
+    output_stream << i->first;
     ++i;
     if (i != EndTagRepository())
     {
@@ -853,7 +853,7 @@ CommentRepositoryConstIterator FinanceRepository::FindComment(std::string name) 
 
 //  Class member function
 //  Find tag with definite name in tag repository
-TagRepositoryIterator FinanceRepository::FindTag(std::string name) const
+TagRepositoryConstIterator FinanceRepository::FindTag(std::string name) const
 {
   return tag_repository_.Find(name);
 }
@@ -909,7 +909,7 @@ CommentRepositoryConstIterator FinanceRepository::FindComment(std::shared_ptr<Co
 
 //  Class member function
 //  Find tag (shared pointer) in tag repository
-TagRepositoryIterator FinanceRepository::FindTag(std::shared_ptr<Tag> tag) const
+TagRepositoryConstIterator FinanceRepository::FindTag(std::shared_ptr<Tag> tag) const
 {
   return tag_repository_.Find(tag);
 }
@@ -1078,41 +1078,7 @@ void FinanceRepository::UpdateCommentRepository(Transaction& transaction)
 //  Update tag repository with adding new transaction
 void FinanceRepository::UpdateTagRepository(Transaction& transaction)
 {
-  if (tag_repository_.Size() == 0)
-  {
-    tag_repository_.Add(transaction.GetTagPtr());
-  }
-  else
-  {
-    bool keyFrom = false;
-    for (auto i = tag_repository_.Begin(); i != tag_repository_.End(); ++i)
-    {
-      if ((**i).GetName() == transaction.GetTag().GetName())
-      {
-        keyFrom = true;
-        transaction.SetTagPtr(*i);
-        break;
-      }
-    }
-    if (!keyFrom)
-    {
-      tag_repository_.Add(transaction.GetTag());
-    }
-    bool keyTo = false;
-    for (auto i = tag_repository_.Begin(); i != tag_repository_.End(); ++i)
-    {
-      if ((**i).GetName() == transaction.GetTag().GetName())
-      {
-        keyTo = true;
-        transaction.SetTagPtr(*i);
-        break;
-      }
-    }
-    if (!keyTo)
-    {
-      tag_repository_.Add(transaction.GetTagPtr());
-    }
-  }
+  tag_repository_.Add(transaction.GetTagPtr());
   database_manager_->SaveToDatabaseTags(std::move(tag_repository_));
 }
 
