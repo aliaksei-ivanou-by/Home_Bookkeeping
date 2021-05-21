@@ -67,7 +67,7 @@ void DatabaseManager::CreateTableTransactionsInDatabase()
 //  Remove table 'Transactions' in database
 void DatabaseManager::RemoveTableTransactionsInDatabase(TransactionRepository&& repository)
 {
-  const std::string sql_request = "DROP TABLE IF EXISTS Transactions";
+  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Transactions";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -110,6 +110,13 @@ void DatabaseManager::InsertTransactionsToTableTransactionsInDatabase(Transactio
 }
 
 //  Class member function
+//  Insert one transaction to table 'Transactions' in database
+void DatabaseManager::InsertTransactionToTableTransactionsInDatabase(Transaction&& transaction)
+{
+
+}
+
+//  Class member function
 //  Save transactions to table 'Transactions' in database
 void DatabaseManager::SaveToDatabaseTransactions(TransactionRepository&& repository)
 {
@@ -138,7 +145,7 @@ void DatabaseManager::CreateTableAccountsInDatabase()
 //  Remove table 'Accounts' in database
 void DatabaseManager::RemoveTableAccountsInDatabase()
 {
-  const std::string sql_request = "DROP TABLE IF EXISTS Accounts";
+  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Accounts";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -169,15 +176,7 @@ void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&
 //  Insert account to table 'Accounts' in database
 void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& account)
 {
-  const std::string sql_request = std::string("INSERT INTO Accounts VALUES('") + 
-    account.GetName() + "', " + 
-    dec::toString(account.GetAmount()) + ");";
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Insert Error: " << database_error_;
-  }
-  PLOG_INFO << "Insert account to table 'Accounts' in database";
+
 }
 
 //  Class member function
@@ -210,7 +209,7 @@ void DatabaseManager::CreateTableCategoriesInDatabase()
 //  Remove table 'Categories' in database
 void DatabaseManager::RemoveTableCategoriesInDatabase(CategoryRepository&& repository)
 {
-  const std::string sql_request = "DROP TABLE IF EXISTS Categories";
+  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Categories";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -238,6 +237,13 @@ void DatabaseManager::InsertCategoriesToTableCategoriesInDatabase(CategoryReposi
     ++j;
   }
   PLOG_INFO << "Insert categories to table 'Categories' in database";
+}
+
+//  Class member function
+//  Insert one category to table 'Categories' in database
+void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& category)
+{
+
 }
 
 //  Class member function
@@ -271,7 +277,7 @@ void DatabaseManager::CreateTableCurrenciesInDatabase()
 //  Remove table 'Currencies' in database
 void DatabaseManager::RemoveTableCurrenciesInDatabase(CurrencyRepository&& repository)
 {
-  const std::string sql_request = "DROP TABLE IF EXISTS Currencies";
+  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Currencies";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -300,6 +306,13 @@ void DatabaseManager::InsertCurrenciesToTableCurrenciesInDatabase(CurrencyReposi
     ++j;
   }
   PLOG_INFO << "Insert currencies to table 'Currencies' in database";
+}
+
+//  Class member function
+//  Insert one currency to table 'Currencies' in database
+void DatabaseManager::InsertCurrencyToTableCurrenciesInDatabase(Currency&& currency)
+{
+
 }
 
 //  Class member function
@@ -332,7 +345,7 @@ void DatabaseManager::CreateTableDescriptionsInDatabase()
 //  Remove table 'Descriptions' in database
 void DatabaseManager::RemoveTableDescriptionsInDatabase(DescriptionRepository&& repository)
 {
-  const std::string sql_request = "DROP TABLE IF EXISTS Descriptions";
+  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Descriptions";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -360,6 +373,13 @@ void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(Descriptio
     ++j;
   }
   PLOG_INFO << "Insert descriptions to table 'Descriptions' in database";
+}
+
+//  Class member function
+//  Insert one description to table 'Descriptions' in database
+void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description&& description)
+{
+
 }
 
 //  Class member function
@@ -392,7 +412,7 @@ void DatabaseManager::CreateTablePayeesInDatabase()
 //  Remove table 'Payees' in database
 void DatabaseManager::RemoveTablePayeesInDatabase(PayeeRepository&& repository)
 {
-  const std::string sql_request = "DROP TABLE IF EXISTS Payees";
+  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Payees";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -420,6 +440,13 @@ void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repo
     ++j;
   }
   PLOG_INFO << "Insert payees to table 'Payees' in database";
+}
+
+//  Class member function
+//  Insert one payee to table 'Payees' in database
+void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
+{
+
 }
 
 //  Class member function
@@ -452,7 +479,7 @@ void DatabaseManager::CreateTableCommentsInDatabase()
 //  Remove table 'Comments' in database
 void DatabaseManager::RemoveTableCommentsInDatabase(CommentRepository&& repository)
 {
-  const std::string sql_request = "DROP TABLE IF EXISTS Comments";
+  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Comments";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -480,6 +507,13 @@ void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&
     ++j;
   }
   PLOG_INFO << "Insert comments to table 'Comments' in database";
+}
+
+//  Class member function
+//  Insert one comment to table 'Comments' in database
+void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
+{
+
 }
 
 //  Class member function
@@ -512,7 +546,7 @@ void DatabaseManager::CreateTableTagsInDatabase()
 //  Remove table 'Tags' in database
 void DatabaseManager::RemoveTableTagsInDatabase(TagRepository&& repository)
 {
-  const std::string sql_request = "DROP TABLE IF EXISTS Tags";
+  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Tags";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
   if (database_status_ != SQLITE_OK)
   {
@@ -540,6 +574,13 @@ void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository
     ++j;
   }
   PLOG_INFO << "Insert tags to table 'Tags' in database";
+}
+
+//  Class member function
+//  Insert one tag to table 'Tags' in database
+void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
+{
+
 }
 
 //  Class member function
