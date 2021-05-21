@@ -1,6 +1,7 @@
-- add base currency
-- add numeric type for financial math
 - improve the database schema
 - make the database the main repository
-- add a counter to track data in repositories
-- improvment of the data entry into the database
+- add base currency
+- add amount in base currency
+
+Long-term tasks:
+- create numeric type for financial math
