@@ -269,7 +269,7 @@ void FinanceRepository::AddTag()
   tag_repository_.Add();
   PLOG_INFO << "Add Tag to repository";
   database_manager_->InsertTagToTableTagsInDatabase(Tag());
-  database_manager_->SaveToDatabaseTags(std::move(tag_repository_));
+  //database_manager_->SaveToDatabaseTags(std::move(tag_repository_));
 }
 
 //  Class member function
@@ -279,7 +279,7 @@ void FinanceRepository::AddTag(const Tag& tag)
   tag_repository_.Add(tag);
   PLOG_INFO << "Add Tag to repository";
   database_manager_->InsertTagToTableTagsInDatabase(tag);
-  database_manager_->SaveToDatabaseTags(std::move(tag_repository_));
+  //database_manager_->SaveToDatabaseTags(std::move(tag_repository_));
 }
 
 //  Class member function

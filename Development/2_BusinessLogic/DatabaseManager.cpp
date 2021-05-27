@@ -10,6 +10,7 @@ DatabaseManager::DatabaseManager():
 {
   sqlite3_open("database.db", &database_);
   PLOG_INFO << "Open database";
+  CreateAllTablesInDatabase();
 }
 
 //  Destructor
@@ -576,11 +577,86 @@ void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository
   PLOG_INFO << "Insert tags to table 'Tags' in database";
 }
 
+static int callback(void* count, int argc, char** argv, char** azColName) {
+  int* c = (int*)count;
+  *c = atoi(argv[0]);
+  return 0;
+}
+
 //  Class member function
 //  Insert one tag to table 'Tags' in database
-void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
+void DatabaseManager::InsertTagToTableTagsInDatabase(const Tag tag)
 {
+  const std::string sql_request = "SELECT COUNT(*) FROM Tags";
+  int table_rows = INT_MIN;
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), callback, &table_rows, &database_error_);
+  if (database_status_ != SQLITE_OK)
+  {
+    PLOG_ERROR << "SQL Error: " << database_error_;
+  }
 
+  if (table_rows == 0)
+  {
+    const std::string sql_request = std::string("INSERT INTO Tags VALUES(") +
+      std::to_string(1) + ", '" +
+      tag.GetName() + "', " +
+      std::to_string(1) + ");";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Insert tag to table 'Tags' in database";
+    }
+  }
+  else
+  {
+    sqlite3_prepare_v2(database_, "SELECT * FROM Tags", -1, &database_stmt_, 0);
+    int tag_id;
+    int tag_counter;
+    const unsigned char* tag_name;
+    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+    {
+      tag_id = sqlite3_column_int(database_stmt_, 0);
+      tag_name = (sqlite3_column_text(database_stmt_, 1));
+      tag_counter = sqlite3_column_int(database_stmt_, 2);
+      if (tag_name == nullptr)
+      {
+        const std::string sql_request = std::string("INSERT INTO Tags VALUES(") +
+          std::to_string(1) + ", '" +
+          tag.GetName() + "', " +
+          std::to_string(1) + ");";
+        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+        if (database_status_ != SQLITE_OK)
+        {
+          PLOG_ERROR << "SQL Insert Error: " << database_error_;
+        }
+        else
+        {
+          PLOG_INFO << "Insert tag to table 'Tags' in database";
+        }
+      }
+      if (reinterpret_cast<const char*>(tag_name) == tag.GetName())
+      {
+        const std::string sql_request = std::string("UPDATE Tags SET counter = ") +
+          std::to_string(tag_counter + 1) +
+          " WHERE name = " + "'" +
+          reinterpret_cast<const char*>(tag_name) + "';";
+        std::cout << sql_request << '\n';
+        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+        if (database_status_ != SQLITE_OK)
+        {
+          PLOG_ERROR << "SQL Insert Error: " << database_error_;
+        }
+        else
+        {
+          PLOG_INFO << "Insert tag to table 'Tags' in database";
+        }
+      }
+    }
+  }
 }
 
 //  Class member function

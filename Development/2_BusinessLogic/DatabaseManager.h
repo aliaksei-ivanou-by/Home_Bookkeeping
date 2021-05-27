@@ -124,7 +124,7 @@ public:
   void CreateTableTagsInDatabase();
   void RemoveTableTagsInDatabase(TagRepository&& repository);
   void InsertTagsToTableTagsInDatabase(TagRepository&& repository);
-  void InsertTagToTableTagsInDatabase(Tag&& tag);
+  void InsertTagToTableTagsInDatabase(const Tag tag);
   void SaveToDatabaseTags(TagRepository&& repository);
 private:
   char* database_error_;
