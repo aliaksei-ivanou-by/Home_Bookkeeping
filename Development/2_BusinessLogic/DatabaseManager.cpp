@@ -468,7 +468,69 @@ void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repo
 //  Insert one payee to table 'Payees' in database
 void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
 {
+  int table_rows = CalculateRowsWIthDataInTable("Payees");
 
+  if (table_rows == 0)
+  {
+    const std::string sql_request = std::string("INSERT INTO Payees VALUES(") +
+      std::to_string(1) + ", '" +
+      payee.GetName() + "', " +
+      std::to_string(1) + ");";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Insert payee to table 'Payees' in database";
+    }
+  }
+  if (table_rows > 0)
+  {
+    sqlite3_prepare_v2(database_, "SELECT * FROM Payees", -1, &database_stmt_, 0);
+    int payee_id;
+    int payee_counter;
+    const unsigned char* payee_name;
+    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+    {
+      payee_id = sqlite3_column_int(database_stmt_, 0);
+      payee_name = (sqlite3_column_text(database_stmt_, 1));
+      payee_counter = sqlite3_column_int(database_stmt_, 2);
+      if (payee_name == nullptr)
+      {
+        const std::string sql_request = std::string("INSERT INTO Payees VALUES(") +
+          std::to_string(1) + ", '" +
+          payee.GetName() + "', " +
+          std::to_string(1) + ");";
+        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+        if (database_status_ != SQLITE_OK)
+        {
+          PLOG_ERROR << "SQL Insert Error: " << database_error_;
+        }
+        else
+        {
+          PLOG_INFO << "Insert payee to table 'Payees' in database";
+        }
+      }
+      if (reinterpret_cast<const char*>(payee_name) == payee.GetName())
+      {
+        const std::string sql_request = std::string("UPDATE Payees SET counter = ") +
+          std::to_string(payee_counter + 1) +
+          " WHERE name = " + "'" +
+          reinterpret_cast<const char*>(payee_name) + "';";
+        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+        if (database_status_ != SQLITE_OK)
+        {
+          PLOG_ERROR << "SQL Insert Error: " << database_error_;
+        }
+        else
+        {
+          PLOG_INFO << "Insert payee to table 'Payees' in database";
+        }
+      }
+    }
+  }
 }
 
 //  Class member function

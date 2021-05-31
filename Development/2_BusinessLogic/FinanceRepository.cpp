@@ -230,18 +230,14 @@ void FinanceRepository::AddDescription(const Description& description)
 //  Add payee (default) to payee repository
 void FinanceRepository::AddPayee()
 {
-  payee_repository_.Add();
-  PLOG_INFO << "Add Payee to repository";
-  database_manager_->SaveToDatabasePayees(std::move(payee_repository_));
+  database_manager_->InsertPayeeToTablePayeesInDatabase(Payee());
 }
 
 //  Class member function
 //  Add payee to payee repository
-void FinanceRepository::AddPayee(const Payee& payee)
+void FinanceRepository::AddPayee(Payee&& payee)
 {
-  payee_repository_.Add(payee);
-  PLOG_INFO << "Add Payee to repository";
-  database_manager_->SaveToDatabasePayees(std::move(payee_repository_));
+  database_manager_->InsertPayeeToTablePayeesInDatabase(std::move(payee));
 }
 
 //  Class member function

@@ -211,7 +211,7 @@ public:
   void AddDescription();
   void AddDescription(const Description& description);
   void AddPayee();
-  void AddPayee(const Payee& payee);
+  void AddPayee(Payee&& payee);
   void AddComment();
   void AddComment(Comment&& comment);
   void AddTag();
