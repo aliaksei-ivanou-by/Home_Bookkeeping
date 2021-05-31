@@ -401,7 +401,69 @@ void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(Descriptio
 //  Insert one description to table 'Descriptions' in database
 void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description&& description)
 {
+  int table_rows = CalculateRowsWIthDataInTable("Descriptions");
 
+  if (table_rows == 0)
+  {
+    const std::string sql_request = std::string("INSERT INTO Descriptions VALUES(") +
+      std::to_string(1) + ", '" +
+      description.GetName() + "', " +
+      std::to_string(1) + ");";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Insert description to table 'Descriptions' in database";
+    }
+  }
+  if (table_rows > 0)
+  {
+    sqlite3_prepare_v2(database_, "SELECT * FROM Descriptions", -1, &database_stmt_, 0);
+    int description_id;
+    int description_counter;
+    const unsigned char* description_name;
+    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+    {
+      description_id = sqlite3_column_int(database_stmt_, 0);
+      description_name = (sqlite3_column_text(database_stmt_, 1));
+      description_counter = sqlite3_column_int(database_stmt_, 2);
+      if (description_name == nullptr)
+      {
+        const std::string sql_request = std::string("INSERT INTO Descriptions VALUES(") +
+          std::to_string(1) + ", '" +
+          description.GetName() + "', " +
+          std::to_string(1) + ");";
+        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+        if (database_status_ != SQLITE_OK)
+        {
+          PLOG_ERROR << "SQL Insert Error: " << database_error_;
+        }
+        else
+        {
+          PLOG_INFO << "Insert description to table 'Descriptions' in database";
+        }
+      }
+      if (reinterpret_cast<const char*>(description_name) == description.GetName())
+      {
+        const std::string sql_request = std::string("UPDATE Descriptions SET counter = ") +
+          std::to_string(description_counter + 1) +
+          " WHERE name = " + "'" +
+          reinterpret_cast<const char*>(description_name) + "';";
+        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+        if (database_status_ != SQLITE_OK)
+        {
+          PLOG_ERROR << "SQL Insert Error: " << database_error_;
+        }
+        else
+        {
+          PLOG_INFO << "Insert description to table 'Descriptions' in database";
+        }
+      }
+    }
+  }
 }
 
 //  Class member function

@@ -209,7 +209,7 @@ public:
   void AddCurrency();
   void AddCurrency(const Currency& currency);
   void AddDescription();
-  void AddDescription(const Description& description);
+  void AddDescription(Description&& description);
   void AddPayee();
   void AddPayee(Payee&& payee);
   void AddComment();

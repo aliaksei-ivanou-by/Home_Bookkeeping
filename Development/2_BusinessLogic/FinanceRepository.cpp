@@ -212,18 +212,14 @@ void FinanceRepository::AddCurrency(const Currency& currency)
 //  Add description (default) to description repository
 void FinanceRepository::AddDescription()
 {
-  description_repository_.Add();
-  PLOG_INFO << "Add Description to repository";
-  database_manager_->SaveToDatabaseDescriptions(std::move(description_repository_));
+  database_manager_->InsertDescriptionToTableDescriptionsInDatabase(Description());
 }
 
 //  Class member function
 //  Add description to description repository
-void FinanceRepository::AddDescription(const Description& description)
+void FinanceRepository::AddDescription(Description&& description)
 {
-  description_repository_.Add(description);
-  PLOG_INFO << "Add Description to repository";
-  database_manager_->SaveToDatabaseDescriptions(std::move(description_repository_));
+  database_manager_->InsertDescriptionToTableDescriptionsInDatabase(std::move(description));
 }
 
 //  Class member function
