@@ -205,7 +205,7 @@ public:
   void AddAccount(Account&& account);
   void AddAccountToDB(Account&& account);
   void AddCategory();
-  void AddCategory(const Category& category);
+  void AddCategory(Category&& category);
   void AddCurrency();
   void AddCurrency(const Currency& currency);
   void AddDescription();

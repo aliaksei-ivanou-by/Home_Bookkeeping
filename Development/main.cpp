@@ -7,6 +7,7 @@ int main()
   Comment cc;
   Payee pp;
   Description dd;
+  Category cat;
   a.AddTag();
   a.AddTag();
   a.AddTag(std::move(tt));
@@ -19,6 +20,9 @@ int main()
   a.AddDescription();
   a.AddDescription();
   a.AddDescription(std::move(dd));
+  a.AddCategory();
+  a.AddCategory();
+  a.AddCategory(std::move(cat));
   // Window_Main win(Point(100, 100), 600, 600, "Finance System", std::make_shared<FinanceRepository>(a));
   // return gui_main();
 }

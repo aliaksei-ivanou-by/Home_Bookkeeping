@@ -265,7 +265,69 @@ void DatabaseManager::InsertCategoriesToTableCategoriesInDatabase(CategoryReposi
 //  Insert one category to table 'Categories' in database
 void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& category)
 {
+  int table_rows = CalculateRowsWIthDataInTable("Categories");
 
+  if (table_rows == 0)
+  {
+    const std::string sql_request = std::string("INSERT INTO Categories VALUES(") +
+      std::to_string(1) + ", '" +
+      category.GetName() + "', " +
+      std::to_string(1) + ");";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Insert category to table 'Categories' in database";
+    }
+  }
+  if (table_rows > 0)
+  {
+    sqlite3_prepare_v2(database_, "SELECT * FROM Categories", -1, &database_stmt_, 0);
+    int category_id;
+    int category_counter;
+    const unsigned char* category_name;
+    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+    {
+      category_id = sqlite3_column_int(database_stmt_, 0);
+      category_name = (sqlite3_column_text(database_stmt_, 1));
+      category_counter = sqlite3_column_int(database_stmt_, 2);
+      if (category_name == nullptr)
+      {
+        const std::string sql_request = std::string("INSERT INTO Categories VALUES(") +
+          std::to_string(1) + ", '" +
+          category.GetName() + "', " +
+          std::to_string(1) + ");";
+        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+        if (database_status_ != SQLITE_OK)
+        {
+          PLOG_ERROR << "SQL Insert Error: " << database_error_;
+        }
+        else
+        {
+          PLOG_INFO << "Insert category to table 'Categories' in database";
+        }
+      }
+      if (reinterpret_cast<const char*>(category_name) == category.GetName())
+      {
+        const std::string sql_request = std::string("UPDATE Categories SET counter = ") +
+          std::to_string(category_counter + 1) +
+          " WHERE name = " + "'" +
+          reinterpret_cast<const char*>(category_name) + "';";
+        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+        if (database_status_ != SQLITE_OK)
+        {
+          PLOG_ERROR << "SQL Insert Error: " << database_error_;
+        }
+        else
+        {
+          PLOG_INFO << "Insert category to table 'Categories' in database";
+        }
+      }
+    }
+  }
 }
 
 //  Class member function

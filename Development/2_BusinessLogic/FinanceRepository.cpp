@@ -176,18 +176,14 @@ void FinanceRepository::AddAccountToDB(Account&& account)
 //  Add category (default) to category repository
 void FinanceRepository::AddCategory()
 {
-  category_repository_.Add();
-  PLOG_INFO << "Add Category to repository";
-  database_manager_->SaveToDatabaseCategories(std::move(category_repository_));
+  database_manager_->InsertCategoryToTableCategoriesInDatabase(Category());
 }
 
 //  Class member function
 //  Add category to category repository
-void FinanceRepository::AddCategory(const Category& category)
+void FinanceRepository::AddCategory(Category&& category)
 {
-  category_repository_.Add(category);
-  PLOG_INFO << "Add Category to repository";
-  database_manager_->SaveToDatabaseCategories(std::move(category_repository_));
+  database_manager_->InsertCategoryToTableCategoriesInDatabase(std::move(category));
 }
 
 //  Class member function
