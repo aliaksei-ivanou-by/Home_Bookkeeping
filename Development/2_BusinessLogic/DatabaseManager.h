@@ -10,6 +10,7 @@
 //    Default
 //
 //  Class member functions:
+//      calculate rows with data in table
 //      create all tables in database
 //      create table 'Transactions' in database
 //      remove table 'Transactions' in database
@@ -77,6 +78,8 @@ public:
   DatabaseManager();
   ~DatabaseManager();
 
+  int CalculateRowsWIthDataInTable(const std::string& table);
+
   void CreateAllTablesInDatabase();
 
   void CreateTableTransactionsInDatabase();
@@ -124,7 +127,7 @@ public:
   void CreateTableTagsInDatabase();
   void RemoveTableTagsInDatabase(TagRepository&& repository);
   void InsertTagsToTableTagsInDatabase(TagRepository&& repository);
-  void InsertTagToTableTagsInDatabase(const Tag tag);
+  void InsertTagToTableTagsInDatabase(Tag&& tag);
   void SaveToDatabaseTags(TagRepository&& repository);
 private:
   char* database_error_;

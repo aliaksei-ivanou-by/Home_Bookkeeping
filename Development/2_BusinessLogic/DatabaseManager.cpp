@@ -21,6 +21,27 @@ DatabaseManager::~DatabaseManager()
   PLOG_INFO << "Close database";
 }
 
+static int callback(void* count, int argc, char** argv, char** azColName)
+{
+  int* c = (int*)count;
+  *c = atoi(argv[0]);
+  return 0;
+}
+
+//  Class member function
+//  Calculate rows with data in table
+int DatabaseManager::CalculateRowsWIthDataInTable(const std::string& table)
+{
+  const std::string sql_request = "SELECT COUNT(*) FROM " + table;
+  int table_rows = 0;
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), callback, &table_rows, &database_error_);
+  if (database_status_ != SQLITE_OK)
+  {
+    PLOG_ERROR << "SQL Error: " << database_error_;
+  }
+  return table_rows;
+}
+
 //  Class member function
 //  Create all tables in database
 void DatabaseManager::CreateAllTablesInDatabase()
@@ -577,23 +598,11 @@ void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository
   PLOG_INFO << "Insert tags to table 'Tags' in database";
 }
 
-static int callback(void* count, int argc, char** argv, char** azColName) {
-  int* c = (int*)count;
-  *c = atoi(argv[0]);
-  return 0;
-}
-
 //  Class member function
 //  Insert one tag to table 'Tags' in database
-void DatabaseManager::InsertTagToTableTagsInDatabase(const Tag tag)
+void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
 {
-  const std::string sql_request = "SELECT COUNT(*) FROM Tags";
-  int table_rows = INT_MIN;
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), callback, &table_rows, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
+  int table_rows = CalculateRowsWIthDataInTable("Tags");
 
   if (table_rows == 0)
   {
@@ -611,7 +620,7 @@ void DatabaseManager::InsertTagToTableTagsInDatabase(const Tag tag)
       PLOG_INFO << "Insert tag to table 'Tags' in database";
     }
   }
-  else
+  if (table_rows > 0)
   {
     sqlite3_prepare_v2(database_, "SELECT * FROM Tags", -1, &database_stmt_, 0);
     int tag_id;

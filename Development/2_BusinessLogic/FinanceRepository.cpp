@@ -266,20 +266,14 @@ void FinanceRepository::AddComment(const Comment& comment)
 //  Add tag (default) to tag repository
 void FinanceRepository::AddTag()
 {
-  tag_repository_.Add();
-  PLOG_INFO << "Add Tag to repository";
   database_manager_->InsertTagToTableTagsInDatabase(Tag());
-  //database_manager_->SaveToDatabaseTags(std::move(tag_repository_));
 }
 
 //  Class member function
 //  Add tag to tag repository
-void FinanceRepository::AddTag(const Tag& tag)
+void FinanceRepository::AddTag(Tag&& tag)
 {
-  tag_repository_.Add(tag);
-  PLOG_INFO << "Add Tag to repository";
-  database_manager_->InsertTagToTableTagsInDatabase(tag);
-  //database_manager_->SaveToDatabaseTags(std::move(tag_repository_));
+  database_manager_->InsertTagToTableTagsInDatabase(std::move(tag));
 }
 
 //  Class member function

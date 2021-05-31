@@ -215,7 +215,7 @@ public:
   void AddComment();
   void AddComment(const Comment& comment);
   void AddTag();
-  void AddTag(const Tag& tag);
+  void AddTag(Tag&& tag);
   //  basic->remove element
   void RemoveTransaction(std::shared_ptr<Transaction> transaction);
   void RemoveAccount(std::shared_ptr<Account> account);
