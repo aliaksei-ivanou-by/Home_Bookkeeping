@@ -248,18 +248,14 @@ void FinanceRepository::AddPayee(const Payee& payee)
 //  Add comment (default) to comment repository
 void FinanceRepository::AddComment()
 {
-  comment_repository_.Add();
-  PLOG_INFO << "Add Comment to repository";
-  database_manager_->SaveToDatabaseComments(std::move(comment_repository_));
+  database_manager_->InsertCommentToTableCommentsInDatabase(Comment());
 }
 
 //  Class member function
 //  Add comment to comment repository
-void FinanceRepository::AddComment(const Comment& comment)
+void FinanceRepository::AddComment(Comment&& comment)
 {
-  comment_repository_.Add(comment);
-  PLOG_INFO << "Add Comment to repository";
-  database_manager_->SaveToDatabaseComments(std::move(comment_repository_));
+  database_manager_->InsertCommentToTableCommentsInDatabase(std::move(comment));
 }
 
 //  Class member function

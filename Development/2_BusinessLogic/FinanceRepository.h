@@ -213,7 +213,7 @@ public:
   void AddPayee();
   void AddPayee(const Payee& payee);
   void AddComment();
-  void AddComment(const Comment& comment);
+  void AddComment(Comment&& comment);
   void AddTag();
   void AddTag(Tag&& tag);
   //  basic->remove element

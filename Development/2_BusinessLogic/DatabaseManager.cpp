@@ -535,7 +535,69 @@ void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&
 //  Insert one comment to table 'Comments' in database
 void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
 {
+  int table_rows = CalculateRowsWIthDataInTable("Comments");
 
+  if (table_rows == 0)
+  {
+    const std::string sql_request = std::string("INSERT INTO Comments VALUES(") +
+      std::to_string(1) + ", '" +
+      comment.GetName() + "', " +
+      std::to_string(1) + ");";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Insert comment to table 'Comments' in database";
+    }
+  }
+  if (table_rows > 0)
+  {
+    sqlite3_prepare_v2(database_, "SELECT * FROM Comments", -1, &database_stmt_, 0);
+    int comment_id;
+    int comment_counter;
+    const unsigned char* comment_name;
+    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+    {
+      comment_id = sqlite3_column_int(database_stmt_, 0);
+      comment_name = (sqlite3_column_text(database_stmt_, 1));
+      comment_counter = sqlite3_column_int(database_stmt_, 2);
+      if (comment_name == nullptr)
+      {
+        const std::string sql_request = std::string("INSERT INTO Comments VALUES(") +
+          std::to_string(1) + ", '" +
+          comment.GetName() + "', " +
+          std::to_string(1) + ");";
+        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+        if (database_status_ != SQLITE_OK)
+        {
+          PLOG_ERROR << "SQL Insert Error: " << database_error_;
+        }
+        else
+        {
+          PLOG_INFO << "Insert comment to table 'Comments' in database";
+        }
+      }
+      if (reinterpret_cast<const char*>(comment_name) == comment.GetName())
+      {
+        const std::string sql_request = std::string("UPDATE Comments SET counter = ") +
+          std::to_string(comment_counter + 1) +
+          " WHERE name = " + "'" +
+          reinterpret_cast<const char*>(comment_name) + "';";
+        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+        if (database_status_ != SQLITE_OK)
+        {
+          PLOG_ERROR << "SQL Insert Error: " << database_error_;
+        }
+        else
+        {
+          PLOG_INFO << "Insert comment to table 'Comments' in database";
+        }
+      }
+    }
+  }
 }
 
 //  Class member function
@@ -653,7 +715,6 @@ void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
           std::to_string(tag_counter + 1) +
           " WHERE name = " + "'" +
           reinterpret_cast<const char*>(tag_name) + "';";
-        std::cout << sql_request << '\n';
         database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
         if (database_status_ != SQLITE_OK)
         {
