@@ -103,21 +103,21 @@ CurrencyRepositoryIterator FinanceRepository::EndCurrencyRepository() const
 //  Find end iterator of description repository
 DescriptionRepositoryConstIterator FinanceRepository::EndDescriptionRepository() const
 {
-	return description_repository_.End();
+  return description_repository_.End();
 }
 
 //  Class member function
 //  Find end iterator of payee repository
 PayeeRepositoryConstIterator FinanceRepository::EndPayeeRepository() const
 {
-	return payee_repository_.End();
+  return payee_repository_.End();
 }
 
 //  Class member function
 //  Find end iterator of comment repository
 CommentRepositoryConstIterator FinanceRepository::EndCommentRepository() const
 {
-	return comment_repository_.End();
+  return comment_repository_.End();
 }
 
 //  Class member function
@@ -142,8 +142,6 @@ void FinanceRepository::AddTransaction(Transaction&& transaction)
   transaction_repository_.Add(transaction);
   PLOG_INFO << "Add transaction to repository";
   database_manager_->InsertAccountToTableAccountsInDatabase(std::move(transaction.GetAccountFrom()));
-
-  //database_manager_->SaveToDatabaseTransactions(std::move(transaction_repository_));
 }
 
 //  Class member function
@@ -153,7 +151,6 @@ void FinanceRepository::AddAccount()
   account_repository_.Add();
   PLOG_INFO << "Add Account to repository";
   AddAccountToDB(std::move(Account()));
-  //database_manager_->SaveToDatabaseAccounts(std::move(account_repository_));
 }
 
 //  Class member function
@@ -163,7 +160,6 @@ void FinanceRepository::AddAccount(Account&& account)
   account_repository_.Add(account);
   PLOG_INFO << "Add Account to repository";
   AddAccountToDB(std::move(account));
-  //database_manager_->SaveToDatabaseAccounts(std::move(account_repository_));
 }
 
 void FinanceRepository::AddAccountToDB(Account&& account)
@@ -190,18 +186,14 @@ void FinanceRepository::AddCategory(Category&& category)
 //  Add currency (default) to currency repository
 void FinanceRepository::AddCurrency()
 {
-  currency_repository_.Add();
-  PLOG_INFO << "Add Currency to repository";
-  database_manager_->SaveToDatabaseCurrencies(std::move(currency_repository_));
+  
 }
 
 //  Class member function
 //  Add currency to currency repository
 void FinanceRepository::AddCurrency(const Currency& currency)
 {
-  currency_repository_.Add(currency);
-  PLOG_INFO << "Add Currency to repository";
-  database_manager_->SaveToDatabaseCurrencies(std::move(currency_repository_));
+  
 }
 
 //  Class member function
@@ -264,72 +256,56 @@ void FinanceRepository::AddTag(Tag&& tag)
 //  Remove transaction (shared pointer) from transaction repository
 void FinanceRepository::RemoveTransaction(std::shared_ptr<Transaction> transaction)
 {
-  transaction_repository_.Remove(transaction);
-  PLOG_INFO << "Remove Transaction from repository";
-  database_manager_->SaveToDatabaseTransactions(std::move(transaction_repository_));
+  
 }
 
 //  Class member function
 //  Remove account (shared pointer) from account repository
 void FinanceRepository::RemoveAccount(std::shared_ptr<Account> account)
 {
-  account_repository_.Remove(account);
-  PLOG_INFO << "Remove Account from repository";
-  database_manager_->SaveToDatabaseAccounts(std::move(account_repository_));
+
 }
 
 //  Class member function
 //  Remove category (shared pointer) from category repository
 void FinanceRepository::RemoveCategory(std::shared_ptr<Category> category)
 {
-  category_repository_.Remove(category);
-  PLOG_INFO << "Remove Category from repository";
-  database_manager_->SaveToDatabaseCategories(std::move(category_repository_));
+
 }
 
 //  Class member function
 //  Remove currency (shared pointer) from currency repository
 void FinanceRepository::RemoveCurrency(std::shared_ptr<Currency> currency)
 {
-  currency_repository_.Remove(currency);
-  PLOG_INFO << "Remove Currency from repository";
-  database_manager_->SaveToDatabaseCurrencies(std::move(currency_repository_));
+
 }
 
 //  Class member function
 //  Remove description (shared pointer) from description repository
 void FinanceRepository::RemoveDescription(std::shared_ptr<Description> description)
 {
-  description_repository_.Remove(description);
-  PLOG_INFO << "Remove Description from repository";
-  database_manager_->SaveToDatabaseDescriptions(std::move(description_repository_));
+
 }
 
 //  Class member function
 //  Remove payee (shared pointer) from payee repository
 void FinanceRepository::RemovePayee(std::shared_ptr<Payee> payee)
 {
-  payee_repository_.Remove(payee);
-  PLOG_INFO << "Remove Payee from repository";
-  database_manager_->SaveToDatabasePayees(std::move(payee_repository_));
+
 }
 
 //  Class member function
 //  Remove comment (shared pointer) from comment repository
 void FinanceRepository::RemoveComment(std::shared_ptr<Comment> comment)
 {
-  comment_repository_.Remove(comment);
-  PLOG_INFO << "Remove Comment from repository";
-  database_manager_->SaveToDatabaseComments(std::move(comment_repository_));
+
 }
 
 //  Class member function
 //  Remove tag (shared pointer) from tag repository
 void FinanceRepository::RemoveTag(std::shared_ptr<Tag> tag)
 {
-  tag_repository_.Remove(tag);
-  PLOG_INFO << "Remove Tag from repository";
-  database_manager_->SaveToDatabaseTags(std::move(tag_repository_));
+
 }
 
 //  Class member function
@@ -408,7 +384,6 @@ void FinanceRepository::SetAccountName(AccountRepositoryIterator account, const 
 {
   (**account).SetName(name);
   PLOG_INFO << "Update name of Account in repository";
-  database_manager_->SaveToDatabaseAccounts(std::move(account_repository_));
 }
 
 //  Class member function
@@ -417,7 +392,6 @@ void FinanceRepository::SetAccountAmount(AccountRepositoryIterator account, cons
 {
   (**account).SetAmount(amount);
   PLOG_INFO << "Update amount of Account in repository";
-  database_manager_->SaveToDatabaseAccounts(std::move(account_repository_));
 }
 
 //  Class member function
@@ -426,7 +400,6 @@ void FinanceRepository::SetCategoryName(CategoryRepositoryIterator category, con
 {
   category->first->SetName(name);
   PLOG_INFO << "Update name of Category in repository";
-  database_manager_->SaveToDatabaseCategories(std::move(category_repository_));
 }
 
 //  Class member function
@@ -435,7 +408,6 @@ void FinanceRepository::SetCurrencyName(CurrencyRepositoryIterator currency, con
 {
   (**currency).SetName(name);
   PLOG_INFO << "Update name of Currency in repository";
-  database_manager_->SaveToDatabaseCurrencies(std::move(currency_repository_));
 }
 
 //  Class member function
@@ -444,7 +416,6 @@ void FinanceRepository::SetCurrencyCode(CurrencyRepositoryIterator currency, con
 {
   (**currency).SetCode(code);
   PLOG_INFO << "Update code of Currency in repository";
-  database_manager_->SaveToDatabaseCurrencies(std::move(currency_repository_));
 }
 
 //  Class member function
@@ -453,7 +424,6 @@ void FinanceRepository::SetCurrencyActivity(CurrencyRepositoryIterator currency,
 {
   (**currency).SetActivity(activity);
   PLOG_INFO << "Update activity of Currency in repository";
-  database_manager_->SaveToDatabaseCurrencies(std::move(currency_repository_));
 }
 
 //  Class member function
@@ -462,7 +432,6 @@ void FinanceRepository::SwitchCurrencyActivity(CurrencyRepositoryIterator curren
 {
   (**currency).Switch();
   PLOG_INFO << "Switch activity of Currency in repository";
-  database_manager_->SaveToDatabaseCurrencies(std::move(currency_repository_));
 }
 
 //  Class member function
@@ -471,7 +440,6 @@ void FinanceRepository::SwitchOnCurrencyActivity(CurrencyRepositoryIterator curr
 {
   (**currency).SwitchOn();
   PLOG_INFO << "Switch on activity of Currency in repository";
-  database_manager_->SaveToDatabaseCurrencies(std::move(currency_repository_));
 }
 
 //  Class member function
@@ -480,7 +448,6 @@ void FinanceRepository::SwitchOffCurrencyActivity(CurrencyRepositoryIterator cur
 {
   (**currency).SwitchOff();
   PLOG_INFO << "Switch off activity of Currency in repository";
-  database_manager_->SaveToDatabaseCurrencies(std::move(currency_repository_));
 }
 
 //  Class member function
@@ -489,7 +456,6 @@ void FinanceRepository::SetDescriptionName(DescriptionRepositoryIterator descrip
 {
   description->first->SetName(name);
   PLOG_INFO << "Update name of Description in repository";
-  database_manager_->SaveToDatabaseDescriptions(std::move(description_repository_));
 }
 
 //  Class member function
@@ -498,7 +464,6 @@ void FinanceRepository::SetPayeeName(PayeeRepositoryIterator payee, const std::s
 {
   payee->first->SetName(name);
   PLOG_INFO << "Update name of Payee in repository";
-  database_manager_->SaveToDatabasePayees(std::move(payee_repository_));
 }
 
 //  Class member function
@@ -507,7 +472,6 @@ void FinanceRepository::SetCommentName(CommentRepositoryIterator comment, const 
 {
   comment->first->SetName(name);
   PLOG_INFO << "Update name of Comment in repository";
-  database_manager_->SaveToDatabaseComments(std::move(comment_repository_));
 }
 
 //  Class member function
@@ -516,7 +480,6 @@ void FinanceRepository::SetTagName(TagRepositoryIterator tag, const std::string&
 {
   tag->first->SetName(name);
   PLOG_INFO << "Update name of Tag in repository";
-  database_manager_->SaveToDatabaseTags(std::move(tag_repository_));
 }
 
 //  Class member function
@@ -581,7 +544,6 @@ void FinanceRepository::ClearTransactions()
 {
   transaction_repository_.Clear();
   PLOG_INFO << "Clear repository of Transactions";
-  database_manager_->SaveToDatabaseTransactions(std::move(transaction_repository_));
 }
 
 //  Class member function
@@ -590,7 +552,6 @@ void FinanceRepository::ClearAccounts()
 {
   account_repository_.Clear();
   PLOG_INFO << "Clear repository of Accounts";
-  database_manager_->SaveToDatabaseAccounts(std::move(account_repository_));
 }
 
 //  Class member function
@@ -599,7 +560,6 @@ void FinanceRepository::ClearCategories()
 {
   category_repository_.Clear();
   PLOG_INFO << "Clear repository of Categories";
-  database_manager_->SaveToDatabaseCategories(std::move(category_repository_));
 }
 
 //  Class member function
@@ -608,7 +568,6 @@ void FinanceRepository::ClearCurrencies()
 {
   currency_repository_.Clear();
   PLOG_INFO << "Clear repository of Currencies";
-  database_manager_->SaveToDatabaseCurrencies(std::move(currency_repository_));
 }
 
 //  Class member function
@@ -617,7 +576,6 @@ void FinanceRepository::ClearDescriptions()
 {
   description_repository_.Clear();
   PLOG_INFO << "Clear repository of Descriptions";
-  database_manager_->SaveToDatabaseDescriptions(std::move(description_repository_));
 }
 
 //  Class member function
@@ -626,7 +584,6 @@ void FinanceRepository::ClearPayees()
 {
   payee_repository_.Clear();
   PLOG_INFO << "Clear repository of Payees";
-  database_manager_->SaveToDatabasePayees(std::move(payee_repository_));
 }
 
 //  Class member function
@@ -635,7 +592,6 @@ void FinanceRepository::ClearComments()
 {
   comment_repository_.Clear();
   PLOG_INFO << "Clear repository of Comments";
-  database_manager_->SaveToDatabaseComments(std::move(comment_repository_));
 }
 
 //  Class member function
@@ -644,7 +600,6 @@ void FinanceRepository::ClearTags()
 {
   tag_repository_.Clear();
   PLOG_INFO << "Clear repository of Tags";
-  database_manager_->SaveToDatabaseTags(std::move(tag_repository_));
 }
 
 //  Class member function
@@ -935,7 +890,6 @@ void FinanceRepository::UpdateAccountAmount(Transaction& transaction)
     transaction.SetAmountAccountTo(amount_to);
     PLOG_INFO << "Update Amount of Account To in repository";
   }
-  database_manager_->SaveToDatabaseTransactions(std::move(transaction_repository_));
 }
 
 //  Class member function
@@ -977,7 +931,6 @@ void FinanceRepository::UpdateAccountRepository(Transaction& transaction)
       account_repository_.Add(transaction.GetAccountToPtr());
     }
   }
-  database_manager_->SaveToDatabaseAccounts(std::move(account_repository_));
 }
 
 //  Class member function
@@ -985,7 +938,6 @@ void FinanceRepository::UpdateAccountRepository(Transaction& transaction)
 void FinanceRepository::UpdateCategoryRepository(Transaction& transaction)
 {
   category_repository_.Add(transaction.GetCategoryPtr());
-  database_manager_->SaveToDatabaseCategories(std::move(category_repository_));
 }
 
 //  Class member function
@@ -1027,7 +979,6 @@ void FinanceRepository::UpdateCurrencyRepository(Transaction& transaction)
       currency_repository_.Add(transaction.GetCurrencyPtr());
     }
   }
-  database_manager_->SaveToDatabaseCurrencies(std::move(currency_repository_));
 }
 
 //  Class member function
@@ -1035,7 +986,6 @@ void FinanceRepository::UpdateCurrencyRepository(Transaction& transaction)
 void FinanceRepository::UpdateDescriptionRepository(Transaction& transaction)
 {
   description_repository_.Add(transaction.GetDescriptionPtr());
-  database_manager_->SaveToDatabaseDescriptions(std::move(description_repository_));
 }
 
 //  Class member function
@@ -1043,7 +993,6 @@ void FinanceRepository::UpdateDescriptionRepository(Transaction& transaction)
 void FinanceRepository::UpdatePayeeRepository(Transaction& transaction)
 {
   payee_repository_.Add(transaction.GetPayeePtr());
-  database_manager_->SaveToDatabasePayees(std::move(payee_repository_));
 }
 
 //  Class member function
@@ -1051,7 +1000,6 @@ void FinanceRepository::UpdatePayeeRepository(Transaction& transaction)
 void FinanceRepository::UpdateCommentRepository(Transaction& transaction)
 {
   comment_repository_.Add(transaction.GetCommentPtr());
-  database_manager_->SaveToDatabaseComments(std::move(comment_repository_));
 }
 
 //  Class member function
@@ -1059,7 +1007,6 @@ void FinanceRepository::UpdateCommentRepository(Transaction& transaction)
 void FinanceRepository::UpdateTagRepository(Transaction& transaction)
 {
   tag_repository_.Add(transaction.GetTagPtr());
-  database_manager_->SaveToDatabaseTags(std::move(tag_repository_));
 }
 
 //  Class member function

@@ -30,7 +30,7 @@ static int callback(void* count, int argc, char** argv, char** azColName)
 
 //  Class member function
 //  Calculate rows with data in table
-int DatabaseManager::CalculateRowsWIthDataInTable(const std::string& table)
+int DatabaseManager::CalculateRowsWithDataInTable(const std::string& table)
 {
   const std::string sql_request = "SELECT COUNT(*) FROM " + table;
   int table_rows = 0;
@@ -139,16 +139,6 @@ void DatabaseManager::InsertTransactionToTableTransactionsInDatabase(Transaction
 }
 
 //  Class member function
-//  Save transactions to table 'Transactions' in database
-void DatabaseManager::SaveToDatabaseTransactions(TransactionRepository&& repository)
-{
-  RemoveTableTransactionsInDatabase(std::move(repository));
-  CreateTableTransactionsInDatabase();
-  InsertTransactionsToTableTransactionsInDatabase(std::move(repository));
-  PLOG_INFO << "Save transactions to table 'Transactions' in database";
-}
-
-//  Class member function
 //  Create table 'Accounts' in database
 void DatabaseManager::CreateTableAccountsInDatabase()
 {
@@ -199,16 +189,6 @@ void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&
 void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& account)
 {
 
-}
-
-//  Class member function
-//  Save accounts to table 'Accounts' in database
-void DatabaseManager::SaveToDatabaseAccounts(AccountRepository&& repository)
-{
-  RemoveTableAccountsInDatabase();
-  CreateTableAccountsInDatabase();
-  InsertAccountsToTableAccountsInDatabase(std::move(repository));
-  PLOG_INFO << "Save accounts to table 'Accounts' in database";
 }
 
 //  Class member function
@@ -265,7 +245,7 @@ void DatabaseManager::InsertCategoriesToTableCategoriesInDatabase(CategoryReposi
 //  Insert one category to table 'Categories' in database
 void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& category)
 {
-  int table_rows = CalculateRowsWIthDataInTable("Categories");
+  int table_rows = CalculateRowsWithDataInTable("Categories");
 
   if (table_rows == 0)
   {
@@ -331,16 +311,6 @@ void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& categ
 }
 
 //  Class member function
-//  Save categories to table 'Categories' in database
-void DatabaseManager::SaveToDatabaseCategories(CategoryRepository&& repository)
-{
-  RemoveTableCategoriesInDatabase(std::move(repository));
-  CreateTableCategoriesInDatabase();
-  InsertCategoriesToTableCategoriesInDatabase(std::move(repository));
-  PLOG_INFO << "Save categories to table 'Categories' in database";
-}
-
-//  Class member function
 //  Create table 'Currencies' in database
 void DatabaseManager::CreateTableCurrenciesInDatabase()
 {
@@ -400,16 +370,6 @@ void DatabaseManager::InsertCurrencyToTableCurrenciesInDatabase(Currency&& curre
 }
 
 //  Class member function
-//  Save currencies to table 'Currencies' in database
-void DatabaseManager::SaveToDatabaseCurrencies(CurrencyRepository&& repository)
-{
-  RemoveTableCurrenciesInDatabase(std::move(repository));
-  CreateTableCurrenciesInDatabase();
-  InsertCurrenciesToTableCurrenciesInDatabase(std::move(repository));
-  PLOG_INFO << "Save currencies to table 'Currencies' in database";
-}
-
-//  Class member function
 //  Create table 'Descriptions' in database
 void DatabaseManager::CreateTableDescriptionsInDatabase()
 {
@@ -463,7 +423,7 @@ void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(Descriptio
 //  Insert one description to table 'Descriptions' in database
 void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description&& description)
 {
-  int table_rows = CalculateRowsWIthDataInTable("Descriptions");
+  int table_rows = CalculateRowsWithDataInTable("Descriptions");
 
   if (table_rows == 0)
   {
@@ -529,16 +489,6 @@ void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description
 }
 
 //  Class member function
-//  Save descriptions to table 'Descriptions' in database
-void DatabaseManager::SaveToDatabaseDescriptions(DescriptionRepository&& repository)
-{
-  RemoveTableDescriptionsInDatabase(std::move(repository));
-  CreateTableDescriptionsInDatabase();
-  InsertDescriptionsToTableDescriptionsInDatabase(std::move(repository));
-  PLOG_INFO << "Save descriptions to table 'Descriptions' in database";
-}
-
-//  Class member function
 //  Create table 'Payees' in database
 void DatabaseManager::CreateTablePayeesInDatabase()
 {
@@ -592,7 +542,7 @@ void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repo
 //  Insert one payee to table 'Payees' in database
 void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
 {
-  int table_rows = CalculateRowsWIthDataInTable("Payees");
+  int table_rows = CalculateRowsWithDataInTable("Payees");
 
   if (table_rows == 0)
   {
@@ -658,16 +608,6 @@ void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
 }
 
 //  Class member function
-//  Save payees to table 'Payees' in database
-void DatabaseManager::SaveToDatabasePayees(PayeeRepository&& repository)
-{
-  RemoveTablePayeesInDatabase(std::move(repository));
-  CreateTablePayeesInDatabase();
-  InsertPayeesToTablePayeesInDatabase(std::move(repository));
-  PLOG_INFO << "Save payees to table 'Payees' in database";
-}
-
-//  Class member function
 //  Create table 'Comments' in database
 void DatabaseManager::CreateTableCommentsInDatabase()
 {
@@ -721,7 +661,7 @@ void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&
 //  Insert one comment to table 'Comments' in database
 void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
 {
-  int table_rows = CalculateRowsWIthDataInTable("Comments");
+  int table_rows = CalculateRowsWithDataInTable("Comments");
 
   if (table_rows == 0)
   {
@@ -787,16 +727,6 @@ void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
 }
 
 //  Class member function
-//  Save comments to table 'Comments' in database
-void DatabaseManager::SaveToDatabaseComments(CommentRepository&& repository)
-{
-  RemoveTableCommentsInDatabase(std::move(repository));
-  CreateTableCommentsInDatabase();
-  InsertCommentsToTableCommentsInDatabase(std::move(repository));
-  PLOG_INFO << "Save comments to table 'Comments' in database";
-}
-
-//  Class member function
 //  Create table 'Tags' in database
 void DatabaseManager::CreateTableTagsInDatabase()
 {
@@ -850,7 +780,7 @@ void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository
 //  Insert one tag to table 'Tags' in database
 void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
 {
-  int table_rows = CalculateRowsWIthDataInTable("Tags");
+  int table_rows = CalculateRowsWithDataInTable("Tags");
 
   if (table_rows == 0)
   {
@@ -913,14 +843,4 @@ void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
       }
     }
   }
-}
-
-//  Class member function
-//  Save tags to table 'Tags' in database
-void DatabaseManager::SaveToDatabaseTags(TagRepository&& repository)
-{
-  RemoveTableTagsInDatabase(std::move(repository));
-  CreateTableTagsInDatabase();
-  InsertTagsToTableTagsInDatabase(std::move(repository));
-  PLOG_INFO << "Save tags to table 'Tags' in database";
 }
