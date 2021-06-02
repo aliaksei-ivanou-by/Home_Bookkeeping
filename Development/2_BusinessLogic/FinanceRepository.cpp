@@ -128,7 +128,7 @@ TagRepositoryConstIterator FinanceRepository::EndTagRepository() const
 }
 
 //  Class member function
-//  Add transaction to transaction repository
+//  Add transaction to database
 void FinanceRepository::AddTransaction(Transaction&& transaction)
 {
   UpdateAccountRepository(transaction);
@@ -145,7 +145,7 @@ void FinanceRepository::AddTransaction(Transaction&& transaction)
 }
 
 //  Class member function
-//  Add account (default) to account repository
+//  Add account (default) to database
 void FinanceRepository::AddAccount()
 {
   account_repository_.Add();
@@ -154,7 +154,7 @@ void FinanceRepository::AddAccount()
 }
 
 //  Class member function
-//  Add account to account repository
+//  Add account to database
 void FinanceRepository::AddAccount(Account&& account)
 {
   account_repository_.Add(account);
@@ -169,84 +169,91 @@ void FinanceRepository::AddAccountToDB(Account&& account)
 }
 
 //  Class member function
-//  Add category (default) to category repository
+//  Add category (default) to database
 void FinanceRepository::AddCategory()
 {
   database_manager_->InsertCategoryToTableCategoriesInDatabase(Category());
 }
 
 //  Class member function
-//  Add category to category repository
+//  Add category to database
 void FinanceRepository::AddCategory(Category&& category)
 {
   database_manager_->InsertCategoryToTableCategoriesInDatabase(std::move(category));
 }
 
 //  Class member function
-//  Add currency (default) to currency repository
+//  Add currency (default) to database
 void FinanceRepository::AddCurrency()
 {
   
 }
 
 //  Class member function
-//  Add currency to currency repository
+//  Add currency to database
 void FinanceRepository::AddCurrency(const Currency& currency)
 {
   
 }
 
 //  Class member function
-//  Add description (default) to description repository
+//  Add description (default) to database
 void FinanceRepository::AddDescription()
 {
   database_manager_->InsertDescriptionToTableDescriptionsInDatabase(Description());
 }
 
 //  Class member function
-//  Add description to description repository
+//  Add description to database
 void FinanceRepository::AddDescription(Description&& description)
 {
   database_manager_->InsertDescriptionToTableDescriptionsInDatabase(std::move(description));
 }
 
 //  Class member function
-//  Add payee (default) to payee repository
+//  Add payee (default) to database
 void FinanceRepository::AddPayee()
 {
   database_manager_->InsertPayeeToTablePayeesInDatabase(Payee());
 }
 
 //  Class member function
-//  Add payee to payee repository
+//  Add payee to database
 void FinanceRepository::AddPayee(Payee&& payee)
 {
   database_manager_->InsertPayeeToTablePayeesInDatabase(std::move(payee));
 }
 
 //  Class member function
-//  Add comment (default) to comment repository
+//  Add payees to database
+void FinanceRepository::AddPayees(PayeeRepository&& payees)
+{
+  database_manager_->InsertPayeesToTablePayeesInDatabase(std::move(payees));
+}
+
+//  Class member function
+//  Add comment (default) to database
 void FinanceRepository::AddComment()
 {
   database_manager_->InsertCommentToTableCommentsInDatabase(Comment());
 }
 
 //  Class member function
-//  Add comment to comment repository
+//  Add comment to database
 void FinanceRepository::AddComment(Comment&& comment)
 {
   database_manager_->InsertCommentToTableCommentsInDatabase(std::move(comment));
 }
 
 //  Class member function
-//  Add tag (default) to tag repository
+//  Add tag (default) to database
 void FinanceRepository::AddTag()
 {
   database_manager_->InsertTagToTableTagsInDatabase(Tag());
 }
 
 //  Class member function
-//  Add tag to tag repository
+//  Add tag to database
 void FinanceRepository::AddTag(Tag&& tag)
 {
   database_manager_->InsertTagToTableTagsInDatabase(std::move(tag));
@@ -486,56 +493,56 @@ void FinanceRepository::SetTagName(TagRepositoryIterator tag, const std::string&
 //  Number of transactions in transaction repository
 size_t FinanceRepository::GetTransactionsNumber() const
 {
-  return transaction_repository_.Size();
+  return database_manager_->SizeOfTable("Transactions");
 }
 
 //  Class member function
 //  Number of accounts in account repository
 size_t FinanceRepository::GetAccountsNumber() const
 {
-  return account_repository_.Size();
+  return database_manager_->SizeOfTable("Accounts");
 }
 
 //  Class member function
 //  Number of categories in category repository
 size_t FinanceRepository::GetCategoriesNumber() const
 {
-  return category_repository_.Size();
+  return database_manager_->SizeOfTable("Categories");
 }
 
 //  Class member function
 //  Number of currencies in currency repository
 size_t FinanceRepository::GetCurrenciesNumber() const
 {
-  return currency_repository_.Size();
+  return database_manager_->SizeOfTable("Currencies");
 }
 
 //  Class member function
 //  Number of descriptions in description repository
 size_t FinanceRepository::GetDescriptionsNumber() const
 {
-  return description_repository_.Size();
+  return database_manager_->SizeOfTable("Descriptions");
 }
 
 //  Class member function
 //  Number of payees in payee repository
 size_t FinanceRepository::GetPayeesNumber() const
 {
-  return payee_repository_.Size();
+  return database_manager_->SizeOfTable("Payees");
 }
 
 //  Class member function
 //  Number of comments in comment repository
 size_t FinanceRepository::GetCommentsNumber() const
 {
-  return comment_repository_.Size();
+  return database_manager_->SizeOfTable("Comments");
 }
 
 //  Class member function
 //  Number of tags in tag repository
 size_t FinanceRepository::GetTagsNumber() const
 {
-  return tag_repository_.Size();
+  return database_manager_->SizeOfTable("Tags");
 }
 
 //  Class member function

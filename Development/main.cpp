@@ -23,6 +23,14 @@ int main()
   a.AddCategory();
   a.AddCategory();
   a.AddCategory(std::move(cat));
+  Payee ppp1("Green");
+  Payee ppp2("Red");
+  a.AddPayee(std::move(ppp1));
+  PayeeRepository payee_rep;
+  payee_rep.Add(ppp1);
+  payee_rep.Add(ppp2);
+  a.AddPayees(std::move(payee_rep));
+  std::cout << a.GetPayeesNumber();
   // Window_Main win(Point(100, 100), 600, 600, "Finance System", std::make_shared<FinanceRepository>(a));
   // return gui_main();
 }

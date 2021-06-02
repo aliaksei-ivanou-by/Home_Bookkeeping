@@ -70,7 +70,7 @@ public:
   DatabaseManager();
   ~DatabaseManager();
 
-  int CalculateRowsWithDataInTable(const std::string& table);
+  int SizeOfTable(const std::string& table);
 
   void CreateAllTablesInDatabase();
 

@@ -31,17 +31,17 @@
 //          Find end iterator of comment repository
 //          Find end iterator of tag repository
 //        add element:
-//          Add transaction to transaction repository
-//          Add account (default)  to account repository
-//          Add account to account repository
+//          Add transaction to database
+//          Add account (default)  to database
 //          Add account to database
-//          Add category (default) to category repository
-//          Add category to category repository
-//          Add currency to currency repository
-//          Add description to description repository
-//          Add payee to payee repository
-//          Add comment to comment repository
-//          Add tag to tag repository
+//          Add category (default) to database
+//          Add category to database
+//          Add currency to database
+//          Add description to database
+//          Add payee to database
+//          Add payees to database
+//          Add comment to database
+//          Add tag to database
 //        remove element:
 //          Remove transaction (shared pointer) from transaction repository
 //          Remove account (shared pointer) from account repository
@@ -212,6 +212,7 @@ public:
   void AddDescription(Description&& description);
   void AddPayee();
   void AddPayee(Payee&& payee);
+  void AddPayees(PayeeRepository&& payees);
   void AddComment();
   void AddComment(Comment&& comment);
   void AddTag();
