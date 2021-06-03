@@ -500,7 +500,10 @@ void DatabaseManager::CreateTablePayeesInDatabase()
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
   }
-  PLOG_INFO << "Create table 'Payees' in database";
+  else
+  {
+    PLOG_INFO << "Create table 'Payees' in database";
+  }
 }
 
 //  Class member function
@@ -513,18 +516,23 @@ void DatabaseManager::RemoveTablePayeesInDatabase(PayeeRepository&& repository)
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
   }
-  PLOG_INFO << "Remove table 'Payees' in database if exists";
+  else
+  {
+    PLOG_INFO << "Remove table 'Payees' in database";
+  }
 }
 
 //  Class member function
 //  Insert payees to table 'Payees' in database
 void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository)
 {
+  int count = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
     InsertPayeeToTablePayeesInDatabase(std::move(*i->first));
+    ++count;
   }
-  PLOG_INFO << "Insert payee repository to table 'Payees' in database";
+  PLOG_INFO << "Insert " << count << " payees to table 'Payees' in database";
 }
 
 //  Class member function
@@ -547,6 +555,7 @@ void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
     {
       PLOG_INFO << "Insert payee to table 'Payees' in database";
     }
+    return;
   }
   if (table_rows > 0)
   {
