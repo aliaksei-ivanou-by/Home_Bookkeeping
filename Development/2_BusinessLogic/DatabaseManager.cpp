@@ -43,6 +43,61 @@ int DatabaseManager::SizeOfTable(const std::string& table)
 }
 
 //  Class member function
+//  Create table in database
+void DatabaseManager::CreateTableInDatabase(const std::string& table)
+{
+  std::string sql_request;
+  if (table == "Categories" || 
+    table == "Descriptions" || 
+    table == "Payees" || 
+    table == "Comments" || 
+    table == "Tags")
+  {
+    sql_request = std::string("CREATE TABLE " + table + "(") +
+      "name TEXT NOT NULL, " +
+      "counter INTEGER NOT NULL" + ");";
+  }
+  if (table == "Transactions")
+  {
+    sql_request = std::string("CREATE TABLE Transactions(") +
+      "time TEXT NOT NULL, " +
+      "account_from TEXT NOT NULL, " +
+      "account_to TEXT NOT NULL, " +
+      "category TEXT NOT NULL, " +
+      "amount DOUBLE NOT NULL, " +
+      "amount_account_from DOUBLE NOT NULL, " +
+      "amount_acount_to DOUBLE NOT NULL, " +
+      "comment TEXT NOT NULL, " +
+      "currency TEXT NOT NULL, " +
+      "description TEXT NOT NULL, " +
+      "payee TEXT NOT NULL, " +
+      "tag TEXT NOT NULL, " +
+      "status TEXT NOT NULL, " +
+      "type TEXT NOT NULL" +
+      ");";
+  }
+  if (table == "Accounts")
+  {
+    sql_request = std::string("CREATE TABLE Accounts(") +
+      "name TEXT NOT NULL" + ", " +
+      "amount DOUBLE NOT NULL" + ");";
+  }
+  if (table == "Currencies")
+  {
+
+  }
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+  if (database_status_ != SQLITE_OK)
+  {
+    PLOG_ERROR << "SQL Error: " << database_error_;
+  }
+  else
+  {
+    PLOG_INFO << "Create table '" + table + "' in database";
+  }
+}
+
+//  Class member function
 //  Create all tables in database
 void DatabaseManager::CreateAllTablesInDatabase()
 {
@@ -60,6 +115,7 @@ void DatabaseManager::CreateAllTablesInDatabase()
 //  Create table 'Transactions' in database
 void DatabaseManager::CreateTableTransactionsInDatabase()
 {
+  // CreateTableInDatabase("Transactions");
   const std::string sql_request = std::string("CREATE TABLE Transactions(") + 
     "id SERIAL PRIMARY KEY, " + 
     "time TEXT NOT NULL, " + 
@@ -142,6 +198,7 @@ void DatabaseManager::InsertTransactionToTableTransactionsInDatabase(Transaction
 //  Create table 'Accounts' in database
 void DatabaseManager::CreateTableAccountsInDatabase()
 {
+  // CreateTableInDatabase("Accounts");
   std::string sql_request = std::string("CREATE TABLE Accounts(") + 
     "name TEXT NOT NULL" + ", " + 
     "amount DOUBLE NOT NULL" + ");";
@@ -195,6 +252,7 @@ void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& account)
 //  Create table 'Categories' in database
 void DatabaseManager::CreateTableCategoriesInDatabase()
 {
+  // CreateTableInDatabase("Categories");
   std::string sql_request = std::string("CREATE TABLE Categories(") + 
     "id SERIAL PRIMARY KEY, " + 
     "name TEXT NOT NULL, " + 
@@ -314,6 +372,7 @@ void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& categ
 //  Create table 'Currencies' in database
 void DatabaseManager::CreateTableCurrenciesInDatabase()
 {
+  // CreateTableInDatabase("Currencies");
   std::string sql_request = std::string("CREATE TABLE Currencies(") + 
     "id SERIAL PRIMARY KEY, " + 
     "name TEXT NOT NULL, " + 
@@ -373,6 +432,7 @@ void DatabaseManager::InsertCurrencyToTableCurrenciesInDatabase(Currency&& curre
 //  Create table 'Descriptions' in database
 void DatabaseManager::CreateTableDescriptionsInDatabase()
 {
+  // CreateTableInDatabase("Descriptions");
   std::string sql_request = std::string("CREATE TABLE Descriptions(") + 
     "id SERIAL PRIMARY KEY, " +
     "name TEXT NOT NULL, " +
@@ -492,18 +552,7 @@ void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description
 //  Create table 'Payees' in database
 void DatabaseManager::CreateTablePayeesInDatabase()
 {
-  std::string sql_request = std::string("CREATE TABLE Payees(") + 
-    "name TEXT NOT NULL, " +
-    "counter INTEGER NOT NULL" + ");";
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
-  else
-  {
-    PLOG_INFO << "Create table 'Payees' in database";
-  }
+  CreateTableInDatabase("Payees");
 }
 
 //  Class member function
@@ -620,8 +669,8 @@ void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
 //  Create table 'Comments' in database
 void DatabaseManager::CreateTableCommentsInDatabase()
 {
+  // CreateTableInDatabase("Comments");
   std::string sql_request = std::string("CREATE TABLE Comments(") + 
-    "id SERIAL PRIMARY KEY, " +
     "name TEXT NOT NULL, " +
     "counter INTEGER NOT NULL" + ");";
   database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -629,7 +678,10 @@ void DatabaseManager::CreateTableCommentsInDatabase()
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
   }
-  PLOG_INFO << "Create table 'Comments' in database";
+  else
+  {
+    PLOG_INFO << "Create table 'Comments' in database";
+  }
 }
 
 //  Class member function
@@ -642,7 +694,10 @@ void DatabaseManager::RemoveTableCommentsInDatabase(CommentRepository&& reposito
   {
     PLOG_ERROR << "SQL Error: " << database_error_;
   }
-  PLOG_INFO << "Remove table 'Comments' in database if exists";
+  else
+  {
+    PLOG_INFO << "Remove table 'Comments' in database";
+  }
 }
 
 //  Class member function
@@ -739,6 +794,7 @@ void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
 //  Create table 'Tags' in database
 void DatabaseManager::CreateTableTagsInDatabase()
 {
+  // CreateTableInDatabase("Tags");
   std::string sql_request = std::string("CREATE TABLE Tags(") + 
     "id SERIAL PRIMARY KEY, " +
     "name TEXT NOT NULL, " +

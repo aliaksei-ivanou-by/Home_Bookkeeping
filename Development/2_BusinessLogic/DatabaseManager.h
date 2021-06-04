@@ -12,6 +12,7 @@
 //  Class member functions:
 //      calculate rows with data in table
 //      create all tables in database
+//      create table in database
 //      create table 'Transactions' in database
 //      remove table 'Transactions' in database
 //      insert transactions to table 'Transactions' in database
@@ -113,6 +114,7 @@ public:
   void RemoveTableTagsInDatabase(TagRepository&& repository);
   void InsertTagsToTableTagsInDatabase(TagRepository&& repository);
   void InsertTagToTableTagsInDatabase(Tag&& tag);
+  void CreateTableInDatabase(const std::string& table);
 private:
   char* database_error_;
   int database_status_;
