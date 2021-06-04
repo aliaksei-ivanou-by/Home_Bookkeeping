@@ -210,13 +210,16 @@ public:
   void AddCurrency(const Currency& currency);
   void AddDescription();
   void AddDescription(Description&& description);
+  void AddDescriptions(DescriptionRepository&& descriptions);
   void AddPayee();
   void AddPayee(Payee&& payee);
   void AddPayees(PayeeRepository&& payees);
   void AddComment();
   void AddComment(Comment&& comment);
+  void AddComments(CommentRepository&& comments);
   void AddTag();
   void AddTag(Tag&& tag);
+  void AddTags(TagRepository&& tags);
   //  basic->remove element
   void RemoveTransaction(std::shared_ptr<Transaction> transaction);
   void RemoveAccount(std::shared_ptr<Account> account);

@@ -211,6 +211,13 @@ void FinanceRepository::AddDescription(Description&& description)
 }
 
 //  Class member function
+//  Add descriptions to database
+void FinanceRepository::AddDescriptions(DescriptionRepository&& descriptions)
+{
+  database_manager_->InsertDescriptionsToTableDescriptionsInDatabase(std::move(descriptions));
+}
+
+//  Class member function
 //  Add payee (default) to database
 void FinanceRepository::AddPayee()
 {
@@ -246,6 +253,13 @@ void FinanceRepository::AddComment(Comment&& comment)
 }
 
 //  Class member function
+//  Add comments to database
+void FinanceRepository::AddComments(CommentRepository&& comments)
+{
+  database_manager_->InsertCommentsToTableCommentsInDatabase(std::move(comments));
+}
+
+//  Class member function
 //  Add tag (default) to database
 void FinanceRepository::AddTag()
 {
@@ -257,6 +271,13 @@ void FinanceRepository::AddTag()
 void FinanceRepository::AddTag(Tag&& tag)
 {
   database_manager_->InsertTagToTableTagsInDatabase(std::move(tag));
+}
+
+//  Class member function
+//  Add tags to database
+void FinanceRepository::AddTags(TagRepository&& tags)
+{
+  database_manager_->InsertTagsToTableTagsInDatabase(std::move(tags));
 }
 
 //  Class member function
