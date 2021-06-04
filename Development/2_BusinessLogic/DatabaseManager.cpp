@@ -46,6 +46,16 @@ int DatabaseManager::SizeOfTable(const std::string& table)
 //  Create table in database
 void DatabaseManager::CreateTableInDatabase(const std::string& table)
 {
+  //  check table in database
+  std::string sql_request_check_table =
+    std::string("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = '") + 
+    table + "';";
+  database_status_ = sqlite3_exec(database_, sql_request_check_table.c_str(), NULL, NULL, &database_error_);
+  if (database_status_ == 1)
+  {
+    return;
+  }
+  //  add table to database
   std::string sql_request;
   if (table == "Categories" || 
     table == "Descriptions" || 
@@ -53,13 +63,13 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
     table == "Comments" || 
     table == "Tags")
   {
-    sql_request = std::string("CREATE TABLE " + table + "(") +
+    sql_request = std::string("CREATE TABLE IF NOT EXISTS " + table + "(") +
       "name TEXT NOT NULL, " +
       "counter INTEGER NOT NULL" + ");";
   }
   if (table == "Transactions")
   {
-    sql_request = std::string("CREATE TABLE Transactions(") +
+    sql_request = std::string("CREATE TABLE IF NOT EXISTS Transactions(") +
       "time TEXT NOT NULL, " +
       "account_from TEXT NOT NULL, " +
       "account_to TEXT NOT NULL, " +
@@ -78,7 +88,7 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
   }
   if (table == "Accounts")
   {
-    sql_request = std::string("CREATE TABLE Accounts(") +
+    sql_request = std::string("CREATE TABLE IF NOT EXISTS Accounts(") +
       "name TEXT NOT NULL" + ", " +
       "amount DOUBLE NOT NULL" + ");";
   }
@@ -95,6 +105,13 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
   {
     PLOG_INFO << "Create table '" + table + "' in database";
   }
+}
+
+//  Class member function
+//  Remove table from database
+void DatabaseManager::RemoveTableFromDatabase(const std::string& table)
+{
+
 }
 
 //  Class member function

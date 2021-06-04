@@ -114,7 +114,9 @@ public:
   void RemoveTableTagsInDatabase(TagRepository&& repository);
   void InsertTagsToTableTagsInDatabase(TagRepository&& repository);
   void InsertTagToTableTagsInDatabase(Tag&& tag);
+private:
   void CreateTableInDatabase(const std::string& table);
+  void RemoveTableFromDatabase(const std::string& table);
 private:
   char* database_error_;
   int database_status_;
