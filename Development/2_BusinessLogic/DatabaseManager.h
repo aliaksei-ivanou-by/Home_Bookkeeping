@@ -12,37 +12,39 @@
 //  Class member functions:
 //      calculate rows with data in table
 //      create all tables in database
+//      check table for existence in database
 //      create table in database
+//      remove table from database
 //      create table 'Transactions' in database
-//      remove table 'Transactions' in database
+//      remove table 'Transactions' from database
 //      insert transactions to table 'Transactions' in database
 //      insert one transaction to table 'Transactions' in database
 //      create table 'Accounts' in database
-//      remove table 'Accounts' in database
+//      remove table 'Accounts' from database
 //      insert accounts to table 'Accounts' in database
 //      insert one account to table 'Accounts' in database
 //      create table 'Categories' in database
-//      remove table 'Categories' in database
+//      remove table 'Categories' from database
 //      insert categories to table 'Categories' in database
 //      insert one category to table 'Categories' in database
 //      create table 'Currencies' in database
-//      remove table 'Currencies' in database
+//      remove table 'Currencies' from database
 //      insert currencies to table 'Currencies' in database
 //      insert one currency to table 'Currencies' in database
 //      create table 'Descriptions' in database
-//      remove table 'Descriptions' in database
+//      remove table 'Descriptions' from database
 //      insert descriptions to table 'Descriptions' in database
 //      insert one description to table 'Descriptions' in database
 //      create table 'Payees' in database
-//      remove table 'Payees' in database
+//      remove table 'Payees' from database
 //      insert payees to table 'Payees' in database
 //      insert one payee to table 'Payees' in database
 //      create table 'Comments' in database
-//      remove table 'Comments' in database
+//      remove table 'Comments' from database
 //      insert comments to table 'Comments' in database
 //      insert one comment to table 'Comments' in database
 //      create table 'Tags' in database
-//      remove table 'Tags' in database
+//      remove table 'Tags' from database
 //      insert tags to table 'Tags' in database
 //      insert one tag to table 'Tags' in database
 //
@@ -76,45 +78,45 @@ public:
   void CreateAllTablesInDatabase();
 
   void CreateTableTransactionsInDatabase();
-  void RemoveTableTransactionsInDatabase(TransactionRepository&& repository);
+  void RemoveTableTransactionsFromDatabase(TransactionRepository&& repository);
   void InsertTransactionsToTableTransactionsInDatabase(TransactionRepository&& repository);
   void InsertTransactionToTableTransactionsInDatabase(Transaction&& transaction);
 
   void CreateTableAccountsInDatabase();
-  void RemoveTableAccountsInDatabase();
+  void RemoveTableAccountsFromDatabase();
   void InsertAccountsToTableAccountsInDatabase(AccountRepository&& repository);
   void InsertAccountToTableAccountsInDatabase(Account&& account);
 
   void CreateTableCategoriesInDatabase();
-  void RemoveTableCategoriesInDatabase(CategoryRepository&& repository);
+  void RemoveTableCategoriesFromDatabase(CategoryRepository&& repository);
   void InsertCategoriesToTableCategoriesInDatabase(CategoryRepository&& repository);
   void InsertCategoryToTableCategoriesInDatabase(Category&& category);
 
   void CreateTableCurrenciesInDatabase();
-  void RemoveTableCurrenciesInDatabase(CurrencyRepository&& repository);
+  void RemoveTableCurrenciesFromDatabase(CurrencyRepository&& repository);
   void InsertCurrenciesToTableCurrenciesInDatabase(CurrencyRepository&& repository);
   void InsertCurrencyToTableCurrenciesInDatabase(Currency&& currency);
 
   void CreateTableDescriptionsInDatabase();
-  void RemoveTableDescriptionsInDatabase(DescriptionRepository&& repository);
+  void RemoveTableDescriptionsFromDatabase(DescriptionRepository&& repository);
   void InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository);
   void InsertDescriptionToTableDescriptionsInDatabase(Description&& description);
 
   void CreateTablePayeesInDatabase();
-  void RemoveTablePayeesInDatabase(PayeeRepository&& repository);
+  void RemoveTablePayeesFromDatabase(PayeeRepository&& repository);
   void InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository);
   void InsertPayeeToTablePayeesInDatabase(Payee&& payee);
 
   void CreateTableCommentsInDatabase();
-  void RemoveTableCommentsInDatabase(CommentRepository&& repository);
+  void RemoveTableCommentsFromDatabase(CommentRepository&& repository);
   void InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository);
   void InsertCommentToTableCommentsInDatabase(Comment&& comment);
 
   void CreateTableTagsInDatabase();
-  void RemoveTableTagsInDatabase(TagRepository&& repository);
+  void RemoveTableTagsFromDatabase(TagRepository&& repository);
   void InsertTagsToTableTagsInDatabase(TagRepository&& repository);
   void InsertTagToTableTagsInDatabase(Tag&& tag);
-private:
+  bool CheckTableForExistenceInDatabase(const std::string& table);
   void CreateTableInDatabase(const std::string& table);
   void RemoveTableFromDatabase(const std::string& table);
 private:

@@ -32,78 +32,81 @@ static int callback(void* count, int argc, char** argv, char** azColName)
 //  Calculate rows with data in table
 int DatabaseManager::SizeOfTable(const std::string& table)
 {
-  const std::string sql_request = "SELECT COUNT(*) FROM " + table;
   int table_rows = 0;
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), callback, &table_rows, &database_error_);
-  if (database_status_ != SQLITE_OK)
+  //if (CheckTableForExistenceInDatabase(table))
   {
-    PLOG_ERROR << "SQL Error: " << database_error_;
+    const std::string sql_request = "SELECT COUNT(*) FROM " + table;
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), callback, &table_rows, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Error: " << database_error_;
+    }
   }
   return table_rows;
+}
+
+//  Class member function
+//  Check table for existence in database
+bool DatabaseManager::CheckTableForExistenceInDatabase(const std::string& table)
+{
+  return true;
 }
 
 //  Class member function
 //  Create table in database
 void DatabaseManager::CreateTableInDatabase(const std::string& table)
 {
-  //  check table in database
-  std::string sql_request_check_table =
-    std::string("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = '") + 
-    table + "';";
-  database_status_ = sqlite3_exec(database_, sql_request_check_table.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ == 1)
+  //if (!CheckTableForExistenceInDatabase(table))
   {
-    return;
-  }
-  //  add table to database
-  std::string sql_request;
-  if (table == "Categories" || 
-    table == "Descriptions" || 
-    table == "Payees" || 
-    table == "Comments" || 
-    table == "Tags")
-  {
-    sql_request = std::string("CREATE TABLE IF NOT EXISTS " + table + "(") +
-      "name TEXT NOT NULL, " +
-      "counter INTEGER NOT NULL" + ");";
-  }
-  if (table == "Transactions")
-  {
-    sql_request = std::string("CREATE TABLE IF NOT EXISTS Transactions(") +
-      "time TEXT NOT NULL, " +
-      "account_from TEXT NOT NULL, " +
-      "account_to TEXT NOT NULL, " +
-      "category TEXT NOT NULL, " +
-      "amount DOUBLE NOT NULL, " +
-      "amount_account_from DOUBLE NOT NULL, " +
-      "amount_acount_to DOUBLE NOT NULL, " +
-      "comment TEXT NOT NULL, " +
-      "currency TEXT NOT NULL, " +
-      "description TEXT NOT NULL, " +
-      "payee TEXT NOT NULL, " +
-      "tag TEXT NOT NULL, " +
-      "status TEXT NOT NULL, " +
-      "type TEXT NOT NULL" +
-      ");";
-  }
-  if (table == "Accounts")
-  {
-    sql_request = std::string("CREATE TABLE IF NOT EXISTS Accounts(") +
-      "name TEXT NOT NULL" + ", " +
-      "amount DOUBLE NOT NULL" + ");";
-  }
-  if (table == "Currencies")
-  {
+    std::string sql_request;
+    if (table == "Categories" ||
+      table == "Descriptions" ||
+      table == "Payees" ||
+      table == "Comments" ||
+      table == "Tags")
+    {
+      sql_request = std::string("CREATE TABLE IF NOT EXISTS " + table + "(") +
+        "name TEXT NOT NULL, " +
+        "counter INTEGER NOT NULL" + ");";
+    }
+    if (table == "Transactions")
+    {
+      sql_request = std::string("CREATE TABLE IF NOT EXISTS Transactions(") +
+        "time TEXT NOT NULL, " +
+        "account_from TEXT NOT NULL, " +
+        "account_to TEXT NOT NULL, " +
+        "category TEXT NOT NULL, " +
+        "amount DOUBLE NOT NULL, " +
+        "amount_account_from DOUBLE NOT NULL, " +
+        "amount_acount_to DOUBLE NOT NULL, " +
+        "comment TEXT NOT NULL, " +
+        "currency TEXT NOT NULL, " +
+        "description TEXT NOT NULL, " +
+        "payee TEXT NOT NULL, " +
+        "tag TEXT NOT NULL, " +
+        "status TEXT NOT NULL, " +
+        "type TEXT NOT NULL" +
+        ");";
+    }
+    if (table == "Accounts")
+    {
+      sql_request = std::string("CREATE TABLE IF NOT EXISTS Accounts(") +
+        "name TEXT NOT NULL" + ", " +
+        "amount DOUBLE NOT NULL" + ");";
+    }
+    if (table == "Currencies")
+    {
 
-  }
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
-  else
-  {
-    PLOG_INFO << "Create table '" + table + "' in database";
+    }
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Create table '" + table + "' in database";
+    }
   }
 }
 
@@ -111,7 +114,19 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
 //  Remove table from database
 void DatabaseManager::RemoveTableFromDatabase(const std::string& table)
 {
-
+  //if (CheckTableForExistenceInDatabase(table))
+  {
+    const std::string sql_request = std::string("TRUNCATE TABLE IF EXISTS ") + table + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Remove table '" << table << "' in database if exists";
+    }
+  }
 }
 
 //  Class member function
@@ -159,16 +174,10 @@ void DatabaseManager::CreateTableTransactionsInDatabase()
 }
 
 //  Class member function
-//  Remove table 'Transactions' in database
-void DatabaseManager::RemoveTableTransactionsInDatabase(TransactionRepository&& repository)
+//  Remove table 'Transactions' from database
+void DatabaseManager::RemoveTableTransactionsFromDatabase(TransactionRepository&& repository)
 {
-  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Transactions";
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
-  PLOG_INFO << "Remove table 'Transactions' in database if exists";
+  RemoveTableFromDatabase("Transactions");
 }
 
 //  Class member function
@@ -228,16 +237,10 @@ void DatabaseManager::CreateTableAccountsInDatabase()
 }
 
 //  Class member function
-//  Remove table 'Accounts' in database
-void DatabaseManager::RemoveTableAccountsInDatabase()
+//  Remove table 'Accounts' from database
+void DatabaseManager::RemoveTableAccountsFromDatabase()
 {
-  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Accounts";
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
-  PLOG_INFO << "Remove table 'Accounts' in database if exists";
+  RemoveTableFromDatabase("Accounts");
 }
 
 //  Class member function
@@ -273,16 +276,10 @@ void DatabaseManager::CreateTableCategoriesInDatabase()
 }
 
 //  Class member function
-//  Remove table 'Categories' in database
-void DatabaseManager::RemoveTableCategoriesInDatabase(CategoryRepository&& repository)
+//  Remove table 'Categories' from database
+void DatabaseManager::RemoveTableCategoriesFromDatabase(CategoryRepository&& repository)
 {
-  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Categories";
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
-  PLOG_INFO << "Remove table 'Categories' in database if exists";
+  RemoveTableFromDatabase("Categories");
 }
 
 //  Class member function
@@ -399,16 +396,10 @@ void DatabaseManager::CreateTableCurrenciesInDatabase()
 }
 
 //  Class member function
-//  Remove table 'Currencies' in database
-void DatabaseManager::RemoveTableCurrenciesInDatabase(CurrencyRepository&& repository)
+//  Remove table 'Currencies' from database
+void DatabaseManager::RemoveTableCurrenciesFromDatabase(CurrencyRepository&& repository)
 {
-  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Currencies";
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
-  PLOG_INFO << "Remove table 'Currencies' in database if exists";
+  RemoveTableFromDatabase("Currencies");
 }
 
 //  Class member function
@@ -448,16 +439,10 @@ void DatabaseManager::CreateTableDescriptionsInDatabase()
 }
 
 //  Class member function
-//  Remove table 'Descriptions' in database
-void DatabaseManager::RemoveTableDescriptionsInDatabase(DescriptionRepository&& repository)
+//  Remove table 'Descriptions' from database
+void DatabaseManager::RemoveTableDescriptionsFromDatabase(DescriptionRepository&& repository)
 {
-  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Descriptions";
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
-  PLOG_INFO << "Remove table 'Descriptions' in database if exists";
+  RemoveTableFromDatabase("Descriptions");
 }
 
 void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository)
@@ -561,19 +546,10 @@ void DatabaseManager::CreateTablePayeesInDatabase()
 }
 
 //  Class member function
-//  Remove table 'Payees' in database
-void DatabaseManager::RemoveTablePayeesInDatabase(PayeeRepository&& repository)
+//  Remove table 'Payees' from database
+void DatabaseManager::RemoveTablePayeesFromDatabase(PayeeRepository&& repository)
 {
-  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Payees";
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
-  else
-  {
-    PLOG_INFO << "Remove table 'Payees' in database";
-  }
+  RemoveTableFromDatabase("Payees");
 }
 
 //  Class member function
@@ -678,19 +654,10 @@ void DatabaseManager::CreateTableCommentsInDatabase()
 }
 
 //  Class member function
-//  Remove table 'Comments' in database
-void DatabaseManager::RemoveTableCommentsInDatabase(CommentRepository&& repository)
+//  Remove table 'Comments' from database
+void DatabaseManager::RemoveTableCommentsFromDatabase(CommentRepository&& repository)
 {
-  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Comments";
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
-  else
-  {
-    PLOG_INFO << "Remove table 'Comments' in database";
-  }
+  RemoveTableFromDatabase("Comments");
 }
 
 //  Class member function
@@ -795,16 +762,10 @@ void DatabaseManager::CreateTableTagsInDatabase()
 }
 
 //  Class member function
-//  Remove table 'Tags' in database
-void DatabaseManager::RemoveTableTagsInDatabase(TagRepository&& repository)
+//  Remove table 'Tags' from database
+void DatabaseManager::RemoveTableTagsFromDatabase(TagRepository&& repository)
 {
-  const std::string sql_request = "TRUNCATE TABLE IF EXISTS Tags";
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
-  PLOG_INFO << "Remove table 'Tags' in database if exists";
+  RemoveTableFromDatabase("Tags");
 }
 
 //  Class member function
