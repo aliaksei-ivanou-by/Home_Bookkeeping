@@ -183,6 +183,13 @@ void FinanceRepository::AddCategory(Category&& category)
 }
 
 //  Class member function
+//  Add categories to database
+void FinanceRepository::AddCategories(CategoryRepository&& categories)
+{
+  database_manager_->InsertCategoriesToTableCategoriesInDatabase(std::move(categories));
+}
+
+//  Class member function
 //  Add currency (default) to database
 void FinanceRepository::AddCurrency()
 {

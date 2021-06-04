@@ -56,6 +56,19 @@ int main()
   description_repository.Add(description_2);
   a.AddDescriptions(std::move(description_repository));
 
+  Category category_default;
+  Category category_1("Category_1");
+  Category category_2("Category_2");
+  a.AddCategory(Category());
+  a.AddCategory(std::move(category_default));
+  a.AddCategory(std::move(category_1));
+  a.AddCategory(std::move(category_2));
+  CategoryRepository category_repository;
+  category_repository.Add(category_default);
+  category_repository.Add(category_1);
+  category_repository.Add(category_2);
+  a.AddCategories(std::move(category_repository));
+
   // Window_Main win(Point(100, 100), 600, 600, "Finance System", std::make_shared<FinanceRepository>(a));
   // return gui_main();
 }
