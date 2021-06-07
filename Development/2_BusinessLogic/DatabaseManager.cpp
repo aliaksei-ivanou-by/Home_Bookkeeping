@@ -33,7 +33,7 @@ static int callback(void* count, int argc, char** argv, char** azColName)
 int DatabaseManager::SizeOfTable(const std::string& table)
 {
   int table_rows = 0;
-  //if (CheckTableForExistenceInDatabase(table))
+  if (CheckTableForExistenceInDatabase(table))
   {
     const std::string sql_request = "SELECT COUNT(*) FROM " + table;
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), callback, &table_rows, &database_error_);
@@ -49,14 +49,22 @@ int DatabaseManager::SizeOfTable(const std::string& table)
 //  Check table for existence in database
 bool DatabaseManager::CheckTableForExistenceInDatabase(const std::string& table)
 {
-  return true;
+  std::string sql_request = std::string("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='") + 
+    table + "';";
+  sqlite3_prepare_v2(database_, sql_request.c_str(), -1, &database_stmt_, 0);
+  int table_availability = 0;
+  while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+  {
+    table_availability = (sqlite3_column_int(database_stmt_, 0));
+  }
+  return table_availability;
 }
 
 //  Class member function
 //  Create table in database
 void DatabaseManager::CreateTableInDatabase(const std::string& table)
 {
-  //if (!CheckTableForExistenceInDatabase(table))
+  if (!CheckTableForExistenceInDatabase(table))
   {
     std::string sql_request;
     if (table == "Categories" ||
@@ -65,13 +73,13 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
       table == "Comments" ||
       table == "Tags")
     {
-      sql_request = std::string("CREATE TABLE IF NOT EXISTS " + table + "(") +
+      sql_request = std::string("CREATE TABLE " + table + "(") +
         "name TEXT NOT NULL, " +
         "counter INTEGER NOT NULL" + ");";
     }
     if (table == "Transactions")
     {
-      sql_request = std::string("CREATE TABLE IF NOT EXISTS Transactions(") +
+      sql_request = std::string("CREATE TABLE Transactions(") +
         "time TEXT NOT NULL, " +
         "account_from TEXT NOT NULL, " +
         "account_to TEXT NOT NULL, " +
@@ -90,7 +98,7 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
     }
     if (table == "Accounts")
     {
-      sql_request = std::string("CREATE TABLE IF NOT EXISTS Accounts(") +
+      sql_request = std::string("CREATE TABLE Accounts(") +
         "name TEXT NOT NULL" + ", " +
         "amount DOUBLE NOT NULL" + ");";
     }
@@ -114,7 +122,7 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
 //  Remove table from database
 void DatabaseManager::RemoveTableFromDatabase(const std::string& table)
 {
-  //if (CheckTableForExistenceInDatabase(table))
+  if (CheckTableForExistenceInDatabase(table))
   {
     const std::string sql_request = std::string("TRUNCATE TABLE IF EXISTS ") + table + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
