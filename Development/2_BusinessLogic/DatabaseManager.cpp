@@ -74,12 +74,14 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
       table == "Tags")
     {
       sql_request = std::string("CREATE TABLE " + table + "(") +
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, " + 
         "name TEXT NOT NULL, " +
         "counter INTEGER NOT NULL" + ");";
     }
     if (table == "Transactions")
     {
       sql_request = std::string("CREATE TABLE Transactions(") +
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
         "time TEXT NOT NULL, " +
         "account_from TEXT NOT NULL, " +
         "account_to TEXT NOT NULL, " +
@@ -99,6 +101,7 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
     if (table == "Accounts")
     {
       sql_request = std::string("CREATE TABLE Accounts(") +
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
         "name TEXT NOT NULL" + ", " +
         "amount DOUBLE NOT NULL" + ");";
     }
@@ -124,7 +127,7 @@ void DatabaseManager::RemoveTableFromDatabase(const std::string& table)
 {
   if (CheckTableForExistenceInDatabase(table))
   {
-    const std::string sql_request = std::string("TRUNCATE TABLE IF EXISTS ") + table + ";";
+    const std::string sql_request = std::string("TRUNCATE TABLE ") + table + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -132,7 +135,7 @@ void DatabaseManager::RemoveTableFromDatabase(const std::string& table)
     }
     else
     {
-      PLOG_INFO << "Remove table '" << table << "' in database if exists";
+      PLOG_INFO << "Remove table '" << table << "' in database";
     }
   }
 }
@@ -157,7 +160,7 @@ void DatabaseManager::CreateTableTransactionsInDatabase()
 {
   // CreateTableInDatabase("Transactions");
   const std::string sql_request = std::string("CREATE TABLE Transactions(") + 
-    "id SERIAL PRIMARY KEY, " + 
+    "id INTEGER PRIMARY KEY AUTOINCREMENT, " + 
     "time TEXT NOT NULL, " + 
     "account_from TEXT NOT NULL, " + 
     "account_to TEXT NOT NULL, " + 
@@ -192,11 +195,10 @@ void DatabaseManager::RemoveTableTransactionsFromDatabase(TransactionRepository&
 //  Insert transactions to table 'Transactions' in database
 void DatabaseManager::InsertTransactionsToTableTransactionsInDatabase(TransactionRepository&& repository)
 {
-  size_t j = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
     const std::string sql_request = std::string("INSERT INTO Transactions VALUES(") +
-      std::to_string(j) + ", '" +
+      "null, '" +
       (**i).GetStringTime() + "', '" +
       (**i).GetAccountFrom().GetName() + "', '" +
       (**i).GetAccountTo().GetName() + "', '" +
@@ -216,7 +218,6 @@ void DatabaseManager::InsertTransactionsToTableTransactionsInDatabase(Transactio
     {
       PLOG_ERROR << "SQL Insert Error: " << database_error_;
     }
-    ++j;
   }
   PLOG_INFO << "Insert transactions to table 'Transactions' in database";
 }
@@ -232,16 +233,7 @@ void DatabaseManager::InsertTransactionToTableTransactionsInDatabase(Transaction
 //  Create table 'Accounts' in database
 void DatabaseManager::CreateTableAccountsInDatabase()
 {
-  // CreateTableInDatabase("Accounts");
-  std::string sql_request = std::string("CREATE TABLE Accounts(") + 
-    "name TEXT NOT NULL" + ", " + 
-    "amount DOUBLE NOT NULL" + ");";
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
-  PLOG_INFO << "Create table 'Accounts' in database";
+  CreateTableInDatabase("Accounts");
 }
 
 //  Class member function
@@ -257,7 +249,8 @@ void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&
 {
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
-    const std::string sql_request = std::string("INSERT INTO Accounts VALUES('") +
+    const std::string sql_request = std::string("INSERT INTO Accounts VALUES(") +
+      "null, '" + 
       (**i).GetName() + "', " +
       dec::toString((**i).GetAmount()) + ")";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -311,7 +304,8 @@ void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& categ
   int id_start = 1;
   if (table_rows == 0)
   {
-    const std::string sql_request = std::string("INSERT INTO Categories VALUES('") +
+    const std::string sql_request = std::string("INSERT INTO Categories VALUES(") +
+      "null, '" + 
       category.GetName() + "', " +
       std::to_string(id_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -332,11 +326,12 @@ void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& categ
     const unsigned char* category_name;
     while (sqlite3_step(database_stmt_) != SQLITE_DONE)
     {
-      category_name = (sqlite3_column_text(database_stmt_, 0));
-      category_counter = sqlite3_column_int(database_stmt_, 1);
+      category_name = (sqlite3_column_text(database_stmt_, 1));
+      category_counter = sqlite3_column_int(database_stmt_, 2);
       if (category_name == nullptr)
       {
-        const std::string sql_request = std::string("INSERT INTO Categories VALUES('") +
+        const std::string sql_request = std::string("INSERT INTO Categories VALUES(") +
+          "null, '" +
           category.GetName() + "', " +
           std::to_string(1) + ");";
         database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -368,7 +363,8 @@ void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& categ
         return;
       }
     }
-    const std::string sql_request = std::string("INSERT INTO Categories VALUES('") +
+    const std::string sql_request = std::string("INSERT INTO Categories VALUES(") +
+      "null, '" +
       category.GetName() + "', " +
       std::to_string(1) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -383,7 +379,6 @@ void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& categ
     return;
   }
 }
-
 
 //  Class member function
 //  Create table 'Currencies' in database
@@ -453,6 +448,8 @@ void DatabaseManager::RemoveTableDescriptionsFromDatabase(DescriptionRepository&
   RemoveTableFromDatabase("Descriptions");
 }
 
+//  Class member function
+//  Insert descriptions to table 'Descriptions' in database
 void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository)
 {
   int count = 0;
@@ -472,7 +469,8 @@ void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description
   int id_start = 1;
   if (table_rows == 0)
   {
-    const std::string sql_request = std::string("INSERT INTO Descriptions VALUES('") +
+    const std::string sql_request = std::string("INSERT INTO Descriptions VALUES(") +
+      "null, '" +
       description.GetName() + "', " +
       std::to_string(id_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -493,11 +491,12 @@ void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description
     const unsigned char* description_name;
     while (sqlite3_step(database_stmt_) != SQLITE_DONE)
     {
-      description_name = (sqlite3_column_text(database_stmt_, 0));
-      description_counter = sqlite3_column_int(database_stmt_, 1);
+      description_name = (sqlite3_column_text(database_stmt_, 1));
+      description_counter = sqlite3_column_int(database_stmt_, 2);
       if (description_name == nullptr)
       {
-        const std::string sql_request = std::string("INSERT INTO Descriptions VALUES('") +
+        const std::string sql_request = std::string("INSERT INTO Descriptions VALUES(") +
+          "null, '" +
           description.GetName() + "', " +
           std::to_string(1) + ");";
         database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -529,7 +528,8 @@ void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description
         return;
       }
     }
-    const std::string sql_request = std::string("INSERT INTO Descriptions VALUES('") +
+    const std::string sql_request = std::string("INSERT INTO Descriptions VALUES(") +
+      "null, '" +
       description.GetName() + "', " +
       std::to_string(1) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -581,7 +581,8 @@ void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
   int id_start = 1;
   if (table_rows == 0)
   {
-    const std::string sql_request = std::string("INSERT INTO Payees VALUES('") +
+    const std::string sql_request = std::string("INSERT INTO Payees VALUES(") +
+      "null, '" +
       payee.GetName() + "', " +
       std::to_string(id_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -602,11 +603,12 @@ void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
     const unsigned char* payee_name;
     while (sqlite3_step(database_stmt_) != SQLITE_DONE)
     {
-      payee_name = (sqlite3_column_text(database_stmt_, 0));
-      payee_counter = sqlite3_column_int(database_stmt_, 1);
+      payee_name = (sqlite3_column_text(database_stmt_, 1));
+      payee_counter = sqlite3_column_int(database_stmt_, 2);
       if (payee_name == nullptr)
       {
-        const std::string sql_request = std::string("INSERT INTO Payees VALUES('") +
+        const std::string sql_request = std::string("INSERT INTO Payees VALUES(") +
+          "null, '" +
           payee.GetName() + "', " +
           std::to_string(1) + ");";
         database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -638,7 +640,8 @@ void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
         return;
       }
     }
-    const std::string sql_request = std::string("INSERT INTO Payees VALUES('") +
+    const std::string sql_request = std::string("INSERT INTO Payees VALUES(") +
+      "null, '" +
       payee.GetName() + "', " +
       std::to_string(1) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -689,7 +692,8 @@ void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
   int id_start = 1;
   if (table_rows == 0)
   {
-    const std::string sql_request = std::string("INSERT INTO Comments VALUES('") +
+    const std::string sql_request = std::string("INSERT INTO Comments VALUES(") +
+      "null, '" +
       comment.GetName() + "', " +
       std::to_string(id_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -710,11 +714,12 @@ void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
     const unsigned char* comment_name;
     while (sqlite3_step(database_stmt_) != SQLITE_DONE)
     {
-      comment_name = (sqlite3_column_text(database_stmt_, 0));
-      comment_counter = sqlite3_column_int(database_stmt_, 1);
+      comment_name = (sqlite3_column_text(database_stmt_, 1));
+      comment_counter = sqlite3_column_int(database_stmt_, 2);
       if (comment_name == nullptr)
       {
-        const std::string sql_request = std::string("INSERT INTO Comments VALUES('") +
+        const std::string sql_request = std::string("INSERT INTO Comments VALUES(") +
+          "null, '" +
           comment.GetName() + "', " +
           std::to_string(1) + ");";
         database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -746,7 +751,8 @@ void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
         return;
       }
     }
-    const std::string sql_request = std::string("INSERT INTO Comments VALUES('") +
+    const std::string sql_request = std::string("INSERT INTO Comments VALUES(") +
+      "null, '" +
       comment.GetName() + "', " +
       std::to_string(1) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -797,7 +803,8 @@ void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
   int id_start = 1;
   if (table_rows == 0)
   {
-    const std::string sql_request = std::string("INSERT INTO Tags VALUES('") +
+    const std::string sql_request = std::string("INSERT INTO Tags VALUES(") +
+      "null, '" +
       tag.GetName() + "', " +
       std::to_string(id_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -818,11 +825,12 @@ void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
     const unsigned char* tag_name;
     while (sqlite3_step(database_stmt_) != SQLITE_DONE)
     {
-      tag_name = (sqlite3_column_text(database_stmt_, 0));
-      tag_counter = sqlite3_column_int(database_stmt_, 1);
+      tag_name = (sqlite3_column_text(database_stmt_, 1));
+      tag_counter = sqlite3_column_int(database_stmt_, 2);
       if (tag_name == nullptr)
       {
-        const std::string sql_request = std::string("INSERT INTO Tags VALUES('") +
+        const std::string sql_request = std::string("INSERT INTO Tags VALUES(") +
+          "null, '" +
           tag.GetName() + "', " +
           std::to_string(1) + ");";
         database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
@@ -854,7 +862,8 @@ void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
         return;
       }
     }
-    const std::string sql_request = std::string("INSERT INTO Tags VALUES('") +
+    const std::string sql_request = std::string("INSERT INTO Tags VALUES(") +
+      "null, '" +
       tag.GetName() + "', " +
       std::to_string(1) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
