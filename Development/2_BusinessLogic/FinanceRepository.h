@@ -32,7 +32,7 @@
 //          Find end iterator of tag repository
 //        add element:
 //          Add transaction to database
-//          Add account (default)  to database
+//          Add account (default) to database
 //          Add account to database
 //          Add category (default) to database
 //          Add category to database
@@ -203,7 +203,7 @@ public:
   void AddTransaction(Transaction&& transaction);
   void AddAccount();
   void AddAccount(Account&& account);
-  void AddAccountToDB(Account&& account);
+  void AddAccounts(AccountRepository&& accounts);
   void AddCategory();
   void AddCategory(Category&& category);
   void AddCategories(CategoryRepository&& categories);

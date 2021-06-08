@@ -148,24 +148,21 @@ void FinanceRepository::AddTransaction(Transaction&& transaction)
 //  Add account (default) to database
 void FinanceRepository::AddAccount()
 {
-  account_repository_.Add();
-  PLOG_INFO << "Add Account to repository";
-  AddAccountToDB(std::move(Account()));
+  database_manager_->InsertAccountToTableAccountsInDatabase(Account());
 }
 
 //  Class member function
 //  Add account to database
 void FinanceRepository::AddAccount(Account&& account)
 {
-  account_repository_.Add(account);
-  PLOG_INFO << "Add Account to repository";
-  AddAccountToDB(std::move(account));
+  database_manager_->InsertAccountToTableAccountsInDatabase(std::move(account));
 }
 
-void FinanceRepository::AddAccountToDB(Account&& account)
+//  Class member function
+//  Add accounts to database
+void FinanceRepository::AddAccounts(AccountRepository&& accounts)
 {
-  database_manager_->InsertAccountToTableAccountsInDatabase(std::move(account));
-  PLOG_INFO << "Add Account to Database";
+  database_manager_->InsertAccountsToTableAccountsInDatabase(std::move(accounts));
 }
 
 //  Class member function

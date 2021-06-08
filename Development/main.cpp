@@ -69,6 +69,19 @@ int main()
   category_repository.Add(category_2);
   a.AddCategories(std::move(category_repository));
 
+  Account account_default;
+  Account account_1("Account_1");
+  Account account_2("Account_2");
+  a.AddAccount(Account());
+  a.AddAccount(std::move(account_default));
+  a.AddAccount(std::move(account_1));
+  a.AddAccount(std::move(account_2));
+  AccountRepository account_repository;
+  account_repository.Add(account_default);
+  account_repository.Add(account_1);
+  account_repository.Add(account_2);
+  a.AddAccounts(std::move(account_repository));
+
   // Window_Main win(Point(100, 100), 600, 600, "Finance System", std::make_shared<FinanceRepository>(a));
   // return gui_main();
 }

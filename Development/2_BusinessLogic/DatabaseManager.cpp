@@ -247,25 +247,84 @@ void DatabaseManager::RemoveTableAccountsFromDatabase()
 //  Insert accounts to table 'Accounts' in database
 void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&& repository)
 {
+  int count = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
-    const std::string sql_request = std::string("INSERT INTO Accounts VALUES(") +
-      "null, '" + 
-      (**i).GetName() + "', " +
-      dec::toString((**i).GetAmount()) + ")";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Insert Error: " << database_error_;
-    }
+    InsertAccountToTableAccountsInDatabase(std::move(**i));
+    ++count;
   }
-  PLOG_INFO << "Insert accounts to table 'Accounts' in database";
+  PLOG_INFO << "Insert " << count << " accounts to table 'Accounts' in database";
 }
 
 //  Class member function
 //  Insert account to table 'Accounts' in database
 void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& account)
 {
+  int table_rows = SizeOfTable("Accounts");
+  if (table_rows == 0)
+  {
+    const std::string sql_request = std::string("INSERT INTO Accounts VALUES(") +
+      "null, '" +
+      account.GetName() + "', " +
+      std::to_string(account.GetAmount().getAsDouble()) + ");";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Insert account to table 'Accounts' in database";
+    }
+    return;
+  }
+  if (table_rows > 0)
+  {
+    sqlite3_prepare_v2(database_, "SELECT * FROM Accounts", -1, &database_stmt_, 0);
+    int account_amount;
+    const unsigned char* account_name;
+    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+    {
+      account_name = (sqlite3_column_text(database_stmt_, 1));
+      account_amount = sqlite3_column_int(database_stmt_, 2);
+      if (account_name == nullptr)
+      {
+        const std::string sql_request = std::string("INSERT INTO Accounts VALUES(") +
+          "null, '" +
+          account.GetName() + "', " +
+          std::to_string(account.GetAmount().getAsDouble()) + ");";
+        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+        if (database_status_ != SQLITE_OK)
+        {
+          PLOG_ERROR << "SQL Insert Error: " << database_error_;
+        }
+        else
+        {
+          PLOG_INFO << "Insert account to table 'Accounts' in database";
+        }
+        return;
+      }
+      if (reinterpret_cast<const char*>(account_name) == account.GetName())
+      {
+        PLOG_ERROR << "Table 'Accounts' has this account";
+        return;
+      }
+    }
+    const std::string sql_request = std::string("INSERT INTO Accounts VALUES(") +
+      "null, '" +
+      account.GetName() + "', " +
+      std::to_string(account.GetAmount().getAsDouble()) + ");";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Insert account to table 'Accounts' in database";
+    }
+    return;
+  }
 
 }
 
