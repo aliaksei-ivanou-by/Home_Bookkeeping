@@ -52,10 +52,10 @@ bool DatabaseManager::CheckTableForExistenceInDatabase(const std::string& table)
   std::string sql_request = std::string("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='") + 
     table + "';";
   sqlite3_prepare_v2(database_, sql_request.c_str(), -1, &database_stmt_, 0);
-  int table_availability = 0;
+  bool table_availability = false;
   while (sqlite3_step(database_stmt_) != SQLITE_DONE)
   {
-    table_availability = (sqlite3_column_int(database_stmt_, 0));
+    table_availability = (sqlite3_column_int(database_stmt_, 0)) == 0 ? false : true;
   }
   return table_availability;
 }
