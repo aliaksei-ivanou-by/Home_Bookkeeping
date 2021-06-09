@@ -50,6 +50,10 @@ int main()
   tag_repository.Add(tag_1);
   tag_repository.Add(tag_2);
   a.AddTags(std::move(tag_repository));
+  bool tag_find;
+  Tag tag_tag;
+  std::tie(tag_find, tag_tag) = a.FindTag("Tag_1");
+  std::tie(tag_find, tag_tag) = a.FindTag("Tag");
 
   Description description_default;
   Description description_1("Description_1");

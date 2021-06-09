@@ -820,9 +820,9 @@ std::tuple<bool, Comment> FinanceRepository::FindComment(const std::string& name
 
 //  Class member function
 //  Find tag with definite name in tag repository
-TagRepositoryConstIterator FinanceRepository::FindTag(std::string name) const
+std::tuple<bool, Tag> FinanceRepository::FindTag(const std::string& name) const
 {
-  return tag_repository_.Find(name);
+  return database_manager_->FindTagByNameInTableTagsInDatabase(name);
 }
 
 //  Class member function

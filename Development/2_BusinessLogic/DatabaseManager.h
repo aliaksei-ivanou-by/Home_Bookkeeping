@@ -59,6 +59,7 @@
 //      remove table 'Tags' from database
 //      insert tags to table 'Tags' in database
 //      insert one tag to table 'Tags' in database
+//      find tag with definite name in table 'Tags' in database
 //
 //  Variables:
 //      Database;
@@ -131,6 +132,8 @@ public:
   void RemoveTableTagsFromDatabase(TagRepository&& repository);
   void InsertTagsToTableTagsInDatabase(TagRepository&& repository);
   void InsertTagToTableTagsInDatabase(Tag&& tag);
+  std::tuple<bool, Tag> FindTagByNameInTableTagsInDatabase(const std::string& name);
+
   bool CheckTableForExistenceInDatabase(const std::string& table);
   void CreateTableInDatabase(const std::string& table);
   void RemoveTableFromDatabase(const std::string& table);

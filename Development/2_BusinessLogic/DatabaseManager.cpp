@@ -1050,3 +1050,23 @@ void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
     return;
   }
 }
+
+//  Class member function
+//  Find tag with definite name in table 'Tags' in database
+std::tuple<bool, Tag> DatabaseManager::FindTagByNameInTableTagsInDatabase(const std::string& name)
+{
+  Tag tag;
+  sqlite3_prepare_v2(database_, "SELECT * FROM Tags", -1, &database_stmt_, 0);
+  while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+  {
+    const unsigned char* tag_name = (sqlite3_column_text(database_stmt_, 1));
+    if (reinterpret_cast<const char*>(tag_name) == name)
+    {
+      tag.SetName((reinterpret_cast<const char*>(tag_name)));
+      PLOG_INFO << "Tag with name " << name << " is found in table 'Tags' in database";
+      return std::make_tuple(true, tag);
+    }
+  }
+  PLOG_INFO << "Tag with name " << name << " isn't found in table 'Tags' in database";
+  return std::make_tuple(false, tag);
+}
