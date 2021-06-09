@@ -53,6 +53,7 @@
 //      remove table 'Comments' from database
 //      insert comments to table 'Comments' in database
 //      insert one comment to table 'Comments' in database
+//      find comment with definite name in table 'Comments' in database
 //    tags:
 //      create table 'Tags' in database
 //      remove table 'Tags' from database
@@ -120,11 +121,11 @@ public:
   void InsertPayeeToTablePayeesInDatabase(Payee&& payee);
   std::tuple<bool, Payee> FindPayeeByNameInTablePayeesInDatabase(const std::string& name);
 
-
   void CreateTableCommentsInDatabase();
   void RemoveTableCommentsFromDatabase(CommentRepository&& repository);
   void InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository);
   void InsertCommentToTableCommentsInDatabase(Comment&& comment);
+  std::tuple<bool, Comment> FindCommentByNameInTableCommentsInDatabase(const std::string& name);
 
   void CreateTableTagsInDatabase();
   void RemoveTableTagsFromDatabase(TagRepository&& repository);

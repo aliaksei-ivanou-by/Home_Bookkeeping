@@ -805,7 +805,7 @@ std::tuple<bool, Payee> DatabaseManager::FindPayeeByNameInTablePayeesInDatabase(
       return std::make_tuple(true, payee);
     }
   }
-  PLOG_INFO << "Payee with name " << name << " is found in table 'Payees' in database";
+  PLOG_INFO << "Payee with name " << name << " isn't found in table 'Payees' in database";
   return std::make_tuple(false, payee);
 }
 
@@ -918,6 +918,26 @@ void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
     }
     return;
   }
+}
+
+//  Class member function
+//  Find comment with definite name in table 'Comments' in database
+std::tuple<bool, Comment> DatabaseManager::FindCommentByNameInTableCommentsInDatabase(const std::string& name)
+{
+  Comment comment;
+  sqlite3_prepare_v2(database_, "SELECT * FROM Comments", -1, &database_stmt_, 0);
+  while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+  {
+    const unsigned char* comment_name = (sqlite3_column_text(database_stmt_, 1));
+    if (reinterpret_cast<const char*>(comment_name) == name)
+    {
+      comment.SetName((reinterpret_cast<const char*>(comment_name)));
+      PLOG_INFO << "Comment with name " << name << " is found in table 'Comments' in database";
+      return std::make_tuple(true, comment);
+    }
+  }
+  PLOG_INFO << "Comment with name " << name << " isn't found in table 'Comments' in database";
+  return std::make_tuple(false, comment);
 }
 
 //  Class member function

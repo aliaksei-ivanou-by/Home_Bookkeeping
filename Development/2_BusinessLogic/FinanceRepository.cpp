@@ -812,10 +812,10 @@ std::tuple<bool, Payee> FinanceRepository::FindPayee(const std::string& name) co
 }
 
 //  Class member function
-//  Find comment with definite name in comment repository
-CommentRepositoryConstIterator FinanceRepository::FindComment(std::string name) const
+//  Find comment with definite name in database
+std::tuple<bool, Comment> FinanceRepository::FindComment(const std::string& name) const
 {
-  return comment_repository_.Find(name);
+  return database_manager_->FindCommentByNameInTableCommentsInDatabase(name);
 }
 
 //  Class member function

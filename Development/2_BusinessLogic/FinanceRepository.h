@@ -111,7 +111,7 @@
 //          Find currency with definite code in currency repository
 //          Find description with definite name in database
 //          Find payee with definite name in database
-//          Find comment with definite name in tag repository
+//          Find comment with definite name in database
 //          Find tag with definite name in tag repository
 //        find (shared pointer):
 //          Find transaction (shared pointer) in transaction repository
@@ -290,7 +290,7 @@ public:
   CurrencyRepositoryIterator FindCurrencyCode(std::string name) const;
   std::tuple<bool, Description> FindDescription(const std::string& name) const;
   std::tuple<bool, Payee> FindPayee(const std::string& name) const;
-  CommentRepositoryConstIterator FindComment(std::string comment) const;
+  std::tuple<bool, Comment> FindComment(const std::string& comment) const;
   TagRepositoryConstIterator FindTag(std::string name) const;
   //  basic->find (shared pointer)
   TransactionRepositoryIterator FindTransaction(std::shared_ptr<Transaction> transaction) const;

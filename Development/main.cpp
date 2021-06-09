@@ -19,6 +19,7 @@ int main()
   bool payee_find;
   Payee payee_payee;
   std::tie(payee_find, payee_payee) = a.FindPayee("Payee_1");
+  std::tie(payee_find, payee_payee) = a.FindPayee("Payee");
 
   Comment comment_default;
   Comment comment_1("Comment_1");
@@ -32,6 +33,10 @@ int main()
   comment_repository.Add(comment_1);
   comment_repository.Add(comment_2);
   a.AddComments(std::move(comment_repository));
+  bool com_find;
+  Comment com_com;
+  std::tie(com_find, com_com) = a.FindComment("Comment_1");
+  std::tie(com_find, com_com) = a.FindComment("Comment");
 
   Tag tag_default;
   Tag tag_1("Tag_1");
@@ -61,6 +66,7 @@ int main()
   bool desc_find;
   Description desc_desc;
   std::tie(desc_find, desc_desc) = a.FindDescription("Description_1");
+  std::tie(desc_find, desc_desc) = a.FindDescription("Description");
 
   Category category_default;
   Category category_1("Category_1");
