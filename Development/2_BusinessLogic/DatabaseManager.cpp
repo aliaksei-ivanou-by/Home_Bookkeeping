@@ -107,7 +107,11 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
     }
     if (table == "Currencies")
     {
-
+      std::string sql_request = std::string("CREATE TABLE Currencies(") +
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        "name TEXT NOT NULL, " +
+        "code TEXT NOT NULL, " +
+        "activity BOOL NOT NULL" + ");";
     }
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
@@ -443,18 +447,7 @@ void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& categ
 //  Create table 'Currencies' in database
 void DatabaseManager::CreateTableCurrenciesInDatabase()
 {
-  // CreateTableInDatabase("Currencies");
-  std::string sql_request = std::string("CREATE TABLE Currencies(") + 
-    "id SERIAL PRIMARY KEY, " + 
-    "name TEXT NOT NULL, " + 
-    "code TEXT NOT NULL, " + 
-    "activity BOOL NOT NULL" + ");";
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
-  PLOG_INFO << "Create table 'Currencies' in database";
+  CreateTableInDatabase("Currencies");
 }
 
 //  Class member function
@@ -468,29 +461,90 @@ void DatabaseManager::RemoveTableCurrenciesFromDatabase(CurrencyRepository&& rep
 //  Insert currencies to table 'Currencies' in database
 void DatabaseManager::InsertCurrenciesToTableCurrenciesInDatabase(CurrencyRepository&& repository)
 {
-  size_t j = 0;
+  int count = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
-    const std::string sql_request = std::string("INSERT INTO Currencies VALUES(") +
-      std::to_string(j) + ", '" +
-      (**i).GetName() + "', '" +
-      (**i).GetCode() + "', " +
-      std::to_string((**i).GetActivity()) + ")";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Insert Error: " << database_error_;
-    }
-    ++j;
+    InsertCurrencyToTableCurrenciesInDatabase(std::move(**i));
+    ++count;
   }
-  PLOG_INFO << "Insert currencies to table 'Currencies' in database";
+  PLOG_INFO << "Insert " << count << " descriptions to table 'Descriptions' in database";
 }
 
 //  Class member function
 //  Insert one currency to table 'Currencies' in database
 void DatabaseManager::InsertCurrencyToTableCurrenciesInDatabase(Currency&& currency)
 {
-
+  int table_rows = SizeOfTable("Currencies");
+  int id_start = 1;
+  if (table_rows == 0)
+  {
+    const std::string sql_request = std::string("INSERT INTO Currencies VALUES(") +
+      "null, '" +
+      currency.GetName() + "', '" +
+      currency.GetCode() + "', '" +
+      std::to_string(currency.GetActivity() ? 1 : 0) + "');";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Insert currency to table 'Currencies' in database";
+    }
+    return;
+  }
+  if (table_rows > 0)
+  {
+    sqlite3_prepare_v2(database_, "SELECT * FROM Currencies", -1, &database_stmt_, 0);
+    const unsigned char* currency_name;
+    const unsigned char* currency_code;
+    int currency_activity;
+    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+    {
+      currency_name = sqlite3_column_text(database_stmt_, 1);
+      currency_code = sqlite3_column_text(database_stmt_, 2);
+      currency_activity = sqlite3_column_int(database_stmt_, 3);
+      if (currency_name == nullptr)
+      {
+        const std::string sql_request = std::string("INSERT INTO Currencies VALUES(") +
+          "null, '" +
+          currency.GetName() + "', '" +
+          currency.GetCode() + "', '" +
+          std::to_string(currency.GetActivity() ? 1 : 0) + "');";
+        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+        if (database_status_ != SQLITE_OK)
+        {
+          PLOG_ERROR << "SQL Insert Error: " << database_error_;
+        }
+        else
+        {
+          PLOG_INFO << "Insert currency to table 'Currencies' in database";
+        }
+        return;
+      }
+      if (reinterpret_cast<const char*>(currency_name) == currency.GetName())
+      {
+        PLOG_ERROR << "Table 'Currencies' has this currency";
+        return;
+      }
+    }
+    const std::string sql_request = std::string("INSERT INTO Currencies VALUES(") +
+      "null, '" +
+      currency.GetName() + "', '" +
+      currency.GetCode() + "', '" +
+      std::to_string(currency.GetActivity() ? 1 : 0) + "');";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Insert currency to table 'Currencies' in database";
+    }
+    return;
+  }
 }
 
 //  Class member function
@@ -602,7 +656,22 @@ void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description
     }
     return;
   }
+}
 
+std::tuple<bool, Description> DatabaseManager::FindDescriptionByNameInTableDescriptionsInDatabase(const std::string& name)
+{
+  Description description;
+  sqlite3_prepare_v2(database_, "SELECT * FROM Descriptions", -1, &database_stmt_, 0);
+  while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+  {
+    const unsigned char* description_name = (sqlite3_column_text(database_stmt_, 1));
+    if (reinterpret_cast<const char*>(description_name) == name)
+    {
+      description.SetName((reinterpret_cast<const char*>(description_name)));
+      return std::make_tuple(true, description);
+    }
+  }
+  return std::make_tuple(false, description);
 }
 
 //  Class member function

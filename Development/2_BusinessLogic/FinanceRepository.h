@@ -109,7 +109,7 @@
 //          Find category with definite name in category repository
 //          Find currency with definite name in currency repository
 //          Find currency with definite code in currency repository
-//          Find description with definite name in description repository
+//          Find description with definite name in database
 //          Find payee with definite name in payee repository
 //          Find comment with definite name in tag repository
 //          Find tag with definite name in tag repository
@@ -288,7 +288,7 @@ public:
   CategoryRepositoryConstIterator FindCategory(std::string name) const;
   CurrencyRepositoryIterator FindCurrencyName(std::string name) const;
   CurrencyRepositoryIterator FindCurrencyCode(std::string name) const;
-  DescriptionRepositoryConstIterator FindDescription(std::string name) const;
+  std::tuple<bool, Description> FindDescription(const std::string& name) const;
   PayeeRepositoryConstIterator FindPayee(std::string name) const;
   CommentRepositoryConstIterator FindComment(std::string comment) const;
   TagRepositoryConstIterator FindTag(std::string name) const;

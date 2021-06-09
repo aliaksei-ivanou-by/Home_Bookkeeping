@@ -101,6 +101,7 @@ public:
   void RemoveTableDescriptionsFromDatabase(DescriptionRepository&& repository);
   void InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository);
   void InsertDescriptionToTableDescriptionsInDatabase(Description&& description);
+  std::tuple<bool, Description> FindDescriptionByNameInTableDescriptionsInDatabase(const std::string& name);
 
   void CreateTablePayeesInDatabase();
   void RemoveTablePayeesFromDatabase(PayeeRepository&& repository);

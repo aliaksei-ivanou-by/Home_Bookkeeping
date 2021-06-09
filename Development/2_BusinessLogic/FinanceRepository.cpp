@@ -798,10 +798,10 @@ CurrencyRepositoryIterator FinanceRepository::FindCurrencyCode(std::string code)
 }
 
 //  Class member function
-//  Find description with definite name in description repository
-DescriptionRepositoryConstIterator FinanceRepository::FindDescription(std::string name) const
+//  Find description with definite name in database
+std::tuple<bool, Description> FinanceRepository::FindDescription(const std::string& name) const
 {
-  return description_repository_.Find(name);
+  return database_manager_->FindDescriptionByNameInTableDescriptionsInDatabase(name);
 }
 
 //  Class member function

@@ -55,6 +55,9 @@ int main()
   description_repository.Add(description_1);
   description_repository.Add(description_2);
   a.AddDescriptions(std::move(description_repository));
+  bool desc_find;
+  Description desc_desc;
+  std::tie(desc_find, desc_desc) = a.FindDescription("Description_1");
 
   Category category_default;
   Category category_1("Category_1");
