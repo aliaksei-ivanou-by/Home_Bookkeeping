@@ -76,26 +76,35 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
       sql_request = std::string("CREATE TABLE " + table + "(") +
         "id INTEGER PRIMARY KEY AUTOINCREMENT, " + 
         "name TEXT NOT NULL, " +
-        "counter INTEGER NOT NULL" + ");";
+        "counter INTEGER NOT NULL" +
+        ");";
     }
     if (table == "Transactions")
     {
       sql_request = std::string("CREATE TABLE Transactions(") +
         "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
         "time TEXT NOT NULL, " +
-        "account_from TEXT NOT NULL, " +
-        "account_to TEXT NOT NULL, " +
-        "category TEXT NOT NULL, " +
+        "account_from INTEGER NOT NULL, " +
+        "account_to INTEGER NOT NULL, " +
+        "category INTEGER NOT NULL, " +
         "amount DOUBLE NOT NULL, " +
         "amount_account_from DOUBLE NOT NULL, " +
         "amount_acount_to DOUBLE NOT NULL, " +
-        "comment TEXT NOT NULL, " +
-        "currency TEXT NOT NULL, " +
-        "description TEXT NOT NULL, " +
-        "payee TEXT NOT NULL, " +
-        "tag TEXT NOT NULL, " +
+        "comment INTEGER NOT NULL, " +
+        "currency INTEGER NOT NULL, " +
+        "description INTEGER NOT NULL, " +
+        "payee INTEGER NOT NULL, " +
+        "tag INTEGER NOT NULL, " +
         "status TEXT NOT NULL, " +
-        "type TEXT NOT NULL" +
+        "type TEXT NOT NULL, " +
+        "CONSTRAINT fk_account_from FOREIGN KEY (account_from) REFERENCES Accounts(id), " +
+        "CONSTRAINT fk_account_to FOREIGN KEY (account_to) REFERENCES Accounts(id)" +
+        "CONSTRAINT fk_category FOREIGN KEY (category) REFERENCES Categories(id)" +
+        "CONSTRAINT fk_comment FOREIGN KEY (comment) REFERENCES Comments(id)" +
+        "CONSTRAINT fk_currency FOREIGN KEY (currency) REFERENCES Currencies(id)" +
+        "CONSTRAINT fk_description FOREIGN KEY (description) REFERENCES Descriptions(id)" +
+        "CONSTRAINT fk_payee FOREIGN KEY (payee) REFERENCES Payees(id)" +
+        "CONSTRAINT fk_tag FOREIGN KEY (tag) REFERENCES Tags(id)" +
         ");";
     }
     if (table == "Accounts")
@@ -103,15 +112,17 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
       sql_request = std::string("CREATE TABLE Accounts(") +
         "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
         "name TEXT NOT NULL" + ", " +
-        "amount DOUBLE NOT NULL" + ");";
+        "amount DOUBLE NOT NULL" +
+        ");";
     }
     if (table == "Currencies")
     {
-      std::string sql_request = std::string("CREATE TABLE Currencies(") +
+      sql_request = std::string("CREATE TABLE Currencies(") +
         "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
         "name TEXT NOT NULL, " +
         "code TEXT NOT NULL, " +
-        "activity BOOL NOT NULL" + ");";
+        "activity BOOL NOT NULL" + 
+        ");";
     }
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
@@ -148,7 +159,6 @@ void DatabaseManager::RemoveTableFromDatabase(const std::string& table)
 //  Create all tables in database
 void DatabaseManager::CreateAllTablesInDatabase()
 {
-  CreateTableTransactionsInDatabase();
   CreateTableAccountsInDatabase();
   CreateTableCategoriesInDatabase();
   CreateTableCurrenciesInDatabase();
@@ -156,36 +166,14 @@ void DatabaseManager::CreateAllTablesInDatabase()
   CreateTablePayeesInDatabase();
   CreateTableCommentsInDatabase();
   CreateTableTagsInDatabase();
+  CreateTableTransactionsInDatabase();
 }
 
 //  Class member function
 //  Create table 'Transactions' in database
 void DatabaseManager::CreateTableTransactionsInDatabase()
 {
-  // CreateTableInDatabase("Transactions");
-  const std::string sql_request = std::string("CREATE TABLE Transactions(") + 
-    "id INTEGER PRIMARY KEY AUTOINCREMENT, " + 
-    "time TEXT NOT NULL, " + 
-    "account_from TEXT NOT NULL, " + 
-    "account_to TEXT NOT NULL, " + 
-    "category TEXT NOT NULL, " + 
-    "amount DOUBLE NOT NULL, " + 
-    "amount_account_from DOUBLE NOT NULL, " + 
-    "amount_acount_to DOUBLE NOT NULL, " + 
-    "comment TEXT NOT NULL, " + 
-    "currency TEXT NOT NULL, " + 
-    "description TEXT NOT NULL, " + 
-    "payee TEXT NOT NULL, " + 
-    "tag TEXT NOT NULL, " + 
-    "status TEXT NOT NULL, " + 
-    "type TEXT NOT NULL" + 
-    ");";
-  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-  if (database_status_ != SQLITE_OK)
-  {
-    PLOG_ERROR << "SQL Error: " << database_error_;
-  }
-  PLOG_INFO << "Create table 'Transactions' in database";
+  CreateTableInDatabase("Transactions");
 }
 
 //  Class member function
@@ -201,29 +189,8 @@ void DatabaseManager::InsertTransactionsToTableTransactionsInDatabase(Transactio
 {
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
-    const std::string sql_request = std::string("INSERT INTO Transactions VALUES(") +
-      "null, '" +
-      (**i).GetStringTime() + "', '" +
-      (**i).GetAccountFrom().GetName() + "', '" +
-      (**i).GetAccountTo().GetName() + "', '" +
-      (**i).GetCategory().GetName() + "', " +
-      std::to_string((**i).GetAmount().getAsDouble()) + ", " +
-      std::to_string((**i).GetAmountAccountFrom().getAsDouble()) + ", " +
-      std::to_string((**i).GetAmountAccountTo().getAsDouble()) + ", '" +
-      (**i).GetComment().GetName() + "', '" +
-      (**i).GetCurrency().GetName() + "', '" +
-      (**i).GetDescription().GetName() + "', '" +
-      (**i).GetPayee().GetName() + "', '" +
-      (**i).GetTag().GetName() + "', '" +
-      (**i).GetStatus().GetName() + "', '" +
-      (**i).GetType().GetName() + "')";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Insert Error: " << database_error_;
-    }
+    InsertTransactionToTableTransactionsInDatabase(std::move(**i));
   }
-  PLOG_INFO << "Insert transactions to table 'Transactions' in database";
 }
 
 //  Class member function
