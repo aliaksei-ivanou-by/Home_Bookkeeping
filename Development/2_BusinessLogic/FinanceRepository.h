@@ -106,7 +106,7 @@
 //        find (definite name):
 //          Find account with definite name in account repository
 //          Find account with definite amoune in account repository
-//          Find category with definite name in category repository
+//          Find category with definite name in database
 //          Find currency with definite name in currency repository
 //          Find currency with definite code in currency repository
 //          Find description with definite name in database
@@ -285,13 +285,13 @@ public:
   //  basic->find (definite name)
   AccountRepositoryIterator FindAccount(std::string name) const;
   AccountRepositoryIterator FindAccount(double amount) const;
-  CategoryRepositoryConstIterator FindCategory(std::string name) const;
+  std::tuple<bool, int, Category, int> FindCategory(const std::string& name) const;
   CurrencyRepositoryIterator FindCurrencyName(std::string name) const;
   CurrencyRepositoryIterator FindCurrencyCode(std::string name) const;
-  std::tuple<bool, Description> FindDescription(const std::string& name) const;
-  std::tuple<bool, Payee> FindPayee(const std::string& name) const;
-  std::tuple<bool, Comment> FindComment(const std::string& comment) const;
-  std::tuple<bool, Tag> FindTag(const std::string& name) const;
+  std::tuple<bool, int, Description, int> FindDescription(const std::string& name) const;
+  std::tuple<bool, int, Payee, int> FindPayee(const std::string& name) const;
+  std::tuple<bool, int, Comment, int> FindComment(const std::string& comment) const;
+  std::tuple<bool, int, Tag, int> FindTag(const std::string& name) const;
   //  basic->find (shared pointer)
   TransactionRepositoryIterator FindTransaction(std::shared_ptr<Transaction> transaction) const;
   AccountRepositoryIterator FindAccount(std::shared_ptr<Account> account) const;

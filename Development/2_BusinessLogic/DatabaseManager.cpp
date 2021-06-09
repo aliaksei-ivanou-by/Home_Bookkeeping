@@ -251,13 +251,10 @@ void DatabaseManager::RemoveTableAccountsFromDatabase()
 //  Insert accounts to table 'Accounts' in database
 void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&& repository)
 {
-  int count = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
     InsertAccountToTableAccountsInDatabase(std::move(**i));
-    ++count;
   }
-  PLOG_INFO << "Insert " << count << " accounts to table 'Accounts' in database";
 }
 
 //  Class member function
@@ -350,13 +347,10 @@ void DatabaseManager::RemoveTableCategoriesFromDatabase(CategoryRepository&& rep
 //  Insert categories to table 'Categories' in database
 void DatabaseManager::InsertCategoriesToTableCategoriesInDatabase(CategoryRepository&& repository)
 {
-  int count = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
     InsertCategoryToTableCategoriesInDatabase(std::move(*i->first));
-    ++count;
   }
-  PLOG_INFO << "Insert " << count << " categories to table 'Categories' in database";
 }
 
 //  Class member function
@@ -444,6 +438,27 @@ void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& categ
 }
 
 //  Class member function
+//  Find category with definite name in table 'Categories' in database
+std::tuple<bool, int, Category, int> DatabaseManager::FindCategoryByNameInTableCategoriesInDatabase(const std::string& name)
+{
+  sqlite3_prepare_v2(database_, "SELECT * FROM Categories", -1, &database_stmt_, 0);
+  while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+  {
+    int category_id = (sqlite3_column_int(database_stmt_, 0));
+    const unsigned char* category_name = (sqlite3_column_text(database_stmt_, 1));
+    int category_counter = (sqlite3_column_int(database_stmt_, 2));
+    if (reinterpret_cast<const char*>(category_name) == name)
+    {
+      Category category((reinterpret_cast<const char*>(category_name)));
+      PLOG_INFO << "Category with name " << name << " is found in table 'Categories' in database";
+      return std::make_tuple(true, category_id, category, category_counter);
+    }
+  }
+  PLOG_INFO << "Category with name " << name << " isn't found in table 'Categories' in database";
+  return std::make_tuple(false, 0, Category(), 0);
+}
+
+//  Class member function
 //  Create table 'Currencies' in database
 void DatabaseManager::CreateTableCurrenciesInDatabase()
 {
@@ -461,13 +476,10 @@ void DatabaseManager::RemoveTableCurrenciesFromDatabase(CurrencyRepository&& rep
 //  Insert currencies to table 'Currencies' in database
 void DatabaseManager::InsertCurrenciesToTableCurrenciesInDatabase(CurrencyRepository&& repository)
 {
-  int count = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
     InsertCurrencyToTableCurrenciesInDatabase(std::move(**i));
-    ++count;
   }
-  PLOG_INFO << "Insert " << count << " descriptions to table 'Descriptions' in database";
 }
 
 //  Class member function
@@ -565,13 +577,10 @@ void DatabaseManager::RemoveTableDescriptionsFromDatabase(DescriptionRepository&
 //  Insert descriptions to table 'Descriptions' in database
 void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository)
 {
-  int count = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
     InsertDescriptionToTableDescriptionsInDatabase(std::move(*i->first));
-    ++count;
   }
-  PLOG_INFO << "Insert " << count << " descriptions to table 'Descriptions' in database";
 }
 
 //  Class member function
@@ -660,22 +669,23 @@ void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description
 
 //  Class member function
 //  Find description with definite name in table 'Descriptions' in database
-std::tuple<bool, Description> DatabaseManager::FindDescriptionByNameInTableDescriptionsInDatabase(const std::string& name)
+std::tuple<bool, int, Description, int> DatabaseManager::FindDescriptionByNameInTableDescriptionsInDatabase(const std::string& name)
 {
-  Description description;
   sqlite3_prepare_v2(database_, "SELECT * FROM Descriptions", -1, &database_stmt_, 0);
   while (sqlite3_step(database_stmt_) != SQLITE_DONE)
   {
+    int description_id = (sqlite3_column_int(database_stmt_, 0));
     const unsigned char* description_name = (sqlite3_column_text(database_stmt_, 1));
+    int description_counter = (sqlite3_column_int(database_stmt_, 2));
     if (reinterpret_cast<const char*>(description_name) == name)
     {
-      description.SetName((reinterpret_cast<const char*>(description_name)));
+      Description description((reinterpret_cast<const char*>(description_name)));
       PLOG_INFO << "Description with name " << name << " is found in table 'Descriptions' in database";
-      return std::make_tuple(true, description);
+      return std::make_tuple(true, description_id, description, description_counter);
     }
   }
   PLOG_INFO << "Description with name " << name << " isn't found in table 'Descriptions' in database";
-  return std::make_tuple(false, description);
+  return std::make_tuple(false, 0, Description(), 0);
 }
 
 //  Class member function
@@ -696,13 +706,10 @@ void DatabaseManager::RemoveTablePayeesFromDatabase(PayeeRepository&& repository
 //  Insert payees to table 'Payees' in database
 void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository)
 {
-  int count = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
     InsertPayeeToTablePayeesInDatabase(std::move(*i->first));
-    ++count;
   }
-  PLOG_INFO << "Insert " << count << " payees to table 'Payees' in database";
 }
 
 //  Class member function
@@ -791,22 +798,23 @@ void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
 
 //  Class member function
 //  Find payee with definite name in table 'Comments' in database
-std::tuple<bool, Payee> DatabaseManager::FindPayeeByNameInTablePayeesInDatabase(const std::string& name)
+std::tuple<bool, int, Payee, int> DatabaseManager::FindPayeeByNameInTablePayeesInDatabase(const std::string& name)
 {
-  Payee payee;
   sqlite3_prepare_v2(database_, "SELECT * FROM Payees", -1, &database_stmt_, 0);
   while (sqlite3_step(database_stmt_) != SQLITE_DONE)
   {
+    int payee_id = (sqlite3_column_int(database_stmt_, 0));
     const unsigned char* payee_name = (sqlite3_column_text(database_stmt_, 1));
+    int payee_counter = (sqlite3_column_int(database_stmt_, 2));
     if (reinterpret_cast<const char*>(payee_name) == name)
     {
-      payee.SetName((reinterpret_cast<const char*>(payee_name)));
+      Payee payee((reinterpret_cast<const char*>(payee_name)));
       PLOG_INFO << "Payee with name " << name << " is found in table 'Payees' in database";
-      return std::make_tuple(true, payee);
+      return std::make_tuple(true, payee_id, payee, payee_counter);
     }
   }
   PLOG_INFO << "Payee with name " << name << " isn't found in table 'Payees' in database";
-  return std::make_tuple(false, payee);
+  return std::make_tuple(false, 0, Payee(), 0);
 }
 
 //  Class member function
@@ -827,13 +835,10 @@ void DatabaseManager::RemoveTableCommentsFromDatabase(CommentRepository&& reposi
 //  Insert comments to table 'Comments' in database
 void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository)
 {
-  int count = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
     InsertCommentToTableCommentsInDatabase(std::move(*i->first));
-    ++count;
   }
-  PLOG_INFO << "Insert " << count << " comments to table 'Comments' in database";
 }
 
 //  Class member function
@@ -922,22 +927,23 @@ void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
 
 //  Class member function
 //  Find comment with definite name in table 'Comments' in database
-std::tuple<bool, Comment> DatabaseManager::FindCommentByNameInTableCommentsInDatabase(const std::string& name)
+std::tuple<bool, int, Comment, int> DatabaseManager::FindCommentByNameInTableCommentsInDatabase(const std::string& name)
 {
-  Comment comment;
   sqlite3_prepare_v2(database_, "SELECT * FROM Comments", -1, &database_stmt_, 0);
   while (sqlite3_step(database_stmt_) != SQLITE_DONE)
   {
+    int comment_id = (sqlite3_column_int(database_stmt_, 0));
     const unsigned char* comment_name = (sqlite3_column_text(database_stmt_, 1));
+    int comment_counter = (sqlite3_column_int(database_stmt_, 2));
     if (reinterpret_cast<const char*>(comment_name) == name)
     {
-      comment.SetName((reinterpret_cast<const char*>(comment_name)));
+      Comment comment((reinterpret_cast<const char*>(comment_name)));
       PLOG_INFO << "Comment with name " << name << " is found in table 'Comments' in database";
-      return std::make_tuple(true, comment);
+      return std::make_tuple(true, comment_id, comment, comment_counter);
     }
   }
   PLOG_INFO << "Comment with name " << name << " isn't found in table 'Comments' in database";
-  return std::make_tuple(false, comment);
+  return std::make_tuple(false, 0, Comment(), 0);
 }
 
 //  Class member function
@@ -958,13 +964,10 @@ void DatabaseManager::RemoveTableTagsFromDatabase(TagRepository&& repository)
 //  Insert tags to table 'Tags' in database
 void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository)
 {
-  int count = 0;
   for (auto i = repository.Begin(); i != repository.End(); ++i)
   {
     InsertTagToTableTagsInDatabase(std::move(*i->first));
-    ++count;
   }
-  PLOG_INFO << "Insert " << count << " tags to table 'Tags' in database";
 }
 
 //  Class member function
@@ -1053,20 +1056,21 @@ void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
 
 //  Class member function
 //  Find tag with definite name in table 'Tags' in database
-std::tuple<bool, Tag> DatabaseManager::FindTagByNameInTableTagsInDatabase(const std::string& name)
+std::tuple<bool, int, Tag, int> DatabaseManager::FindTagByNameInTableTagsInDatabase(const std::string& name)
 {
-  Tag tag;
   sqlite3_prepare_v2(database_, "SELECT * FROM Tags", -1, &database_stmt_, 0);
   while (sqlite3_step(database_stmt_) != SQLITE_DONE)
   {
+    int tag_id = (sqlite3_column_int(database_stmt_, 0));
     const unsigned char* tag_name = (sqlite3_column_text(database_stmt_, 1));
+    int tag_counter = (sqlite3_column_int(database_stmt_, 2));
     if (reinterpret_cast<const char*>(tag_name) == name)
     {
-      tag.SetName((reinterpret_cast<const char*>(tag_name)));
+      Tag tag((reinterpret_cast<const char*>(tag_name)));
       PLOG_INFO << "Tag with name " << name << " is found in table 'Tags' in database";
-      return std::make_tuple(true, tag);
+      return std::make_tuple(true, tag_id, tag, tag_counter);
     }
   }
   PLOG_INFO << "Tag with name " << name << " isn't found in table 'Tags' in database";
-  return std::make_tuple(false, tag);
+  return std::make_tuple(false, 0, Tag(), 0);
 }

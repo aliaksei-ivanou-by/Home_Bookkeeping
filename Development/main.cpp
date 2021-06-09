@@ -17,9 +17,11 @@ int main()
   payee_repository.Add(payee_2);
   a.AddPayees(std::move(payee_repository));
   bool payee_find;
+  int payee_id;
   Payee payee_payee;
-  std::tie(payee_find, payee_payee) = a.FindPayee("Payee_1");
-  std::tie(payee_find, payee_payee) = a.FindPayee("Payee");
+  int payee_counter;
+  std::tie(payee_find, payee_id, payee_payee, payee_counter) = a.FindPayee("Payee_1");
+  std::tie(payee_find, payee_id, payee_payee, payee_counter) = a.FindPayee("Payee");
 
   Comment comment_default;
   Comment comment_1("Comment_1");
@@ -34,9 +36,11 @@ int main()
   comment_repository.Add(comment_2);
   a.AddComments(std::move(comment_repository));
   bool com_find;
+  int com_id;
   Comment com_com;
-  std::tie(com_find, com_com) = a.FindComment("Comment_1");
-  std::tie(com_find, com_com) = a.FindComment("Comment");
+  int com_counter;
+  std::tie(com_find, com_id, com_com, com_counter) = a.FindComment("Comment_1");
+  std::tie(com_find, com_id, com_com, com_counter) = a.FindComment("Comment");
 
   Tag tag_default;
   Tag tag_1("Tag_1");
@@ -51,9 +55,11 @@ int main()
   tag_repository.Add(tag_2);
   a.AddTags(std::move(tag_repository));
   bool tag_find;
+  int tag_id;
   Tag tag_tag;
-  std::tie(tag_find, tag_tag) = a.FindTag("Tag_1");
-  std::tie(tag_find, tag_tag) = a.FindTag("Tag");
+  int tag_counter;
+  std::tie(tag_find, tag_id, tag_tag, tag_counter) = a.FindTag("Tag_1");
+  std::tie(tag_find, tag_id, tag_tag, tag_counter) = a.FindTag("Tag");
 
   Description description_default;
   Description description_1("Description_1");
@@ -68,9 +74,11 @@ int main()
   description_repository.Add(description_2);
   a.AddDescriptions(std::move(description_repository));
   bool desc_find;
+  int desc_id;
   Description desc_desc;
-  std::tie(desc_find, desc_desc) = a.FindDescription("Description_1");
-  std::tie(desc_find, desc_desc) = a.FindDescription("Description");
+  int desc_counter;
+  std::tie(desc_find, desc_id, desc_desc, desc_counter) = a.FindDescription("Description_1");
+  std::tie(desc_find, desc_id, desc_desc, desc_counter) = a.FindDescription("Description");
 
   Category category_default;
   Category category_1("Category_1");
@@ -84,6 +92,12 @@ int main()
   category_repository.Add(category_1);
   category_repository.Add(category_2);
   a.AddCategories(std::move(category_repository));
+  bool cat_find;
+  int cat_id;
+  Category cat_cat;
+  int cat_counter;
+  std::tie(cat_find, cat_id, cat_cat, cat_counter) = a.FindCategory("Category_1");
+  std::tie(cat_find, cat_id, cat_cat, cat_counter) = a.FindCategory("Category");
 
   Account account_default;
   Account account_1("Account_1");

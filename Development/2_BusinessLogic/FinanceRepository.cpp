@@ -778,9 +778,9 @@ AccountRepositoryIterator FinanceRepository::FindAccount(double amount) const
 
 //  Class member function
 //  Find category with definite name in category repository
-CategoryRepositoryConstIterator FinanceRepository::FindCategory(std::string name) const
+std::tuple<bool, int, Category, int> FinanceRepository::FindCategory(const std::string& name) const
 {
-  return category_repository_.Find(name);
+  return database_manager_->FindCategoryByNameInTableCategoriesInDatabase(name);
 }
 
 //  Class member function
@@ -799,28 +799,28 @@ CurrencyRepositoryIterator FinanceRepository::FindCurrencyCode(std::string code)
 
 //  Class member function
 //  Find description with definite name in database
-std::tuple<bool, Description> FinanceRepository::FindDescription(const std::string& name) const
+std::tuple<bool, int, Description, int> FinanceRepository::FindDescription(const std::string& name) const
 {
   return database_manager_->FindDescriptionByNameInTableDescriptionsInDatabase(name);
 }
 
 //  Class member function
 //  Find payee with definite name in database
-std::tuple<bool, Payee> FinanceRepository::FindPayee(const std::string& name) const
+std::tuple<bool, int, Payee, int> FinanceRepository::FindPayee(const std::string& name) const
 {
   return database_manager_->FindPayeeByNameInTablePayeesInDatabase(name);
 }
 
 //  Class member function
 //  Find comment with definite name in database
-std::tuple<bool, Comment> FinanceRepository::FindComment(const std::string& name) const
+std::tuple<bool, int, Comment, int> FinanceRepository::FindComment(const std::string& name) const
 {
   return database_manager_->FindCommentByNameInTableCommentsInDatabase(name);
 }
 
 //  Class member function
 //  Find tag with definite name in tag repository
-std::tuple<bool, Tag> FinanceRepository::FindTag(const std::string& name) const
+std::tuple<bool, int, Tag, int> FinanceRepository::FindTag(const std::string& name) const
 {
   return database_manager_->FindTagByNameInTableTagsInDatabase(name);
 }

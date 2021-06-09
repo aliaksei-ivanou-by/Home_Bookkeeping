@@ -31,6 +31,7 @@
 //      remove table 'Categories' from database
 //      insert categories to table 'Categories' in database
 //      insert one category to table 'Categories' in database
+//      find category with definite name in table 'Categories' in database
 //    currencies:
 //      create table 'Currencies' in database
 //      remove table 'Currencies' from database
@@ -104,6 +105,7 @@ public:
   void RemoveTableCategoriesFromDatabase(CategoryRepository&& repository);
   void InsertCategoriesToTableCategoriesInDatabase(CategoryRepository&& repository);
   void InsertCategoryToTableCategoriesInDatabase(Category&& category);
+  std::tuple<bool, int, Category, int> FindCategoryByNameInTableCategoriesInDatabase(const std::string& name);
 
   void CreateTableCurrenciesInDatabase();
   void RemoveTableCurrenciesFromDatabase(CurrencyRepository&& repository);
@@ -114,25 +116,25 @@ public:
   void RemoveTableDescriptionsFromDatabase(DescriptionRepository&& repository);
   void InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository);
   void InsertDescriptionToTableDescriptionsInDatabase(Description&& description);
-  std::tuple<bool, Description> FindDescriptionByNameInTableDescriptionsInDatabase(const std::string& name);
+  std::tuple<bool, int, Description, int> FindDescriptionByNameInTableDescriptionsInDatabase(const std::string& name);
 
   void CreateTablePayeesInDatabase();
   void RemoveTablePayeesFromDatabase(PayeeRepository&& repository);
   void InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository);
   void InsertPayeeToTablePayeesInDatabase(Payee&& payee);
-  std::tuple<bool, Payee> FindPayeeByNameInTablePayeesInDatabase(const std::string& name);
+  std::tuple<bool, int, Payee, int> FindPayeeByNameInTablePayeesInDatabase(const std::string& name);
 
   void CreateTableCommentsInDatabase();
   void RemoveTableCommentsFromDatabase(CommentRepository&& repository);
   void InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository);
   void InsertCommentToTableCommentsInDatabase(Comment&& comment);
-  std::tuple<bool, Comment> FindCommentByNameInTableCommentsInDatabase(const std::string& name);
+  std::tuple<bool, int, Comment, int> FindCommentByNameInTableCommentsInDatabase(const std::string& name);
 
   void CreateTableTagsInDatabase();
   void RemoveTableTagsFromDatabase(TagRepository&& repository);
   void InsertTagsToTableTagsInDatabase(TagRepository&& repository);
   void InsertTagToTableTagsInDatabase(Tag&& tag);
-  std::tuple<bool, Tag> FindTagByNameInTableTagsInDatabase(const std::string& name);
+  std::tuple<bool, int, Tag, int> FindTagByNameInTableTagsInDatabase(const std::string& name);
 
   bool CheckTableForExistenceInDatabase(const std::string& table);
   void CreateTableInDatabase(const std::string& table);
