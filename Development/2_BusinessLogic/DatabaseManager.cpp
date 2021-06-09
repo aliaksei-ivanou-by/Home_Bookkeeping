@@ -658,6 +658,8 @@ void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description
   }
 }
 
+//  Class member function
+//  Find description with definite name in table 'Descriptions' in database
 std::tuple<bool, Description> DatabaseManager::FindDescriptionByNameInTableDescriptionsInDatabase(const std::string& name)
 {
   Description description;
@@ -668,9 +670,11 @@ std::tuple<bool, Description> DatabaseManager::FindDescriptionByNameInTableDescr
     if (reinterpret_cast<const char*>(description_name) == name)
     {
       description.SetName((reinterpret_cast<const char*>(description_name)));
+      PLOG_INFO << "Description with name " << name << " is found in table 'Descriptions' in database";
       return std::make_tuple(true, description);
     }
   }
+  PLOG_INFO << "Description with name " << name << " isn't found in table 'Descriptions' in database";
   return std::make_tuple(false, description);
 }
 
@@ -783,6 +787,26 @@ void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
     }
     return;
   }
+}
+
+//  Class member function
+//  Find payee with definite name in table 'Comments' in database
+std::tuple<bool, Payee> DatabaseManager::FindPayeeByNameInTablePayeesInDatabase(const std::string& name)
+{
+  Payee payee;
+  sqlite3_prepare_v2(database_, "SELECT * FROM Payees", -1, &database_stmt_, 0);
+  while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+  {
+    const unsigned char* payee_name = (sqlite3_column_text(database_stmt_, 1));
+    if (reinterpret_cast<const char*>(payee_name) == name)
+    {
+      payee.SetName((reinterpret_cast<const char*>(payee_name)));
+      PLOG_INFO << "Payee with name " << name << " is found in table 'Payees' in database";
+      return std::make_tuple(true, payee);
+    }
+  }
+  PLOG_INFO << "Payee with name " << name << " is found in table 'Payees' in database";
+  return std::make_tuple(false, payee);
 }
 
 //  Class member function

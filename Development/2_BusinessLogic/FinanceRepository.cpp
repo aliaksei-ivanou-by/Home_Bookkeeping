@@ -805,10 +805,10 @@ std::tuple<bool, Description> FinanceRepository::FindDescription(const std::stri
 }
 
 //  Class member function
-//  Find payee with definite name in payee repository
-PayeeRepositoryConstIterator FinanceRepository::FindPayee(std::string name) const
+//  Find payee with definite name in database
+std::tuple<bool, Payee> FinanceRepository::FindPayee(const std::string& name) const
 {
-  return payee_repository_.Find(name);
+  return database_manager_->FindPayeeByNameInTablePayeesInDatabase(name);
 }
 
 //  Class member function

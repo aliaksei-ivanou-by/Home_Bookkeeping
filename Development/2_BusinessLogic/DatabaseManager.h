@@ -10,39 +10,50 @@
 //    Default
 //
 //  Class member functions:
+//    general:
 //      calculate rows with data in table
 //      create all tables in database
 //      check table for existence in database
 //      create table in database
 //      remove table from database
+//    transactions:
 //      create table 'Transactions' in database
 //      remove table 'Transactions' from database
 //      insert transactions to table 'Transactions' in database
 //      insert one transaction to table 'Transactions' in database
+//    accounts:
 //      create table 'Accounts' in database
 //      remove table 'Accounts' from database
 //      insert accounts to table 'Accounts' in database
 //      insert one account to table 'Accounts' in database
+//    categories:
 //      create table 'Categories' in database
 //      remove table 'Categories' from database
 //      insert categories to table 'Categories' in database
 //      insert one category to table 'Categories' in database
+//    currencies:
 //      create table 'Currencies' in database
 //      remove table 'Currencies' from database
 //      insert currencies to table 'Currencies' in database
 //      insert one currency to table 'Currencies' in database
+//    descriptions:
 //      create table 'Descriptions' in database
 //      remove table 'Descriptions' from database
 //      insert descriptions to table 'Descriptions' in database
 //      insert one description to table 'Descriptions' in database
+//      find description with definite name in table 'Descriptions' in database
+//    payees:
 //      create table 'Payees' in database
 //      remove table 'Payees' from database
 //      insert payees to table 'Payees' in database
 //      insert one payee to table 'Payees' in database
+//      find payee with definite name in table 'Payees' in database
+//    comments:
 //      create table 'Comments' in database
 //      remove table 'Comments' from database
 //      insert comments to table 'Comments' in database
 //      insert one comment to table 'Comments' in database
+//    tags:
 //      create table 'Tags' in database
 //      remove table 'Tags' from database
 //      insert tags to table 'Tags' in database
@@ -107,6 +118,8 @@ public:
   void RemoveTablePayeesFromDatabase(PayeeRepository&& repository);
   void InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository);
   void InsertPayeeToTablePayeesInDatabase(Payee&& payee);
+  std::tuple<bool, Payee> FindPayeeByNameInTablePayeesInDatabase(const std::string& name);
+
 
   void CreateTableCommentsInDatabase();
   void RemoveTableCommentsFromDatabase(CommentRepository&& repository);

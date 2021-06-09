@@ -16,6 +16,9 @@ int main()
   payee_repository.Add(payee_1);
   payee_repository.Add(payee_2);
   a.AddPayees(std::move(payee_repository));
+  bool payee_find;
+  Payee payee_payee;
+  std::tie(payee_find, payee_payee) = a.FindPayee("Payee_1");
 
   Comment comment_default;
   Comment comment_1("Comment_1");
