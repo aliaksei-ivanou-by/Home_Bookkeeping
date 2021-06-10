@@ -111,6 +111,11 @@ int main()
   account_repository.Add(account_1);
   account_repository.Add(account_2);
   a.AddAccounts(std::move(account_repository));
+  bool acc_find;
+  int acc_id;
+  Account acc_acc;
+  std::tie(acc_find, acc_id, acc_acc) = a.FindAccount("Account_1");
+  std::tie(acc_find, acc_id, acc_acc) = a.FindAccount("Account_2");
 
   Currency currency_default;
   Currency currency_1("Currency_1");

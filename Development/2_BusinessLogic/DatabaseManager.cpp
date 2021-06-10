@@ -312,6 +312,35 @@ void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& account)
 
 }
 
+
+//  Class member function
+//  Find account with definite name in table 'Accounts' in database
+std::tuple<bool, int, Account> DatabaseManager::FindAccountByNameInTableAccountsInDatabase(const std::string& name)
+{
+  sqlite3_prepare_v2(database_, "SELECT * FROM Accounts", -1, &database_stmt_, 0);
+  while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+  {
+    int account_id = (sqlite3_column_int(database_stmt_, 0));
+    const unsigned char* account_name = (sqlite3_column_text(database_stmt_, 1));
+    double account_amount = (sqlite3_column_double(database_stmt_, 2));
+    int account_currency = (sqlite3_column_int(database_stmt_, 3));
+    if (reinterpret_cast<const char*>(account_name) == name)
+    {
+      std::string sql_request = std::string("SELECT * FROM Currencies WHERE id = ") + std::to_string(account_currency) + ";";
+      sqlite3_prepare_v2(database_, sql_request.c_str(), -1, &database_stmt_, 0);
+      const unsigned char* currency_name = (sqlite3_column_text(database_stmt_, 1));
+      const unsigned char* currency_code = (sqlite3_column_text(database_stmt_, 2));
+      int currency_activity = (sqlite3_column_int(database_stmt_, 3));
+      Currency currency((reinterpret_cast<const char*>(currency_name)), (reinterpret_cast<const char*>(currency_code)), currency_activity);
+      Account account((reinterpret_cast<const char*>(account_name)), account_amount, currency);
+      PLOG_INFO << "Account with name " << name << " is found in table 'Accounts' in database";
+      return std::make_tuple(true, account_id, account);
+    }
+  }
+  PLOG_INFO << "Account with name " << name << " isn't found in table 'Accounts' in database";
+  return std::make_tuple(false, 0, Account());
+}
+
 //  Class member function
 //  Create table 'Categories' in database
 void DatabaseManager::CreateTableCategoriesInDatabase()

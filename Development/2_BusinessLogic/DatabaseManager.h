@@ -102,6 +102,7 @@ public:
   void RemoveTableAccountsFromDatabase();
   void InsertAccountsToTableAccountsInDatabase(AccountRepository&& repository);
   void InsertAccountToTableAccountsInDatabase(Account&& account);
+  std::tuple<bool, int, Account> FindAccountByNameInTableAccountsInDatabase(const std::string& name);
 
   void CreateTableCategoriesInDatabase();
   void RemoveTableCategoriesFromDatabase();

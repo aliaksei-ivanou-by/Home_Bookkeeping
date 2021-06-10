@@ -771,16 +771,9 @@ void FinanceRepository::PrintTags(const std::string& delimeter, std::ostream& ou
 
 //  Class member function
 //  Find account with definite name in account repository
-AccountRepositoryIterator FinanceRepository::FindAccount(std::string name) const
+std::tuple<bool, int, Account> FinanceRepository::FindAccount(const std::string& name) const
 {
-  return account_repository_.Find(name);
-}
-
-//  Class member function
-//  Find account with definite amoune in account repository
-AccountRepositoryIterator FinanceRepository::FindAccount(double amount) const
-{
-  return account_repository_.Find(amount);
+  return database_manager_->FindAccountByNameInTableAccountsInDatabase(name);
 }
 
 //  Class member function
@@ -830,62 +823,6 @@ std::tuple<bool, int, Comment, int> FinanceRepository::FindComment(const std::st
 std::tuple<bool, int, Tag, int> FinanceRepository::FindTag(const std::string& name) const
 {
   return database_manager_->FindTagByNameInTableTagsInDatabase(name);
-}
-
-//  Class member function
-//  Find transaction (shared pointer) in transaction repository
-TransactionRepositoryIterator FinanceRepository::FindTransaction(std::shared_ptr<Transaction> transaction) const
-{
-  return transaction_repository_.Find(transaction);
-}
-
-//  Class member function
-//  Find account (shared pointer) in account repository
-AccountRepositoryIterator FinanceRepository::FindAccount(std::shared_ptr<Account> account) const
-{
-  return account_repository_.Find(account);
-}
-
-//  Class member function
-//  Find category (shared pointer) in category repository
-CategoryRepositoryConstIterator FinanceRepository::FindCategory(std::shared_ptr<Category> category) const
-{
-  return category_repository_.Find(category);
-}
-
-//  Class member function
-//  Find currency (shared pointer) in currency repository
-CurrencyRepositoryIterator FinanceRepository::FindCurrency(std::shared_ptr<Currency> currency) const
-{
-  return currency_repository_.Find(currency);
-}
-
-//  Class member function
-//  Find description (shared pointer) in description repository
-DescriptionRepositoryConstIterator FinanceRepository::FindDescription(std::shared_ptr<Description> description) const
-{
-  return description_repository_.Find(description);
-}
-
-//  Class member function
-//  Find payee (shared pointer) in payee repository
-PayeeRepositoryConstIterator FinanceRepository::FindPayee(std::shared_ptr<Payee> payee) const
-{
-  return payee_repository_.Find(payee);
-}
-
-//  Class member function
-//  Find comment (shared pointer) in comment repository
-CommentRepositoryConstIterator FinanceRepository::FindComment(std::shared_ptr<Comment> comment) const
-{
-  return comment_repository_.Find(comment);
-}
-
-//  Class member function
-//  Find tag (shared pointer) in tag repository
-TagRepositoryConstIterator FinanceRepository::FindTag(std::shared_ptr<Tag> tag) const
-{
-  return tag_repository_.Find(tag);
 }
 
 //  Class member function
