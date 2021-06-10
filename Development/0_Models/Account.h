@@ -26,6 +26,7 @@
 #include <string>
 
 #include "home_bookkeeping/0_Models/Model.h"
+#include "home_bookkeeping/0_Models/Currency.h"
 
 class Account : public Model
 {
@@ -33,6 +34,7 @@ public:
   Account();
   Account(const std::string& name);
   Account(const std::string& name, double amount);
+  Account(const std::string& name, double amount, Currency currency);
   NUM GetAmount() const;
   void SetAmount(const double amount);
   void SetAmount(const NUM amount);
@@ -43,6 +45,7 @@ public:
   friend std::istream& operator>>(std::istream& input_stream, Account& model);
 private:
   NUM amount_;
+  Currency currency_;
 };
 
 #endif  //  HOMEBOOKKEEPING_0MODELS_ACCOUNT_H_

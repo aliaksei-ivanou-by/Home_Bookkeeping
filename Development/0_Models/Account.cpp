@@ -11,14 +11,24 @@ Account::Account():
 //  With name setting
 Account::Account(const std::string& name):
   Model{ name },
-  amount_{ NUM(0.0) }
+  amount_{ NUM(0.0) },
+  currency_{ Currency() }
 {}
 
 //  Constructor
 //  With name setting and amount setting
 Account::Account(const std::string& name, double amount):
   Model{ name },
-  amount_{ NUM(amount) }
+  amount_{ NUM(amount) },
+  currency_{ Currency() }
+{}
+
+//  Constructor
+//  With name setting, amount setting, currency setting
+Account::Account(const std::string& name, double amount, Currency currency) :
+  Model{ name },
+  amount_{ NUM(amount) },
+  currency_{ currency }
 {}
 
 //  Class member function
