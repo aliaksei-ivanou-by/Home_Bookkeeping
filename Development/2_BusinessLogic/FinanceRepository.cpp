@@ -190,14 +190,21 @@ void FinanceRepository::AddCategories(CategoryRepository&& categories)
 //  Add currency (default) to database
 void FinanceRepository::AddCurrency()
 {
-  
+  database_manager_->InsertCurrencyToTableCurrenciesInDatabase(Currency());
 }
 
 //  Class member function
 //  Add currency to database
-void FinanceRepository::AddCurrency(const Currency& currency)
+void FinanceRepository::AddCurrency(Currency&& currency)
 {
-  
+  database_manager_->InsertCurrencyToTableCurrenciesInDatabase(std::move(currency));
+}
+
+//  Class member function
+//  Add currencies to database
+void FinanceRepository::AddCurrencies(CurrencyRepository&& currencies)
+{
+  database_manager_->InsertCurrenciesToTableCurrenciesInDatabase(std::move(currencies));
 }
 
 //  Class member function
@@ -785,16 +792,16 @@ std::tuple<bool, int, Category, int> FinanceRepository::FindCategory(const std::
 
 //  Class member function
 //  Find currency with definite name in category repository
-CurrencyRepositoryIterator FinanceRepository::FindCurrencyName(std::string name) const
+std::tuple<bool, int, Currency> FinanceRepository::FindCurrencyByName(const std::string& name) const
 {
-  return currency_repository_.FindName(name);
+  return database_manager_->FindCurrencyByNameInTableCurrenciesInDatabase(name);
 }
 
 //  Class member function
 //  Find currency with definite code in category repository
-CurrencyRepositoryIterator FinanceRepository::FindCurrencyCode(std::string code) const
+std::tuple<bool, int, Currency> FinanceRepository::FindCurrencyByCode(const std::string& code) const
 {
-  return currency_repository_.FindCode(code);
+  return database_manager_->FindCurrencyByCodeInTableCurrenciesInDatabase(code);
 }
 
 //  Class member function

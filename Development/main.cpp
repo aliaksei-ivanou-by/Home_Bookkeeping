@@ -112,6 +112,24 @@ int main()
   account_repository.Add(account_2);
   a.AddAccounts(std::move(account_repository));
 
+  Currency currency_default;
+  Currency currency_1("Currency_1");
+  Currency currency_2("Currency_2");
+  a.AddCurrency(Currency());
+  a.AddCurrency(std::move(currency_default));
+  a.AddCurrency(std::move(currency_1));
+  a.AddCurrency(std::move(currency_2));
+  CurrencyRepository currency_repository;
+  currency_repository.Add(currency_default);
+  currency_repository.Add(currency_1);
+  currency_repository.Add(currency_2);
+  a.AddCurrencies(std::move(currency_repository));
+  bool cur_find;
+  int cur_id;
+  Currency cur_cur;
+  std::tie(cur_find, cur_id, cur_cur) = a.FindCurrencyByName("Currency_1");
+  std::tie(cur_find, cur_id, cur_cur) = a.FindCurrencyByName("Currency_2");
+
   // Window_Main win(Point(100, 100), 600, 600, "Finance System", std::make_shared<FinanceRepository>(a));
   // return gui_main();
 }

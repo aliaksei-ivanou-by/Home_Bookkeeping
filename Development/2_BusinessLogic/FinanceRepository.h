@@ -208,7 +208,8 @@ public:
   void AddCategory(Category&& category);
   void AddCategories(CategoryRepository&& categories);
   void AddCurrency();
-  void AddCurrency(const Currency& currency);
+  void AddCurrency(Currency&& currency);
+  void AddCurrencies(CurrencyRepository&& currencies);
   void AddDescription();
   void AddDescription(Description&& description);
   void AddDescriptions(DescriptionRepository&& descriptions);
@@ -286,8 +287,8 @@ public:
   AccountRepositoryIterator FindAccount(std::string name) const;
   AccountRepositoryIterator FindAccount(double amount) const;
   std::tuple<bool, int, Category, int> FindCategory(const std::string& name) const;
-  CurrencyRepositoryIterator FindCurrencyName(std::string name) const;
-  CurrencyRepositoryIterator FindCurrencyCode(std::string name) const;
+  std::tuple<bool, int, Currency> FindCurrencyByName(const std::string& name) const;
+  std::tuple<bool, int, Currency> FindCurrencyByCode(const std::string& name) const;
   std::tuple<bool, int, Description, int> FindDescription(const std::string& name) const;
   std::tuple<bool, int, Payee, int> FindPayee(const std::string& name) const;
   std::tuple<bool, int, Comment, int> FindComment(const std::string& comment) const;

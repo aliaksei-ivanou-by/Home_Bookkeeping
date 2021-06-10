@@ -527,6 +527,51 @@ void DatabaseManager::InsertCurrencyToTableCurrenciesInDatabase(Currency&& curre
 }
 
 //  Class member function
+//  Find currency with definite name in table 'Currencies' in database
+std::tuple<bool, int, Currency> DatabaseManager::FindCurrencyByNameInTableCurrenciesInDatabase(const std::string& name)
+{
+  sqlite3_prepare_v2(database_, "SELECT * FROM Currencies", -1, &database_stmt_, 0);
+  while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+  {
+    int currency_id = (sqlite3_column_int(database_stmt_, 0));
+    const unsigned char* currency_name = (sqlite3_column_text(database_stmt_, 1));
+    const unsigned char* currency_code = (sqlite3_column_text(database_stmt_, 2));
+    int currency_activity = (sqlite3_column_int(database_stmt_, 3));
+    if (reinterpret_cast<const char*>(currency_name) == name)
+    {
+      Currency currency((reinterpret_cast<const char*>(currency_name)), (reinterpret_cast<const char*>(currency_code)), currency_activity);
+      PLOG_INFO << "Currency with name " << name << " is found in table 'Currencies' in database";
+      return std::make_tuple(true, currency_id, currency);
+    }
+  }
+  PLOG_INFO << "Currency with name " << name << " isn't found in table 'Currencies' in database";
+  return std::make_tuple(false, 0, Currency());
+}
+
+//  Class member function
+//  Find currency with definite code in table 'Currencies' in database
+std::tuple<bool, int, Currency> DatabaseManager::FindCurrencyByCodeInTableCurrenciesInDatabase(const std::string& code)
+{
+  sqlite3_prepare_v2(database_, "SELECT * FROM Currencies", -1, &database_stmt_, 0);
+  while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+  {
+    int currency_id = (sqlite3_column_int(database_stmt_, 0));
+    const unsigned char* currency_name = (sqlite3_column_text(database_stmt_, 1));
+    const unsigned char* currency_code = (sqlite3_column_text(database_stmt_, 2));
+    int currency_activity = (sqlite3_column_int(database_stmt_, 3));
+    if (reinterpret_cast<const char*>(currency_code) == code)
+    {
+      Currency currency((reinterpret_cast<const char*>(currency_name)), (reinterpret_cast<const char*>(currency_code)), currency_activity);
+      PLOG_INFO << "Currency with code " << code << " is found in table 'Currencies' in database";
+      return std::make_tuple(true, currency_id, currency);
+    }
+  }
+  PLOG_INFO << "Currency with code " << code << " isn't found in table 'Currencies' in database";
+  return std::make_tuple(false, 0, Currency());
+}
+
+
+//  Class member function
 //  Create table 'Descriptions' in database
 void DatabaseManager::CreateTableDescriptionsInDatabase()
 {

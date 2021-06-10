@@ -111,6 +111,8 @@ public:
   void RemoveTableCurrenciesFromDatabase(CurrencyRepository&& repository);
   void InsertCurrenciesToTableCurrenciesInDatabase(CurrencyRepository&& repository);
   void InsertCurrencyToTableCurrenciesInDatabase(Currency&& currency);
+  std::tuple<bool, int, Currency> FindCurrencyByNameInTableCurrenciesInDatabase(const std::string& name);
+  std::tuple<bool, int, Currency> FindCurrencyByCodeInTableCurrenciesInDatabase(const std::string& code);
 
   void CreateTableDescriptionsInDatabase();
   void RemoveTableDescriptionsFromDatabase(DescriptionRepository&& repository);
