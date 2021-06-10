@@ -13,6 +13,7 @@
 //    general:
 //      calculate rows with data in table
 //      create all tables in database
+//      remove all tables from database
 //      check table for existence in database
 //      create table in database
 //      remove table from database
@@ -90,9 +91,10 @@ public:
   int SizeOfTable(const std::string& table);
 
   void CreateAllTablesInDatabase();
+  void RemoveAllTablesFromDatabase();
 
   void CreateTableTransactionsInDatabase();
-  void RemoveTableTransactionsFromDatabase(TransactionRepository&& repository);
+  void RemoveTableTransactionsFromDatabase();
   void InsertTransactionsToTableTransactionsInDatabase(TransactionRepository&& repository);
   void InsertTransactionToTableTransactionsInDatabase(Transaction&& transaction);
 
@@ -102,38 +104,38 @@ public:
   void InsertAccountToTableAccountsInDatabase(Account&& account);
 
   void CreateTableCategoriesInDatabase();
-  void RemoveTableCategoriesFromDatabase(CategoryRepository&& repository);
+  void RemoveTableCategoriesFromDatabase();
   void InsertCategoriesToTableCategoriesInDatabase(CategoryRepository&& repository);
   void InsertCategoryToTableCategoriesInDatabase(Category&& category);
   std::tuple<bool, int, Category, int> FindCategoryByNameInTableCategoriesInDatabase(const std::string& name);
 
   void CreateTableCurrenciesInDatabase();
-  void RemoveTableCurrenciesFromDatabase(CurrencyRepository&& repository);
+  void RemoveTableCurrenciesFromDatabase();
   void InsertCurrenciesToTableCurrenciesInDatabase(CurrencyRepository&& repository);
   void InsertCurrencyToTableCurrenciesInDatabase(Currency&& currency);
   std::tuple<bool, int, Currency> FindCurrencyByNameInTableCurrenciesInDatabase(const std::string& name);
   std::tuple<bool, int, Currency> FindCurrencyByCodeInTableCurrenciesInDatabase(const std::string& code);
 
   void CreateTableDescriptionsInDatabase();
-  void RemoveTableDescriptionsFromDatabase(DescriptionRepository&& repository);
+  void RemoveTableDescriptionsFromDatabase();
   void InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository);
   void InsertDescriptionToTableDescriptionsInDatabase(Description&& description);
   std::tuple<bool, int, Description, int> FindDescriptionByNameInTableDescriptionsInDatabase(const std::string& name);
 
   void CreateTablePayeesInDatabase();
-  void RemoveTablePayeesFromDatabase(PayeeRepository&& repository);
+  void RemoveTablePayeesFromDatabase();
   void InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository);
   void InsertPayeeToTablePayeesInDatabase(Payee&& payee);
   std::tuple<bool, int, Payee, int> FindPayeeByNameInTablePayeesInDatabase(const std::string& name);
 
   void CreateTableCommentsInDatabase();
-  void RemoveTableCommentsFromDatabase(CommentRepository&& repository);
+  void RemoveTableCommentsFromDatabase();
   void InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository);
   void InsertCommentToTableCommentsInDatabase(Comment&& comment);
   std::tuple<bool, int, Comment, int> FindCommentByNameInTableCommentsInDatabase(const std::string& name);
 
   void CreateTableTagsInDatabase();
-  void RemoveTableTagsFromDatabase(TagRepository&& repository);
+  void RemoveTableTagsFromDatabase();
   void InsertTagsToTableTagsInDatabase(TagRepository&& repository);
   void InsertTagToTableTagsInDatabase(Tag&& tag);
   std::tuple<bool, int, Tag, int> FindTagByNameInTableTagsInDatabase(const std::string& name);

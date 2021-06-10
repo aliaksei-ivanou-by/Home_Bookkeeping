@@ -112,7 +112,9 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
       sql_request = std::string("CREATE TABLE Accounts(") +
         "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
         "name TEXT NOT NULL" + ", " +
-        "amount DOUBLE NOT NULL" +
+        "amount DOUBLE NOT NULL" + ", " +
+        "currency INTEGER NOT NULL" + ", " +
+        "CONSTRAINT fk_currency FOREIGN KEY (currency) REFERENCES Currencies(id)" +
         ");";
     }
     if (table == "Currencies")
@@ -170,6 +172,20 @@ void DatabaseManager::CreateAllTablesInDatabase()
 }
 
 //  Class member function
+//  Remove all tables from database
+void DatabaseManager::RemoveAllTablesFromDatabase()
+{
+  RemoveTableAccountsFromDatabase();
+  RemoveTableCategoriesFromDatabase();
+  RemoveTableCurrenciesFromDatabase();
+  RemoveTableDescriptionsFromDatabase();
+  RemoveTablePayeesFromDatabase();
+  RemoveTableCommentsFromDatabase();
+  RemoveTableTagsFromDatabase();
+  RemoveTableTransactionsFromDatabase();
+}
+
+//  Class member function
 //  Create table 'Transactions' in database
 void DatabaseManager::CreateTableTransactionsInDatabase()
 {
@@ -178,7 +194,7 @@ void DatabaseManager::CreateTableTransactionsInDatabase()
 
 //  Class member function
 //  Remove table 'Transactions' from database
-void DatabaseManager::RemoveTableTransactionsFromDatabase(TransactionRepository&& repository)
+void DatabaseManager::RemoveTableTransactionsFromDatabase()
 {
   RemoveTableFromDatabase("Transactions");
 }
@@ -305,7 +321,7 @@ void DatabaseManager::CreateTableCategoriesInDatabase()
 
 //  Class member function
 //  Remove table 'Categories' from database
-void DatabaseManager::RemoveTableCategoriesFromDatabase(CategoryRepository&& repository)
+void DatabaseManager::RemoveTableCategoriesFromDatabase()
 {
   RemoveTableFromDatabase("Categories");
 }
@@ -434,7 +450,7 @@ void DatabaseManager::CreateTableCurrenciesInDatabase()
 
 //  Class member function
 //  Remove table 'Currencies' from database
-void DatabaseManager::RemoveTableCurrenciesFromDatabase(CurrencyRepository&& repository)
+void DatabaseManager::RemoveTableCurrenciesFromDatabase()
 {
   RemoveTableFromDatabase("Currencies");
 }
@@ -580,7 +596,7 @@ void DatabaseManager::CreateTableDescriptionsInDatabase()
 
 //  Class member function
 //  Remove table 'Descriptions' from database
-void DatabaseManager::RemoveTableDescriptionsFromDatabase(DescriptionRepository&& repository)
+void DatabaseManager::RemoveTableDescriptionsFromDatabase()
 {
   RemoveTableFromDatabase("Descriptions");
 }
@@ -709,7 +725,7 @@ void DatabaseManager::CreateTablePayeesInDatabase()
 
 //  Class member function
 //  Remove table 'Payees' from database
-void DatabaseManager::RemoveTablePayeesFromDatabase(PayeeRepository&& repository)
+void DatabaseManager::RemoveTablePayeesFromDatabase()
 {
   RemoveTableFromDatabase("Payees");
 }
@@ -838,7 +854,7 @@ void DatabaseManager::CreateTableCommentsInDatabase()
 
 //  Class member function
 //  Remove table 'Comments' from database
-void DatabaseManager::RemoveTableCommentsFromDatabase(CommentRepository&& repository)
+void DatabaseManager::RemoveTableCommentsFromDatabase()
 {
   RemoveTableFromDatabase("Comments");
 }
@@ -967,7 +983,7 @@ void DatabaseManager::CreateTableTagsInDatabase()
 
 //  Class member function
 //  Remove table 'Tags' from database
-void DatabaseManager::RemoveTableTagsFromDatabase(TagRepository&& repository)
+void DatabaseManager::RemoveTableTagsFromDatabase()
 {
   RemoveTableFromDatabase("Tags");
 }
