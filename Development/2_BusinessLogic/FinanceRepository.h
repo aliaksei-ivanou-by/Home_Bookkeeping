@@ -134,7 +134,7 @@
 //      Add default accounts to account repository
 //      Add default categories to category repository
 //      Add default currencies to currency repository
-//
+//    clear tables in database
 //  Variables:
 //    transaction repository
 //    category repository
@@ -303,6 +303,8 @@ public:
   void AddDefaultCategories();
   void AddDefaultAccounts();
   void AddDefaultCurrencies();
+
+  void ClearTablesInDatabase();
 private:
   TransactionRepository transaction_repository_;
   CategoryRepository category_repository_;

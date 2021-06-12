@@ -1120,3 +1120,10 @@ void FinanceRepository::AddDefaultCurrencies()
   AddCurrency({ "EURO", "EURO", false });
   PLOG_INFO << "Add to repository of Currencies default Currencies";
 }
+
+//  Class member function
+//  Clear tables in database
+void FinanceRepository::ClearTablesInDatabase()
+{
+  database_manager_->ClearAllTablesInDatabase();
+}

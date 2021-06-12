@@ -140,11 +140,11 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
 
 //  Class member function
 //  Remove table from database
-void DatabaseManager::RemoveTableFromDatabase(const std::string& table)
+void DatabaseManager::ClearTableInDatabase(const std::string& table)
 {
   if (CheckTableForExistenceInDatabase(table))
   {
-    const std::string sql_request = std::string("TRUNCATE TABLE ") + table + ";";
+    const std::string sql_request = std::string("DELETE FROM ") + table + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -152,7 +152,7 @@ void DatabaseManager::RemoveTableFromDatabase(const std::string& table)
     }
     else
     {
-      PLOG_INFO << "Remove table '" << table << "' in database";
+      PLOG_INFO << "Clear table '" << table << "' in database";
     }
   }
 }
@@ -173,16 +173,16 @@ void DatabaseManager::CreateAllTablesInDatabase()
 
 //  Class member function
 //  Remove all tables from database
-void DatabaseManager::RemoveAllTablesFromDatabase()
+void DatabaseManager::ClearAllTablesInDatabase()
 {
-  RemoveTableAccountsFromDatabase();
-  RemoveTableCategoriesFromDatabase();
-  RemoveTableCurrenciesFromDatabase();
-  RemoveTableDescriptionsFromDatabase();
-  RemoveTablePayeesFromDatabase();
-  RemoveTableCommentsFromDatabase();
-  RemoveTableTagsFromDatabase();
-  RemoveTableTransactionsFromDatabase();
+  ClearTableAccountsInDatabase();
+  ClearTableCategoriesInDatabase();
+  ClearTableCurrenciesInDatabase();
+  ClearTableDescriptionsInDatabase();
+  ClearTablePayeesInDatabase();
+  ClearTableCommentsInDatabase();
+  ClearTableTagsInDatabase();
+  ClearTableTransactionsInDatabase();
 }
 
 //  Class member function
@@ -194,9 +194,9 @@ void DatabaseManager::CreateTableTransactionsInDatabase()
 
 //  Class member function
 //  Remove table 'Transactions' from database
-void DatabaseManager::RemoveTableTransactionsFromDatabase()
+void DatabaseManager::ClearTableTransactionsInDatabase()
 {
-  RemoveTableFromDatabase("Transactions");
+  ClearTableInDatabase("Transactions");
 }
 
 //  Class member function
@@ -225,9 +225,9 @@ void DatabaseManager::CreateTableAccountsInDatabase()
 
 //  Class member function
 //  Remove table 'Accounts' from database
-void DatabaseManager::RemoveTableAccountsFromDatabase()
+void DatabaseManager::ClearTableAccountsInDatabase()
 {
-  RemoveTableFromDatabase("Accounts");
+  ClearTableInDatabase("Accounts");
 }
 
 //  Class member function
@@ -309,7 +309,6 @@ void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& account)
     }
     return;
   }
-
 }
 
 
@@ -350,9 +349,9 @@ void DatabaseManager::CreateTableCategoriesInDatabase()
 
 //  Class member function
 //  Remove table 'Categories' from database
-void DatabaseManager::RemoveTableCategoriesFromDatabase()
+void DatabaseManager::ClearTableCategoriesInDatabase()
 {
-  RemoveTableFromDatabase("Categories");
+  ClearTableInDatabase("Categories");
 }
 
 //  Class member function
@@ -479,9 +478,9 @@ void DatabaseManager::CreateTableCurrenciesInDatabase()
 
 //  Class member function
 //  Remove table 'Currencies' from database
-void DatabaseManager::RemoveTableCurrenciesFromDatabase()
+void DatabaseManager::ClearTableCurrenciesInDatabase()
 {
-  RemoveTableFromDatabase("Currencies");
+  ClearTableInDatabase("Currencies");
 }
 
 //  Class member function
@@ -625,9 +624,9 @@ void DatabaseManager::CreateTableDescriptionsInDatabase()
 
 //  Class member function
 //  Remove table 'Descriptions' from database
-void DatabaseManager::RemoveTableDescriptionsFromDatabase()
+void DatabaseManager::ClearTableDescriptionsInDatabase()
 {
-  RemoveTableFromDatabase("Descriptions");
+  ClearTableInDatabase("Descriptions");
 }
 
 //  Class member function
@@ -754,9 +753,9 @@ void DatabaseManager::CreateTablePayeesInDatabase()
 
 //  Class member function
 //  Remove table 'Payees' from database
-void DatabaseManager::RemoveTablePayeesFromDatabase()
+void DatabaseManager::ClearTablePayeesInDatabase()
 {
-  RemoveTableFromDatabase("Payees");
+  ClearTableInDatabase("Payees");
 }
 
 //  Class member function
@@ -883,9 +882,9 @@ void DatabaseManager::CreateTableCommentsInDatabase()
 
 //  Class member function
 //  Remove table 'Comments' from database
-void DatabaseManager::RemoveTableCommentsFromDatabase()
+void DatabaseManager::ClearTableCommentsInDatabase()
 {
-  RemoveTableFromDatabase("Comments");
+  ClearTableInDatabase("Comments");
 }
 
 //  Class member function
@@ -1012,9 +1011,9 @@ void DatabaseManager::CreateTableTagsInDatabase()
 
 //  Class member function
 //  Remove table 'Tags' from database
-void DatabaseManager::RemoveTableTagsFromDatabase()
+void DatabaseManager::ClearTableTagsInDatabase()
 {
-  RemoveTableFromDatabase("Tags");
+  ClearTableInDatabase("Tags");
 }
 
 //  Class member function

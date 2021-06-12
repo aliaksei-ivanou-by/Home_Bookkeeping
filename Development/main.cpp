@@ -4,6 +4,8 @@ int main()
 {
   FinanceRepository a;
 
+  a.ClearTablesInDatabase();
+
   Payee payee_default;
   Payee payee_1("Payee_1");
   Payee payee_2("Payee_2");
