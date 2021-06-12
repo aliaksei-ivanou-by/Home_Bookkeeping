@@ -39,6 +39,13 @@ NUM Account::GetAmount() const
 }
 
 //  Class member function
+//  Get currency
+Currency Account::GetCurrency() const
+{
+  return currency_;
+}
+
+//  Class member function
 //  Set amount
 void Account::SetAmount(const double amount)
 {
@@ -52,6 +59,14 @@ void Account::SetAmount(const NUM amount)
 {
   amount_ = amount;
   PLOG_INFO << "Set new amount";
+}
+
+//  Class member function
+//  Set currency
+void Account::SetCurrency(Currency&& currency)
+{
+  currency_ = std::move(currency);
+  PLOG_INFO << "Set new currency";
 }
 
 //  Class member function

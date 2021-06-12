@@ -11,8 +11,10 @@
 //  Class member functions:
 //    Get name
 //    Get amount
+//    Get currency
 //    Set name
 //    Set amount
+//    Set currency
 //    Append amount
 //    Operator < for sorting models (by name (1), amount (2))
 //    Output model (name, amount -> "name (amount)")
@@ -36,7 +38,9 @@ public:
   Account(const std::string& name, double amount);
   Account(const std::string& name, double amount, Currency currency);
   NUM GetAmount() const;
+  Currency GetCurrency() const;
   void SetAmount(const double amount);
+  void SetCurrency(Currency&& currency);
   void SetAmount(const NUM amount);
   void AppendAmount(const double amount);
   void AppendAmount(const NUM amount);
