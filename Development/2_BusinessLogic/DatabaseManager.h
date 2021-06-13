@@ -103,6 +103,8 @@ public:
   void InsertAccountsToTableAccountsInDatabase(AccountRepository&& repository);
   void InsertAccountToTableAccountsInDatabase(Account&& account);
   std::tuple<bool, int, Account> FindAccountByNameInTableAccountsInDatabase(const std::string& name);
+  void FindAccountByNameInTableAccountsInDatabaseUpdateName(const std::string& account_name, const std::string& name);
+  void FindAccountByNameInTableAccountsInDatabaseUpdateAmount(const std::string& account_name, const double amount);
 
   void CreateTableCategoriesInDatabase();
   void ClearTableCategoriesInDatabase();

@@ -361,6 +361,55 @@ std::tuple<bool, int, Account> DatabaseManager::FindAccountByNameInTableAccounts
 }
 
 //  Class member function
+//  Find account with definite name in table 'Accounts' in database and update name
+void DatabaseManager::FindAccountByNameInTableAccountsInDatabaseUpdateName(const std::string & account_name, const std::string & name)
+{
+  bool account_is_in_table = false;
+  int account_id;
+  Account account;
+  std::tie(account_is_in_table, account_id, account) = FindAccountByNameInTableAccountsInDatabase(account_name);
+  if (account_is_in_table)
+  {
+    const std::string sql_request = std::string("UPDATE Accounts SET name = '") +
+      name +
+      "' WHERE id = " + std::to_string(account_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Update name of account in table 'Accounts' in database";
+    }
+  }
+}
+
+void DatabaseManager::FindAccountByNameInTableAccountsInDatabaseUpdateAmount(const std::string& account_name, const double amount)
+{
+  bool account_is_in_table = false;
+  int account_id;
+  Account account;
+  std::tie(account_is_in_table, account_id, account) = FindAccountByNameInTableAccountsInDatabase(account_name);
+  if (account_is_in_table)
+  {
+    const std::string sql_request = std::string("UPDATE Accounts SET amount = ") +
+      std::to_string(amount) +
+      " WHERE id = " + std::to_string(account_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Update amount of account in table 'Accounts' in database";
+    }
+  }
+}
+
+
+//  Class member function
 //  Create table 'Categories' in database
 void DatabaseManager::CreateTableCategoriesInDatabase()
 {

@@ -233,8 +233,8 @@ public:
   std::string GetCommentName(CommentRepositoryIterator comment) const;
   std::string GetTagName(TagRepositoryIterator tag) const;
   //  basic->set values of model from repository
-  void SetAccountName(AccountRepositoryIterator account, const std::string& name);
-  void SetAccountAmount(AccountRepositoryIterator account, const double amount);
+  void SetAccountName(const std::string& account_name, const std::string& name);
+  void SetAccountAmount(const std::string& account_name, const double amount);
   void SetCategoryName(CategoryRepositoryIterator category, const std::string& name);
   void SetCurrencyName(CurrencyRepositoryIterator currency, const std::string& name);
   void SetCurrencyCode(CurrencyRepositoryIterator currency, const std::string& code);

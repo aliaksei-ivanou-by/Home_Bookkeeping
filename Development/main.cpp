@@ -118,6 +118,8 @@ int main()
   Account acc_acc;
   std::tie(acc_find, acc_id, acc_acc) = a.FindAccount("Account_1");
   std::tie(acc_find, acc_id, acc_acc) = a.FindAccount("Account_2");
+  a.SetAccountName("Account_1", "New_Account_1");
+  a.SetAccountAmount("New_Account_1", 255.0);
 
   Currency currency_default;
   Currency currency_1("Currency_1");

@@ -418,19 +418,17 @@ std::string FinanceRepository::GetTagName(TagRepositoryIterator tag) const
 }
 
 //  Class member function
-//  Set name of account from repository
-void FinanceRepository::SetAccountName(AccountRepositoryIterator account, const std::string& name)
+//  Set name of account in database
+void FinanceRepository::SetAccountName(const std::string& account_name, const std::string& name)
 {
-  (**account).SetName(name);
-  PLOG_INFO << "Update name of Account in repository";
+  database_manager_->FindAccountByNameInTableAccountsInDatabaseUpdateName(account_name, name);
 }
 
 //  Class member function
-//  Set amount of account from repository
-void FinanceRepository::SetAccountAmount(AccountRepositoryIterator account, const double amount)
+//  Set amount of account in database
+void FinanceRepository::SetAccountAmount(const std::string& account_name, const double amount)
 {
-  (**account).SetAmount(amount);
-  PLOG_INFO << "Update amount of Account in repository";
+  database_manager_->FindAccountByNameInTableAccountsInDatabaseUpdateAmount(account_name, amount);
 }
 
 //  Class member function
