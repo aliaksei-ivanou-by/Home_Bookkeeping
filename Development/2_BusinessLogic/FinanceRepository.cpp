@@ -13,7 +13,9 @@ FinanceRepository::FinanceRepository()
 //  Destructor
 //  Default
 FinanceRepository::~FinanceRepository()
-{}
+{
+  delete database_manager_;
+}
 
 //  Class member function
 //  Find begin iterator of transaction repository
