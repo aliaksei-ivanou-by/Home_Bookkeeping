@@ -1231,3 +1231,29 @@ std::tuple<bool, int, Tag, int> DatabaseManager::FindTagByNameInTableTagsInDatab
   PLOG_INFO << "Tag with name " << name << " isn't found in table 'Tags' in database";
   return std::make_tuple(false, 0, Tag(), 0);
 }
+
+//  Class member function
+//  Find tag with definite name in table 'Tags' in database and update name
+void DatabaseManager::FindTagByNameInTableTagsInDatabaseUpdateName(const std::string& tag_name, const std::string& name)
+{
+  bool tag_is_in_table = false;
+  int tag_id;
+  Tag tag;
+  int tag_counter;
+  std::tie(tag_is_in_table, tag_id, tag, tag_counter) = FindTagByNameInTableTagsInDatabase(tag_name);
+  if (tag_is_in_table)
+  {
+    const std::string sql_request = std::string("UPDATE Tags SET name = '") +
+      name +
+      "' WHERE id = " + std::to_string(tag_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Update name of tag in table 'Tags' in database";
+    }
+  }
+}

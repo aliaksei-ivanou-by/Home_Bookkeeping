@@ -246,7 +246,7 @@ public:
   void SetDescriptionName(DescriptionRepositoryIterator description, const std::string& name);
   void SetPayeeName(PayeeRepositoryIterator payee, const std::string& name);
   void SetCommentName(CommentRepositoryIterator comment, const std::string& name);
-  void SetTagName(TagRepositoryIterator tag, const std::string& name);
+  void SetTagName(const std::string& tag_name, const std::string& name);
   //  basic->number of elements in repository
   size_t GetTransactionsNumber() const;
   size_t GetAccountsNumber() const;

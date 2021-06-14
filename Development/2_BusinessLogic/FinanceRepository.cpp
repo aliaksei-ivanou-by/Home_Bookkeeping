@@ -522,10 +522,9 @@ void FinanceRepository::SetCommentName(CommentRepositoryIterator comment, const 
 
 //  Class member function
 //  Set name of tag from repository
-void FinanceRepository::SetTagName(TagRepositoryIterator tag, const std::string& name)
+void FinanceRepository::SetTagName(const std::string& tag_name, const std::string& name)
 {
-  tag->first->SetName(name);
-  PLOG_INFO << "Update name of Tag in repository";
+  database_manager_->FindTagByNameInTableTagsInDatabaseUpdateName(tag_name, name);
 }
 
 //  Class member function

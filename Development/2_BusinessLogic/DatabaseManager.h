@@ -143,6 +143,7 @@ public:
   void InsertTagsToTableTagsInDatabase(TagRepository&& repository);
   void InsertTagToTableTagsInDatabase(Tag&& tag);
   std::tuple<bool, int, Tag, int> FindTagByNameInTableTagsInDatabase(const std::string& name);
+  void FindTagByNameInTableTagsInDatabaseUpdateName(const std::string& tag_name, const std::string& name);
 
   bool CheckTableForExistenceInDatabase(const std::string& table);
   void CreateTableInDatabase(const std::string& table);

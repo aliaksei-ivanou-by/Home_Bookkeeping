@@ -44,25 +44,6 @@ int main()
   std::tie(com_find, com_id, com_com, com_counter) = a.FindComment("Comment_1");
   std::tie(com_find, com_id, com_com, com_counter) = a.FindComment("Comment");
 
-  Tag tag_default;
-  Tag tag_1("Tag_1");
-  Tag tag_2("Tag_2");
-  a.AddTag(Tag());
-  a.AddTag(std::move(tag_default));
-  a.AddTag(std::move(tag_1));
-  a.AddTag(std::move(tag_2));
-  TagRepository tag_repository;
-  tag_repository.Add(tag_default);
-  tag_repository.Add(tag_1);
-  tag_repository.Add(tag_2);
-  a.AddTags(std::move(tag_repository));
-  bool tag_find;
-  int tag_id;
-  Tag tag_tag;
-  int tag_counter;
-  std::tie(tag_find, tag_id, tag_tag, tag_counter) = a.FindTag("Tag_1");
-  std::tie(tag_find, tag_id, tag_tag, tag_counter) = a.FindTag("Tag");
-
   Description description_default;
   Description description_1("Description_1");
   Description description_2("Description_2");
@@ -100,26 +81,6 @@ int main()
   int cat_counter;
   std::tie(cat_find, cat_id, cat_cat, cat_counter) = a.FindCategory("Category_1");
   std::tie(cat_find, cat_id, cat_cat, cat_counter) = a.FindCategory("Category");
-
-  Account account_default;
-  Account account_1("Account_1");
-  Account account_2("Account_2");
-  a.AddAccount(Account());
-  a.AddAccount(std::move(account_default));
-  a.AddAccount(std::move(account_1));
-  a.AddAccount(std::move(account_2));
-  AccountRepository account_repository;
-  account_repository.Add(account_default);
-  account_repository.Add(account_1);
-  account_repository.Add(account_2);
-  a.AddAccounts(std::move(account_repository));
-  bool acc_find;
-  int acc_id;
-  Account acc_acc;
-  std::tie(acc_find, acc_id, acc_acc) = a.FindAccount("Account_1");
-  std::tie(acc_find, acc_id, acc_acc) = a.FindAccount("Account_2");
-  a.SetAccountName("Account_1", "New_Account_1");
-  a.SetAccountAmount("New_Account_1", 255.0);
 
   Currency currency_default;
   Currency currency_1("Currency_1");
