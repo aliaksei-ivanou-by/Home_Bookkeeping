@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
 
-FinanceRepository repository;
+extern FinanceRepository repository;
 
 TEST(AccountTest, TestDefault)
 {
@@ -77,12 +77,12 @@ TEST(AccountTest, TestWithRenameAndReamountAndRecurrency)
 
   //  Act
   repository.ClearTablesInDatabase();
-  repository.AddAccount(Account("Account", 15.0));
+  repository.AddAccount(Account("Unspecified_account", 15.0));
   bool repository_is_in_table;
   int repository_account_id;
   Account repository_account;
-  std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Unspecified");
-  repository.SetAccountName("Unspecified", "Account");
+  std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Unspecified_account");
+  repository.SetAccountName("Unspecified_account", "Account");
   repository.SetAccountAmount("Account", 15.0);
   repository.SetAccountCurrency("Account", Currency("BYN"));
   std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Account");
