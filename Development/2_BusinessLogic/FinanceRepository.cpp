@@ -442,10 +442,9 @@ void FinanceRepository::SetAccountCurrency(const std::string& account_name, Curr
 
 //  Class member function
 //  Set name of category from repository
-void FinanceRepository::SetCategoryName(CategoryRepositoryIterator category, const std::string& name)
+void FinanceRepository::SetCategoryName(const std::string& category_name, const std::string& name)
 {
-  category->first->SetName(name);
-  PLOG_INFO << "Update name of Category in repository";
+  database_manager_->FindCategoryByNameInTableCategoriesInDatabaseUpdateName(category_name, name);
 }
 
 //  Class member function

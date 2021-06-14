@@ -571,6 +571,32 @@ std::tuple<bool, int, Category, int> DatabaseManager::FindCategoryByNameInTableC
 }
 
 //  Class member function
+//  Find category with definite name in table 'Categories' in database and update name
+void DatabaseManager::FindCategoryByNameInTableCategoriesInDatabaseUpdateName(const std::string& category_name, const std::string& name)
+{
+  bool category_is_in_table = false;
+  int category_id;
+  Category category;
+  int category_counter;
+  std::tie(category_is_in_table, category_id, category, category_counter) = FindCategoryByNameInTableCategoriesInDatabase(category_name);
+  if (category_is_in_table)
+  {
+    const std::string sql_request = std::string("UPDATE Categories SET name = '") +
+      name +
+      "' WHERE id = " + std::to_string(category_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Update name of category in table 'Categories' in database";
+    }
+  }
+}
+
+//  Class member function
 //  Create table 'Currencies' in database
 void DatabaseManager::CreateTableCurrenciesInDatabase()
 {
