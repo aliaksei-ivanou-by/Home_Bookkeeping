@@ -5,7 +5,7 @@
 FinanceRepository::FinanceRepository()
 {
   std::string file = "log_" + Time().GetStringTime() + ".txt";
-  plog::init(plog::info, std::move(file.c_str()));
+  plog::init(plog::info, file.c_str());
   PLOG_INFO << "Logger init";
   database_manager_ = new DatabaseManager();
 }
