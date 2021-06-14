@@ -150,6 +150,22 @@ bool operator<(const Currency& model_left, const Currency& model_right)
 }
 
 //  Friend class member function
+//  Operator == for equals models (by name (1), code (2), activity (3))
+bool operator==(const Currency& model_left, const Currency& model_right)
+{
+  return ((model_left.GetName() == model_right.GetName()) &&
+    (model_left.code_ == model_right.code_) &&
+    (model_left.activity_ == model_right.activity_));
+}
+
+//  Friend class member function
+//  Operator != for equals models (by name (1), code (2), activity (3))
+bool operator!=(const Currency& model_left, const Currency& model_right)
+{
+  return (!(model_left == model_right));
+}
+
+//  Friend class member function
 //  Output model (name, code, activity -> "name (code, activity)")
 std::ostream& operator<<(std::ostream& outputStream, const Currency& model)
 {

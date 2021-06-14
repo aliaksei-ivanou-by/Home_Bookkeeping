@@ -11,6 +11,7 @@
 //    Get name
 //    Set name
 //    Operator < for sorting models (by name)
+//    Operator == for equals models (by name)
 //    Output model (name)
 //    Input model (name)
 //
@@ -34,6 +35,7 @@ public:
   virtual std::string GetName() const;
   virtual void SetName(const std::string& name);
   friend bool operator<(const Model& model_left, const Model& model_right);
+  friend bool operator==(const Model& model_left, const Model& model_right);
   friend std::ostream& operator<<(std::ostream& output_stream, const Model& model);
   friend std::istream& operator>>(std::istream& input_stream, Model& model);
 private:

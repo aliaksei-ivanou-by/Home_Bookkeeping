@@ -23,6 +23,8 @@
 //    Switch off activity
 //    Set precision
 //    Operator < for sorting models (by name (1), code (2), activity (3))
+//    Operator == for eqials models (by name (1), code (2), activity (3))
+//    Operator != for eqials models (by name (1), code (2), activity (3))
 //    Output model (name, code, activity -> "name (code, activity)")
 //    Input model (name, code, activity -> "name, amount, activity, precision")
 //
@@ -55,6 +57,8 @@ public:
   void SwitchOff();
   void SetPrecision(const int precision);
   friend bool operator<(const Currency& model_left, const Currency& model_right);
+  friend bool operator==(const Currency& model_left, const Currency& model_right);
+  friend bool operator!=(const Currency& model_left, const Currency& model_right);
   friend std::ostream& operator<<(std::ostream& output_stream, const Currency& model);
   friend std::istream& operator>>(std::istream& input_stream, Currency& model);
 private:
