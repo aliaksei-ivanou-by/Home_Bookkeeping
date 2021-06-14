@@ -235,6 +235,7 @@ public:
   //  basic->set values of model from repository
   void SetAccountName(const std::string& account_name, const std::string& name);
   void SetAccountAmount(const std::string& account_name, const double amount);
+  void SetAccountCurrency(const std::string& account_name, Currency&& currency);
   void SetCategoryName(CategoryRepositoryIterator category, const std::string& name);
   void SetCurrencyName(CurrencyRepositoryIterator currency, const std::string& name);
   void SetCurrencyCode(CurrencyRepositoryIterator currency, const std::string& code);

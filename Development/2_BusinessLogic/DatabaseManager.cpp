@@ -408,6 +408,38 @@ void DatabaseManager::FindAccountByNameInTableAccountsInDatabaseUpdateAmount(con
   }
 }
 
+void DatabaseManager::FindAccountByNameInTableAccountsInDatabaseUpdateCurrency(const std::string& account_name, Currency&& currency)
+{
+  bool currency_is_in_table = false;
+  int currency_id;
+  Currency currency_in_table;
+  std::tie(currency_is_in_table, currency_id, currency_in_table) = FindCurrencyByNameInTableCurrenciesInDatabase(currency.GetName());
+  if (!currency_is_in_table)
+  {
+    InsertCurrencyToTableCurrenciesInDatabase(std::move(currency));
+    std::tie(currency_is_in_table, currency_id, currency_in_table) = FindCurrencyByNameInTableCurrenciesInDatabase(currency.GetName());
+  }
+  bool account_is_in_table = false;
+  int account_id;
+  Account account;
+  std::tie(account_is_in_table, account_id, account) = FindAccountByNameInTableAccountsInDatabase(account_name);
+  if (account_is_in_table)
+  {
+    const std::string sql_request = std::string("UPDATE Accounts SET currency = ") +
+      std::to_string(currency_id) +
+      " WHERE id = " + std::to_string(account_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Update amount of account in table 'Accounts' in database";
+    }
+  }
+}
+
 
 //  Class member function
 //  Create table 'Categories' in database

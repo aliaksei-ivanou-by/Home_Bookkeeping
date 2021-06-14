@@ -434,6 +434,13 @@ void FinanceRepository::SetAccountAmount(const std::string& account_name, const 
 }
 
 //  Class member function
+//  Set currency of account in database
+void FinanceRepository::SetAccountCurrency(const std::string& account_name, Currency&& currency)
+{
+  database_manager_->FindAccountByNameInTableAccountsInDatabaseUpdateCurrency(account_name, std::move(currency));
+}
+
+//  Class member function
 //  Set name of category from repository
 void FinanceRepository::SetCategoryName(CategoryRepositoryIterator category, const std::string& name)
 {
