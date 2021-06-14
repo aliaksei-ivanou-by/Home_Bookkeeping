@@ -1,100 +1,67 @@
-#include "pch.h"
+﻿#include "pch.h"
 
 TEST(AccountTest, TestDefault)
 {
   //  Arrange
-  std::string name_expected = "Unspecified";
-  std::string name_repository = "";
-  double amount_expected = 0.0;
-  double amount_repository = DBL_MIN;
+  std::string expected_name = "Unspecified";
+  double expected_amount = 0.0;
 
   //  Act
-  FinanceRepository rep;
-  rep.AddAccount();
-  auto iterator_name = rep.FindAccount("Unspecified");
-  if (iterator_name != rep.EndAccountRepository())
-  {
-    name_repository = rep.GetAccountName(iterator_name);
-  }
-  auto iterator_amount = rep.FindAccount("Unspecified");
-  if (iterator_amount != rep.EndAccountRepository())
-  {
-    amount_repository = rep.GetAccountAmount(iterator_amount);
-  }
+  FinanceRepository repository;
+  //repository.ClearTablesInDatabase();
+  //repository.AddAccount();
+  //bool repository_is_in_table;
+ // int repository_account_id;
+ // Account repository_account;
+ // std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Unspecified");
 
   //  Assert
-  EXPECT_EQ(name_expected, name_repository);
-  EXPECT_EQ(amount_expected, amount_repository);
+  //EXPECT_EQ(repository_is_in_table, true);
+  //EXPECT_EQ(expected_name, repository_account.GetName());
+  //EXPECT_EQ(expected_amount, repository_account.GetAmount().getAsDouble());
 }
 
 TEST(AccountTest, TestDefaultWithRenameAndReamount)
 {
   //  Arrange
-  std::string name_expected = "Unspecified";
-  std::string name_expected_rename = "UnspecifiedRename";
-  std::string name_repository = "";
-  std::string name_repository_rename = "";
-  double amount_expected = 0.0;
-  double amount_expected_rename = 20.0;
-  double amount_repository = DBL_MIN;
-  double amount_repository_rename = DBL_MIN;
+  std::string expected_name = "Account";
+  double expected_amount = 20.0;
 
   //  Act
-  FinanceRepository rep;
-  rep.AddAccount();
-  auto iterator_name = rep.FindAccount("Unspecified");
-  if (iterator_name != rep.EndAccountRepository())
-  {
-    name_repository = rep.GetAccountName(iterator_name);
-  }
-  auto iterator_amount = rep.FindAccount("Unspecified");
-  if (iterator_amount != rep.EndAccountRepository())
-  {
-    amount_repository = rep.GetAccountAmount(iterator_amount);
-  }
-  rep.SetAccountName(iterator_name, "UnspecifiedRename");
-  auto iterator_name_rename = rep.FindAccount("UnspecifiedRename");
-  if (iterator_name_rename != rep.EndAccountRepository())
-  {
-    name_repository_rename = rep.GetAccountName(iterator_name_rename);
-  }
-  rep.SetAccountAmount(iterator_name, 20.0);
-  auto iterator_amount_rename = rep.FindAccount("UnspecifiedRename");
-  if (iterator_amount_rename != rep.EndAccountRepository())
-  {
-    amount_repository_rename = rep.GetAccountAmount(iterator_name_rename);
-  }
+  FinanceRepository repository;
+  repository.ClearTablesInDatabase();
+  repository.AddAccount();
+  bool repository_is_in_table;
+  int repository_account_id;
+  Account repository_account;
+  std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Unspecified");
+  repository.SetAccountName("Unspecified", "Account");
+  repository.SetAccountAmount("Account", 20.0);
+  std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Account");
 
   //  Assert
-  EXPECT_EQ(name_expected, name_repository);
-  EXPECT_EQ(amount_expected, amount_repository);
-  EXPECT_EQ(name_expected_rename, name_repository_rename);
-  EXPECT_EQ(amount_expected_rename, amount_repository_rename);
+  EXPECT_EQ(repository_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_account.GetName());
+  EXPECT_EQ(expected_amount, repository_account.GetAmount().getAsDouble());
 }
 
 TEST(AccountTest, TestNameAndAmount)
 {
   //  Arrange
-  std::string name_expected = "Name";
-  std::string name_repository = "";
-  double amount_expected = 15.0;
-  double amount_repository = DBL_MIN;
+  std::string expected_name = "Account";
+  double expected_amount = 15.0;
 
   //  Act
-  FinanceRepository rep;
-  rep.AddAccount({ "Name", 15.0 });
-  auto iterator_name = rep.FindAccount("Name");
-  if (iterator_name != rep.EndAccountRepository())
-  {
-    name_repository = rep.GetAccountName(iterator_name);
-  }
-  auto iterator_amount = rep.FindAccount("Name");
-  if (iterator_amount != rep.EndAccountRepository())
-  {
-    amount_repository = rep.GetAccountAmount(iterator_amount);
-  }
+  FinanceRepository repository;
+  repository.ClearTablesInDatabase();
+  repository.AddAccount(Account("Account", 15.0));
+  bool repository_is_in_table;
+  int repository_account_id;
+  Account repository_account;
+  std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Unspecified");
 
   //  Assert
-  EXPECT_EQ(name_expected, name_repository);
-  EXPECT_EQ(amount_expected, amount_repository);
+  EXPECT_EQ(repository_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_account.GetName());
+  EXPECT_EQ(expected_amount, repository_account.GetAmount().getAsDouble());
 }
