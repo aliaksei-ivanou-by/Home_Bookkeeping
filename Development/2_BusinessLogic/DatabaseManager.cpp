@@ -872,6 +872,32 @@ std::tuple<bool, int, Description, int> DatabaseManager::FindDescriptionByNameIn
 }
 
 //  Class member function
+//  Find description with definite name in table 'Descriptions' in database and update name
+void DatabaseManager::FindDescriptionByNameInTableDescriptionsInDatabaseUpdateName(const std::string& model_name, const std::string& name)
+{
+  bool model_is_in_table = false;
+  int model_id;
+  Description model;
+  int model_counter;
+  std::tie(model_is_in_table, model_id, model, model_counter) = FindDescriptionByNameInTableDescriptionsInDatabase(model_name);
+  if (model_is_in_table)
+  {
+    const std::string sql_request = std::string("UPDATE Descriptions SET name = '") +
+      name +
+      "' WHERE id = " + std::to_string(model_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Update name of description in table 'Descriptions' in database";
+    }
+  }
+}
+
+//  Class member function
 //  Create table 'Payees' in database
 void DatabaseManager::CreateTablePayeesInDatabase()
 {

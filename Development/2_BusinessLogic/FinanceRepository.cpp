@@ -497,10 +497,9 @@ void FinanceRepository::SwitchOffCurrencyActivity(CurrencyRepositoryIterator cur
 
 //  Class member function
 //  Set name of description from repository
-void FinanceRepository::SetDescriptionName(DescriptionRepositoryIterator description, const std::string& name)
+void FinanceRepository::SetDescriptionName(const std::string& model_name, const std::string& name)
 {
-  description->first->SetName(name);
-  PLOG_INFO << "Update name of Description in repository";
+  database_manager_->FindDescriptionByNameInTableDescriptionsInDatabaseUpdateName(model_name, name);
 }
 
 //  Class member function

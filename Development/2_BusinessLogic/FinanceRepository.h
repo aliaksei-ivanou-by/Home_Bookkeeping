@@ -243,7 +243,7 @@ public:
   void SwitchCurrencyActivity(CurrencyRepositoryIterator currency);
   void SwitchOnCurrencyActivity(CurrencyRepositoryIterator currency);
   void SwitchOffCurrencyActivity(CurrencyRepositoryIterator currency);
-  void SetDescriptionName(DescriptionRepositoryIterator description, const std::string& name);
+  void SetDescriptionName(const std::string& model_name, const std::string& name);
   void SetPayeeName(const std::string& payee_name, const std::string& name);
   void SetCommentName(const std::string& comment_name, const std::string& name);
   void SetTagName(const std::string& tag_name, const std::string& name);

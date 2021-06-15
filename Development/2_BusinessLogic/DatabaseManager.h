@@ -126,6 +126,7 @@ public:
   void InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository);
   void InsertDescriptionToTableDescriptionsInDatabase(Description&& description);
   std::tuple<bool, int, Description, int> FindDescriptionByNameInTableDescriptionsInDatabase(const std::string& name);
+  void FindDescriptionByNameInTableDescriptionsInDatabaseUpdateName(const std::string& model_name, const std::string& name);
 
   void CreateTablePayeesInDatabase();
   void ClearTablePayeesInDatabase();
