@@ -245,7 +245,7 @@ public:
   void SwitchOffCurrencyActivity(CurrencyRepositoryIterator currency);
   void SetDescriptionName(DescriptionRepositoryIterator description, const std::string& name);
   void SetPayeeName(const std::string& payee_name, const std::string& name);
-  void SetCommentName(CommentRepositoryIterator comment, const std::string& name);
+  void SetCommentName(const std::string& comment_name, const std::string& name);
   void SetTagName(const std::string& tag_name, const std::string& name);
   //  basic->number of elements in repository
   size_t GetTransactionsNumber() const;

@@ -1156,6 +1156,32 @@ std::tuple<bool, int, Comment, int> DatabaseManager::FindCommentByNameInTableCom
 }
 
 //  Class member function
+//  Find comment with definite name in table 'Comments' in database and update name
+void DatabaseManager::FindCommentByNameInTableCommentsInDatabaseUpdateName(const std::string& comment_name, const std::string& name)
+{
+  bool comment_is_in_table = false;
+  int comment_id;
+  Comment comment;
+  int comment_counter;
+  std::tie(comment_is_in_table, comment_id, comment, comment_counter) = FindCommentByNameInTableCommentsInDatabase(comment_name);
+  if (comment_is_in_table)
+  {
+    const std::string sql_request = std::string("UPDATE Comments SET name = '") +
+      name +
+      "' WHERE id = " + std::to_string(comment_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Update name of comment in table 'Comments' in database";
+    }
+  }
+}
+
+//  Class member function
 //  Create table 'Tags' in database
 void DatabaseManager::CreateTableTagsInDatabase()
 {

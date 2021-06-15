@@ -139,6 +139,7 @@ public:
   void InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository);
   void InsertCommentToTableCommentsInDatabase(Comment&& comment);
   std::tuple<bool, int, Comment, int> FindCommentByNameInTableCommentsInDatabase(const std::string& name);
+  void FindCommentByNameInTableCommentsInDatabaseUpdateName(const std::string& comment_name, const std::string& name);
 
   void CreateTableTagsInDatabase();
   void ClearTableTagsInDatabase();

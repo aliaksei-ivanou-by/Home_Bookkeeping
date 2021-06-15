@@ -512,10 +512,9 @@ void FinanceRepository::SetPayeeName(const std::string& payee_name, const std::s
 
 //  Class member function
 //  Set name of comment from repository
-void FinanceRepository::SetCommentName(CommentRepositoryIterator comment, const std::string& name)
+void FinanceRepository::SetCommentName(const std::string& comment_name, const std::string& name)
 {
-  comment->first->SetName(name);
-  PLOG_INFO << "Update name of Comment in repository";
+  database_manager_->FindCommentByNameInTableCommentsInDatabaseUpdateName(comment_name, name);
 }
 
 //  Class member function
