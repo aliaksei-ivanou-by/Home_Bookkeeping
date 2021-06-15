@@ -132,6 +132,7 @@ public:
   void InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository);
   void InsertPayeeToTablePayeesInDatabase(Payee&& payee);
   std::tuple<bool, int, Payee, int> FindPayeeByNameInTablePayeesInDatabase(const std::string& name);
+  void FindPayeeByNameInTablePayeesInDatabaseUpdateName(const std::string& payee_name, const std::string& name);
 
   void CreateTableCommentsInDatabase();
   void ClearTableCommentsInDatabase();

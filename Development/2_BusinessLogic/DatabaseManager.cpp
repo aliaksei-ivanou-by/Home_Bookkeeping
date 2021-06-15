@@ -980,7 +980,7 @@ void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
 }
 
 //  Class member function
-//  Find payee with definite name in table 'Comments' in database
+//  Find payee with definite name in table 'Payees' in database
 std::tuple<bool, int, Payee, int> DatabaseManager::FindPayeeByNameInTablePayeesInDatabase(const std::string& name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Payees", -1, &database_stmt_, 0);
@@ -998,6 +998,32 @@ std::tuple<bool, int, Payee, int> DatabaseManager::FindPayeeByNameInTablePayeesI
   }
   PLOG_INFO << "Payee with name " << name << " isn't found in table 'Payees' in database";
   return std::make_tuple(false, 0, Payee(), 0);
+}
+
+//  Class member function
+//  Find payee with definite name in table 'Payees' in database and update name
+void DatabaseManager::FindPayeeByNameInTablePayeesInDatabaseUpdateName(const std::string& payee_name, const std::string& name)
+{
+  bool payee_is_in_table = false;
+  int payee_id;
+  Payee payee;
+  int payee_counter;
+  std::tie(payee_is_in_table, payee_id, payee, payee_counter) = FindPayeeByNameInTablePayeesInDatabase(payee_name);
+  if (payee_is_in_table)
+  {
+    const std::string sql_request = std::string("UPDATE Payees SET name = '") +
+      name +
+      "' WHERE id = " + std::to_string(payee_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Update name of payee in table 'Payees' in database";
+    }
+  }
 }
 
 //  Class member function

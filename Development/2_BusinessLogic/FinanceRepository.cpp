@@ -505,10 +505,9 @@ void FinanceRepository::SetDescriptionName(DescriptionRepositoryIterator descrip
 
 //  Class member function
 //  Set name of payee from repository
-void FinanceRepository::SetPayeeName(PayeeRepositoryIterator payee, const std::string& name)
+void FinanceRepository::SetPayeeName(const std::string& payee_name, const std::string& name)
 {
-  payee->first->SetName(name);
-  PLOG_INFO << "Update name of Payee in repository";
+  database_manager_->FindPayeeByNameInTablePayeesInDatabaseUpdateName(payee_name, name);
 }
 
 //  Class member function
