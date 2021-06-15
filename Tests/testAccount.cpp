@@ -5,21 +5,21 @@ extern FinanceRepository repository;
 TEST(AccountTest, TestDefault)
 {
   //  Arrange
-  std::string expected_name = "Unspecified";
+  std::string expected_name = Account().GetName();
   double expected_amount = 0.0;
 
   //  Act
   repository.ClearTablesInDatabase();
   repository.AddAccount();
-  bool repository_is_in_table;
-  int repository_account_id;
-  Account repository_account;
-  std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Unspecified");
+  bool repository_model_is_in_table;
+  int repository_model_id;
+  Account repository_model;
+  std::tie(repository_model_is_in_table, repository_model_id, repository_model) = repository.FindAccount(expected_name);
 
   //  Assert
-  EXPECT_EQ(repository_is_in_table, true);
-  EXPECT_EQ(expected_name, repository_account.GetName());
-  EXPECT_EQ(expected_amount, repository_account.GetAmount().getAsDouble());
+  EXPECT_EQ(repository_model_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_model.GetName());
+  EXPECT_EQ(expected_amount, repository_model.GetAmount().getAsDouble());
 }
 
 TEST(AccountTest, TestDefaultWithRenameAndReamount)
@@ -31,18 +31,21 @@ TEST(AccountTest, TestDefaultWithRenameAndReamount)
   //  Act
   repository.ClearTablesInDatabase();
   repository.AddAccount();
-  bool repository_is_in_table;
-  int repository_account_id;
-  Account repository_account;
-  std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Unspecified");
-  repository.SetAccountName("Unspecified", "Account");
-  repository.SetAccountAmount("Account", 20.0);
-  std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Account");
+  bool repository_model_is_in_table;
+  int repository_model_id;
+  Account repository_model;
+  std::tie(repository_model_is_in_table, repository_model_id, repository_model) = repository.FindAccount(Account().GetName());
+  if (repository_model_is_in_table)
+  {
+    repository.SetAccountName("Unspecified", expected_name);
+    repository.SetAccountAmount(expected_name, expected_amount);
+    std::tie(repository_model_is_in_table, repository_model_id, repository_model) = repository.FindAccount(expected_name);
+  }
 
   //  Assert
-  EXPECT_EQ(repository_is_in_table, true);
-  EXPECT_EQ(expected_name, repository_account.GetName());
-  EXPECT_EQ(expected_amount, repository_account.GetAmount().getAsDouble());
+  EXPECT_EQ(repository_model_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_model.GetName());
+  EXPECT_EQ(expected_amount, repository_model.GetAmount().getAsDouble());
 }
 
 TEST(AccountTest, TestWithRenameAndReamount)
@@ -53,19 +56,22 @@ TEST(AccountTest, TestWithRenameAndReamount)
 
   //  Act
   repository.ClearTablesInDatabase();
-  repository.AddAccount(Account("Account", 15.0));
-  bool repository_is_in_table;
-  int repository_account_id;
-  Account repository_account;
-  std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Unspecified");
-  repository.SetAccountName("Unspecified", "Account");
-  repository.SetAccountAmount("Account", 15.0);
-  std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Account");
+  repository.AddAccount(Account("Account_Old", 10.0));
+  bool repository_model_is_in_table;
+  int repository_model_id;
+  Account repository_model;
+  std::tie(repository_model_is_in_table, repository_model_id, repository_model) = repository.FindAccount("Account_Old");
+  if (repository_model_is_in_table)
+  {
+    repository.SetAccountName("Account_Old", expected_name);
+    repository.SetAccountAmount(expected_name, expected_amount);
+    std::tie(repository_model_is_in_table, repository_model_id, repository_model) = repository.FindAccount(expected_name);
+  }
 
   //  Assert
-  EXPECT_EQ(repository_is_in_table, true);
-  EXPECT_EQ(expected_name, repository_account.GetName());
-  EXPECT_EQ(expected_amount, repository_account.GetAmount().getAsDouble());
+  EXPECT_EQ(repository_model_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_model.GetName());
+  EXPECT_EQ(expected_amount, repository_model.GetAmount().getAsDouble());
 }
 
 TEST(AccountTest, TestWithRenameAndReamountAndRecurrency)
@@ -77,19 +83,22 @@ TEST(AccountTest, TestWithRenameAndReamountAndRecurrency)
 
   //  Act
   repository.ClearTablesInDatabase();
-  repository.AddAccount(Account("Unspecified_account", 15.0));
+  repository.AddAccount(Account("Account_Old", 15.0));
   bool repository_is_in_table;
-  int repository_account_id;
-  Account repository_account;
-  std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Unspecified_account");
-  repository.SetAccountName("Unspecified_account", "Account");
-  repository.SetAccountAmount("Account", 15.0);
-  repository.SetAccountCurrency("Account", Currency("BYN"));
-  std::tie(repository_is_in_table, repository_account_id, repository_account) = repository.FindAccount("Account");
+  int repository_model_id;
+  Account repository_model;
+  std::tie(repository_is_in_table, repository_model_id, repository_model) = repository.FindAccount("Account_Old");
+  if (repository_is_in_table)
+  {
+    repository.SetAccountName("Account_Old", expected_name);
+    repository.SetAccountAmount(expected_name, expected_amount);
+    repository.SetAccountCurrency(expected_name, std::move(expected_currency));
+    std::tie(repository_is_in_table, repository_model_id, repository_model) = repository.FindAccount(expected_name);
+  }
 
   //  Assert
   EXPECT_EQ(repository_is_in_table, true);
-  EXPECT_EQ(expected_name, repository_account.GetName());
-  EXPECT_EQ(expected_amount, repository_account.GetAmount().getAsDouble());
-  EXPECT_EQ(expected_currency, repository_account.GetCurrency());
+  EXPECT_EQ(expected_name, repository_model.GetName());
+  EXPECT_EQ(expected_amount, repository_model.GetAmount().getAsDouble());
+  EXPECT_EQ(expected_currency, repository_model.GetCurrency());
 }
