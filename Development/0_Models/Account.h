@@ -16,7 +16,9 @@
 //    Set amount
 //    Set currency
 //    Append amount
-//    Operator < for sorting models (by name (1), amount (2))
+//    Operator < for comparing models (by name (1), amount (2), currency (3))
+//    Operator == for comparing models (by name, amount, currency)
+//    Operator != for comparing models (by name, amount, currency)
 //    Output model (name, amount -> "name (amount)")
 //    Input model (name, amount -> "name, amount")
 //
@@ -35,8 +37,8 @@ class Account : public Model
 public:
   Account();
   Account(const std::string& name);
-  Account(const std::string& name, double amount);
-  Account(const std::string& name, double amount, Currency currency);
+  Account(const std::string& name, const double amount);
+  Account(const std::string& name, const double amount, const Currency& currency);
   NUM GetAmount() const;
   Currency GetCurrency() const;
   void SetAmount(const double amount);
@@ -45,6 +47,8 @@ public:
   void AppendAmount(const double amount);
   void AppendAmount(const NUM amount);
   friend bool operator<(const Account& model_left, const Account& model_right);
+  friend bool operator==(const Account& model_left, const Account& model_right);
+  friend bool operator!=(const Account& model_left, const Account& model_right);
   friend std::ostream& operator<<(std::ostream& output_stream, const Account& model);
   friend std::istream& operator>>(std::istream& input_stream, Account& model);
 private:

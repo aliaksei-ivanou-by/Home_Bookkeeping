@@ -12,9 +12,9 @@
 //    Set name
 //    Get type
 //    Set type
+//    Operator < for comparing types (by type)
 //    Operator == for comparing types (by type)
 //    Operator != for comparing types (by type)
-//    Operator < for sorting types (by type)
 //    Output model (name)
 //    Input model (name)
 //
@@ -42,9 +42,9 @@ public:
   void SetName(const std::string& name) override;
   kEnumType GetType() const;
   void SetType(const kEnumType& type);
-  bool operator==(const Type& type) const;
-  bool operator!=(const Type& type) const;
   friend bool operator<(const Type& type_left, const Type& type_right);
+  friend bool operator==(const Type& type_left, const Type& type_right);
+  friend bool operator!=(const Type& type_left, const Type& type_right);
   friend std::istream& operator>>(std::istream& input_stream, Type& model);
 private:
   kEnumType type_;

@@ -5,8 +5,7 @@
 Currency::Currency():
   Model{ },
   code_{ "Unspecified" },
-  activity_{ false },
-  precision_{ 2 }
+  activity_{ false }
 {}
 
 //  Constructor
@@ -14,8 +13,7 @@ Currency::Currency():
 Currency::Currency(const std::string& name):
   Model{ name },
   code_{ "Unspecified" },
-  activity_{ false },
-  precision_{ 2 }
+  activity_{ false }
 {}
 
 //  Constructor
@@ -23,26 +21,15 @@ Currency::Currency(const std::string& name):
 Currency::Currency(const std::string& name, const std::string& code):
   Model{ name },
   code_{ code },
-  activity_{ true },
-  precision_{ 2 }
+  activity_{ true }
 {}
 
 //  Constructor
 //  With name setting, code setting and activity setting
-Currency::Currency(const std::string& name, const std::string& code, bool activity):
+Currency::Currency(const std::string& name, const std::string& code, const bool activity):
   Model{ name },
   code_{ code },
-  activity_{ activity },
-  precision_{ 2 }
-{}
-
-//  Constructor
-//  With name setting, code setting, activity setting and precision setting
-Currency::Currency(const std::string& name, const std::string& code, bool activity, int precision):
-  Model{ name },
-  code_{ code },
-  activity_{ activity },
-  precision_{ precision }
+  activity_{ activity }
 {}
 
 //  Class member function
@@ -57,13 +44,6 @@ std::string Currency::GetCode() const
 bool Currency::GetActivity() const
 {
   return activity_;
-}
-
-//  Class member function
-//  Get precision
-int Currency::GetPrecision() const
-{
-  return precision_;
 }
 
 //  Class member function
@@ -104,14 +84,6 @@ void Currency::SwitchOff()
 {
   activity_ = false;
   PLOG_INFO << "Switch off activity";
-}
-
-//  Class member function
-//  Set precision
-void Currency::SetPrecision(const int precision)
-{
-  precision_ = precision;
-  PLOG_INFO << "Set new precision";
 }
 
 //  Friend class member function
@@ -228,12 +200,5 @@ std::istream& operator>>(std::istream& input_stream, Currency& model)
     activity = ch;
   }
   model.SetActivity(activity);
-  int precision;
-  input_stream >> precision;
-  if (!input_stream)
-  {
-    return input_stream;
-  }
-  model.SetPrecision(precision);
   return input_stream;
 }

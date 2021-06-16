@@ -73,7 +73,7 @@
 //    Set status (shared pointer)
 //    Set type (shared pointer)
 //    Copy assignment operator
-//    Operator < for sorting models (by time)
+//    Operator < for comparing models (by time)
 //    Output model (time \t account from \t category \t amount \t currency)
 //
 //  Variables:

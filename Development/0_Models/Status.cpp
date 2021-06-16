@@ -43,24 +43,24 @@ void Status::SetStatus(const kEnumStatus& status)
 }
 
 //  Class member function
-//  Operator == for comparing statuses (by status)
-bool Status::operator==(const Status& status) const
-{
-  return status_ == status.status_;
-}
-
-//  Class member function
-//  Operator != for comparing statuses (by status)
-bool Status::operator!=(const Status& status) const
-{
-  return !(*this == status);
-}
-
-//  Class member function
 //  Operator < for sorting statuses (by status)
 bool operator<(const Status& status_left, const Status& status_right)
 {
   return status_left.status_ < status_right.status_;
+}
+
+//  Class member function
+//  Operator == for comparing statuses (by status)
+bool operator==(const Status& status_left, const Status& status_right)
+{
+  return status_left.status_ == status_right.status_;
+}
+
+//  Class member function
+//  Operator != for comparing statuses (by status)
+bool operator!=(const Status& status_left, const Status& status_right)
+{
+  return !(status_left.status_ == status_right.status_);
 }
 
 //  Friend class member function

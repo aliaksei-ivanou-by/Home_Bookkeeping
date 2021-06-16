@@ -12,9 +12,9 @@
 //    Set name
 //    Get status
 //    Set status
+//    Operator < for comparing statuses (by status)
 //    Operator == for comparing statuses (by status)
 //    Operator != for comparing statuses (by status)
-//    Operator < for sorting statuses (by status)
 //    Output model (name)
 //    Input model (name)
 //
@@ -42,10 +42,10 @@ public:
   Status(const kEnumStatus& status);
   void SetName(const std::string& name) override;
   kEnumStatus GetStatus() const;
-	void SetStatus(const kEnumStatus& status);
-  bool operator==(const Status& status) const;
-  bool operator!=(const Status& status) const;
-	friend bool operator<(const Status& status_left, const Status& status_right);
+  void SetStatus(const kEnumStatus& status);
+  friend bool operator<(const Status& status_left, const Status& status_right);
+  friend bool operator==(const Status& status_left, const Status& status_right);
+  friend bool operator!=(const Status& status_left, const Status& status_right);
   friend std::istream& operator>>(std::istream& input_stream, Status& model);
 private:
   kEnumStatus status_;

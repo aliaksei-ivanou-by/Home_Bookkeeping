@@ -265,7 +265,7 @@ std::string Time::GetStringTime() const
 }
 
 //  Friend class member function
-//  Operator < for sorting times (by day and time)
+//  Operator < for comparing times (by day and time)
 bool operator<(const Time& time_left, const Time& time_right)
 {
   if (time_left.year_ < time_right.year_)
@@ -340,6 +340,25 @@ bool operator<(const Time& time_left, const Time& time_right)
     }
   }
   return false;
+}
+
+//  Friend class member function
+//  Operator == for comparing times (by day and time)
+bool operator==(const Time& time_left, const Time& time_right)
+{
+  return ((time_left.year_ == time_right.year_) && 
+    (time_left.month_ == time_right.month_) &&
+    (time_left.day_ == time_right.day_) &&
+    (time_left.hour_ == time_right.hour_) &&
+    (time_left.minute_ == time_right.minute_) &&
+    (time_left.second_ == time_right.second_));
+}
+
+//  Friend class member function
+//  Operator != for comparing times (by day and time)
+bool operator!=(const Time& time_left, const Time& time_right)
+{
+  return (!(time_left == time_right));
 }
 
 //  Friend class member function

@@ -29,7 +29,9 @@
 //    Set date (year, month, day, hour, minute, second)
 //    Check date for correctness
 //    Get current time in string format
-//    Operator < for sorting times (by day and time)
+//    Operator < for comparing times (by day and time)
+//    Operator == for comparing times (by day and time)
+//    Operator != for comparing times (by day and time)
 //    Output time (year, month, day, hour, minute, second -> "YYYY-MM-DD HH:MM:SS")
 //    Input time (year, month, day, hour, minute, second -> "YYYY-MM-DD HH:MM:SS")
 //
@@ -69,6 +71,8 @@ public:
   void SetDate(const int year, const int month, const int day, const int hour, const int minute, const int second);
   std::string GetStringTime() const;
   friend bool operator<(const Time& time_left, const Time& time_right);
+  friend bool operator==(const Time& time_left, const Time& time_right);
+  friend bool operator!=(const Time& time_left, const Time& time_right);
   friend std::ostream& operator<<(std::ostream& output_stream, const Time& time);
   friend std::istream& operator>>(std::istream& input_stream, Time& time);
 private:

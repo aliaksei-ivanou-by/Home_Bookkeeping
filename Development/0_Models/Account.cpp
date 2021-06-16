@@ -25,7 +25,7 @@ Account::Account(const std::string& name, double amount):
 
 //  Constructor
 //  With name setting, amount setting, currency setting
-Account::Account(const std::string& name, double amount, Currency currency) :
+Account::Account(const std::string& name, const double amount, const Currency& currency) :
   Model{ name },
   amount_{ NUM(amount) },
   currency_{ currency }
@@ -86,7 +86,7 @@ void Account::AppendAmount(const NUM amount)
 }
 
 //  Friend class member function
-//  Operator < for sorting models (by name (1), amount (2))
+//  Operator < for comparing models (by name (1), amount (2), currency (3))
 bool operator<(const Account& model_left, const Account& model_right)
 {
   if (model_left.GetName() < model_right.GetName())
@@ -101,9 +101,39 @@ bool operator<(const Account& model_left, const Account& model_right)
     }
     else
     {
-      return model_left.amount_ < model_right.amount_;
+      if (model_left.amount_ < model_right.amount_)
+      {
+        return true;
+      }
+      else
+      {
+        if (model_left.amount_ > model_right.amount_)
+        {
+          return false;
+        }
+        else
+        {
+          return model_left.currency_ < model_right.currency_;
+        }
+      }
     }
   }
+}
+
+//  Friend class member function
+//  Operator == for comparing models (by name, amount, currency)
+bool operator==(const Account& model_left, const Account& model_right)
+{
+  return ((model_left.GetName() == model_right.GetName()) &&
+    (model_left.amount_ == model_right.amount_) &&
+    (model_left.currency_ == model_right.currency_));
+}
+
+//  Friend class member function
+//  Operator != for comparing models (by name, amount, currency)
+bool operator!=(const Account& model_left, const Account& model_right)
+{
+  return (!(model_left == model_right));
 }
 
 //  Friend class member function

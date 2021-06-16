@@ -10,7 +10,9 @@
 //  Class member functions:
 //    Get name
 //    Set name
-//    Operator < for sorting models (by name)
+//    Operator < for comparing models (by name)
+//    Operator == for comparing models (by name)
+//    Operator != for comparing models (by name)
 //    Output model (name)
 //    Input model (name)
 //

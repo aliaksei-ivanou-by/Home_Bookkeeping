@@ -42,6 +42,13 @@ bool operator==(const Model& model_left, const Model& model_right)
 }
 
 //  Friend class member function
+//  Operator != for equals models (by name)
+bool operator!=(const Model& model_left, const Model& model_right)
+{
+  return (!(model_left == model_right));
+}
+
+//  Friend class member function
 //  Output model (name)
 std::ostream& operator<<(std::ostream& output_stream, const Model& model)
 {

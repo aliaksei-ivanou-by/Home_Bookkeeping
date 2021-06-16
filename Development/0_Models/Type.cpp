@@ -44,16 +44,16 @@ void Type::SetType(const kEnumType& type)
 
 //  Class member function
 //  Operator == for comparing types (by type)
-bool Type::operator==(const Type& type) const
+bool operator==(const Type& type_left, const Type& type_right)
 {
-  return type_ == type.type_;
+  return type_left.type_ == type_right.type_;
 }
 
 //  Class member function
 //  Operator != for comparing types (by type)
-bool Type::operator!=(const Type& type) const
+bool operator!=(const Type& type_left, const Type& type_right)
 {
-  return !(*this == type);
+  return !(type_left == type_right);
 }
 
 //  Friend class member function
