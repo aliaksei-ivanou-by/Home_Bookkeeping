@@ -44,7 +44,7 @@
 //          Add tag to database
 //        remove element:
 //          Remove transaction (shared pointer) from transaction repository
-//          Remove account (shared pointer) from account repository
+//          Remove account from database
 //          Remove category (shared pointer) from category repository
 //          Remove currency (shared pointer) from currency repository
 //          Remove description (shared pointer) from description repository
@@ -189,7 +189,7 @@ public:
   FinanceRepository();
   //  destructor->default
   ~FinanceRepository();
-  //  basic->add element
+  //  basic->add element to database
   void AddTransaction(Transaction&& transaction);
   void AddAccount();
   void AddAccount(Account&& account);
@@ -212,9 +212,9 @@ public:
   void AddTag();
   void AddTag(Tag&& tag);
   void AddTags(TagRepository&& tags);
-  //  basic->remove element
+  //  basic->remove element from database
   void RemoveTransaction(std::shared_ptr<Transaction> transaction);
-  void RemoveAccount(std::shared_ptr<Account> account);
+  void RemoveAccount(const std::string& name);
   void RemoveCategory(std::shared_ptr<Category> category);
   void RemoveCurrency(std::shared_ptr<Currency> currency);
   void RemoveDescription(std::shared_ptr<Description> description);

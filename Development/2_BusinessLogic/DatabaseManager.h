@@ -17,7 +17,7 @@
 //      check table for existence in database
 //      create table in database
 //      clear table from database
-//    transactions:in
+//    transactions:
 //      create table 'Transactions' in database
 //      clear table 'Transactions' in database
 //      insert transactions to table 'Transactions' in database
@@ -27,6 +27,7 @@
 //      clear table 'Accounts' in database
 //      insert accounts to table 'Accounts' in database
 //      insert one account to table 'Accounts' in database
+//      remove one account from table 'Accounts' in database
 //    categories:
 //      create table 'Categories' in database
 //      clear table 'Categories' in database
@@ -106,6 +107,7 @@ public:
   void FindAccountByNameInTableAccountsInDatabaseUpdateName(const std::string& account_name, const std::string& name);
   void FindAccountByNameInTableAccountsInDatabaseUpdateAmount(const std::string& account_name, const double amount);
   void FindAccountByNameInTableAccountsInDatabaseUpdateCurrency(const std::string& account_name, Currency&& currency);
+  void RemoveAccountFromTableAccountsInDatabase(const std::string& name);
 
   void CreateTableCategoriesInDatabase();
   void ClearTableCategoriesInDatabase();

@@ -301,10 +301,10 @@ void FinanceRepository::RemoveTransaction(std::shared_ptr<Transaction> transacti
 }
 
 //  Class member function
-//  Remove account (shared pointer) from account repository
-void FinanceRepository::RemoveAccount(std::shared_ptr<Account> account)
+//  Remove account from database
+void FinanceRepository::RemoveAccount(const std::string& name)
 {
-
+  database_manager_->RemoveAccountFromTableAccountsInDatabase(name);
 }
 
 //  Class member function

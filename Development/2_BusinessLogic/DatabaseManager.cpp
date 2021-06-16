@@ -440,6 +440,30 @@ void DatabaseManager::FindAccountByNameInTableAccountsInDatabaseUpdateCurrency(c
   }
 }
 
+//  Class member function
+//  Remove one account from table 'Accounts' in database
+void DatabaseManager::RemoveAccountFromTableAccountsInDatabase(const std::string& name)
+{
+  bool account_is_in_table = false;
+  int account_id;
+  Account account;
+  std::tie(account_is_in_table, account_id, account) = FindAccountByNameInTableAccountsInDatabase(name);
+  if (account_is_in_table)
+  {
+    const std::string sql_request = std::string("DELETE FROM Accounts WHERE id = ") +
+      std::to_string(account_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Remove row Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Remove account from table 'Accounts' in database";
+    }
+  }
+}
+
 
 //  Class member function
 //  Create table 'Categories' in database
