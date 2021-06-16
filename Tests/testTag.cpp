@@ -5,24 +5,23 @@ extern FinanceRepository repository;
 TEST(TagTest, TestDefault)
 {
   //  Arrange
-  std::string expected_name = "Unspecified";
-  double expected_amount = 0.0;
+  std::string expected_name = Tag().GetName();
 
   //  Act
   repository.ClearTablesInDatabase();
   repository.AddTag();
-  bool repository_is_in_table;
-  int repository_tag_id;
-  Tag repository_tag;
-  int repository_tag_counter;
-  std::tie(repository_is_in_table, repository_tag_id, repository_tag, repository_tag_counter) = repository.FindTag("Unspecified");
+  bool repository_model_is_in_table;
+  int repository_model_id;
+  Tag repository_model;
+  int repository_model_counter;
+  std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindTag(expected_name);
 
   //  Assert
-  EXPECT_EQ(repository_is_in_table, true);
-  EXPECT_EQ(expected_name, repository_tag.GetName());
+  EXPECT_EQ(repository_model_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_model.GetName());
 }
 
-TEST(AccountTest, TestDefaultWithRename)
+TEST(TagTest, TestDefaultWithRename)
 {
   //  Arrange
   std::string expected_name = "Tag";
@@ -30,36 +29,43 @@ TEST(AccountTest, TestDefaultWithRename)
   //  Act
   repository.ClearTablesInDatabase();
   repository.AddTag();
-  bool repository_is_in_table;
-  int repository_tag_id;
-  Tag repository_tag;
-  int repository_tag_counter;
-  std::tie(repository_is_in_table, repository_tag_id, repository_tag, repository_tag_counter) = repository.FindTag("Unspecified");
-  repository.SetTagName("Unspecified", "Tag");
-  std::tie(repository_is_in_table, repository_tag_id, repository_tag, repository_tag_counter) = repository.FindTag("Tag");
+  bool repository_model_is_in_table;
+  int repository_model_id;
+  Tag repository_model;
+  int repository_model_counter;
+  std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindTag(Tag().GetName());
+  if (repository_model_is_in_table)
+  {
+    repository.SetTagName(Tag().GetName(), expected_name);
+    std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindTag(expected_name);
+  }
 
   //  Assert
-  EXPECT_EQ(repository_is_in_table, true);
-  EXPECT_EQ(expected_name, repository_tag.GetName());
+  EXPECT_EQ(repository_model_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_model.GetName());
 }
 
-TEST(AccountTest, TestWithRename)
+TEST(TagTest, TestWithRename)
 {
   //  Arrange
   std::string expected_name = "Tag";
 
   //  Act
   repository.ClearTablesInDatabase();
-  repository.AddTag(Tag("Unspecified_tag"));
-  bool repository_is_in_table;
-  int repository_tag_id;
-  Tag repository_tag;
-  int repository_tag_counter;
-  std::tie(repository_is_in_table, repository_tag_id, repository_tag, repository_tag_counter) = repository.FindTag("Unspecified_tag");
-  repository.SetTagName("Unspecified_tag", "Tag");
-  std::tie(repository_is_in_table, repository_tag_id, repository_tag, repository_tag_counter) = repository.FindTag("Tag");
+  const std::string model_name = "Tag_Old";
+  repository.AddTag(Tag(model_name));
+  bool repository_model_is_in_table;
+  int repository_model_id;
+  Tag repository_model;
+  int repository_model_counter;
+  std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindTag(model_name);
+  if (repository_model_is_in_table)
+  {
+    repository.SetTagName(model_name, expected_name);
+    std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindTag(expected_name);
+  }
 
   //  Assert
-  EXPECT_EQ(repository_is_in_table, true);
-  EXPECT_EQ(expected_name, repository_tag.GetName());
+  EXPECT_EQ(repository_model_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_model.GetName());
 }

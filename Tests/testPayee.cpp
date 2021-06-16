@@ -5,20 +5,20 @@ extern FinanceRepository repository;
 TEST(PayeeTest, TestDefault)
 {
   //  Arrange
-  std::string expected_name = "Unspecified";
+  std::string expected_name = Payee().GetName();
 
   //  Act
   repository.ClearTablesInDatabase();
   repository.AddPayee();
-  bool repository_is_in_table;
-  int repository_payee_id;
-  Payee repository_payee;
-  int repository_payee_counter;
-  std::tie(repository_is_in_table, repository_payee_id, repository_payee, repository_payee_counter) = repository.FindPayee("Unspecified");
+  bool repository_model_is_in_table;
+  int repository_model_id;
+  Payee repository_model;
+  int repository_model_counter;
+  std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindPayee(expected_name);
 
   //  Assert
-  EXPECT_EQ(repository_is_in_table, true);
-  EXPECT_EQ(expected_name, repository_payee.GetName());
+  EXPECT_EQ(repository_model_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_model.GetName());
 }
 
 TEST(PayeeTest, TestDefaultWithRename)
@@ -29,17 +29,20 @@ TEST(PayeeTest, TestDefaultWithRename)
   //  Act
   repository.ClearTablesInDatabase();
   repository.AddPayee();
-  bool repository_is_in_table;
-  int repository_payee_id;
-  Payee repository_payee;
-  int repository_payee_counter;
-  std::tie(repository_is_in_table, repository_payee_id, repository_payee, repository_payee_counter) = repository.FindPayee("Unspecified");
-  repository.SetPayeeName("Unspecified", "Payee");
-  std::tie(repository_is_in_table, repository_payee_id, repository_payee, repository_payee_counter) = repository.FindPayee("Payee");
+  bool repository_model_is_in_table;
+  int repository_model_id;
+  Payee repository_model;
+  int repository_model_counter;
+  std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindPayee(Payee().GetName());
+  if (repository_model_is_in_table)
+  {
+    repository.SetPayeeName(Payee().GetName(), expected_name);
+    std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindPayee(expected_name);
+  }
 
   //  Assert
-  EXPECT_EQ(repository_is_in_table, true);
-  EXPECT_EQ(expected_name, repository_payee.GetName());
+  EXPECT_EQ(repository_model_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_model.GetName());
 }
 
 TEST(PayeeTest, TestWithRename)
@@ -49,16 +52,20 @@ TEST(PayeeTest, TestWithRename)
 
   //  Act
   repository.ClearTablesInDatabase();
-  repository.AddPayee(Payee("Unspecified_payee"));
-  bool repository_is_in_table;
-  int repository_payee_id;
-  Payee repository_payee;
-  int repository_payee_counter;
-  std::tie(repository_is_in_table, repository_payee_id, repository_payee, repository_payee_counter) = repository.FindPayee("Unspecified_payee");
-  repository.SetPayeeName("Unspecified_payee", "Payee");
-  std::tie(repository_is_in_table, repository_payee_id, repository_payee, repository_payee_counter) = repository.FindPayee("Payee");
+  const std::string model_name = "Payee_Old";
+  repository.AddPayee(Payee(model_name));
+  bool repository_model_is_in_table;
+  int repository_model_id;
+  Payee repository_model;
+  int repository_model_counter;
+  std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindPayee(model_name);
+  if (repository_model_is_in_table)
+  {
+    repository.SetPayeeName(model_name, expected_name);
+    std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindPayee(expected_name);
+  }
 
   //  Assert
-  EXPECT_EQ(repository_is_in_table, true);
-  EXPECT_EQ(expected_name, repository_payee.GetName());
+  EXPECT_EQ(repository_model_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_model.GetName());
 }

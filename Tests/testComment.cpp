@@ -5,20 +5,20 @@ extern FinanceRepository repository;
 TEST(CommentTest, TestDefault)
 {
   //  Arrange
-  std::string expected_name = "Unspecified";
+  std::string expected_name = Comment().GetName();
 
   //  Act
   repository.ClearTablesInDatabase();
   repository.AddComment();
-  bool repository_is_in_table;
-  int repository_comment_id;
-  Comment repository_comment;
-  int repository_comment_counter;
-  std::tie(repository_is_in_table, repository_comment_id, repository_comment, repository_comment_counter) = repository.FindComment("Unspecified");
+  bool repository_model_is_in_table;
+  int repository_model_id;
+  Comment repository_model;
+  int repository_model_counter;
+  std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindComment(expected_name);
 
   //  Assert
-  EXPECT_EQ(repository_is_in_table, true);
-  EXPECT_EQ(expected_name, repository_comment.GetName());
+  EXPECT_EQ(repository_model_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_model.GetName());
 }
 
 TEST(CommentTest, TestDefaultWithRename)
@@ -29,17 +29,20 @@ TEST(CommentTest, TestDefaultWithRename)
   //  Act
   repository.ClearTablesInDatabase();
   repository.AddComment();
-  bool repository_is_in_table;
-  int repository_comment_id;
-  Comment repository_comment;
-  int repository_comment_counter;
-  std::tie(repository_is_in_table, repository_comment_id, repository_comment, repository_comment_counter) = repository.FindComment("Unspecified");
-  repository.SetCommentName("Unspecified", "Comment");
-  std::tie(repository_is_in_table, repository_comment_id, repository_comment, repository_comment_counter) = repository.FindComment("Comment");
+  bool repository_model_is_in_table;
+  int repository_model_id;
+  Comment repository_model;
+  int repository_model_counter;
+  std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindComment(Comment().GetName());
+  if (repository_model_is_in_table)
+  {
+    repository.SetCommentName(Comment().GetName(), expected_name);
+    std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindComment(expected_name);
+  }
 
   //  Assert
-  EXPECT_EQ(repository_is_in_table, true);
-  EXPECT_EQ(expected_name, repository_comment.GetName());
+  EXPECT_EQ(repository_model_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_model.GetName());
 }
 
 TEST(CommentTest, TestWithRename)
@@ -49,16 +52,20 @@ TEST(CommentTest, TestWithRename)
 
   //  Act
   repository.ClearTablesInDatabase();
-  repository.AddComment(Comment("Unspecified_comment"));
-  bool repository_is_in_table;
-  int repository_comment_id;
-  Comment repository_comment;
-  int repository_comment_counter;
-  std::tie(repository_is_in_table, repository_comment_id, repository_comment, repository_comment_counter) = repository.FindComment("Unspecified_comment");
-  repository.SetCommentName("Unspecified_comment", "Comment");
-  std::tie(repository_is_in_table, repository_comment_id, repository_comment, repository_comment_counter) = repository.FindComment("Comment");
+  const std::string model_name = "Comment_Old";
+  repository.AddComment(Comment(model_name));
+  bool repository_model_is_in_table;
+  int repository_model_id;
+  Comment repository_model;
+  int repository_model_counter;
+  std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindComment(model_name);
+  if (repository_model_is_in_table)
+  {
+    repository.SetCommentName(model_name, expected_name);
+    std::tie(repository_model_is_in_table, repository_model_id, repository_model, repository_model_counter) = repository.FindComment(expected_name);
+  }
 
   //  Assert
-  EXPECT_EQ(repository_is_in_table, true);
-  EXPECT_EQ(expected_name, repository_comment.GetName());
+  EXPECT_EQ(repository_model_is_in_table, true);
+  EXPECT_EQ(expected_name, repository_model.GetName());
 }

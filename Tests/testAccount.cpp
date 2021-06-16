@@ -37,7 +37,7 @@ TEST(AccountTest, TestDefaultWithRenameAndReamount)
   std::tie(repository_model_is_in_table, repository_model_id, repository_model) = repository.FindAccount(Account().GetName());
   if (repository_model_is_in_table)
   {
-    repository.SetAccountName("Unspecified", expected_name);
+    repository.SetAccountName(Account().GetName(), expected_name);
     repository.SetAccountAmount(expected_name, expected_amount);
     std::tie(repository_model_is_in_table, repository_model_id, repository_model) = repository.FindAccount(expected_name);
   }
@@ -56,14 +56,15 @@ TEST(AccountTest, TestWithRenameAndReamount)
 
   //  Act
   repository.ClearTablesInDatabase();
-  repository.AddAccount(Account("Account_Old", 10.0));
+  const std::string model_name = "Account_Old";
+  repository.AddAccount(Account(model_name, 10.0));
   bool repository_model_is_in_table;
   int repository_model_id;
   Account repository_model;
-  std::tie(repository_model_is_in_table, repository_model_id, repository_model) = repository.FindAccount("Account_Old");
+  std::tie(repository_model_is_in_table, repository_model_id, repository_model) = repository.FindAccount(model_name);
   if (repository_model_is_in_table)
   {
-    repository.SetAccountName("Account_Old", expected_name);
+    repository.SetAccountName(model_name, expected_name);
     repository.SetAccountAmount(expected_name, expected_amount);
     std::tie(repository_model_is_in_table, repository_model_id, repository_model) = repository.FindAccount(expected_name);
   }
@@ -83,14 +84,15 @@ TEST(AccountTest, TestWithRenameAndReamountAndRecurrency)
 
   //  Act
   repository.ClearTablesInDatabase();
-  repository.AddAccount(Account("Account_Old", 15.0));
+  const std::string model_name = "Account_Old";
+  repository.AddAccount(Account(model_name, 10.0));
   bool repository_is_in_table;
   int repository_model_id;
   Account repository_model;
-  std::tie(repository_is_in_table, repository_model_id, repository_model) = repository.FindAccount("Account_Old");
+  std::tie(repository_is_in_table, repository_model_id, repository_model) = repository.FindAccount(model_name);
   if (repository_is_in_table)
   {
-    repository.SetAccountName("Account_Old", expected_name);
+    repository.SetAccountName(model_name, expected_name);
     repository.SetAccountAmount(expected_name, expected_amount);
     repository.SetAccountCurrency(expected_name, std::move(expected_currency));
     std::tie(repository_is_in_table, repository_model_id, repository_model) = repository.FindAccount(expected_name);
