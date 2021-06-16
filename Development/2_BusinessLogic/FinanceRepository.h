@@ -43,7 +43,7 @@
 //          Add comment to database
 //          Add tag to database
 //        remove element:
-//          Remove transaction (shared pointer) from transaction repository
+//          Remove transaction from database
 //          Remove account from database
 //          Remove category from database
 //          Remove currency from database
@@ -214,7 +214,7 @@ public:
   void AddTag(Tag&& tag);
   void AddTags(TagRepository&& tags);
   //  basic->remove element from database
-  void RemoveTransaction(std::shared_ptr<Transaction> transaction);
+  void RemoveTransaction(const int id);
   void RemoveAccount(const std::string& name);
   void RemoveCategory(const std::string& name);
   void RemoveCurrency(const std::string& name);

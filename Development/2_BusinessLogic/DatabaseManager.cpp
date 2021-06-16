@@ -200,6 +200,104 @@ void DatabaseManager::ClearTableTransactionsInDatabase()
 }
 
 //  Class member function
+//  Insert one transaction to table 'Transactions' in database
+void DatabaseManager::InsertTransactionToTableTransactionsInDatabase(Transaction&& transaction)
+{/*
+  int transaction_account_from_id;
+  int transaction_account_to_id;
+  int transaction_category;
+  double transaction_amount_account_from;
+  double transaction_amount_account_to;
+  int transaction_comment;
+  int transaction_currency;
+  int transaction_description;
+  int transaction_payee;
+  int transaction_tag;
+  int transaction_status;
+  int transaction_type;
+
+  int table_rows = SizeOfTable("Transactions");
+  if (table_rows == 0)
+  {
+    const std::string sql_request = std::string("INSERT INTO Transactions VALUES(") +
+      "null, '" +
+      transaction.GetTime().GetStringTime() + "', " +
+      std::to_string(transaction_account_from_id) + ", " +
+      std::to_string(transaction_account_to_id) + ", " +
+      std::to_string(transaction_category) + ", " +
+      std::to_string(transaction.GetAmount().getAsDouble()) + ", " +
+      std::to_string(transaction_amount_account_from) + ", " +
+      std::to_string(transaction_amount_account_to) + ", " +
+      std::to_string(transaction_comment) + ", " +
+      std::to_string(transaction_currency) + ", " +
+      std::to_string(transaction_description) + ", " +
+      std::to_string(transaction_payee) + ", " +
+      std::to_string(transaction_tag) + ", " +
+      std::to_string(transaction_status) + ", " +
+      std::to_string(transaction_type) + ");";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Insert transaction to table 'Transactions' in database";
+    }
+    return;
+  }
+  if (table_rows > 0)
+  {
+    sqlite3_prepare_v2(database_, "SELECT * FROM Transactions", -1, &database_stmt_, 0);
+    int account_amount;
+    const unsigned char* account_name;
+    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+    {
+      account_name = (sqlite3_column_text(database_stmt_, 1));
+      account_amount = sqlite3_column_int(database_stmt_, 2);
+      if (account_name == nullptr)
+      {
+        const std::string sql_request = std::string("INSERT INTO Transactions VALUES(") +
+          "null, '" +
+          account.GetName() + "', " +
+          std::to_string(account.GetAmount().getAsDouble()) + ", " +
+          std::to_string(currency_id) + ");";
+        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+        if (database_status_ != SQLITE_OK)
+        {
+          PLOG_ERROR << "SQL Insert Error: " << database_error_;
+        }
+        else
+        {
+          PLOG_INFO << "Insert account to table 'Accounts' in database";
+        }
+        return;
+      }
+      if (reinterpret_cast<const char*>(account_name) == account.GetName())
+      {
+        PLOG_ERROR << "Table 'Accounts' has this account";
+        return;
+      }
+    }
+    const std::string sql_request = std::string("INSERT INTO Accounts VALUES(") +
+      "null, '" +
+      account.GetName() + "', " +
+      std::to_string(account.GetAmount().getAsDouble()) + ", " +
+      std::to_string(currency_id) + ");";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Insert account to table 'Accounts' in database";
+    }
+    return;
+  }*/
+}
+
+//  Class member function
 //  Insert transactions to table 'Transactions' in database
 void DatabaseManager::InsertTransactionsToTableTransactionsInDatabase(TransactionRepository&& repository)
 {
@@ -210,10 +308,63 @@ void DatabaseManager::InsertTransactionsToTableTransactionsInDatabase(Transactio
 }
 
 //  Class member function
-//  Insert one transaction to table 'Transactions' in database
-void DatabaseManager::InsertTransactionToTableTransactionsInDatabase(Transaction&& transaction)
-{
+//  Find transaction with definite id in table 'Transactions' in database
+/*std::tuple<bool, int, Transaction>*/void DatabaseManager::FindTransactionInTableTransactionsInDatabase(const int id)
+{/*
+  sqlite3_prepare_v2(database_, "SELECT * FROM Transactions", -1, &database_stmt_, 0);
+  while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+  {
+    int transaction_id = (sqlite3_column_int(database_stmt_, 0));
+    const unsigned char* account_name = (sqlite3_column_text(database_stmt_, 1));
+    double account_amount = (sqlite3_column_double(database_stmt_, 2));
+    int account_currency = (sqlite3_column_int(database_stmt_, 3));
+    if (reinterpret_cast<const char*>(account_name) == name)
+    {
+      std::string sql_request = std::string("SELECT * FROM Currencies WHERE id = ") + std::to_string(account_currency) + ";";
+      sqlite3_prepare_v2(database_, sql_request.c_str(), -1, &database_stmt_, 0);
+      const unsigned char* currency_name = nullptr;
+      const unsigned char* currency_code = nullptr;
+      int currency_activity;
+      while (sqlite3_step(database_stmt_) != SQLITE_DONE)
+      {
+        currency_name = (sqlite3_column_text(database_stmt_, 1));
+        currency_code = (sqlite3_column_text(database_stmt_, 2));
+        currency_activity = (sqlite3_column_int(database_stmt_, 3));
+        break;
+      }
+      Currency currency((reinterpret_cast<const char*>(currency_name)), (reinterpret_cast<const char*>(currency_code)), currency_activity);
+      Account account((reinterpret_cast<const char*>(account_name)), account_amount, currency);
+      PLOG_INFO << "Account with name " << name << " is found in table 'Accounts' in database";
+      return std::make_tuple(true, account_id, account);
+    }
+  }
+  PLOG_INFO << "Account with name " << name << " isn't found in table 'Accounts' in database";
+  return std::make_tuple(false, 0, Account());*/
+}
 
+//  Class member function
+//  Remove transaction from table 'Transactions' in database
+void DatabaseManager::RemoveTransactionFromTableTransactionsInDatabase(const int id)
+{/*
+  bool model_is_in_table = false;
+  int model_id;
+  Transaction model;
+  int model_counter;
+  std::tie(model_is_in_table, model_id, model, model_counter) = FindTagInTableTagsInDatabase(name);
+  if (model_is_in_table)
+  {
+    const std::string sql_request = std::string("DELETE FROM Tags WHERE id = ") +
+      std::to_string(model_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Remove row Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Remove tag from table 'Tags' in database";
+    }
+  }*/
 }
 
 //  Class member function
@@ -228,16 +379,6 @@ void DatabaseManager::CreateTableAccountsInDatabase()
 void DatabaseManager::ClearTableAccountsInDatabase()
 {
   ClearTableInDatabase("Accounts");
-}
-
-//  Class member function
-//  Insert accounts to table 'Accounts' in database
-void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&& repository)
-{
-  for (auto i = repository.Begin(); i != repository.End(); ++i)
-  {
-    InsertAccountToTableAccountsInDatabase(std::move(**i));
-  }
 }
 
 //  Class member function
@@ -321,6 +462,16 @@ void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& account)
       PLOG_INFO << "Insert account to table 'Accounts' in database";
     }
     return;
+  }
+}
+
+//  Class member function
+//  Insert accounts to table 'Accounts' in database
+void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&& repository)
+{
+  for (auto i = repository.Begin(); i != repository.End(); ++i)
+  {
+    InsertAccountToTableAccountsInDatabase(std::move(**i));
   }
 }
 
@@ -482,16 +633,6 @@ void DatabaseManager::ClearTableCategoriesInDatabase()
 }
 
 //  Class member function
-//  Insert categories to table 'Categories' in database
-void DatabaseManager::InsertCategoriesToTableCategoriesInDatabase(CategoryRepository&& repository)
-{
-  for (auto i = repository.Begin(); i != repository.End(); ++i)
-  {
-    InsertCategoryToTableCategoriesInDatabase(std::move(*i->first));
-  }
-}
-
-//  Class member function
 //  Insert one category to table 'Categories' in database
 void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& category)
 {
@@ -572,6 +713,16 @@ void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& categ
       PLOG_INFO << "Insert category to table 'Categories' in database";
     }
     return;
+  }
+}
+
+//  Class member function
+//  Insert categories to table 'Categories' in database
+void DatabaseManager::InsertCategoriesToTableCategoriesInDatabase(CategoryRepository&& repository)
+{
+  for (auto i = repository.Begin(); i != repository.End(); ++i)
+  {
+    InsertCategoryToTableCategoriesInDatabase(std::move(*i->first));
   }
 }
 
@@ -662,16 +813,6 @@ void DatabaseManager::ClearTableCurrenciesInDatabase()
 }
 
 //  Class member function
-//  Insert currencies to table 'Currencies' in database
-void DatabaseManager::InsertCurrenciesToTableCurrenciesInDatabase(CurrencyRepository&& repository)
-{
-  for (auto i = repository.Begin(); i != repository.End(); ++i)
-  {
-    InsertCurrencyToTableCurrenciesInDatabase(std::move(**i));
-  }
-}
-
-//  Class member function
 //  Insert one currency to table 'Currencies' in database
 void DatabaseManager::InsertCurrencyToTableCurrenciesInDatabase(Currency&& currency)
 {
@@ -745,6 +886,16 @@ void DatabaseManager::InsertCurrencyToTableCurrenciesInDatabase(Currency&& curre
       PLOG_INFO << "Insert currency to table 'Currencies' in database";
     }
     return;
+  }
+}
+
+//  Class member function
+//  Insert currencies to table 'Currencies' in database
+void DatabaseManager::InsertCurrenciesToTableCurrenciesInDatabase(CurrencyRepository&& repository)
+{
+  for (auto i = repository.Begin(); i != repository.End(); ++i)
+  {
+    InsertCurrencyToTableCurrenciesInDatabase(std::move(**i));
   }
 }
 
@@ -831,16 +982,6 @@ void DatabaseManager::ClearTableDescriptionsInDatabase()
 }
 
 //  Class member function
-//  Insert descriptions to table 'Descriptions' in database
-void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository)
-{
-  for (auto i = repository.Begin(); i != repository.End(); ++i)
-  {
-    InsertDescriptionToTableDescriptionsInDatabase(std::move(*i->first));
-  }
-}
-
-//  Class member function
 //  Insert one description to table 'Descriptions' in database
 void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description&& description)
 {
@@ -921,6 +1062,16 @@ void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description
       PLOG_INFO << "Insert description to table 'Descriptions' in database";
     }
     return;
+  }
+}
+
+//  Class member function
+//  Insert descriptions to table 'Descriptions' in database
+void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository)
+{
+  for (auto i = repository.Begin(); i != repository.End(); ++i)
+  {
+    InsertDescriptionToTableDescriptionsInDatabase(std::move(*i->first));
   }
 }
 
@@ -1011,16 +1162,6 @@ void DatabaseManager::ClearTablePayeesInDatabase()
 }
 
 //  Class member function
-//  Insert payees to table 'Payees' in database
-void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository)
-{
-  for (auto i = repository.Begin(); i != repository.End(); ++i)
-  {
-    InsertPayeeToTablePayeesInDatabase(std::move(*i->first));
-  }
-}
-
-//  Class member function
 //  Insert one payee to table 'Payees' in database
 void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
 {
@@ -1101,6 +1242,16 @@ void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
       PLOG_INFO << "Insert payee to table 'Payees' in database";
     }
     return;
+  }
+}
+
+//  Class member function
+//  Insert payees to table 'Payees' in database
+void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository)
+{
+  for (auto i = repository.Begin(); i != repository.End(); ++i)
+  {
+    InsertPayeeToTablePayeesInDatabase(std::move(*i->first));
   }
 }
 
@@ -1191,16 +1342,6 @@ void DatabaseManager::ClearTableCommentsInDatabase()
 }
 
 //  Class member function
-//  Insert comments to table 'Comments' in database
-void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository)
-{
-  for (auto i = repository.Begin(); i != repository.End(); ++i)
-  {
-    InsertCommentToTableCommentsInDatabase(std::move(*i->first));
-  }
-}
-
-//  Class member function
 //  Insert one comment to table 'Comments' in database
 void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
 {
@@ -1281,6 +1422,16 @@ void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
       PLOG_INFO << "Insert comment to table 'Comments' in database";
     }
     return;
+  }
+}
+
+//  Class member function
+//  Insert comments to table 'Comments' in database
+void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository)
+{
+  for (auto i = repository.Begin(); i != repository.End(); ++i)
+  {
+    InsertCommentToTableCommentsInDatabase(std::move(*i->first));
   }
 }
 
@@ -1371,16 +1522,6 @@ void DatabaseManager::ClearTableTagsInDatabase()
 }
 
 //  Class member function
-//  Insert tags to table 'Tags' in database
-void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository)
-{
-  for (auto i = repository.Begin(); i != repository.End(); ++i)
-  {
-    InsertTagToTableTagsInDatabase(std::move(*i->first));
-  }
-}
-
-//  Class member function
 //  Insert one tag to table 'Tags' in database
 void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
 {
@@ -1461,6 +1602,16 @@ void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
       PLOG_INFO << "Insert tag to table 'Tags' in database";
     }
     return;
+  }
+}
+
+//  Class member function
+//  Insert tags to table 'Tags' in database
+void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository)
+{
+  for (auto i = repository.Begin(); i != repository.End(); ++i)
+  {
+    InsertTagToTableTagsInDatabase(std::move(*i->first));
   }
 }
 

@@ -294,10 +294,10 @@ void FinanceRepository::AddTags(TagRepository&& tags)
 }
 
 //  Class member function
-//  Remove transaction (shared pointer) from transaction repository
-void FinanceRepository::RemoveTransaction(std::shared_ptr<Transaction> transaction)
+//  Remove transaction from database
+void FinanceRepository::RemoveTransaction(const int id)
 {
-  
+  database_manager_->RemoveTransactionFromTableTransactionsInDatabase(id);
 }
 
 //  Class member function
