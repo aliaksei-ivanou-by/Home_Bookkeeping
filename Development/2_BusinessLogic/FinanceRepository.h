@@ -45,55 +45,56 @@
 //        remove element:
 //          Remove transaction (shared pointer) from transaction repository
 //          Remove account from database
-//          Remove category (shared pointer) from category repository
-//          Remove currency (shared pointer) from currency repository
-//          Remove description (shared pointer) from description repository
-//          Remove payee (shared pointer) from payee repository
-//          Remove comment (shared pointer) from comment repository
-//          Remove tag (shared pointer) from tag repository
+//          Remove category from database
+//          Remove currency from database
+//          Remove description from database
+//          Remove payee from database
+//          Remove comment from database
+//          Remove tag from database
+//          Add model 'Unspecified' instead of removed models to database
 //        get values of model from repository
-//          Get name of account from repository
-//          Get amount of account from repository
-//          Get name of category from repository
-//          Get name of currency from repository
-//          Get code of currency from repository
-//          Get activity of currency from repository
-//          Get name of description from repository
-//          Get name of payee from repository
-//          Get name of comment from repository
-//          Get name of tag from repository
+//          Get name of account from database
+//          Get amount of account from database
+//          Get name of category from database
+//          Get name of currency from database
+//          Get code of currency from database
+//          Get activity of currency from database
+//          Get name of description from database
+//          Get name of payee from database
+//          Get name of comment from database
+//          Get name of tag from database
 //        set values of model from repository
-//          Set name of account from repository
-//          Set amount of account from repository
-//          Set name of category from repository
-//          Set name of currency from repository
-//          Set code of currency from repository
-//          Set activity of currency from repository
-//          Switch activity of currency from repository
-//          Switch on activity of currency from repository
-//          Switch off activity of currency from repository
-//          Set name of description from repository
-//          Set name of payee from repository
-//          Set name of comment from repository
-//          Set name of tag from repository
+//          Set name of account from database
+//          Set amount of account from database
+//          Set name of category from database
+//          Set name of currency from database
+//          Set code of currency from database
+//          Set activity of currency from database
+//          Switch activity of currency from database
+//          Switch on activity of currency from database
+//          Switch off activity of currency from database
+//          Set name of description from database
+//          Set name of payee from database
+//          Set name of comment from database
+//          Set name of tag from database
 //        number of elements in repository:
-//          Number of transactions in transaction repository
-//          Number of accounts in account repository
-//          Number of categories in category repository
-//          Number of currencies in currency repository
-//          Number of descriptions in description repository
-//          Number of payees in payee repository
-//          Number of comments in comment repository
-//          Number of tags in tag repository
+//          Number of transactions in database
+//          Number of accounts in database
+//          Number of categories in database
+//          Number of currencies in database
+//          Number of descriptions in database
+//          Number of payees in database
+//          Number of comments in database
+//          Number of tags in database
 //        clear repository:
-//          Clear transaction repository
-//          Clear account repository
-//          Clear category repository
-//          Clear currency repository
-//          Clear description repository
-//          Clear payee repository
-//          Clear comment repository
-//          Clear tag repository
+//          Clear table 'Transactions' in database
+//          Clear table 'Accounts' in database
+//          Clear table 'Categories' in database
+//          Clear table 'Currencies' in database
+//          Clear table 'Descriptions' in database
+//          Clear table 'Payees' in database
+//          Clear table 'Comments' in database
+//          Clear table 'Tags' in database
 //        print repository:
 //          Print transaction repository
 //          Print account repository
@@ -136,14 +137,14 @@
 //      Add default currencies to currency repository
 //    clear tables in database
 //  Variables:
-//    transaction repository
-//    category repository
-//    comment repository
-//    payee repository
-//    account repository
-//    currency repository
-//    description repository
-//    tag repository
+//    transaction repository (temp variable for GUI)
+//    category repository (temp variable for GUI)
+//    comment repository (temp variable for GUI)
+//    payee repository (temp variable for GUI)
+//    account repository (temp variable for GUI)
+//    currency repository (temp variable for GUI)
+//    description repository (temp variable for GUI)
+//    tag repository (temp variable for GUI)
 //    Database Manager
 
 #include <iostream>
@@ -215,7 +216,7 @@ public:
   //  basic->remove element from database
   void RemoveTransaction(std::shared_ptr<Transaction> transaction);
   void RemoveAccount(const std::string& name);
-  void RemoveCategory(std::shared_ptr<Category> category);
+  void RemoveCategory(const std::string& name);
   void RemoveCurrency(std::shared_ptr<Currency> currency);
   void RemoveDescription(std::shared_ptr<Description> description);
   void RemovePayee(std::shared_ptr<Payee> payee);

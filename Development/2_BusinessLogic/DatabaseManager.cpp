@@ -464,7 +464,6 @@ void DatabaseManager::RemoveAccountFromTableAccountsInDatabase(const std::string
   }
 }
 
-
 //  Class member function
 //  Create table 'Categories' in database
 void DatabaseManager::CreateTableCategoriesInDatabase()
@@ -616,6 +615,31 @@ void DatabaseManager::FindCategoryByNameInTableCategoriesInDatabaseUpdateName(co
     else
     {
       PLOG_INFO << "Update name of category in table 'Categories' in database";
+    }
+  }
+}
+
+//  Class member function
+//  Remove one category from table 'Categories' in database
+void DatabaseManager::RemoveCategoryFromTableCategoriesInDatabase(const std::string& name)
+{
+  bool model_is_in_table = false;
+  int model_id;
+  Category model;
+  int model_counter;
+  std::tie(model_is_in_table, model_id, model, model_counter) = FindCategoryByNameInTableCategoriesInDatabase(name);
+  if (model_is_in_table)
+  {
+    const std::string sql_request = std::string("DELETE FROM Categories WHERE id = ") +
+      std::to_string(model_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Remove row Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Remove Category from table 'Categories' in database";
     }
   }
 }

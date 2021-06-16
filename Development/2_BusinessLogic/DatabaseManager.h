@@ -115,6 +115,7 @@ public:
   void InsertCategoryToTableCategoriesInDatabase(Category&& category);
   std::tuple<bool, int, Category, int> FindCategoryByNameInTableCategoriesInDatabase(const std::string& name);
   void FindCategoryByNameInTableCategoriesInDatabaseUpdateName(const std::string& category_name, const std::string& name);
+  void RemoveCategoryFromTableCategoriesInDatabase(const std::string& name);
 
   void CreateTableCurrenciesInDatabase();
   void ClearTableCurrenciesInDatabase();

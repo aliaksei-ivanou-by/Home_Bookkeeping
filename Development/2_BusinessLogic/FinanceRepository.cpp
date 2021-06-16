@@ -308,10 +308,10 @@ void FinanceRepository::RemoveAccount(const std::string& name)
 }
 
 //  Class member function
-//  Remove category (shared pointer) from category repository
-void FinanceRepository::RemoveCategory(std::shared_ptr<Category> category)
+//  Remove category from database
+void FinanceRepository::RemoveCategory(const std::string& name)
 {
-
+  database_manager_->RemoveCategoryFromTableCategoriesInDatabase(name);
 }
 
 //  Class member function
