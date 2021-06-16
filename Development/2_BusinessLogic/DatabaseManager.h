@@ -25,44 +25,54 @@
 //    accounts:
 //      create table 'Accounts' in database
 //      clear table 'Accounts' in database
+//      insert account to table 'Accounts' in database
 //      insert accounts to table 'Accounts' in database
-//      insert one account to table 'Accounts' in database
-//      remove one account from table 'Accounts' in database
+//      find account with definite name in table 'Accounts' in database
+//      find account with definite name and update name of account in table 'Accounts' in database
+//      find account with definite name and update amount of account in table 'Accounts' in database
+//      find account with definite name and update currency of account in table 'Accounts' in database
+//      remove account with definite name from table 'Accounts' in database
 //    categories:
 //      create table 'Categories' in database
 //      clear table 'Categories' in database
+//      insert category to table 'Categories' in database
 //      insert categories to table 'Categories' in database
-//      insert one category to table 'Categories' in database
 //      find category with definite name in table 'Categories' in database
+//      remove category with definite name from table 'Categories' in database
 //    currencies:
 //      create table 'Currencies' in database
 //      clear table 'Currencies' in database
+//      insert currency to table 'Currencies' in database
 //      insert currencies to table 'Currencies' in database
-//      insert one currency to table 'Currencies' in database
+//      remove currency with definite name from table 'Currencies' in database
 //    descriptions:
 //      create table 'Descriptions' in database
 //      clear table 'Descriptions' in database
+//      insert description to table 'Descriptions' in database
 //      insert descriptions to table 'Descriptions' in database
-//      insert one description to table 'Descriptions' in database
 //      find description with definite name in table 'Descriptions' in database
+//      remove description with definite name from table 'Descriptions' in database
 //    payees:
 //      create table 'Payees' in database
 //      clear table 'Payees' in database
+//      insert payee to table 'Payees' in database
 //      insert payees to table 'Payees' in database
-//      insert one payee to table 'Payees' in database
 //      find payee with definite name in table 'Payees' in database
+//      remove payee with definite name from table 'Payees' in database
 //    comments:
 //      create table 'Comments' in database
 //      clear table 'Comments' in database
+//      insert comment to table 'Comments' in database
 //      insert comments to table 'Comments' in database
-//      insert one comment to table 'Comments' in database
 //      find comment with definite name in table 'Comments' in database
+//      remove comment with definite name from table 'Comments' in database
 //    tags:
 //      create table 'Tags' in database
 //      clear table 'Tags' in database
+//      insert tag to table 'Tags' in database
 //      insert tags to table 'Tags' in database
-//      insert one tag to table 'Tags' in database
 //      find tag with definite name in table 'Tags' in database
+//      remove tag with definite name from table 'Tags' in database
 //
 //  Variables:
 //      Database;
@@ -90,9 +100,11 @@ public:
   ~DatabaseManager();
 
   int SizeOfTable(const std::string& table);
-
   void CreateAllTablesInDatabase();
   void ClearAllTablesInDatabase();
+  bool CheckTableForExistenceInDatabase(const std::string& table);
+  void CreateTableInDatabase(const std::string& table);
+  void ClearTableInDatabase(const std::string& table);
 
   void CreateTableTransactionsInDatabase();
   void ClearTableTransactionsInDatabase();
@@ -101,60 +113,61 @@ public:
 
   void CreateTableAccountsInDatabase();
   void ClearTableAccountsInDatabase();
-  void InsertAccountsToTableAccountsInDatabase(AccountRepository&& repository);
   void InsertAccountToTableAccountsInDatabase(Account&& account);
-  std::tuple<bool, int, Account> FindAccountByNameInTableAccountsInDatabase(const std::string& name);
-  void FindAccountByNameInTableAccountsInDatabaseUpdateName(const std::string& account_name, const std::string& name);
-  void FindAccountByNameInTableAccountsInDatabaseUpdateAmount(const std::string& account_name, const double amount);
-  void FindAccountByNameInTableAccountsInDatabaseUpdateCurrency(const std::string& account_name, Currency&& currency);
+  void InsertAccountsToTableAccountsInDatabase(AccountRepository&& repository);
+  std::tuple<bool, int, Account> FindAccountInTableAccountsInDatabase(const std::string& name);
+  void FindAccountInTableAccountsInDatabaseUpdateName(const std::string& account_name, const std::string& name);
+  void FindAccountInTableAccountsInDatabaseUpdateAmount(const std::string& account_name, const double amount);
+  void FindAccountInTableAccountsInDatabaseUpdateCurrency(const std::string& account_name, Currency&& currency);
   void RemoveAccountFromTableAccountsInDatabase(const std::string& name);
 
   void CreateTableCategoriesInDatabase();
   void ClearTableCategoriesInDatabase();
   void InsertCategoriesToTableCategoriesInDatabase(CategoryRepository&& repository);
   void InsertCategoryToTableCategoriesInDatabase(Category&& category);
-  std::tuple<bool, int, Category, int> FindCategoryByNameInTableCategoriesInDatabase(const std::string& name);
-  void FindCategoryByNameInTableCategoriesInDatabaseUpdateName(const std::string& category_name, const std::string& name);
+  std::tuple<bool, int, Category, int> FindCategoryInTableCategoriesInDatabase(const std::string& name);
+  void FindCategoryInTableCategoriesInDatabaseUpdateName(const std::string& category_name, const std::string& name);
   void RemoveCategoryFromTableCategoriesInDatabase(const std::string& name);
 
   void CreateTableCurrenciesInDatabase();
   void ClearTableCurrenciesInDatabase();
   void InsertCurrenciesToTableCurrenciesInDatabase(CurrencyRepository&& repository);
   void InsertCurrencyToTableCurrenciesInDatabase(Currency&& currency);
-  std::tuple<bool, int, Currency> FindCurrencyByNameInTableCurrenciesInDatabase(const std::string& name);
+  std::tuple<bool, int, Currency> FindCurrencyInTableCurrenciesInDatabase(const std::string& name);
   std::tuple<bool, int, Currency> FindCurrencyByCodeInTableCurrenciesInDatabase(const std::string& code);
+  void RemoveCurrencyFromTableCurrenciesInDatabase(const std::string& name);
 
   void CreateTableDescriptionsInDatabase();
   void ClearTableDescriptionsInDatabase();
   void InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository);
   void InsertDescriptionToTableDescriptionsInDatabase(Description&& description);
-  std::tuple<bool, int, Description, int> FindDescriptionByNameInTableDescriptionsInDatabase(const std::string& name);
-  void FindDescriptionByNameInTableDescriptionsInDatabaseUpdateName(const std::string& model_name, const std::string& name);
+  std::tuple<bool, int, Description, int> FindDescriptionInTableDescriptionsInDatabase(const std::string& name);
+  void FindDescriptionInTableDescriptionsInDatabaseUpdateName(const std::string& model_name, const std::string& name);
+  void RemoveDescriptionFromTableDescriptionsInDatabase(const std::string& name);
 
   void CreateTablePayeesInDatabase();
   void ClearTablePayeesInDatabase();
   void InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository);
   void InsertPayeeToTablePayeesInDatabase(Payee&& payee);
-  std::tuple<bool, int, Payee, int> FindPayeeByNameInTablePayeesInDatabase(const std::string& name);
-  void FindPayeeByNameInTablePayeesInDatabaseUpdateName(const std::string& payee_name, const std::string& name);
+  std::tuple<bool, int, Payee, int> FindPayeeInTablePayeesInDatabase(const std::string& name);
+  void FindPayeeInTablePayeesInDatabaseUpdateName(const std::string& payee_name, const std::string& name);
+  void RemovePayeeFromTablePayeesInDatabase(const std::string& name);
 
   void CreateTableCommentsInDatabase();
   void ClearTableCommentsInDatabase();
   void InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository);
   void InsertCommentToTableCommentsInDatabase(Comment&& comment);
-  std::tuple<bool, int, Comment, int> FindCommentByNameInTableCommentsInDatabase(const std::string& name);
-  void FindCommentByNameInTableCommentsInDatabaseUpdateName(const std::string& comment_name, const std::string& name);
+  std::tuple<bool, int, Comment, int> FindCommentInTableCommentsInDatabase(const std::string& name);
+  void FindCommentInTableCommentsInDatabaseUpdateName(const std::string& comment_name, const std::string& name);
+  void RemoveCommentFromTableCommentsInDatabase(const std::string& name);
 
   void CreateTableTagsInDatabase();
   void ClearTableTagsInDatabase();
   void InsertTagsToTableTagsInDatabase(TagRepository&& repository);
   void InsertTagToTableTagsInDatabase(Tag&& tag);
-  std::tuple<bool, int, Tag, int> FindTagByNameInTableTagsInDatabase(const std::string& name);
-  void FindTagByNameInTableTagsInDatabaseUpdateName(const std::string& tag_name, const std::string& name);
-
-  bool CheckTableForExistenceInDatabase(const std::string& table);
-  void CreateTableInDatabase(const std::string& table);
-  void ClearTableInDatabase(const std::string& table);
+  std::tuple<bool, int, Tag, int> FindTagInTableTagsInDatabase(const std::string& name);
+  void FindTagInTableTagsInDatabaseUpdateName(const std::string& tag_name, const std::string& name);
+  void RemoveTagFromTableTagsInDatabase(const std::string& name);
 private:
   char* database_error_;
   int database_status_;

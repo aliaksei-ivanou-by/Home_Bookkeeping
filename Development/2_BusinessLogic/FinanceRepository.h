@@ -217,11 +217,11 @@ public:
   void RemoveTransaction(std::shared_ptr<Transaction> transaction);
   void RemoveAccount(const std::string& name);
   void RemoveCategory(const std::string& name);
-  void RemoveCurrency(std::shared_ptr<Currency> currency);
-  void RemoveDescription(std::shared_ptr<Description> description);
-  void RemovePayee(std::shared_ptr<Payee> payee);
-  void RemoveComment(std::shared_ptr<Comment> comment);
-  void RemoveTag(std::shared_ptr<Tag> tag);
+  void RemoveCurrency(const std::string& name);
+  void RemoveDescription(const std::string& name);
+  void RemovePayee(const std::string& name);
+  void RemoveComment(const std::string& name);
+  void RemoveTag(const std::string& name);
   //  basic->get values of model from repository
   std::string GetAccountName(AccountRepositoryIterator account) const;
   NUM GetAccountAmount(AccountRepositoryIterator account) const;
@@ -278,7 +278,7 @@ public:
   //  basic->find (definite name)
   std::tuple<bool, int, Account> FindAccount(const std::string& name) const;
   std::tuple<bool, int, Category, int> FindCategory(const std::string& name) const;
-  std::tuple<bool, int, Currency> FindCurrencyByName(const std::string& name) const;
+  std::tuple<bool, int, Currency> FindCurrency(const std::string& name) const;
   std::tuple<bool, int, Currency> FindCurrencyByCode(const std::string& name) const;
   std::tuple<bool, int, Description, int> FindDescription(const std::string& name) const;
   std::tuple<bool, int, Payee, int> FindPayee(const std::string& name) const;

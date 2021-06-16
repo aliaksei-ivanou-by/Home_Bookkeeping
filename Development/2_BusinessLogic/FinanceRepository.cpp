@@ -315,38 +315,38 @@ void FinanceRepository::RemoveCategory(const std::string& name)
 }
 
 //  Class member function
-//  Remove currency (shared pointer) from currency repository
-void FinanceRepository::RemoveCurrency(std::shared_ptr<Currency> currency)
+//  Remove currency from database
+void FinanceRepository::RemoveCurrency(const std::string& name)
 {
-
+  database_manager_->RemoveCurrencyFromTableCurrenciesInDatabase(name);
 }
 
 //  Class member function
-//  Remove description (shared pointer) from description repository
-void FinanceRepository::RemoveDescription(std::shared_ptr<Description> description)
+//  Remove description from database
+void FinanceRepository::RemoveDescription(const std::string& name)
 {
-
+  database_manager_->RemoveDescriptionFromTableDescriptionsInDatabase(name);
 }
 
 //  Class member function
-//  Remove payee (shared pointer) from payee repository
-void FinanceRepository::RemovePayee(std::shared_ptr<Payee> payee)
+//  Remove payee from database
+void FinanceRepository::RemovePayee(const std::string& name)
 {
-
+  database_manager_->RemovePayeeFromTablePayeesInDatabase(name);
 }
 
 //  Class member function
-//  Remove comment (shared pointer) from comment repository
-void FinanceRepository::RemoveComment(std::shared_ptr<Comment> comment)
+//  Remove comment from database
+void FinanceRepository::RemoveComment(const std::string& name)
 {
-
+  database_manager_->RemoveCommentFromTableCommentsInDatabase(name);
 }
 
 //  Class member function
-//  Remove tag (shared pointer) from tag repository
-void FinanceRepository::RemoveTag(std::shared_ptr<Tag> tag)
+//  Remove tag from database
+void FinanceRepository::RemoveTag(const std::string& name)
 {
-
+  database_manager_->RemoveTagFromTableTagsInDatabase(name);
 }
 
 //  Class member function
@@ -423,28 +423,28 @@ std::string FinanceRepository::GetTagName(TagRepositoryIterator tag) const
 //  Set name of account in database
 void FinanceRepository::SetAccountName(const std::string& account_name, const std::string& name)
 {
-  database_manager_->FindAccountByNameInTableAccountsInDatabaseUpdateName(account_name, name);
+  database_manager_->FindAccountInTableAccountsInDatabaseUpdateName(account_name, name);
 }
 
 //  Class member function
 //  Set amount of account in database
 void FinanceRepository::SetAccountAmount(const std::string& account_name, const double amount)
 {
-  database_manager_->FindAccountByNameInTableAccountsInDatabaseUpdateAmount(account_name, amount);
+  database_manager_->FindAccountInTableAccountsInDatabaseUpdateAmount(account_name, amount);
 }
 
 //  Class member function
 //  Set currency of account in database
 void FinanceRepository::SetAccountCurrency(const std::string& account_name, Currency&& currency)
 {
-  database_manager_->FindAccountByNameInTableAccountsInDatabaseUpdateCurrency(account_name, std::move(currency));
+  database_manager_->FindAccountInTableAccountsInDatabaseUpdateCurrency(account_name, std::move(currency));
 }
 
 //  Class member function
 //  Set name of category from repository
 void FinanceRepository::SetCategoryName(const std::string& category_name, const std::string& name)
 {
-  database_manager_->FindCategoryByNameInTableCategoriesInDatabaseUpdateName(category_name, name);
+  database_manager_->FindCategoryInTableCategoriesInDatabaseUpdateName(category_name, name);
 }
 
 //  Class member function
@@ -499,28 +499,28 @@ void FinanceRepository::SwitchOffCurrencyActivity(CurrencyRepositoryIterator cur
 //  Set name of description from repository
 void FinanceRepository::SetDescriptionName(const std::string& model_name, const std::string& name)
 {
-  database_manager_->FindDescriptionByNameInTableDescriptionsInDatabaseUpdateName(model_name, name);
+  database_manager_->FindDescriptionInTableDescriptionsInDatabaseUpdateName(model_name, name);
 }
 
 //  Class member function
 //  Set name of payee from repository
 void FinanceRepository::SetPayeeName(const std::string& payee_name, const std::string& name)
 {
-  database_manager_->FindPayeeByNameInTablePayeesInDatabaseUpdateName(payee_name, name);
+  database_manager_->FindPayeeInTablePayeesInDatabaseUpdateName(payee_name, name);
 }
 
 //  Class member function
 //  Set name of comment from repository
 void FinanceRepository::SetCommentName(const std::string& comment_name, const std::string& name)
 {
-  database_manager_->FindCommentByNameInTableCommentsInDatabaseUpdateName(comment_name, name);
+  database_manager_->FindCommentInTableCommentsInDatabaseUpdateName(comment_name, name);
 }
 
 //  Class member function
 //  Set name of tag from repository
 void FinanceRepository::SetTagName(const std::string& tag_name, const std::string& name)
 {
-  database_manager_->FindTagByNameInTableTagsInDatabaseUpdateName(tag_name, name);
+  database_manager_->FindTagInTableTagsInDatabaseUpdateName(tag_name, name);
 }
 
 //  Class member function
@@ -775,21 +775,21 @@ void FinanceRepository::PrintTags(const std::string& delimeter, std::ostream& ou
 //  Find account with definite name in account repository
 std::tuple<bool, int, Account> FinanceRepository::FindAccount(const std::string& name) const
 {
-  return database_manager_->FindAccountByNameInTableAccountsInDatabase(name);
+  return database_manager_->FindAccountInTableAccountsInDatabase(name);
 }
 
 //  Class member function
 //  Find category with definite name in category repository
 std::tuple<bool, int, Category, int> FinanceRepository::FindCategory(const std::string& name) const
 {
-  return database_manager_->FindCategoryByNameInTableCategoriesInDatabase(name);
+  return database_manager_->FindCategoryInTableCategoriesInDatabase(name);
 }
 
 //  Class member function
 //  Find currency with definite name in category repository
-std::tuple<bool, int, Currency> FinanceRepository::FindCurrencyByName(const std::string& name) const
+std::tuple<bool, int, Currency> FinanceRepository::FindCurrency(const std::string& name) const
 {
-  return database_manager_->FindCurrencyByNameInTableCurrenciesInDatabase(name);
+  return database_manager_->FindCurrencyInTableCurrenciesInDatabase(name);
 }
 
 //  Class member function
@@ -803,28 +803,28 @@ std::tuple<bool, int, Currency> FinanceRepository::FindCurrencyByCode(const std:
 //  Find description with definite name in database
 std::tuple<bool, int, Description, int> FinanceRepository::FindDescription(const std::string& name) const
 {
-  return database_manager_->FindDescriptionByNameInTableDescriptionsInDatabase(name);
+  return database_manager_->FindDescriptionInTableDescriptionsInDatabase(name);
 }
 
 //  Class member function
 //  Find payee with definite name in database
 std::tuple<bool, int, Payee, int> FinanceRepository::FindPayee(const std::string& name) const
 {
-  return database_manager_->FindPayeeByNameInTablePayeesInDatabase(name);
+  return database_manager_->FindPayeeInTablePayeesInDatabase(name);
 }
 
 //  Class member function
 //  Find comment with definite name in database
 std::tuple<bool, int, Comment, int> FinanceRepository::FindComment(const std::string& name) const
 {
-  return database_manager_->FindCommentByNameInTableCommentsInDatabase(name);
+  return database_manager_->FindCommentInTableCommentsInDatabase(name);
 }
 
 //  Class member function
 //  Find tag with definite name in tag repository
 std::tuple<bool, int, Tag, int> FinanceRepository::FindTag(const std::string& name) const
 {
-  return database_manager_->FindTagByNameInTableTagsInDatabase(name);
+  return database_manager_->FindTagInTableTagsInDatabase(name);
 }
 
 //  Class member function
