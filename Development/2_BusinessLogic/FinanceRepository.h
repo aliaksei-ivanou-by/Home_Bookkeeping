@@ -235,7 +235,7 @@ public:
   std::string GetTagName(TagRepositoryIterator tag) const;
   //  basic->set values of model from repository
   void SetAccountName(const std::string& account_name, const std::string& name);
-  void SetAccountAmount(const std::string& account_name, const double amount);
+  void SetAccountAmount(const std::string& account_name, const NUM amount);
   void SetAccountCurrency(const std::string& account_name, Currency&& currency);
   void SetCategoryName(const std::string& category_name, const std::string& name);
   void SetCurrencyName(CurrencyRepositoryIterator currency, const std::string& name);

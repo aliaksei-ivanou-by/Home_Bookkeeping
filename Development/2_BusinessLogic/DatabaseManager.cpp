@@ -202,99 +202,138 @@ void DatabaseManager::ClearTableTransactionsInDatabase()
 //  Class member function
 //  Insert one transaction to table 'Transactions' in database
 void DatabaseManager::InsertTransactionToTableTransactionsInDatabase(Transaction&& transaction)
-{/*
+{
+  // Check account_from
+  bool transaction_account_from_in_database;
   int transaction_account_from_id;
+  std::tie(transaction_account_from_in_database, transaction_account_from_id, std::ignore) = FindAccountInTableAccountsInDatabase(transaction.GetAccountFrom().GetName());
+  if (!transaction_account_from_in_database)
+  {
+    InsertAccountToTableAccountsInDatabase(transaction.GetAccountFrom());
+    std::tie(transaction_account_from_in_database, transaction_account_from_id, std::ignore) = FindAccountInTableAccountsInDatabase(transaction.GetAccountFrom().GetName());
+  }
+  // Check account_to
+  bool transaction_account_to_in_database;
   int transaction_account_to_id;
-  int transaction_category;
-  double transaction_amount_account_from;
-  double transaction_amount_account_to;
-  int transaction_comment;
-  int transaction_currency;
-  int transaction_description;
-  int transaction_payee;
-  int transaction_tag;
+  std::tie(transaction_account_to_in_database, transaction_account_to_id, std::ignore) = FindAccountInTableAccountsInDatabase(transaction.GetAccountTo().GetName());
+  if (!transaction_account_to_in_database)
+  {
+    InsertAccountToTableAccountsInDatabase(transaction.GetAccountTo());
+    std::tie(transaction_account_to_in_database, transaction_account_to_id, std::ignore) = FindAccountInTableAccountsInDatabase(transaction.GetAccountTo().GetName());
+  }
+  // Check category
+  bool transaction_category_in_database;
+  int transaction_category_id;
+  std::tie(transaction_category_in_database, transaction_category_id, std::ignore, std::ignore) = FindCategoryInTableCategoriesInDatabase(transaction.GetCategory().GetName());
+  if (!transaction_category_in_database)
+  {
+    InsertCategoryToTableCategoriesInDatabase(transaction.GetCategory());
+    std::tie(transaction_category_in_database, transaction_category_id, std::ignore, std::ignore) = FindCategoryInTableCategoriesInDatabase(transaction.GetCategory().GetName());
+  }
+  // Check comment
+  bool transaction_comment_in_database;
+  int transaction_comment_id;
+  std::tie(transaction_comment_in_database, transaction_comment_id, std::ignore, std::ignore) = FindCommentInTableCommentsInDatabase(transaction.GetComment().GetName());
+  if (!transaction_category_in_database)
+  {
+    InsertCommentToTableCommentsInDatabase(transaction.GetComment());
+    std::tie(transaction_comment_in_database, transaction_comment_id, std::ignore, std::ignore) = FindCommentInTableCommentsInDatabase(transaction.GetComment().GetName());
+  }
+  // Check currency
+  bool transaction_currency_in_database;
+  int transaction_currency_id;
+  std::tie(transaction_currency_in_database, transaction_currency_id, std::ignore) = FindCurrencyInTableCurrenciesInDatabase(transaction.GetCurrency().GetName());
+  if (!transaction_category_in_database)
+  {
+    InsertCurrencyToTableCurrenciesInDatabase(transaction.GetCurrency());
+    std::tie(transaction_currency_in_database, transaction_currency_id, std::ignore) = FindCurrencyInTableCurrenciesInDatabase(transaction.GetCurrency().GetName());
+  }
+  // Check description
+  bool transaction_description_in_database;
+  int transaction_description_id;
+  std::tie(transaction_description_in_database, transaction_description_id, std::ignore, std::ignore) = FindDescriptionInTableDescriptionsInDatabase(transaction.GetDescription().GetName());
+  if (!transaction_description_in_database)
+  {
+    InsertDescriptionToTableDescriptionsInDatabase(transaction.GetDescription());
+    std::tie(transaction_description_in_database, transaction_description_id, std::ignore, std::ignore) = FindDescriptionInTableDescriptionsInDatabase(transaction.GetDescription().GetName());
+  }
+  // Check payee
+  bool transaction_payee_in_database;
+  int transaction_payee_id;
+  std::tie(transaction_payee_in_database, transaction_payee_id, std::ignore, std::ignore) = FindPayeeInTablePayeesInDatabase(transaction.GetPayee().GetName());
+  if (!transaction_payee_in_database)
+  {
+    InsertPayeeToTablePayeesInDatabase(transaction.GetPayee());
+    std::tie(transaction_payee_in_database, transaction_payee_id, std::ignore, std::ignore) = FindPayeeInTablePayeesInDatabase(transaction.GetPayee().GetName());
+  }
+  // Check tag
+  bool transaction_tag_in_database;
+  int transaction_tag_id;
+  std::tie(transaction_tag_in_database, transaction_tag_id, std::ignore, std::ignore) = FindTagInTableTagsInDatabase(transaction.GetTag().GetName());
+  if (!transaction_tag_in_database)
+  {
+    InsertTagToTableTagsInDatabase(transaction.GetTag());
+    std::tie(transaction_tag_in_database, transaction_tag_id, std::ignore, std::ignore) = FindTagInTableTagsInDatabase(transaction.GetTag().GetName());
+  }
+  // Check amount_account_from and amount_account_to
+  NUM transaction_amount_account_from;
+  NUM transaction_amount_account_to;
+  if (transaction.GetType() == kEnumType::Expense)
+  {
+    transaction_amount_account_from = GetAccountAmount(transaction.GetAccountFrom().GetName()) - transaction.GetAmount();
+    transaction_amount_account_to = GetAccountAmount(transaction.GetAccountTo().GetName()) + transaction.GetAmount();
+    transaction.SetAmountAccountFrom(transaction_amount_account_from);
+    transaction.SetAmountAccountTo(transaction_amount_account_to);
+    SetAccountAmount(transaction.GetAccountFrom().GetName(), transaction_amount_account_from);
+    SetAccountAmount(transaction.GetAccountTo().GetName(), transaction_amount_account_to);
+  }
+  if (transaction.GetType() == kEnumType::Income)
+  {
+    transaction_amount_account_from = GetAccountAmount(transaction.GetAccountFrom().GetName()) - transaction.GetAmount();
+    transaction_amount_account_to = GetAccountAmount(transaction.GetAccountTo().GetName()) + transaction.GetAmount();
+    transaction.SetAmountAccountFrom(transaction_amount_account_from);
+    transaction.SetAmountAccountTo(transaction_amount_account_to);
+    SetAccountAmount(transaction.GetAccountFrom().GetName(), transaction_amount_account_from);
+    SetAccountAmount(transaction.GetAccountTo().GetName(), transaction_amount_account_to);
+  }
+  if (transaction.GetType() == kEnumType::Transfer)
+  {
+    transaction_amount_account_from = GetAccountAmount(transaction.GetAccountFrom().GetName()) - transaction.GetAmount();
+    transaction_amount_account_to = GetAccountAmount(transaction.GetAccountTo().GetName()) + transaction.GetAmount();
+    transaction.SetAmountAccountFrom(transaction_amount_account_from);
+    transaction.SetAmountAccountTo(transaction_amount_account_to);
+    SetAccountAmount(transaction.GetAccountFrom().GetName(), transaction_amount_account_from);
+    SetAccountAmount(transaction.GetAccountTo().GetName(), transaction_amount_account_to);
+  }
+ 
   int transaction_status;
   int transaction_type;
 
-  int table_rows = SizeOfTable("Transactions");
-  if (table_rows == 0)
+  const std::string sql_request = std::string("INSERT INTO Transactions VALUES(") +
+    "null, '" +
+    transaction.GetTime().GetStringTime() + "', " +
+    std::to_string(transaction_account_from_id) + ", " +
+    std::to_string(transaction_account_to_id) + ", " +
+    std::to_string(transaction_category_id) + ", " +
+    std::to_string(transaction.GetAmount().getAsDouble()) + ", " +
+    std::to_string(transaction_amount_account_from.getAsDouble()) + ", " +
+    std::to_string(transaction_amount_account_to.getAsDouble()) + ", " +
+    std::to_string(transaction_comment_id) + ", " +
+    std::to_string(transaction_currency_id) + ", " +
+    std::to_string(transaction_description_id) + ", " +
+    std::to_string(transaction_payee_id) + ", " +
+    std::to_string(transaction_tag_id) + ", '" +
+    transaction.GetStatus().GetName() + "', '" +
+    transaction.GetType().GetName() + "');";
+  database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+  if (database_status_ != SQLITE_OK)
   {
-    const std::string sql_request = std::string("INSERT INTO Transactions VALUES(") +
-      "null, '" +
-      transaction.GetTime().GetStringTime() + "', " +
-      std::to_string(transaction_account_from_id) + ", " +
-      std::to_string(transaction_account_to_id) + ", " +
-      std::to_string(transaction_category) + ", " +
-      std::to_string(transaction.GetAmount().getAsDouble()) + ", " +
-      std::to_string(transaction_amount_account_from) + ", " +
-      std::to_string(transaction_amount_account_to) + ", " +
-      std::to_string(transaction_comment) + ", " +
-      std::to_string(transaction_currency) + ", " +
-      std::to_string(transaction_description) + ", " +
-      std::to_string(transaction_payee) + ", " +
-      std::to_string(transaction_tag) + ", " +
-      std::to_string(transaction_status) + ", " +
-      std::to_string(transaction_type) + ");";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Insert Error: " << database_error_;
-    }
-    else
-    {
-      PLOG_INFO << "Insert transaction to table 'Transactions' in database";
-    }
-    return;
+    PLOG_ERROR << "SQL Insert Error: " << database_error_;
   }
-  if (table_rows > 0)
+  else
   {
-    sqlite3_prepare_v2(database_, "SELECT * FROM Transactions", -1, &database_stmt_, 0);
-    int account_amount;
-    const unsigned char* account_name;
-    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
-    {
-      account_name = (sqlite3_column_text(database_stmt_, 1));
-      account_amount = sqlite3_column_int(database_stmt_, 2);
-      if (account_name == nullptr)
-      {
-        const std::string sql_request = std::string("INSERT INTO Transactions VALUES(") +
-          "null, '" +
-          account.GetName() + "', " +
-          std::to_string(account.GetAmount().getAsDouble()) + ", " +
-          std::to_string(currency_id) + ");";
-        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-        if (database_status_ != SQLITE_OK)
-        {
-          PLOG_ERROR << "SQL Insert Error: " << database_error_;
-        }
-        else
-        {
-          PLOG_INFO << "Insert account to table 'Accounts' in database";
-        }
-        return;
-      }
-      if (reinterpret_cast<const char*>(account_name) == account.GetName())
-      {
-        PLOG_ERROR << "Table 'Accounts' has this account";
-        return;
-      }
-    }
-    const std::string sql_request = std::string("INSERT INTO Accounts VALUES(") +
-      "null, '" +
-      account.GetName() + "', " +
-      std::to_string(account.GetAmount().getAsDouble()) + ", " +
-      std::to_string(currency_id) + ");";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Insert Error: " << database_error_;
-    }
-    else
-    {
-      PLOG_INFO << "Insert account to table 'Accounts' in database";
-    }
-    return;
-  }*/
+    PLOG_INFO << "Insert transaction to table 'Transactions' in database";
+  }
 }
 
 //  Class member function
@@ -468,8 +507,8 @@ std::tuple<bool, int, Account> DatabaseManager::FindAccountInTableAccountsInData
 }
 
 //  Class member function
-//  Find account with definite name in table 'Accounts' in database and update name
-void DatabaseManager::FindAccountInTableAccountsInDatabaseUpdateName(const std::string & account_name, const std::string & name)
+//  Set name of account in table 'Accounts' in database
+void DatabaseManager::SetAccountName(const std::string & account_name, const std::string & name)
 {
   bool account_is_in_table = false;
   int account_id;
@@ -493,8 +532,8 @@ void DatabaseManager::FindAccountInTableAccountsInDatabaseUpdateName(const std::
 }
 
 //  Class member function
-//  Find account with definite name in table 'Accounts' in database and update amount
-void DatabaseManager::FindAccountInTableAccountsInDatabaseUpdateAmount(const std::string& account_name, const double amount)
+//  Set amount of account in table 'Accounts' in database
+void DatabaseManager::SetAccountAmount(const std::string& account_name, const NUM amount)
 {
   bool account_is_in_table = false;
   int account_id;
@@ -503,7 +542,7 @@ void DatabaseManager::FindAccountInTableAccountsInDatabaseUpdateAmount(const std
   if (account_is_in_table)
   {
     const std::string sql_request = std::string("UPDATE Accounts SET amount = ") +
-      std::to_string(amount) +
+      std::to_string(amount.getAsDouble()) +
       " WHERE id = " + std::to_string(account_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
@@ -518,8 +557,8 @@ void DatabaseManager::FindAccountInTableAccountsInDatabaseUpdateAmount(const std
 }
 
 //  Class member function
-//  Find account with definite name in table 'Accounts' in database and update currency
-void DatabaseManager::FindAccountInTableAccountsInDatabaseUpdateCurrency(const std::string& account_name, Currency&& currency)
+//  Set currency of account in table 'Accounts' in database
+void DatabaseManager::SetAccountCurrency(const std::string& account_name, Currency&& currency)
 {
   bool currency_is_in_table = false;
   int currency_id;
@@ -548,6 +587,45 @@ void DatabaseManager::FindAccountInTableAccountsInDatabaseUpdateCurrency(const s
     {
       PLOG_INFO << "Update amount of account in table 'Accounts' in database";
     }
+  }
+}
+
+//  Class member function
+//  Get name of account from table 'Accounts' in database
+std::string DatabaseManager::GetAccountName(const std::string& account_name)
+{
+  bool account_is_in_table = false;
+  Account account;
+  std::tie(account_is_in_table, std::ignore, account) = FindAccountInTableAccountsInDatabase(account_name);
+  if (account_is_in_table)
+  {
+    return account.GetName();
+  }
+}
+
+//  Class member function
+//  Get amount of account from table 'Accounts' in database
+NUM DatabaseManager::GetAccountAmount(const std::string& account_name)
+{
+  bool account_is_in_table = false;
+  Account account;
+  std::tie(account_is_in_table, std::ignore, account) = FindAccountInTableAccountsInDatabase(account_name);
+  if (account_is_in_table)
+  {
+    return account.GetAmount();
+  }
+}
+
+//  Class member function
+//  Get currency of account from table 'Accounts' in database
+Currency DatabaseManager::GetAccountCurrency(const std::string& account_name)
+{
+  bool account_is_in_table = false;
+  Account account;
+  std::tie(account_is_in_table, std::ignore, account) = FindAccountInTableAccountsInDatabase(account_name);
+  if (account_is_in_table)
+  {
+    return account.GetCurrency();
   }
 }
 
@@ -663,7 +741,7 @@ std::tuple<bool, int, Category, int> DatabaseManager::FindCategoryInTableCategor
 
 //  Class member function
 //  Find category with definite name in table 'Categories' in database and update name
-void DatabaseManager::FindCategoryInTableCategoriesInDatabaseUpdateName(const std::string& category_name, const std::string& name)
+void DatabaseManager::SetCategoryName(const std::string& category_name, const std::string& name)
 {
   bool category_is_in_table = false;
   int category_id;
@@ -921,7 +999,7 @@ std::tuple<bool, int, Description, int> DatabaseManager::FindDescriptionInTableD
 
 //  Class member function
 //  Find description with definite name in table 'Descriptions' in database and update name
-void DatabaseManager::FindDescriptionInTableDescriptionsInDatabaseUpdateName(const std::string& model_name, const std::string& name)
+void DatabaseManager::SetDescriptionName(const std::string& model_name, const std::string& name)
 {
   bool model_is_in_table = false;
   int model_id;
@@ -1058,7 +1136,7 @@ std::tuple<bool, int, Payee, int> DatabaseManager::FindPayeeInTablePayeesInDatab
 
 //  Class member function
 //  Find payee with definite name in table 'Payees' in database and update name
-void DatabaseManager::FindPayeeInTablePayeesInDatabaseUpdateName(const std::string& payee_name, const std::string& name)
+void DatabaseManager::SetPayeeName(const std::string& payee_name, const std::string& name)
 {
   bool payee_is_in_table = false;
   int payee_id;
@@ -1195,7 +1273,7 @@ std::tuple<bool, int, Comment, int> DatabaseManager::FindCommentInTableCommentsI
 
 //  Class member function
 //  Find comment with definite name in table 'Comments' in database and update name
-void DatabaseManager::FindCommentInTableCommentsInDatabaseUpdateName(const std::string& comment_name, const std::string& name)
+void DatabaseManager::SetCommentName(const std::string& comment_name, const std::string& name)
 {
   bool comment_is_in_table = false;
   int comment_id;
@@ -1332,7 +1410,7 @@ std::tuple<bool, int, Tag, int> DatabaseManager::FindTagInTableTagsInDatabase(co
 
 //  Class member function
 //  Find tag with definite name in table 'Tags' in database and update name
-void DatabaseManager::FindTagInTableTagsInDatabaseUpdateName(const std::string& tag_name, const std::string& name)
+void DatabaseManager::SetTagName(const std::string& tag_name, const std::string& name)
 {
   bool tag_is_in_table = false;
   int tag_id;

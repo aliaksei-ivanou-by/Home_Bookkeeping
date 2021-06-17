@@ -133,17 +133,7 @@ TagRepositoryConstIterator FinanceRepository::EndTagRepository() const
 //  Add transaction to database
 void FinanceRepository::AddTransaction(Transaction&& transaction)
 {
-  UpdateAccountRepository(transaction);
-  UpdateAccountAmount(transaction);
-  UpdateCategoryRepository(transaction);
-  UpdateCurrencyRepository(transaction);
-  UpdateDescriptionRepository(transaction);
-  UpdatePayeeRepository(transaction);
-  UpdateCommentRepository(transaction);
-  UpdateTagRepository(transaction);
-  transaction_repository_.Add(transaction);
-  PLOG_INFO << "Add transaction to repository";
-  database_manager_->InsertAccountToTableAccountsInDatabase(std::move(transaction.GetAccountFrom()));
+  database_manager_->InsertTransactionToTableTransactionsInDatabase(std::move(transaction));
 }
 
 //  Class member function
@@ -423,28 +413,28 @@ std::string FinanceRepository::GetTagName(TagRepositoryIterator tag) const
 //  Set name of account in database
 void FinanceRepository::SetAccountName(const std::string& account_name, const std::string& name)
 {
-  database_manager_->FindAccountInTableAccountsInDatabaseUpdateName(account_name, name);
+  database_manager_->SetAccountName(account_name, name);
 }
 
 //  Class member function
 //  Set amount of account in database
-void FinanceRepository::SetAccountAmount(const std::string& account_name, const double amount)
+void FinanceRepository::SetAccountAmount(const std::string& account_name, const NUM amount)
 {
-  database_manager_->FindAccountInTableAccountsInDatabaseUpdateAmount(account_name, amount);
+  database_manager_->SetAccountAmount(account_name, amount);
 }
 
 //  Class member function
 //  Set currency of account in database
 void FinanceRepository::SetAccountCurrency(const std::string& account_name, Currency&& currency)
 {
-  database_manager_->FindAccountInTableAccountsInDatabaseUpdateCurrency(account_name, std::move(currency));
+  database_manager_->SetAccountCurrency(account_name, std::move(currency));
 }
 
 //  Class member function
 //  Set name of category from repository
 void FinanceRepository::SetCategoryName(const std::string& category_name, const std::string& name)
 {
-  database_manager_->FindCategoryInTableCategoriesInDatabaseUpdateName(category_name, name);
+  database_manager_->SetCategoryName(category_name, name);
 }
 
 //  Class member function
@@ -499,28 +489,28 @@ void FinanceRepository::SwitchOffCurrencyActivity(CurrencyRepositoryIterator cur
 //  Set name of description from repository
 void FinanceRepository::SetDescriptionName(const std::string& model_name, const std::string& name)
 {
-  database_manager_->FindDescriptionInTableDescriptionsInDatabaseUpdateName(model_name, name);
+  database_manager_->SetDescriptionName(model_name, name);
 }
 
 //  Class member function
 //  Set name of payee from repository
 void FinanceRepository::SetPayeeName(const std::string& payee_name, const std::string& name)
 {
-  database_manager_->FindPayeeInTablePayeesInDatabaseUpdateName(payee_name, name);
+  database_manager_->SetPayeeName(payee_name, name);
 }
 
 //  Class member function
 //  Set name of comment from repository
 void FinanceRepository::SetCommentName(const std::string& comment_name, const std::string& name)
 {
-  database_manager_->FindCommentInTableCommentsInDatabaseUpdateName(comment_name, name);
+  database_manager_->SetCommentName(comment_name, name);
 }
 
 //  Class member function
 //  Set name of tag from repository
 void FinanceRepository::SetTagName(const std::string& tag_name, const std::string& name)
 {
-  database_manager_->FindTagInTableTagsInDatabaseUpdateName(tag_name, name);
+  database_manager_->SetTagName(tag_name, name);
 }
 
 //  Class member function
