@@ -385,73 +385,30 @@ void DatabaseManager::ClearTableAccountsInDatabase()
 //  Insert account to table 'Accounts' in database
 void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& account)
 {
-  bool currency_is_in_database;
-  int currency_id;
-  Currency currency;
-  std::tie(currency_is_in_database, currency_id, currency) = FindCurrencyInTableCurrenciesInDatabase(account.GetCurrency().GetName());
-  if (!currency_is_in_database)
+  bool account_currency_in_database;
+  int account_currency_id;
+  std::tie(account_currency_in_database, account_currency_id, std::ignore) = FindCurrencyInTableCurrenciesInDatabase(account.GetCurrency().GetName());
+  if (!account_currency_in_database)
   {
-    Currency currency(account.GetCurrency().GetName(), account.GetCurrency().GetCode(), account.GetCurrency().GetActivity());
-    InsertCurrencyToTableCurrenciesInDatabase(std::move(currency));
-    std::tie(currency_is_in_database, currency_id, currency) = FindCurrencyInTableCurrenciesInDatabase(account.GetCurrency().GetName());
+    InsertCurrencyToTableCurrenciesInDatabase(account.GetCurrency());
+    std::tie(account_currency_in_database, account_currency_id, std::ignore) = FindCurrencyInTableCurrenciesInDatabase(account.GetCurrency().GetName());
   }
-  int table_rows = SizeOfTable("Accounts");
-  if (table_rows == 0)
+
+  int counter_start = 1;
+  bool model_in_database;
+  int model_id;
+  std::tie(model_in_database, model_id, std::ignore) = FindAccountInTableAccountsInDatabase(account.GetName());
+  if (model_in_database)
   {
-    const std::string sql_request = std::string("INSERT INTO Accounts VALUES(") +
-      "null, '" +
-      account.GetName() + "', " +
-      std::to_string(account.GetAmount().getAsDouble()) + ", " +
-      std::to_string(currency_id) + ");";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Insert Error: " << database_error_;
-    }
-    else
-    {
-      PLOG_INFO << "Insert account to table 'Accounts' in database";
-    }
+    PLOG_ERROR << "Table 'Account' has this account";
     return;
   }
-  if (table_rows > 0)
+  else
   {
-    sqlite3_prepare_v2(database_, "SELECT * FROM Accounts", -1, &database_stmt_, 0);
-    int account_amount;
-    const unsigned char* account_name;
-    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
-    {
-      account_name = (sqlite3_column_text(database_stmt_, 1));
-      account_amount = sqlite3_column_int(database_stmt_, 2);
-      if (account_name == nullptr)
-      {
-        const std::string sql_request = std::string("INSERT INTO Accounts VALUES(") +
-          "null, '" +
-          account.GetName() + "', " +
-          std::to_string(account.GetAmount().getAsDouble()) + ", " +
-          std::to_string(currency_id) + ");";
-        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-        if (database_status_ != SQLITE_OK)
-        {
-          PLOG_ERROR << "SQL Insert Error: " << database_error_;
-        }
-        else
-        {
-          PLOG_INFO << "Insert account to table 'Accounts' in database";
-        }
-        return;
-      }
-      if (reinterpret_cast<const char*>(account_name) == account.GetName())
-      {
-        PLOG_ERROR << "Table 'Accounts' has this account";
-        return;
-      }
-    }
-    const std::string sql_request = std::string("INSERT INTO Accounts VALUES(") +
-      "null, '" +
-      account.GetName() + "', " +
-      std::to_string(account.GetAmount().getAsDouble()) + ", " +
-      std::to_string(currency_id) + ");";
+    std::string sql_request = std::string("INSERT INTO Accounts VALUES(null, '") +
+      account.GetName() + "', " + 
+      std::to_string(account.GetAmount().getAsDouble()) + ", " + 
+      std::to_string(account_currency_id) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -636,14 +593,15 @@ void DatabaseManager::ClearTableCategoriesInDatabase()
 //  Insert one category to table 'Categories' in database
 void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& category)
 {
-  int table_rows = SizeOfTable("Categories");
-  int id_start = 1;
-  if (table_rows == 0)
+  int counter_start = 1;
+  bool model_in_database;
+  int model_id;
+  int model_counter;
+  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindCategoryInTableCategoriesInDatabase(category.GetName());
+  if (model_in_database)
   {
-    const std::string sql_request = std::string("INSERT INTO Categories VALUES(") +
-      "null, '" + 
-      category.GetName() + "', " +
-      std::to_string(id_start) + ");";
+    std::string sql_request = std::string("UPDATE Categories SET counter = ") + std::to_string(model_counter + 1) +
+      " WHERE id = " + std::to_string(model_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -651,58 +609,14 @@ void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& categ
     }
     else
     {
-      PLOG_INFO << "Insert category to table 'Categories' in database";
+      PLOG_INFO << "Append counter for category in table 'Categories' in database";
     }
     return;
   }
-  if (table_rows > 0)
+  else
   {
-    sqlite3_prepare_v2(database_, "SELECT * FROM Categories", -1, &database_stmt_, 0);
-    int category_counter;
-    const unsigned char* category_name;
-    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
-    {
-      category_name = (sqlite3_column_text(database_stmt_, 1));
-      category_counter = sqlite3_column_int(database_stmt_, 2);
-      if (category_name == nullptr)
-      {
-        const std::string sql_request = std::string("INSERT INTO Categories VALUES(") +
-          "null, '" +
-          category.GetName() + "', " +
-          std::to_string(1) + ");";
-        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-        if (database_status_ != SQLITE_OK)
-        {
-          PLOG_ERROR << "SQL Insert Error: " << database_error_;
-        }
-        else
-        {
-          PLOG_INFO << "Insert category to table 'Categories' in database";
-        }
-        return;
-      }
-      if (reinterpret_cast<const char*>(category_name) == category.GetName())
-      {
-        const std::string sql_request = std::string("UPDATE Categories SET counter = ") +
-          std::to_string(category_counter + 1) +
-          " WHERE name = " + "'" +
-          reinterpret_cast<const char*>(category_name) + "';";
-        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-        if (database_status_ != SQLITE_OK)
-        {
-          PLOG_ERROR << "SQL Insert Error: " << database_error_;
-        }
-        else
-        {
-          PLOG_INFO << "Insert category to table 'Categories' in database";
-        }
-        return;
-      }
-    }
-    const std::string sql_request = std::string("INSERT INTO Categories VALUES(") +
-      "null, '" +
-      category.GetName() + "', " +
-      std::to_string(1) + ");";
+    std::string sql_request = std::string("INSERT INTO Categories VALUES(null, '") +
+      category.GetName() + "', " + std::to_string(counter_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -816,66 +730,18 @@ void DatabaseManager::ClearTableCurrenciesInDatabase()
 //  Insert one currency to table 'Currencies' in database
 void DatabaseManager::InsertCurrencyToTableCurrenciesInDatabase(Currency&& currency)
 {
-  int table_rows = SizeOfTable("Currencies");
-  int id_start = 1;
-  if (table_rows == 0)
+  int counter_start = 1;
+  bool model_in_database;
+  std::tie(model_in_database, std::ignore, std::ignore) = FindCurrencyInTableCurrenciesInDatabase(currency.GetName());
+  if (model_in_database)
   {
-    const std::string sql_request = std::string("INSERT INTO Currencies VALUES(") +
-      "null, '" +
-      currency.GetName() + "', '" +
-      currency.GetCode() + "', '" +
-      std::to_string(currency.GetActivity() ? 1 : 0) + "');";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Insert Error: " << database_error_;
-    }
-    else
-    {
-      PLOG_INFO << "Insert currency to table 'Currencies' in database";
-    }
+    PLOG_ERROR << "Table 'Currencies' has this currency";
     return;
   }
-  if (table_rows > 0)
+  else
   {
-    sqlite3_prepare_v2(database_, "SELECT * FROM Currencies", -1, &database_stmt_, 0);
-    const unsigned char* currency_name;
-    const unsigned char* currency_code;
-    int currency_activity;
-    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
-    {
-      currency_name = sqlite3_column_text(database_stmt_, 1);
-      currency_code = sqlite3_column_text(database_stmt_, 2);
-      currency_activity = sqlite3_column_int(database_stmt_, 3);
-      if (currency_name == nullptr)
-      {
-        const std::string sql_request = std::string("INSERT INTO Currencies VALUES(") +
-          "null, '" +
-          currency.GetName() + "', '" +
-          currency.GetCode() + "', '" +
-          std::to_string(currency.GetActivity() ? 1 : 0) + "');";
-        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-        if (database_status_ != SQLITE_OK)
-        {
-          PLOG_ERROR << "SQL Insert Error: " << database_error_;
-        }
-        else
-        {
-          PLOG_INFO << "Insert currency to table 'Currencies' in database";
-        }
-        return;
-      }
-      if (reinterpret_cast<const char*>(currency_name) == currency.GetName())
-      {
-        PLOG_ERROR << "Table 'Currencies' has this currency";
-        return;
-      }
-    }
-    const std::string sql_request = std::string("INSERT INTO Currencies VALUES(") +
-      "null, '" +
-      currency.GetName() + "', '" +
-      currency.GetCode() + "', '" +
-      std::to_string(currency.GetActivity() ? 1 : 0) + "');";
+    std::string sql_request = std::string("INSERT INTO Currencies VALUES(null, '") +
+      currency.GetName() + "', '" + currency.GetCode() + "', " + std::to_string(currency.GetActivity()) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -985,14 +851,15 @@ void DatabaseManager::ClearTableDescriptionsInDatabase()
 //  Insert one description to table 'Descriptions' in database
 void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description&& description)
 {
-  int table_rows = SizeOfTable("Descriptions");
-  int id_start = 1;
-  if (table_rows == 0)
+  int counter_start = 1;
+  bool model_in_database;
+  int model_id;
+  int model_counter;
+  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindDescriptionInTableDescriptionsInDatabase(description.GetName());
+  if (model_in_database)
   {
-    const std::string sql_request = std::string("INSERT INTO Descriptions VALUES(") +
-      "null, '" +
-      description.GetName() + "', " +
-      std::to_string(id_start) + ");";
+    std::string sql_request = std::string("UPDATE Descriptions SET counter = ") + std::to_string(model_counter + 1) +
+      " WHERE id = " + std::to_string(model_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1000,58 +867,14 @@ void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description
     }
     else
     {
-      PLOG_INFO << "Insert description to table 'Descriptions' in database";
+      PLOG_INFO << "Append counter for description in table 'Descriptions' in database";
     }
     return;
   }
-  if (table_rows > 0)
+  else
   {
-    sqlite3_prepare_v2(database_, "SELECT * FROM Descriptions", -1, &database_stmt_, 0);
-    int description_counter;
-    const unsigned char* description_name;
-    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
-    {
-      description_name = (sqlite3_column_text(database_stmt_, 1));
-      description_counter = sqlite3_column_int(database_stmt_, 2);
-      if (description_name == nullptr)
-      {
-        const std::string sql_request = std::string("INSERT INTO Descriptions VALUES(") +
-          "null, '" +
-          description.GetName() + "', " +
-          std::to_string(1) + ");";
-        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-        if (database_status_ != SQLITE_OK)
-        {
-          PLOG_ERROR << "SQL Insert Error: " << database_error_;
-        }
-        else
-        {
-          PLOG_INFO << "Insert description to table 'Descriptions' in database";
-        }
-        return;
-      }
-      if (reinterpret_cast<const char*>(description_name) == description.GetName())
-      {
-        const std::string sql_request = std::string("UPDATE Descriptions SET counter = ") +
-          std::to_string(description_counter + 1) +
-          " WHERE name = " + "'" +
-          reinterpret_cast<const char*>(description_name) + "';";
-        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-        if (database_status_ != SQLITE_OK)
-        {
-          PLOG_ERROR << "SQL Insert Error: " << database_error_;
-        }
-        else
-        {
-          PLOG_INFO << "Insert description to table 'Descriptions' in database";
-        }
-        return;
-      }
-    }
-    const std::string sql_request = std::string("INSERT INTO Descriptions VALUES(") +
-      "null, '" +
-      description.GetName() + "', " +
-      std::to_string(1) + ");";
+    std::string sql_request = std::string("INSERT INTO Descriptions VALUES(null, '") +
+      description.GetName() + "', " + std::to_string(counter_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1165,14 +988,15 @@ void DatabaseManager::ClearTablePayeesInDatabase()
 //  Insert one payee to table 'Payees' in database
 void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
 {
-  int table_rows = SizeOfTable("Payees");
-  int id_start = 1;
-  if (table_rows == 0)
+  int counter_start = 1;
+  bool model_in_database;
+  int model_id;
+  int model_counter;
+  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindPayeeInTablePayeesInDatabase(payee.GetName());
+  if (model_in_database)
   {
-    const std::string sql_request = std::string("INSERT INTO Payees VALUES(") +
-      "null, '" +
-      payee.GetName() + "', " +
-      std::to_string(id_start) + ");";
+    std::string sql_request = std::string("UPDATE Payees SET counter = ") + std::to_string(model_counter + 1) +
+      " WHERE id = " + std::to_string(model_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1180,58 +1004,14 @@ void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
     }
     else
     {
-      PLOG_INFO << "Insert payee to table 'Payees' in database";
+      PLOG_INFO << "Append counter for payee in table 'Payees' in database";
     }
     return;
   }
-  if (table_rows > 0)
+  else
   {
-    sqlite3_prepare_v2(database_, "SELECT * FROM Payees", -1, &database_stmt_, 0);
-    int payee_counter;
-    const unsigned char* payee_name;
-    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
-    {
-      payee_name = (sqlite3_column_text(database_stmt_, 1));
-      payee_counter = sqlite3_column_int(database_stmt_, 2);
-      if (payee_name == nullptr)
-      {
-        const std::string sql_request = std::string("INSERT INTO Payees VALUES(") +
-          "null, '" +
-          payee.GetName() + "', " +
-          std::to_string(1) + ");";
-        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-        if (database_status_ != SQLITE_OK)
-        {
-          PLOG_ERROR << "SQL Insert Error: " << database_error_;
-        }
-        else
-        {
-          PLOG_INFO << "Insert payee to table 'Payees' in database";
-        }
-        return;
-      }
-      if (reinterpret_cast<const char*>(payee_name) == payee.GetName())
-      {
-        const std::string sql_request = std::string("UPDATE Payees SET counter = ") +
-          std::to_string(payee_counter + 1) +
-          " WHERE name = " + "'" +
-          reinterpret_cast<const char*>(payee_name) + "';";
-        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-        if (database_status_ != SQLITE_OK)
-        {
-          PLOG_ERROR << "SQL Insert Error: " << database_error_;
-        }
-        else
-        {
-          PLOG_INFO << "Insert payee to table 'Payees' in database";
-        }
-        return;
-      }
-    }
-    const std::string sql_request = std::string("INSERT INTO Payees VALUES(") +
-      "null, '" +
-      payee.GetName() + "', " +
-      std::to_string(1) + ");";
+    std::string sql_request = std::string("INSERT INTO Payees VALUES(null, '") +
+      payee.GetName() + "', " + std::to_string(counter_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1345,14 +1125,15 @@ void DatabaseManager::ClearTableCommentsInDatabase()
 //  Insert one comment to table 'Comments' in database
 void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
 {
-  int table_rows = SizeOfTable("Comments");
-  int id_start = 1;
-  if (table_rows == 0)
+  int counter_start = 1;
+  bool model_in_database;
+  int model_id;
+  int model_counter;
+  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindCommentInTableCommentsInDatabase(comment.GetName());
+  if (model_in_database)
   {
-    const std::string sql_request = std::string("INSERT INTO Comments VALUES(") +
-      "null, '" +
-      comment.GetName() + "', " +
-      std::to_string(id_start) + ");";
+    std::string sql_request = std::string("UPDATE Comments SET counter = ") + std::to_string(model_counter + 1) +
+      " WHERE id = " + std::to_string(model_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1360,58 +1141,14 @@ void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
     }
     else
     {
-      PLOG_INFO << "Insert comment to table 'Comments' in database";
+      PLOG_INFO << "Append counter for comment in table 'Comments' in database";
     }
     return;
   }
-  if (table_rows > 0)
+  else
   {
-    sqlite3_prepare_v2(database_, "SELECT * FROM Comments", -1, &database_stmt_, 0);
-    int comment_counter;
-    const unsigned char* comment_name;
-    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
-    {
-      comment_name = (sqlite3_column_text(database_stmt_, 1));
-      comment_counter = sqlite3_column_int(database_stmt_, 2);
-      if (comment_name == nullptr)
-      {
-        const std::string sql_request = std::string("INSERT INTO Comments VALUES(") +
-          "null, '" +
-          comment.GetName() + "', " +
-          std::to_string(1) + ");";
-        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-        if (database_status_ != SQLITE_OK)
-        {
-          PLOG_ERROR << "SQL Insert Error: " << database_error_;
-        }
-        else
-        {
-          PLOG_INFO << "Insert comment to table 'Comments' in database";
-        }
-        return;
-      }
-      if (reinterpret_cast<const char*>(comment_name) == comment.GetName())
-      {
-        const std::string sql_request = std::string("UPDATE Comments SET counter = ") +
-          std::to_string(comment_counter + 1) +
-          " WHERE name = " + "'" +
-          reinterpret_cast<const char*>(comment_name) + "';";
-        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-        if (database_status_ != SQLITE_OK)
-        {
-          PLOG_ERROR << "SQL Insert Error: " << database_error_;
-        }
-        else
-        {
-          PLOG_INFO << "Insert comment to table 'Comments' in database";
-        }
-        return;
-      }
-    }
-    const std::string sql_request = std::string("INSERT INTO Comments VALUES(") +
-      "null, '" +
-      comment.GetName() + "', " +
-      std::to_string(1) + ");";
+    std::string sql_request = std::string("INSERT INTO Comments VALUES(null, '") +
+      comment.GetName() + "', " + std::to_string(counter_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1525,14 +1262,15 @@ void DatabaseManager::ClearTableTagsInDatabase()
 //  Insert one tag to table 'Tags' in database
 void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
 {
-  int table_rows = SizeOfTable("Tags");
-  int id_start = 1;
-  if (table_rows == 0)
+  int counter_start = 1;
+  bool model_in_database;
+  int model_id;
+  int model_counter;
+  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindTagInTableTagsInDatabase(tag.GetName());
+  if (model_in_database)
   {
-    const std::string sql_request = std::string("INSERT INTO Tags VALUES(") +
-      "null, '" +
-      tag.GetName() + "', " +
-      std::to_string(id_start) + ");";
+    std::string sql_request = std::string("UPDATE Tags SET counter = ") + std::to_string(model_counter + 1) +
+      " WHERE id = " + std::to_string(model_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1540,58 +1278,14 @@ void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
     }
     else
     {
-      PLOG_INFO << "Insert tag to table 'Tags' in database";
+      PLOG_INFO << "Append counter for tag in table 'Tags' in database";
     }
     return;
   }
-  if (table_rows > 0)
+  else
   {
-    sqlite3_prepare_v2(database_, "SELECT * FROM Tags", -1, &database_stmt_, 0);
-    int tag_counter;
-    const unsigned char* tag_name;
-    while (sqlite3_step(database_stmt_) != SQLITE_DONE)
-    {
-      tag_name = (sqlite3_column_text(database_stmt_, 1));
-      tag_counter = sqlite3_column_int(database_stmt_, 2);
-      if (tag_name == nullptr)
-      {
-        const std::string sql_request = std::string("INSERT INTO Tags VALUES(") +
-          "null, '" +
-          tag.GetName() + "', " +
-          std::to_string(1) + ");";
-        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-        if (database_status_ != SQLITE_OK)
-        {
-          PLOG_ERROR << "SQL Insert Error: " << database_error_;
-        }
-        else
-        {
-          PLOG_INFO << "Insert tag to table 'Tags' in database";
-        }
-        return;
-      }
-      if (reinterpret_cast<const char*>(tag_name) == tag.GetName())
-      {
-        const std::string sql_request = std::string("UPDATE Tags SET counter = ") +
-          std::to_string(tag_counter + 1) +
-          " WHERE name = " + "'" +
-          reinterpret_cast<const char*>(tag_name) + "';";
-        database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-        if (database_status_ != SQLITE_OK)
-        {
-          PLOG_ERROR << "SQL Insert Error: " << database_error_;
-        }
-        else
-        {
-          PLOG_INFO << "Insert tag to table 'Tags' in database";
-        }
-        return;
-      }
-    }
-    const std::string sql_request = std::string("INSERT INTO Tags VALUES(") +
-      "null, '" +
-      tag.GetName() + "', " +
-      std::to_string(1) + ");";
+    std::string sql_request = std::string("INSERT INTO Tags VALUES(null, '") + 
+      tag.GetName() + "', " + std::to_string(counter_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1647,8 +1341,7 @@ void DatabaseManager::FindTagInTableTagsInDatabaseUpdateName(const std::string& 
   std::tie(tag_is_in_table, tag_id, tag, tag_counter) = FindTagInTableTagsInDatabase(tag_name);
   if (tag_is_in_table)
   {
-    const std::string sql_request = std::string("UPDATE Tags SET name = '") +
-      name +
+    const std::string sql_request = std::string("UPDATE Tags SET name = '") + name +
       "' WHERE id = " + std::to_string(tag_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
