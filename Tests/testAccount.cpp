@@ -38,7 +38,7 @@ TEST(AccountTest, TestDefaultWithRenameAndReamount)
   if (repository_model_is_in_table)
   {
     repository.SetAccountName(Account().GetName(), expected_name);
-    repository.SetAccountAmount(expected_name, expected_amount);
+    repository.SetAccountAmount(expected_name, NUM(expected_amount));
     std::tie(repository_model_is_in_table, repository_model_id, repository_model) = repository.FindAccount(expected_name);
   }
 
@@ -65,7 +65,7 @@ TEST(AccountTest, TestWithRenameAndReamount)
   if (repository_model_is_in_table)
   {
     repository.SetAccountName(model_name, expected_name);
-    repository.SetAccountAmount(expected_name, expected_amount);
+    repository.SetAccountAmount(expected_name, NUM(expected_amount));
     std::tie(repository_model_is_in_table, repository_model_id, repository_model) = repository.FindAccount(expected_name);
   }
 
@@ -93,7 +93,7 @@ TEST(AccountTest, TestWithRenameAndReamountAndRecurrency)
   if (repository_model_is_in_table)
   {
     repository.SetAccountName(model_name, expected_name);
-    repository.SetAccountAmount(expected_name, expected_amount);
+    repository.SetAccountAmount(expected_name, NUM(expected_amount));
     repository.SetAccountCurrency(expected_name, std::move(expected_currency));
     std::tie(repository_model_is_in_table, repository_model_id, repository_model) = repository.FindAccount(expected_name);
   }
