@@ -21,6 +21,8 @@ DatabaseManager::~DatabaseManager()
   PLOG_INFO << "Close database";
 }
 
+//  Not class member function
+//  Additional function for calculate rows with data in table
 static int callback(void* count, int argc, char** argv, char** azColName)
 {
   int* c = (int*)count;
@@ -281,7 +283,7 @@ void DatabaseManager::InsertTransactionToTableTransactionsInDatabase(Transaction
   if (transaction.GetType() == kEnumType::Expense)
   {
     transaction_amount_account_from = GetAccountAmount(transaction.GetAccountFrom().GetName()) - transaction.GetAmount();
-    transaction_amount_account_to = GetAccountAmount(transaction.GetAccountTo().GetName()) + transaction.GetAmount();
+    transaction_amount_account_to = GetAccountAmount(transaction.GetAccountTo().GetName()) - transaction.GetAmount();
     transaction.SetAmountAccountFrom(transaction_amount_account_from);
     transaction.SetAmountAccountTo(transaction_amount_account_to);
     SetAccountAmount(transaction.GetAccountFrom().GetName(), transaction_amount_account_from);
@@ -289,7 +291,7 @@ void DatabaseManager::InsertTransactionToTableTransactionsInDatabase(Transaction
   }
   if (transaction.GetType() == kEnumType::Income)
   {
-    transaction_amount_account_from = GetAccountAmount(transaction.GetAccountFrom().GetName()) - transaction.GetAmount();
+    transaction_amount_account_from = GetAccountAmount(transaction.GetAccountFrom().GetName()) + transaction.GetAmount();
     transaction_amount_account_to = GetAccountAmount(transaction.GetAccountTo().GetName()) + transaction.GetAmount();
     transaction.SetAmountAccountFrom(transaction_amount_account_from);
     transaction.SetAmountAccountTo(transaction_amount_account_to);
@@ -422,21 +424,21 @@ void DatabaseManager::ClearTableAccountsInDatabase()
 
 //  Class member function
 //  Insert account to table 'Accounts' in database
-void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& account)
+void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& model)
 {
-  bool account_currency_in_database;
-  int account_currency_id;
-  std::tie(account_currency_in_database, account_currency_id, std::ignore) = FindCurrencyInTableCurrenciesInDatabase(account.GetCurrency().GetName());
-  if (!account_currency_in_database)
+  bool model_currency_in_database;
+  int model_currency_id;
+  std::tie(model_currency_in_database, model_currency_id, std::ignore) = FindCurrencyInTableCurrenciesInDatabase(model.GetCurrency().GetName());
+  if (!model_currency_in_database)
   {
-    InsertCurrencyToTableCurrenciesInDatabase(account.GetCurrency());
-    std::tie(account_currency_in_database, account_currency_id, std::ignore) = FindCurrencyInTableCurrenciesInDatabase(account.GetCurrency().GetName());
+    InsertCurrencyToTableCurrenciesInDatabase(model.GetCurrency());
+    std::tie(model_currency_in_database, model_currency_id, std::ignore) = FindCurrencyInTableCurrenciesInDatabase(model.GetCurrency().GetName());
   }
 
   int counter_start = 1;
   bool model_in_database;
   int model_id;
-  std::tie(model_in_database, model_id, std::ignore) = FindAccountInTableAccountsInDatabase(account.GetName());
+  std::tie(model_in_database, model_id, std::ignore) = FindAccountInTableAccountsInDatabase(model.GetName());
   if (model_in_database)
   {
     PLOG_ERROR << "Table 'Account' has this account";
@@ -445,9 +447,9 @@ void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& account)
   else
   {
     std::string sql_request = std::string("INSERT INTO Accounts VALUES(null, '") +
-      account.GetName() + "', " + 
-      std::to_string(account.GetAmount().getAsDouble()) + ", " + 
-      std::to_string(account_currency_id) + ");";
+      model.GetName() + "', " + 
+      std::to_string(model.GetAmount().getAsDouble()) + ", " +
+      std::to_string(model_currency_id) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -473,18 +475,18 @@ void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&
 
 //  Class member function
 //  Find account with definite name in table 'Accounts' in database
-std::tuple<bool, int, Account> DatabaseManager::FindAccountInTableAccountsInDatabase(const std::string& name)
+std::tuple<bool, int, Account> DatabaseManager::FindAccountInTableAccountsInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Accounts", -1, &database_stmt_, 0);
   while (sqlite3_step(database_stmt_) != SQLITE_DONE)
   {
-    int account_id = (sqlite3_column_int(database_stmt_, 0));
-    const unsigned char* account_name = (sqlite3_column_text(database_stmt_, 1));
-    double account_amount = (sqlite3_column_double(database_stmt_, 2));
-    int account_currency = (sqlite3_column_int(database_stmt_, 3));
-    if (reinterpret_cast<const char*>(account_name) == name)
+    int model_id = (sqlite3_column_int(database_stmt_, 0));
+    const unsigned char* model_name_char = (sqlite3_column_text(database_stmt_, 1));
+    double model_amount = (sqlite3_column_double(database_stmt_, 2));
+    int model_currency = (sqlite3_column_int(database_stmt_, 3));
+    if (reinterpret_cast<const char*>(model_name_char) == model_name)
     {
-      std::string sql_request = std::string("SELECT * FROM Currencies WHERE id = ") + std::to_string(account_currency) + ";";
+      std::string sql_request = std::string("SELECT * FROM Currencies WHERE id = ") + std::to_string(model_currency) + ";";
       sqlite3_prepare_v2(database_, sql_request.c_str(), -1, &database_stmt_, 0);
       const unsigned char* currency_name = nullptr;
       const unsigned char* currency_code = nullptr;
@@ -497,28 +499,28 @@ std::tuple<bool, int, Account> DatabaseManager::FindAccountInTableAccountsInData
         break;
       }
       Currency currency((reinterpret_cast<const char*>(currency_name)), (reinterpret_cast<const char*>(currency_code)), currency_activity);
-      Account account((reinterpret_cast<const char*>(account_name)), account_amount, currency);
-      PLOG_INFO << "Account with name " << name << " is found in table 'Accounts' in database";
-      return std::make_tuple(true, account_id, account);
+      Account model((reinterpret_cast<const char*>(model_name_char)), model_amount, currency);
+      PLOG_INFO << "Account with name " << model_name << " is found in table 'Accounts' in database";
+      return std::make_tuple(true, model_id, model);
     }
   }
-  PLOG_INFO << "Account with name " << name << " isn't found in table 'Accounts' in database";
+  PLOG_INFO << "Account with name " << model_name << " isn't found in table 'Accounts' in database";
   return std::make_tuple(false, 0, Account());
 }
 
 //  Class member function
 //  Set name of account in table 'Accounts' in database
-void DatabaseManager::SetAccountName(const std::string & account_name, const std::string & name)
+void DatabaseManager::SetAccountName(const std::string & model_name, const std::string & name)
 {
-  bool account_is_in_table = false;
-  int account_id;
-  Account account;
-  std::tie(account_is_in_table, account_id, account) = FindAccountInTableAccountsInDatabase(account_name);
-  if (account_is_in_table)
+  bool model_is_in_table = false;
+  int model_id;
+  Account model;
+  std::tie(model_is_in_table, model_id, model) = FindAccountInTableAccountsInDatabase(model_name);
+  if (model_is_in_table)
   {
     const std::string sql_request = std::string("UPDATE Accounts SET name = '") +
       name +
-      "' WHERE id = " + std::to_string(account_id) + ";";
+      "' WHERE id = " + std::to_string(model_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -533,17 +535,17 @@ void DatabaseManager::SetAccountName(const std::string & account_name, const std
 
 //  Class member function
 //  Set amount of account in table 'Accounts' in database
-void DatabaseManager::SetAccountAmount(const std::string& account_name, const NUM amount)
+void DatabaseManager::SetAccountAmount(const std::string& model_name, const NUM amount)
 {
-  bool account_is_in_table = false;
-  int account_id;
-  Account account;
-  std::tie(account_is_in_table, account_id, account) = FindAccountInTableAccountsInDatabase(account_name);
-  if (account_is_in_table)
+  bool model_is_in_table = false;
+  int model_id;
+  Account model;
+  std::tie(model_is_in_table, model_id, model) = FindAccountInTableAccountsInDatabase(model_name);
+  if (model_is_in_table)
   {
     const std::string sql_request = std::string("UPDATE Accounts SET amount = ") +
       std::to_string(amount.getAsDouble()) +
-      " WHERE id = " + std::to_string(account_id) + ";";
+      " WHERE id = " + std::to_string(model_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -558,7 +560,7 @@ void DatabaseManager::SetAccountAmount(const std::string& account_name, const NU
 
 //  Class member function
 //  Set currency of account in table 'Accounts' in database
-void DatabaseManager::SetAccountCurrency(const std::string& account_name, Currency&& currency)
+void DatabaseManager::SetAccountCurrency(const std::string& model_name, Currency&& currency)
 {
   bool currency_is_in_table = false;
   int currency_id;
@@ -569,15 +571,15 @@ void DatabaseManager::SetAccountCurrency(const std::string& account_name, Curren
     InsertCurrencyToTableCurrenciesInDatabase(std::move(currency));
     std::tie(currency_is_in_table, currency_id, currency_in_table) = FindCurrencyInTableCurrenciesInDatabase(currency.GetName());
   }
-  bool account_is_in_table = false;
-  int account_id;
-  Account account;
-  std::tie(account_is_in_table, account_id, account) = FindAccountInTableAccountsInDatabase(account_name);
-  if (account_is_in_table)
+  bool model_is_in_table = false;
+  int model_id;
+  Account model;
+  std::tie(model_is_in_table, model_id, model) = FindAccountInTableAccountsInDatabase(model_name);
+  if (model_is_in_table)
   {
     const std::string sql_request = std::string("UPDATE Accounts SET currency = ") +
       std::to_string(currency_id) +
-      " WHERE id = " + std::to_string(account_id) + ";";
+      " WHERE id = " + std::to_string(model_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -592,55 +594,55 @@ void DatabaseManager::SetAccountCurrency(const std::string& account_name, Curren
 
 //  Class member function
 //  Get name of account from table 'Accounts' in database
-std::string DatabaseManager::GetAccountName(const std::string& account_name)
+std::string DatabaseManager::GetAccountName(const std::string& model_name)
 {
-  bool account_is_in_table = false;
-  Account account;
-  std::tie(account_is_in_table, std::ignore, account) = FindAccountInTableAccountsInDatabase(account_name);
-  if (account_is_in_table)
+  bool model_is_in_table = false;
+  Account model;
+  std::tie(model_is_in_table, std::ignore, model) = FindAccountInTableAccountsInDatabase(model_name);
+  if (model_is_in_table)
   {
-    return account.GetName();
+    return model.GetName();
   }
 }
 
 //  Class member function
 //  Get amount of account from table 'Accounts' in database
-NUM DatabaseManager::GetAccountAmount(const std::string& account_name)
+NUM DatabaseManager::GetAccountAmount(const std::string& model_name)
 {
-  bool account_is_in_table = false;
-  Account account;
-  std::tie(account_is_in_table, std::ignore, account) = FindAccountInTableAccountsInDatabase(account_name);
-  if (account_is_in_table)
+  bool model_is_in_table = false;
+  Account model;
+  std::tie(model_is_in_table, std::ignore, model) = FindAccountInTableAccountsInDatabase(model_name);
+  if (model_is_in_table)
   {
-    return account.GetAmount();
+    return model.GetAmount();
   }
 }
 
 //  Class member function
 //  Get currency of account from table 'Accounts' in database
-Currency DatabaseManager::GetAccountCurrency(const std::string& account_name)
+Currency DatabaseManager::GetAccountCurrency(const std::string& model_name)
 {
-  bool account_is_in_table = false;
-  Account account;
-  std::tie(account_is_in_table, std::ignore, account) = FindAccountInTableAccountsInDatabase(account_name);
-  if (account_is_in_table)
+  bool model_is_in_table = false;
+  Account model;
+  std::tie(model_is_in_table, std::ignore, model) = FindAccountInTableAccountsInDatabase(model_name);
+  if (model_is_in_table)
   {
-    return account.GetCurrency();
+    return model.GetCurrency();
   }
 }
 
 //  Class member function
 //  Remove one account from table 'Accounts' in database
-void DatabaseManager::RemoveAccountFromTableAccountsInDatabase(const std::string& name)
+void DatabaseManager::RemoveAccountFromTableAccountsInDatabase(const std::string& model_name)
 {
-  bool account_is_in_table = false;
-  int account_id;
-  Account account;
-  std::tie(account_is_in_table, account_id, account) = FindAccountInTableAccountsInDatabase(name);
-  if (account_is_in_table)
+  bool model_is_in_table = false;
+  int model_id;
+  Account model;
+  std::tie(model_is_in_table, model_id, model) = FindAccountInTableAccountsInDatabase(model_name);
+  if (model_is_in_table)
   {
     const std::string sql_request = std::string("DELETE FROM Accounts WHERE id = ") +
-      std::to_string(account_id) + ";";
+      std::to_string(model_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -669,13 +671,13 @@ void DatabaseManager::ClearTableCategoriesInDatabase()
 
 //  Class member function
 //  Insert one category to table 'Categories' in database
-void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& category)
+void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& model)
 {
   int counter_start = 1;
   bool model_in_database;
   int model_id;
   int model_counter;
-  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindCategoryInTableCategoriesInDatabase(category.GetName());
+  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindCategoryInTableCategoriesInDatabase(model.GetName());
   if (model_in_database)
   {
     std::string sql_request = std::string("UPDATE Categories SET counter = ") + std::to_string(model_counter + 1) +
@@ -694,7 +696,7 @@ void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& categ
   else
   {
     std::string sql_request = std::string("INSERT INTO Categories VALUES(null, '") +
-      category.GetName() + "', " + std::to_string(counter_start) + ");";
+      model.GetName() + "', " + std::to_string(counter_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -720,39 +722,39 @@ void DatabaseManager::InsertCategoriesToTableCategoriesInDatabase(CategoryReposi
 
 //  Class member function
 //  Find category with definite name in table 'Categories' in database
-std::tuple<bool, int, Category, int> DatabaseManager::FindCategoryInTableCategoriesInDatabase(const std::string& name)
+std::tuple<bool, int, Category, int> DatabaseManager::FindCategoryInTableCategoriesInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Categories", -1, &database_stmt_, 0);
   while (sqlite3_step(database_stmt_) != SQLITE_DONE)
   {
-    int category_id = (sqlite3_column_int(database_stmt_, 0));
-    const unsigned char* category_name = (sqlite3_column_text(database_stmt_, 1));
-    int category_counter = (sqlite3_column_int(database_stmt_, 2));
-    if (reinterpret_cast<const char*>(category_name) == name)
+    int model_id = (sqlite3_column_int(database_stmt_, 0));
+    const unsigned char* model_name_char = (sqlite3_column_text(database_stmt_, 1));
+    int model_counter = (sqlite3_column_int(database_stmt_, 2));
+    if (reinterpret_cast<const char*>(model_name_char) == model_name)
     {
-      Category category((reinterpret_cast<const char*>(category_name)));
-      PLOG_INFO << "Category with name " << name << " is found in table 'Categories' in database";
-      return std::make_tuple(true, category_id, category, category_counter);
+      Category model((reinterpret_cast<const char*>(model_name_char)));
+      PLOG_INFO << "Category with name " << model_name << " is found in table 'Categories' in database";
+      return std::make_tuple(true, model_id, model, model_counter);
     }
   }
-  PLOG_INFO << "Category with name " << name << " isn't found in table 'Categories' in database";
+  PLOG_INFO << "Category with name " << model_name << " isn't found in table 'Categories' in database";
   return std::make_tuple(false, 0, Category(), 0);
 }
 
 //  Class member function
 //  Find category with definite name in table 'Categories' in database and update name
-void DatabaseManager::SetCategoryName(const std::string& category_name, const std::string& name)
+void DatabaseManager::SetCategoryName(const std::string& model_name, const std::string& name)
 {
-  bool category_is_in_table = false;
-  int category_id;
-  Category category;
-  int category_counter;
-  std::tie(category_is_in_table, category_id, category, category_counter) = FindCategoryInTableCategoriesInDatabase(category_name);
-  if (category_is_in_table)
+  bool model_is_in_table = false;
+  int model_id;
+  Category model;
+  int model_counter;
+  std::tie(model_is_in_table, model_id, model, model_counter) = FindCategoryInTableCategoriesInDatabase(model_name);
+  if (model_is_in_table)
   {
     const std::string sql_request = std::string("UPDATE Categories SET name = '") +
       name +
-      "' WHERE id = " + std::to_string(category_id) + ";";
+      "' WHERE id = " + std::to_string(model_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -766,14 +768,27 @@ void DatabaseManager::SetCategoryName(const std::string& category_name, const st
 }
 
 //  Class member function
+//  Get name of account from table 'Categories' in database
+std::string DatabaseManager::GetCategoryName(const std::string& model_name)
+{
+  bool model_is_in_table = false;
+  Category model;
+  std::tie(model_is_in_table, std::ignore, model, std::ignore) = FindCategoryInTableCategoriesInDatabase(model_name);
+  if (model_is_in_table)
+  {
+    return model.GetName();
+  }
+}
+
+//  Class member function
 //  Remove one category from table 'Categories' in database
-void DatabaseManager::RemoveCategoryFromTableCategoriesInDatabase(const std::string& name)
+void DatabaseManager::RemoveCategoryFromTableCategoriesInDatabase(const std::string& model_name)
 {
   bool model_is_in_table = false;
   int model_id;
   Category model;
   int model_counter;
-  std::tie(model_is_in_table, model_id, model, model_counter) = FindCategoryInTableCategoriesInDatabase(name);
+  std::tie(model_is_in_table, model_id, model, model_counter) = FindCategoryInTableCategoriesInDatabase(model_name);
   if (model_is_in_table)
   {
     const std::string sql_request = std::string("DELETE FROM Categories WHERE id = ") +
@@ -806,11 +821,11 @@ void DatabaseManager::ClearTableCurrenciesInDatabase()
 
 //  Class member function
 //  Insert one currency to table 'Currencies' in database
-void DatabaseManager::InsertCurrencyToTableCurrenciesInDatabase(Currency&& currency)
+void DatabaseManager::InsertCurrencyToTableCurrenciesInDatabase(Currency&& model)
 {
   int counter_start = 1;
   bool model_in_database;
-  std::tie(model_in_database, std::ignore, std::ignore) = FindCurrencyInTableCurrenciesInDatabase(currency.GetName());
+  std::tie(model_in_database, std::ignore, std::ignore) = FindCurrencyInTableCurrenciesInDatabase(model.GetName());
   if (model_in_database)
   {
     PLOG_ERROR << "Table 'Currencies' has this currency";
@@ -819,7 +834,7 @@ void DatabaseManager::InsertCurrencyToTableCurrenciesInDatabase(Currency&& curre
   else
   {
     std::string sql_request = std::string("INSERT INTO Currencies VALUES(null, '") +
-      currency.GetName() + "', '" + currency.GetCode() + "', " + std::to_string(currency.GetActivity()) + ");";
+      model.GetName() + "', '" + model.GetCode() + "', " + std::to_string(model.GetActivity()) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -845,56 +860,170 @@ void DatabaseManager::InsertCurrenciesToTableCurrenciesInDatabase(CurrencyReposi
 
 //  Class member function
 //  Find currency with definite name in table 'Currencies' in database
-std::tuple<bool, int, Currency> DatabaseManager::FindCurrencyInTableCurrenciesInDatabase(const std::string& name)
+std::tuple<bool, int, Currency> DatabaseManager::FindCurrencyInTableCurrenciesInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Currencies", -1, &database_stmt_, 0);
   while (sqlite3_step(database_stmt_) != SQLITE_DONE)
   {
-    int currency_id = (sqlite3_column_int(database_stmt_, 0));
-    const unsigned char* currency_name = (sqlite3_column_text(database_stmt_, 1));
-    const unsigned char* currency_code = (sqlite3_column_text(database_stmt_, 2));
-    int currency_activity = (sqlite3_column_int(database_stmt_, 3));
-    if (reinterpret_cast<const char*>(currency_name) == name)
+    int model_id = (sqlite3_column_int(database_stmt_, 0));
+    const unsigned char* model_name_char = (sqlite3_column_text(database_stmt_, 1));
+    const unsigned char* model_code_char = (sqlite3_column_text(database_stmt_, 2));
+    int model_activity = (sqlite3_column_int(database_stmt_, 3));
+    if (reinterpret_cast<const char*>(model_name_char) == model_name)
     {
-      Currency currency((reinterpret_cast<const char*>(currency_name)), (reinterpret_cast<const char*>(currency_code)), currency_activity);
-      PLOG_INFO << "Currency with name " << name << " is found in table 'Currencies' in database";
-      return std::make_tuple(true, currency_id, currency);
+      Currency model((reinterpret_cast<const char*>(model_name_char)), (reinterpret_cast<const char*>(model_name_char)), model_activity);
+      PLOG_INFO << "Currency with name " << model_name << " is found in table 'Currencies' in database";
+      return std::make_tuple(true, model_id, model);
     }
   }
-  PLOG_INFO << "Currency with name " << name << " isn't found in table 'Currencies' in database";
+  PLOG_INFO << "Currency with name " << model_name << " isn't found in table 'Currencies' in database";
   return std::make_tuple(false, 0, Currency());
 }
 
 //  Class member function
 //  Find currency with definite code in table 'Currencies' in database
-std::tuple<bool, int, Currency> DatabaseManager::FindCurrencyByCodeInTableCurrenciesInDatabase(const std::string& code)
+std::tuple<bool, int, Currency> DatabaseManager::FindCurrencyByCodeInTableCurrenciesInDatabase(const std::string& model_code)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Currencies", -1, &database_stmt_, 0);
   while (sqlite3_step(database_stmt_) != SQLITE_DONE)
   {
-    int currency_id = (sqlite3_column_int(database_stmt_, 0));
-    const unsigned char* currency_name = (sqlite3_column_text(database_stmt_, 1));
-    const unsigned char* currency_code = (sqlite3_column_text(database_stmt_, 2));
-    int currency_activity = (sqlite3_column_int(database_stmt_, 3));
-    if (reinterpret_cast<const char*>(currency_code) == code)
+    int model_id = (sqlite3_column_int(database_stmt_, 0));
+    const unsigned char* model_name_char = (sqlite3_column_text(database_stmt_, 1));
+    const unsigned char* model_code_char = (sqlite3_column_text(database_stmt_, 2));
+    int model_activity = (sqlite3_column_int(database_stmt_, 3));
+    if (reinterpret_cast<const char*>(model_code_char) == model_code)
     {
-      Currency currency((reinterpret_cast<const char*>(currency_name)), (reinterpret_cast<const char*>(currency_code)), currency_activity);
-      PLOG_INFO << "Currency with code " << code << " is found in table 'Currencies' in database";
-      return std::make_tuple(true, currency_id, currency);
+      Currency model((reinterpret_cast<const char*>(model_name_char)), (reinterpret_cast<const char*>(model_code_char)), model_activity);
+      PLOG_INFO << "Currency with code " << model_code << " is found in table 'Currencies' in database";
+      return std::make_tuple(true, model_id, model);
     }
   }
-  PLOG_INFO << "Currency with code " << code << " isn't found in table 'Currencies' in database";
+  PLOG_INFO << "Currency with code " << model_code << " isn't found in table 'Currencies' in database";
   return std::make_tuple(false, 0, Currency());
 }
 
 //  Class member function
-//  Remove currency from table 'Currencies' in database
-void DatabaseManager::RemoveCurrencyFromTableCurrenciesInDatabase(const std::string& name)
+//  Find category with definite name in table 'Categories' in database and update name
+void DatabaseManager::SetCurrencyName(const std::string& model_name, const std::string& name)
 {
   bool model_is_in_table = false;
   int model_id;
   Currency model;
-  std::tie(model_is_in_table, model_id, model) = FindCurrencyInTableCurrenciesInDatabase(name);
+  std::tie(model_is_in_table, model_id, model) = FindCurrencyInTableCurrenciesInDatabase(model_name);
+  if (model_is_in_table)
+  {
+    const std::string sql_request = std::string("UPDATE Currencies SET name = '") +
+      name +
+      "' WHERE id = " + std::to_string(model_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Update name of currency in table 'Currencies' in database";
+    }
+  }
+}
+
+//  Class member function
+//  Find category with definite name in table 'Categories' in database and update name
+void DatabaseManager::SetCurrencyCode(const std::string& model_name, const std::string& code)
+{
+  bool model_is_in_table = false;
+  int model_id;
+  Currency model;
+  std::tie(model_is_in_table, model_id, model) = FindCurrencyInTableCurrenciesInDatabase(model_name);
+  if (model_is_in_table)
+  {
+    const std::string sql_request = std::string("UPDATE Currencies SET code = '") +
+      code +
+      "' WHERE id = " + std::to_string(model_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Update code of currency in table 'Currencies' in database";
+    }
+  }
+}
+
+//  Class member function
+//  Find category with definite name in table 'Categories' in database and update name
+void DatabaseManager::SetCurrencyActivity(const std::string& model_name, const bool activity)
+{
+  bool model_is_in_table = false;
+  int model_id;
+  Currency model;
+  std::tie(model_is_in_table, model_id, model) = FindCurrencyInTableCurrenciesInDatabase(model_name);
+  if (model_is_in_table)
+  {
+    const std::string sql_request = std::string("UPDATE Currencies SET activity = '") +
+      std::to_string(activity) +
+      "' WHERE id = " + std::to_string(model_id) + ";";
+    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
+    if (database_status_ != SQLITE_OK)
+    {
+      PLOG_ERROR << "SQL Insert Error: " << database_error_;
+    }
+    else
+    {
+      PLOG_INFO << "Update activity of currency in table 'Currencies' in database";
+    }
+  }
+}
+
+//  Class member function
+//  Get name of account from table 'Categories' in database
+std::string DatabaseManager::GetCurrencyName(const std::string& model_name)
+{
+  bool model_is_in_table = false;
+  Currency model;
+  std::tie(model_is_in_table, std::ignore, model) = FindCurrencyInTableCurrenciesInDatabase(model_name);
+  if (model_is_in_table)
+  {
+    return model.GetName();
+  }
+}
+
+//  Class member function
+//  Get name of account from table 'Categories' in database
+std::string DatabaseManager::GetCurrencyCode(const std::string& model_name)
+{
+  bool model_is_in_table = false;
+  Currency model;
+  std::tie(model_is_in_table, std::ignore, model) = FindCurrencyInTableCurrenciesInDatabase(model_name);
+  if (model_is_in_table)
+  {
+    return model.GetCode();
+  }
+}
+
+//  Class member function
+//  Get name of account from table 'Categories' in database
+bool DatabaseManager::GetCurrencyActivity(const std::string& model_name)
+{
+  bool model_is_in_table = false;
+  Currency model;
+  std::tie(model_is_in_table, std::ignore, model) = FindCurrencyInTableCurrenciesInDatabase(model_name);
+  if (model_is_in_table)
+  {
+    return model.GetActivity();
+  }
+}
+
+//  Class member function
+//  Remove currency from table 'Currencies' in database
+void DatabaseManager::RemoveCurrencyFromTableCurrenciesInDatabase(const std::string& model_name)
+{
+  bool model_is_in_table = false;
+  int model_id;
+  Currency model;
+  std::tie(model_is_in_table, model_id, model) = FindCurrencyInTableCurrenciesInDatabase(model_name);
   if (model_is_in_table)
   {
     const std::string sql_request = std::string("DELETE FROM Currencies WHERE id = ") +
@@ -927,13 +1056,13 @@ void DatabaseManager::ClearTableDescriptionsInDatabase()
 
 //  Class member function
 //  Insert one description to table 'Descriptions' in database
-void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description&& description)
+void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description&& model)
 {
   int counter_start = 1;
   bool model_in_database;
   int model_id;
   int model_counter;
-  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindDescriptionInTableDescriptionsInDatabase(description.GetName());
+  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindDescriptionInTableDescriptionsInDatabase(model.GetName());
   if (model_in_database)
   {
     std::string sql_request = std::string("UPDATE Descriptions SET counter = ") + std::to_string(model_counter + 1) +
@@ -952,7 +1081,7 @@ void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description
   else
   {
     std::string sql_request = std::string("INSERT INTO Descriptions VALUES(null, '") +
-      description.GetName() + "', " + std::to_string(counter_start) + ");";
+      model.GetName() + "', " + std::to_string(counter_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -978,22 +1107,22 @@ void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(Descriptio
 
 //  Class member function
 //  Find description with definite name in table 'Descriptions' in database
-std::tuple<bool, int, Description, int> DatabaseManager::FindDescriptionInTableDescriptionsInDatabase(const std::string& name)
+std::tuple<bool, int, Description, int> DatabaseManager::FindDescriptionInTableDescriptionsInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Descriptions", -1, &database_stmt_, 0);
   while (sqlite3_step(database_stmt_) != SQLITE_DONE)
   {
-    int description_id = (sqlite3_column_int(database_stmt_, 0));
-    const unsigned char* description_name = (sqlite3_column_text(database_stmt_, 1));
-    int description_counter = (sqlite3_column_int(database_stmt_, 2));
-    if (reinterpret_cast<const char*>(description_name) == name)
+    int model_id = (sqlite3_column_int(database_stmt_, 0));
+    const unsigned char* model_name_char = (sqlite3_column_text(database_stmt_, 1));
+    int model_counter = (sqlite3_column_int(database_stmt_, 2));
+    if (reinterpret_cast<const char*>(model_name_char) == model_name)
     {
-      Description description((reinterpret_cast<const char*>(description_name)));
-      PLOG_INFO << "Description with name " << name << " is found in table 'Descriptions' in database";
-      return std::make_tuple(true, description_id, description, description_counter);
+      Description model((reinterpret_cast<const char*>(model_name_char)));
+      PLOG_INFO << "Description with name " << model_name << " is found in table 'Descriptions' in database";
+      return std::make_tuple(true, model_id, model, model_counter);
     }
   }
-  PLOG_INFO << "Description with name " << name << " isn't found in table 'Descriptions' in database";
+  PLOG_INFO << "Description with name " << model_name << " isn't found in table 'Descriptions' in database";
   return std::make_tuple(false, 0, Description(), 0);
 }
 
@@ -1024,14 +1153,27 @@ void DatabaseManager::SetDescriptionName(const std::string& model_name, const st
 }
 
 //  Class member function
+//  Get name of account from table 'Categories' in database
+std::string DatabaseManager::GetDescriptionName(const std::string& model_name)
+{
+  bool model_is_in_table = false;
+  Description model;
+  std::tie(model_is_in_table, std::ignore, model, std::ignore) = FindDescriptionInTableDescriptionsInDatabase(model_name);
+  if (model_is_in_table)
+  {
+    return model.GetName();
+  }
+}
+
+//  Class member function
 //  Remove one description from table 'Descriptions' in database
-void DatabaseManager::RemoveDescriptionFromTableDescriptionsInDatabase(const std::string& name)
+void DatabaseManager::RemoveDescriptionFromTableDescriptionsInDatabase(const std::string& model_name)
 {
   bool model_is_in_table = false;
   int model_id;
   Description model;
   int model_counter;
-  std::tie(model_is_in_table, model_id, model, model_counter) = FindDescriptionInTableDescriptionsInDatabase(name);
+  std::tie(model_is_in_table, model_id, model, model_counter) = FindDescriptionInTableDescriptionsInDatabase(model_name);
   if (model_is_in_table)
   {
     const std::string sql_request = std::string("DELETE FROM Descriptions WHERE id = ") +
@@ -1064,13 +1206,13 @@ void DatabaseManager::ClearTablePayeesInDatabase()
 
 //  Class member function
 //  Insert one payee to table 'Payees' in database
-void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
+void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& model)
 {
   int counter_start = 1;
   bool model_in_database;
   int model_id;
   int model_counter;
-  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindPayeeInTablePayeesInDatabase(payee.GetName());
+  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindPayeeInTablePayeesInDatabase(model.GetName());
   if (model_in_database)
   {
     std::string sql_request = std::string("UPDATE Payees SET counter = ") + std::to_string(model_counter + 1) +
@@ -1089,7 +1231,7 @@ void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& payee)
   else
   {
     std::string sql_request = std::string("INSERT INTO Payees VALUES(null, '") +
-      payee.GetName() + "', " + std::to_string(counter_start) + ");";
+      model.GetName() + "', " + std::to_string(counter_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1115,39 +1257,39 @@ void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repo
 
 //  Class member function
 //  Find payee with definite name in table 'Payees' in database
-std::tuple<bool, int, Payee, int> DatabaseManager::FindPayeeInTablePayeesInDatabase(const std::string& name)
+std::tuple<bool, int, Payee, int> DatabaseManager::FindPayeeInTablePayeesInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Payees", -1, &database_stmt_, 0);
   while (sqlite3_step(database_stmt_) != SQLITE_DONE)
   {
-    int payee_id = (sqlite3_column_int(database_stmt_, 0));
-    const unsigned char* payee_name = (sqlite3_column_text(database_stmt_, 1));
-    int payee_counter = (sqlite3_column_int(database_stmt_, 2));
-    if (reinterpret_cast<const char*>(payee_name) == name)
+    int model_id = (sqlite3_column_int(database_stmt_, 0));
+    const unsigned char* model_name_char = (sqlite3_column_text(database_stmt_, 1));
+    int model_counter = (sqlite3_column_int(database_stmt_, 2));
+    if (reinterpret_cast<const char*>(model_name_char) == model_name)
     {
-      Payee payee((reinterpret_cast<const char*>(payee_name)));
-      PLOG_INFO << "Payee with name " << name << " is found in table 'Payees' in database";
-      return std::make_tuple(true, payee_id, payee, payee_counter);
+      Payee model((reinterpret_cast<const char*>(model_name_char)));
+      PLOG_INFO << "Payee with name " << model_name << " is found in table 'Payees' in database";
+      return std::make_tuple(true, model_id, model, model_counter);
     }
   }
-  PLOG_INFO << "Payee with name " << name << " isn't found in table 'Payees' in database";
+  PLOG_INFO << "Payee with name " << model_name << " isn't found in table 'Payees' in database";
   return std::make_tuple(false, 0, Payee(), 0);
 }
 
 //  Class member function
 //  Find payee with definite name in table 'Payees' in database and update name
-void DatabaseManager::SetPayeeName(const std::string& payee_name, const std::string& name)
+void DatabaseManager::SetPayeeName(const std::string& model_name, const std::string& name)
 {
-  bool payee_is_in_table = false;
-  int payee_id;
-  Payee payee;
-  int payee_counter;
-  std::tie(payee_is_in_table, payee_id, payee, payee_counter) = FindPayeeInTablePayeesInDatabase(payee_name);
-  if (payee_is_in_table)
+  bool model_is_in_table = false;
+  int model_id;
+  Payee model;
+  int model_counter;
+  std::tie(model_is_in_table, model_id, model, model_counter) = FindPayeeInTablePayeesInDatabase(model_name);
+  if (model_is_in_table)
   {
     const std::string sql_request = std::string("UPDATE Payees SET name = '") +
       name +
-      "' WHERE id = " + std::to_string(payee_id) + ";";
+      "' WHERE id = " + std::to_string(model_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1161,14 +1303,27 @@ void DatabaseManager::SetPayeeName(const std::string& payee_name, const std::str
 }
 
 //  Class member function
+//  Get name of account from table 'Categories' in database
+std::string DatabaseManager::GetPayeeName(const std::string& model_name)
+{
+  bool model_is_in_table = false;
+  Payee model;
+  std::tie(model_is_in_table, std::ignore, model, std::ignore) = FindPayeeInTablePayeesInDatabase(model_name);
+  if (model_is_in_table)
+  {
+    return model.GetName();
+  }
+}
+
+//  Class member function
 //  Remove payee from table 'Payees' in database
-void DatabaseManager::RemovePayeeFromTablePayeesInDatabase(const std::string& name)
+void DatabaseManager::RemovePayeeFromTablePayeesInDatabase(const std::string& model_name)
 {
   bool model_is_in_table = false;
   int model_id;
   Payee model;
   int model_counter;
-  std::tie(model_is_in_table, model_id, model, model_counter) = FindPayeeInTablePayeesInDatabase(name);
+  std::tie(model_is_in_table, model_id, model, model_counter) = FindPayeeInTablePayeesInDatabase(model_name);
   if (model_is_in_table)
   {
     const std::string sql_request = std::string("DELETE FROM Payees WHERE id = ") +
@@ -1201,13 +1356,13 @@ void DatabaseManager::ClearTableCommentsInDatabase()
 
 //  Class member function
 //  Insert one comment to table 'Comments' in database
-void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
+void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& model)
 {
   int counter_start = 1;
   bool model_in_database;
   int model_id;
   int model_counter;
-  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindCommentInTableCommentsInDatabase(comment.GetName());
+  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindCommentInTableCommentsInDatabase(model.GetName());
   if (model_in_database)
   {
     std::string sql_request = std::string("UPDATE Comments SET counter = ") + std::to_string(model_counter + 1) +
@@ -1226,7 +1381,7 @@ void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& comment)
   else
   {
     std::string sql_request = std::string("INSERT INTO Comments VALUES(null, '") +
-      comment.GetName() + "', " + std::to_string(counter_start) + ");";
+      model.GetName() + "', " + std::to_string(counter_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1252,39 +1407,39 @@ void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&
 
 //  Class member function
 //  Find comment with definite name in table 'Comments' in database
-std::tuple<bool, int, Comment, int> DatabaseManager::FindCommentInTableCommentsInDatabase(const std::string& name)
+std::tuple<bool, int, Comment, int> DatabaseManager::FindCommentInTableCommentsInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Comments", -1, &database_stmt_, 0);
   while (sqlite3_step(database_stmt_) != SQLITE_DONE)
   {
-    int comment_id = (sqlite3_column_int(database_stmt_, 0));
-    const unsigned char* comment_name = (sqlite3_column_text(database_stmt_, 1));
-    int comment_counter = (sqlite3_column_int(database_stmt_, 2));
-    if (reinterpret_cast<const char*>(comment_name) == name)
+    int model_id = (sqlite3_column_int(database_stmt_, 0));
+    const unsigned char* model_name_char = (sqlite3_column_text(database_stmt_, 1));
+    int model_counter = (sqlite3_column_int(database_stmt_, 2));
+    if (reinterpret_cast<const char*>(model_name_char) == model_name)
     {
-      Comment comment((reinterpret_cast<const char*>(comment_name)));
-      PLOG_INFO << "Comment with name " << name << " is found in table 'Comments' in database";
-      return std::make_tuple(true, comment_id, comment, comment_counter);
+      Comment comment((reinterpret_cast<const char*>(model_name_char)));
+      PLOG_INFO << "Comment with name " << model_name << " is found in table 'Comments' in database";
+      return std::make_tuple(true, model_id, comment, model_counter);
     }
   }
-  PLOG_INFO << "Comment with name " << name << " isn't found in table 'Comments' in database";
+  PLOG_INFO << "Comment with name " << model_name << " isn't found in table 'Comments' in database";
   return std::make_tuple(false, 0, Comment(), 0);
 }
 
 //  Class member function
 //  Find comment with definite name in table 'Comments' in database and update name
-void DatabaseManager::SetCommentName(const std::string& comment_name, const std::string& name)
+void DatabaseManager::SetCommentName(const std::string& model_name, const std::string& name)
 {
-  bool comment_is_in_table = false;
-  int comment_id;
-  Comment comment;
-  int comment_counter;
-  std::tie(comment_is_in_table, comment_id, comment, comment_counter) = FindCommentInTableCommentsInDatabase(comment_name);
-  if (comment_is_in_table)
+  bool model_is_in_table = false;
+  int model_id;
+  Comment model;
+  int model_counter;
+  std::tie(model_is_in_table, model_id, model, model_counter) = FindCommentInTableCommentsInDatabase(model_name);
+  if (model_is_in_table)
   {
     const std::string sql_request = std::string("UPDATE Comments SET name = '") +
       name +
-      "' WHERE id = " + std::to_string(comment_id) + ";";
+      "' WHERE id = " + std::to_string(model_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1298,14 +1453,27 @@ void DatabaseManager::SetCommentName(const std::string& comment_name, const std:
 }
 
 //  Class member function
+//  Get name of account from table 'Categories' in database
+std::string DatabaseManager::GetCommentName(const std::string& model_name)
+{
+  bool model_is_in_table = false;
+  Comment model;
+  std::tie(model_is_in_table, std::ignore, model, std::ignore) = FindCommentInTableCommentsInDatabase(model_name);
+  if (model_is_in_table)
+  {
+    return model.GetName();
+  }
+}
+
+//  Class member function
 //  Remove comment from table 'Comments' in database
-void DatabaseManager::RemoveCommentFromTableCommentsInDatabase(const std::string& name)
+void DatabaseManager::RemoveCommentFromTableCommentsInDatabase(const std::string& model_name)
 {
   bool model_is_in_table = false;
   int model_id;
   Comment model;
   int model_counter;
-  std::tie(model_is_in_table, model_id, model, model_counter) = FindCommentInTableCommentsInDatabase(name);
+  std::tie(model_is_in_table, model_id, model, model_counter) = FindCommentInTableCommentsInDatabase(model_name);
   if (model_is_in_table)
   {
     const std::string sql_request = std::string("DELETE FROM Comments WHERE id = ") +
@@ -1338,13 +1506,13 @@ void DatabaseManager::ClearTableTagsInDatabase()
 
 //  Class member function
 //  Insert one tag to table 'Tags' in database
-void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
+void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& model)
 {
   int counter_start = 1;
   bool model_in_database;
   int model_id;
   int model_counter;
-  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindTagInTableTagsInDatabase(tag.GetName());
+  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindTagInTableTagsInDatabase(model.GetName());
   if (model_in_database)
   {
     std::string sql_request = std::string("UPDATE Tags SET counter = ") + std::to_string(model_counter + 1) +
@@ -1363,7 +1531,7 @@ void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& tag)
   else
   {
     std::string sql_request = std::string("INSERT INTO Tags VALUES(null, '") + 
-      tag.GetName() + "', " + std::to_string(counter_start) + ");";
+      model.GetName() + "', " + std::to_string(counter_start) + ");";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1389,38 +1557,38 @@ void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository
 
 //  Class member function
 //  Find tag with definite name in table 'Tags' in database
-std::tuple<bool, int, Tag, int> DatabaseManager::FindTagInTableTagsInDatabase(const std::string& name)
+std::tuple<bool, int, Tag, int> DatabaseManager::FindTagInTableTagsInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Tags", -1, &database_stmt_, 0);
   while (sqlite3_step(database_stmt_) != SQLITE_DONE)
   {
-    int tag_id = (sqlite3_column_int(database_stmt_, 0));
-    const unsigned char* tag_name = (sqlite3_column_text(database_stmt_, 1));
-    int tag_counter = (sqlite3_column_int(database_stmt_, 2));
-    if (reinterpret_cast<const char*>(tag_name) == name)
+    int model_id = (sqlite3_column_int(database_stmt_, 0));
+    const unsigned char* model_name_char = (sqlite3_column_text(database_stmt_, 1));
+    int model_counter = (sqlite3_column_int(database_stmt_, 2));
+    if (reinterpret_cast<const char*>(model_name_char) == model_name)
     {
-      Tag tag((reinterpret_cast<const char*>(tag_name)));
-      PLOG_INFO << "Tag with name " << name << " is found in table 'Tags' in database";
-      return std::make_tuple(true, tag_id, tag, tag_counter);
+      Tag tag((reinterpret_cast<const char*>(model_name_char)));
+      PLOG_INFO << "Tag with name " << model_name << " is found in table 'Tags' in database";
+      return std::make_tuple(true, model_id, tag, model_counter);
     }
   }
-  PLOG_INFO << "Tag with name " << name << " isn't found in table 'Tags' in database";
+  PLOG_INFO << "Tag with name " << model_name << " isn't found in table 'Tags' in database";
   return std::make_tuple(false, 0, Tag(), 0);
 }
 
 //  Class member function
 //  Find tag with definite name in table 'Tags' in database and update name
-void DatabaseManager::SetTagName(const std::string& tag_name, const std::string& name)
+void DatabaseManager::SetTagName(const std::string& model_name, const std::string& name)
 {
-  bool tag_is_in_table = false;
-  int tag_id;
-  Tag tag;
-  int tag_counter;
-  std::tie(tag_is_in_table, tag_id, tag, tag_counter) = FindTagInTableTagsInDatabase(tag_name);
-  if (tag_is_in_table)
+  bool model_is_in_table = false;
+  int model_id;
+  Tag model;
+  int model_counter;
+  std::tie(model_is_in_table, model_id, model, model_counter) = FindTagInTableTagsInDatabase(model_name);
+  if (model_is_in_table)
   {
     const std::string sql_request = std::string("UPDATE Tags SET name = '") + name +
-      "' WHERE id = " + std::to_string(tag_id) + ";";
+      "' WHERE id = " + std::to_string(model_id) + ";";
     database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
     if (database_status_ != SQLITE_OK)
     {
@@ -1434,14 +1602,27 @@ void DatabaseManager::SetTagName(const std::string& tag_name, const std::string&
 }
 
 //  Class member function
+//  Get name of account from table 'Categories' in database
+std::string DatabaseManager::GetTagName(const std::string& model_name)
+{
+  bool model_is_in_table = false;
+  Tag model;
+  std::tie(model_is_in_table, std::ignore, model, std::ignore) = FindTagInTableTagsInDatabase(model_name);
+  if (model_is_in_table)
+  {
+    return model.GetName();
+  }
+}
+
+//  Class member function
 //  Remove one tag from table 'Tags' in database
-void DatabaseManager::RemoveTagFromTableTagsInDatabase(const std::string& name)
+void DatabaseManager::RemoveTagFromTableTagsInDatabase(const std::string& model_name)
 {
   bool model_is_in_table = false;
   int model_id;
   Tag model;
   int model_counter;
-  std::tie(model_is_in_table, model_id, model, model_counter) = FindTagInTableTagsInDatabase(name);
+  std::tie(model_is_in_table, model_id, model, model_counter) = FindTagInTableTagsInDatabase(model_name);
   if (model_is_in_table)
   {
     const std::string sql_request = std::string("DELETE FROM Tags WHERE id = ") +

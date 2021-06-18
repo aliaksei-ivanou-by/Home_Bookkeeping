@@ -340,73 +340,73 @@ void FinanceRepository::RemoveTag(const std::string& name)
 }
 
 //  Class member function
-//  Get name of account from repository
-std::string FinanceRepository::GetAccountName(AccountRepositoryIterator account) const
+//  Get name of account from table 'Accounts' in database
+std::string FinanceRepository::GetAccountName(const std::string& account_name)
 {
-  return (**account).GetName();
+  return database_manager_->GetAccountName(account_name);
 }
 
 //  Class member function
-//  Get amount of account from repository
-NUM FinanceRepository::GetAccountAmount(AccountRepositoryIterator account) const
+//  Get amount of account from table 'Accounts' in database
+NUM FinanceRepository::GetAccountAmount(const std::string& account_name)
 {
-  return (**account).GetAmount();
+  return database_manager_->GetAccountAmount(account_name);
 }
 
 //  Class member function
-//  Get name of category from repositor
-std::string FinanceRepository::GetCategoryName(CategoryRepositoryIterator category) const
+//  Get name of category from table 'Categories' in database
+std::string FinanceRepository::GetCategoryName(const std::string& category_name)
 {
-  return category->first->GetName();
+  return database_manager_->GetCategoryName(category_name);
 }
 
 //  Class member function
-//  Get name of currency from repositor
-std::string FinanceRepository::GetCurrencyName(CurrencyRepositoryIterator currency) const
+//  Get name of currency from table 'Currencies' in database
+std::string FinanceRepository::GetCurrencyName(const std::string& currency_name)
 {
-  return (**currency).GetName();
+  return database_manager_->GetCurrencyName(currency_name);
 }
 
 //  Class member function
-//  Get code of currency from repositor
-std::string FinanceRepository::GetCurrencyCode(CurrencyRepositoryIterator currency) const
+//  Get code of currency from table 'Currencies' in database
+std::string FinanceRepository::GetCurrencyCode(const std::string& currency_name)
 {
-  return (**currency).GetCode();
+  return database_manager_->GetCurrencyCode(currency_name);
 }
 
 //  Class member function
-//  Get activity of currency from repositor
-bool FinanceRepository::GetCurrencyActivity(CurrencyRepositoryIterator currency) const
+//  Get activity of currency from table 'Currencies' in database
+bool FinanceRepository::GetCurrencyActivity(const std::string& currency_name)
 {
-  return (**currency).GetActivity();
+  return database_manager_->GetCurrencyActivity(currency_name);
 }
 
 //  Class member function
-//  Get name of description from repositor
-std::string FinanceRepository::GetDescriptionName(DescriptionRepositoryIterator description) const
+//  Get name of description from table 'Descriptions' in database
+std::string FinanceRepository::GetDescriptionName(const std::string& description_name)
 {
-  return description->first->GetName();
+  return database_manager_->GetDescriptionName(description_name);
 }
 
 //  Class member function
-//  Get name of payee from repository
-std::string FinanceRepository::GetPayeeName(PayeeRepositoryIterator payee) const
+//  Get name of payee from table 'Payees' in database
+std::string FinanceRepository::GetPayeeName(const std::string& payee_name)
 {
-  return payee->first->GetName();
+  return database_manager_->GetPayeeName(payee_name);
 }
 
 //  Class member function
-//  Get name of comment from repository
-std::string FinanceRepository::GetCommentName(CommentRepositoryIterator comment) const
+//  Get name of comment from table 'Comments' in database
+std::string FinanceRepository::GetCommentName(const std::string& comment_name)
 {
-  return comment->first->GetName();
+  return database_manager_->GetCommentName(comment_name);
 }
 
 //  Class member function
-//  Get name of tag from repository
-std::string FinanceRepository::GetTagName(TagRepositoryIterator tag) const
+//  Get name of tag from table 'Tags' in database
+std::string FinanceRepository::GetTagName(const std::string& tag_name)
 {
-  return tag->first->GetName();
+  return database_manager_->GetTagName(tag_name);
 }
 
 //  Class member function

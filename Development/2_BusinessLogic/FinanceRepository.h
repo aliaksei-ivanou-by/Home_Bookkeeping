@@ -53,16 +53,16 @@
 //          Remove tag from database
 //          Add model 'Unspecified' instead of removed models to database
 //        get values of model from repository
-//          Get name of account from database
-//          Get amount of account from database
-//          Get name of category from database
-//          Get name of currency from database
-//          Get code of currency from database
-//          Get activity of currency from database
-//          Get name of description from database
-//          Get name of payee from database
-//          Get name of comment from database
-//          Get name of tag from database
+//          Get name of account from table 'Accounts' in database
+//          Get amount of account from table 'Accounts' in database
+//          Get name of category from table 'Categories' in database
+//          Get name of currency from table 'Currencies' in database
+//          Get code of currency from table 'Currencies' in database
+//          Get activity of currency from table 'Currencies' in database
+//          Get name of description from table 'Descriptions' in database
+//          Get name of payee from table 'Payees' in database
+//          Get name of comment from table 'Comments' in database
+//          Get name of tag from table 'Tags' in database
 //        set values of model from repository
 //          Set name of account from database
 //          Set amount of account from database
@@ -223,16 +223,16 @@ public:
   void RemoveComment(const std::string& name);
   void RemoveTag(const std::string& name);
   //  basic->get values of model from repository
-  std::string GetAccountName(AccountRepositoryIterator account) const;
-  NUM GetAccountAmount(AccountRepositoryIterator account) const;
-  std::string GetCategoryName(CategoryRepositoryIterator category) const;
-  std::string GetCurrencyName(CurrencyRepositoryIterator currency) const;
-  std::string GetCurrencyCode(CurrencyRepositoryIterator currency) const;
-  bool GetCurrencyActivity(CurrencyRepositoryIterator currency) const;
-  std::string GetDescriptionName(DescriptionRepositoryIterator description) const;
-  std::string GetPayeeName(PayeeRepositoryIterator payee) const;
-  std::string GetCommentName(CommentRepositoryIterator comment) const;
-  std::string GetTagName(TagRepositoryIterator tag) const;
+  std::string GetAccountName(const std::string& account_name);
+  NUM GetAccountAmount(const std::string& account_name);
+  std::string GetCategoryName(const std::string& category_name);
+  std::string GetCurrencyName(const std::string& currency_name);
+  std::string GetCurrencyCode(const std::string& currency_name);
+  bool GetCurrencyActivity(const std::string& currency_name);
+  std::string GetDescriptionName(const std::string& description_name);
+  std::string GetPayeeName(const std::string& payee_name);
+  std::string GetCommentName(const std::string& comment_name);
+  std::string GetTagName(const std::string& tag_name);
   //  basic->set values of model from repository
   void SetAccountName(const std::string& account_name, const std::string& name);
   void SetAccountAmount(const std::string& account_name, const NUM amount);
