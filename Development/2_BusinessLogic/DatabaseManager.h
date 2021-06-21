@@ -56,6 +56,9 @@
 //      get name of currency from table 'Currencies' in database
 //      get code of currency from table 'Currencies' in database
 //      get activity of currency from table 'Currencies' in database
+//      switch activity of currency from table 'Currencies' in database
+//      switch off activity of currency from table 'Currencies' in database
+//      switch on activity of currency from table 'Currencies' in database
 //      remove currency with definite name from table 'Currencies' in database
 //    descriptions:
 //      create table 'Descriptions' in database
@@ -120,17 +123,17 @@ public:
   ~DatabaseManager();
 
   int SizeOfTable(const std::string& table);
+  void CreateTableInDatabase(const std::string& table);
   void CreateAllTablesInDatabase();
+  void ClearTableInDatabase(const std::string& table);
   void ClearAllTablesInDatabase();
   bool CheckTableForExistenceInDatabase(const std::string& table);
-  void CreateTableInDatabase(const std::string& table);
-  void ClearTableInDatabase(const std::string& table);
 
   void CreateTableTransactionsInDatabase();
   void ClearTableTransactionsInDatabase();
   void InsertTransactionToTableTransactionsInDatabase(Transaction&& transaction);
   void InsertTransactionsToTableTransactionsInDatabase(TransactionRepository&& repository);
-  /*std::tuple<bool, int, Transaction>*/void FindTransactionInTableTransactionsInDatabase(const int id);
+  std::tuple<bool, int, Transaction> FindTransactionInTableTransactionsInDatabase(const int id);
   void RemoveTransactionFromTableTransactionsInDatabase(const int id);
 
   void CreateTableAccountsInDatabase();
@@ -167,6 +170,9 @@ public:
   std::string GetCurrencyName(const std::string& model_name);
   std::string GetCurrencyCode(const std::string& model_name);
   bool GetCurrencyActivity(const std::string& model_name);
+  void SwitchCurrencyActivity(const std::string& model_name);
+  void SwitchOnCurrencyActivity(const std::string& model_name);
+  void SwitchOffCurrencyActivity(const std::string& model_name);
   void RemoveCurrencyFromTableCurrenciesInDatabase(const std::string& model_name);
 
   void CreateTableDescriptionsInDatabase();

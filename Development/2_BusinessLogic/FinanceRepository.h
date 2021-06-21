@@ -11,25 +11,6 @@
 //
 //  Class member functions:
 //    basic:
-//      iterators:
-//        begin:
-//          Find begin iterator of transaction repository
-//          Find begin iterator of account repository
-//          Find begin iterator of category repository
-//          Find begin iterator of currency repository
-//          Find begin iterator of description repository
-//          Find begin iterator of payee repository
-//          Find begin iterator of comment repository
-//          Find begin iterator of tag repository
-//        end:
-//          Find end iterator of transaction repository
-//          Find end iterator of account repository
-//          Find end iterator of category repository
-//          Find end iterator of currency repository
-//          Find end iterator of description repository
-//          Find end iterator of payee repository
-//          Find end iterator of comment repository
-//          Find end iterator of tag repository
 //        add element:
 //          Add transaction to database
 //          Add account (default) to database
@@ -51,8 +32,7 @@
 //          Remove payee from database
 //          Remove comment from database
 //          Remove tag from database
-//          Add model 'Unspecified' instead of removed models to database
-//        get values of model from repository
+//        get value of model
 //          Get name of account from table 'Accounts' in database
 //          Get amount of account from table 'Accounts' in database
 //          Get name of category from table 'Categories' in database
@@ -63,7 +43,7 @@
 //          Get name of payee from table 'Payees' in database
 //          Get name of comment from table 'Comments' in database
 //          Get name of tag from table 'Tags' in database
-//        set values of model from repository
+//        set value of model
 //          Set name of account from database
 //          Set amount of account from database
 //          Set name of category from database
@@ -77,7 +57,7 @@
 //          Set name of payee from database
 //          Set name of comment from database
 //          Set name of tag from database
-//        number of elements in repository:
+//        number of elements
 //          Number of transactions in database
 //          Number of accounts in database
 //          Number of categories in database
@@ -86,7 +66,7 @@
 //          Number of payees in database
 //          Number of comments in database
 //          Number of tags in database
-//        clear repository:
+//        clear table
 //          Clear table 'Transactions' in database
 //          Clear table 'Accounts' in database
 //          Clear table 'Categories' in database
@@ -95,15 +75,6 @@
 //          Clear table 'Payees' in database
 //          Clear table 'Comments' in database
 //          Clear table 'Tags' in database
-//        print repository:
-//          Print transaction repository
-//          Print account repository
-//          Print category repository
-//          Print currency repository
-//          Print description repository
-//          Print payee repository
-//          Print comment repository
-//          Print tag repository
 //        find:
 //          Find account with definite name in database
 //          Find category with definite name in database
@@ -113,15 +84,6 @@
 //          Find payee with definite name in database
 //          Find comment with definite name in database
 //          Find tag with definite name in database
-//        update repository with adding new transaction:
-//          Update last amount of account in account repository with adding new transaction
-//          Update account repository with adding new transaction
-//          Update category repository with adding new transaction
-//          Update currency repository with adding new transaction
-//          Update description repository with adding new transaction
-//          Update payee repository with adding new transaction
-//          Update comment repository with adding new transaction
-//          Update tag repository with adding new transaction
 //    sum:
 //      expenses:
 //        Calculate sum of today expenses
@@ -131,20 +93,12 @@
 //        Calculate sum of today incomes
 //        Calculate sum of this month incomes
 //        Calculate sum of all time incomes
-//    add default models to repository:
-//      Add default accounts to account repository
-//      Add default categories to category repository
-//      Add default currencies to currency repository
+//    add default models to database:
+//      Add default accounts to table 'Accounts' in database
+//      Add default categories to table 'Categories' in database
+//      Add default currencies to table 'Currencies' in database
 //    clear tables in database
 //  Variables:
-//    transaction repository (temp variable for GUI)
-//    category repository (temp variable for GUI)
-//    comment repository (temp variable for GUI)
-//    payee repository (temp variable for GUI)
-//    account repository (temp variable for GUI)
-//    currency repository (temp variable for GUI)
-//    description repository (temp variable for GUI)
-//    tag repository (temp variable for GUI)
 //    Database Manager
 
 #include <iostream>
@@ -168,24 +122,6 @@
 class FinanceRepository
 {
 public:
-  //  basic->iterators->begin
-  TransactionRepositoryIterator BeginTransactionRepository() const;
-  AccountRepositoryIterator BeginAccountRepository() const;
-  CategoryRepositoryConstIterator BeginCategoryRepository() const;
-  CurrencyRepositoryIterator BeginCurrencyRepository() const;
-  DescriptionRepositoryConstIterator BeginDescriptionRepository() const;
-  PayeeRepositoryConstIterator BeginPayeeRepository() const;
-  CommentRepositoryConstIterator BeginCommentRepository() const;
-  TagRepositoryConstIterator BeginTagRepository() const;
-  //  basic->iterators->end
-  TransactionRepositoryIterator EndTransactionRepository() const;
-  AccountRepositoryIterator EndAccountRepository() const;
-  CategoryRepositoryConstIterator EndCategoryRepository() const;
-  CurrencyRepositoryIterator EndCurrencyRepository() const;
-  DescriptionRepositoryConstIterator EndDescriptionRepository() const;
-  PayeeRepositoryConstIterator EndPayeeRepository() const;
-  CommentRepositoryConstIterator EndCommentRepository() const;
-  TagRepositoryConstIterator EndTagRepository() const;
   //  constructor->default
   FinanceRepository();
   //  destructor->default
@@ -238,12 +174,12 @@ public:
   void SetAccountAmount(const std::string& account_name, const NUM amount);
   void SetAccountCurrency(const std::string& account_name, Currency&& currency);
   void SetCategoryName(const std::string& category_name, const std::string& name);
-  void SetCurrencyName(CurrencyRepositoryIterator currency, const std::string& name);
-  void SetCurrencyCode(CurrencyRepositoryIterator currency, const std::string& code);
-  void SetCurrencyActivity(CurrencyRepositoryIterator currency, const bool activity);
-  void SwitchCurrencyActivity(CurrencyRepositoryIterator currency);
-  void SwitchOnCurrencyActivity(CurrencyRepositoryIterator currency);
-  void SwitchOffCurrencyActivity(CurrencyRepositoryIterator currency);
+  void SetCurrencyName(const std::string& currency_name, const std::string& name);
+  void SetCurrencyCode(const std::string& currency_name, const std::string& code);
+  void SetCurrencyActivity(const std::string& currency_name, const bool activity);
+  void SwitchCurrencyActivity(const std::string& currency_name);
+  void SwitchOnCurrencyActivity(const std::string& currency_name);
+  void SwitchOffCurrencyActivity(const std::string& currency_name);
   void SetDescriptionName(const std::string& model_name, const std::string& name);
   void SetPayeeName(const std::string& payee_name, const std::string& name);
   void SetCommentName(const std::string& comment_name, const std::string& name);
@@ -266,15 +202,6 @@ public:
   void ClearPayees();
   void ClearComments();
   void ClearTags();
-  //  basic->print repository
-  void PrintTransactions(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
-  void PrintAccounts(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
-  void PrintCategories(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
-  void PrintCurrencies(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
-  void PrintDescriptions(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
-  void PrintPayees(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
-  void PrintComments(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
-  void PrintTags(const std::string& delimeter = "\n", std::ostream& output_stream = std::cout) const;
   //  basic->find (definite name)
   std::tuple<bool, int, Account> FindAccount(const std::string& name) const;
   std::tuple<bool, int, Category, int> FindCategory(const std::string& name) const;
@@ -284,15 +211,6 @@ public:
   std::tuple<bool, int, Payee, int> FindPayee(const std::string& name) const;
   std::tuple<bool, int, Comment, int> FindComment(const std::string& comment) const;
   std::tuple<bool, int, Tag, int> FindTag(const std::string& name) const;
-  //  basic->update repository with adding new transaction
-  void UpdateAccountAmount(Transaction& transaction);
-  void UpdateAccountRepository(Transaction& transaction);
-  void UpdateCategoryRepository(Transaction& transaction);
-  void UpdateCurrencyRepository(Transaction& transaction);
-  void UpdateDescriptionRepository(Transaction& transaction);
-  void UpdatePayeeRepository(Transaction& transaction);
-  void UpdateCommentRepository(Transaction& transaction);
-  void UpdateTagRepository(Transaction& transaction);
   //  sum->expenses
   NUM SumExpensesToday() const;
   NUM SumExpensesThisMonth() const;
@@ -308,14 +226,6 @@ public:
 
   void ClearTablesInDatabase();
 private:
-  TransactionRepository transaction_repository_;
-  CategoryRepository category_repository_;
-  CommentRepository comment_repository_;
-  PayeeRepository payee_repository_;
-  AccountRepository account_repository_;
-  CurrencyRepository currency_repository_;
-  DescriptionRepository description_repository_;
-  TagRepository tag_repository_;
   DatabaseManager* database_manager_;
 };
 

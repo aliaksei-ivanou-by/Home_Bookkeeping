@@ -18,118 +18,6 @@ FinanceRepository::~FinanceRepository()
 }
 
 //  Class member function
-//  Find begin iterator of transaction repository
-TransactionRepositoryIterator FinanceRepository::BeginTransactionRepository() const
-{
-  return transaction_repository_.Begin();
-}
-
-//  Class member function
-//  Find begin iterator of account repository
-AccountRepositoryIterator FinanceRepository::BeginAccountRepository() const
-{
-  return account_repository_.Begin();
-}
-
-//  Class member function
-//  Find begin iterator of category repository
-CategoryRepositoryConstIterator FinanceRepository::BeginCategoryRepository() const
-{
-  return category_repository_.Begin();
-}
-
-//  Class member function
-//  Find begin iterator of currency repository
-CurrencyRepositoryIterator FinanceRepository::BeginCurrencyRepository() const
-{
-  return currency_repository_.Begin();
-}
-
-//  Class member function
-//  Find begin iterator of description repository
-DescriptionRepositoryConstIterator FinanceRepository::BeginDescriptionRepository() const
-{
-  return description_repository_.Begin();
-}
-
-//  Class member function
-//  Find begin iterator of payee repository
-PayeeRepositoryConstIterator FinanceRepository::BeginPayeeRepository() const
-{
-  return payee_repository_.Begin();
-}
-
-//  Class member function
-//  Find begin iterator of comment repository
-CommentRepositoryConstIterator FinanceRepository::BeginCommentRepository() const
-{
-  return comment_repository_.Begin();
-}
-
-//  Class member function
-//  Find begin iterator of tag repository
-TagRepositoryConstIterator FinanceRepository::BeginTagRepository() const
-{
-  return tag_repository_.Begin();
-}
-
-//  Class member function
-//  Find end iterator of transaction repository
-TransactionRepositoryIterator FinanceRepository::EndTransactionRepository() const
-{
-  return transaction_repository_.End();
-}
-
-//  Class member function
-//  Find end iterator of account repository
-AccountRepositoryIterator FinanceRepository::EndAccountRepository() const
-{
-  return account_repository_.End();
-}
-
-//  Class member function
-//  Find end iterator of category repository
-CategoryRepositoryConstIterator FinanceRepository::EndCategoryRepository() const
-{
-  return category_repository_.End();
-}
-
-//  Class member function
-//  Find end iterator of currency repository
-CurrencyRepositoryIterator FinanceRepository::EndCurrencyRepository() const
-{
-  return currency_repository_.End();
-}
-
-//  Class member function
-//  Find end iterator of description repository
-DescriptionRepositoryConstIterator FinanceRepository::EndDescriptionRepository() const
-{
-  return description_repository_.End();
-}
-
-//  Class member function
-//  Find end iterator of payee repository
-PayeeRepositoryConstIterator FinanceRepository::EndPayeeRepository() const
-{
-  return payee_repository_.End();
-}
-
-//  Class member function
-//  Find end iterator of comment repository
-CommentRepositoryConstIterator FinanceRepository::EndCommentRepository() const
-{
-  return comment_repository_.End();
-}
-
-//  Class member function
-//  Find end iterator of tag repository
-TagRepositoryConstIterator FinanceRepository::EndTagRepository() const
-{
-  return tag_repository_.End();
-}
-
-//  Class member function
 //  Add transaction to database
 void FinanceRepository::AddTransaction(Transaction&& transaction)
 {
@@ -439,50 +327,44 @@ void FinanceRepository::SetCategoryName(const std::string& category_name, const 
 
 //  Class member function
 //  Set name of currency from repository
-void FinanceRepository::SetCurrencyName(CurrencyRepositoryIterator currency, const std::string& name)
+void FinanceRepository::SetCurrencyName(const std::string& currency_name, const std::string& name)
 {
-  (**currency).SetName(name);
-  PLOG_INFO << "Update name of Currency in repository";
+  database_manager_->SetCurrencyName(currency_name, name);
 }
 
 //  Class member function
 //  Set code of currency from repository
-void FinanceRepository::SetCurrencyCode(CurrencyRepositoryIterator currency, const std::string& code)
+void FinanceRepository::SetCurrencyCode(const std::string& currency_name, const std::string& code)
 {
-  (**currency).SetCode(code);
-  PLOG_INFO << "Update code of Currency in repository";
+  database_manager_->SetCurrencyCode(currency_name, code);
 }
 
 //  Class member function
 //  Set activity of currency from repository
-void FinanceRepository::SetCurrencyActivity(CurrencyRepositoryIterator currency, const bool activity)
+void FinanceRepository::SetCurrencyActivity(const std::string& currency_name, const bool activity)
 {
-  (**currency).SetActivity(activity);
-  PLOG_INFO << "Update activity of Currency in repository";
+  database_manager_->SetCurrencyActivity(currency_name, activity);
 }
 
 //  Class member function
 //  Switch activity of currency from repository
-void FinanceRepository::SwitchCurrencyActivity(CurrencyRepositoryIterator currency)
+void FinanceRepository::SwitchCurrencyActivity(const std::string& currency_name)
 {
-  (**currency).Switch();
-  PLOG_INFO << "Switch activity of Currency in repository";
+  database_manager_->SwitchCurrencyActivity(currency_name);
 }
 
 //  Class member function
 //  Switch on activity of currency from repository
-void FinanceRepository::SwitchOnCurrencyActivity(CurrencyRepositoryIterator currency)
+void FinanceRepository::SwitchOnCurrencyActivity(const std::string& currency_name)
 {
-  (**currency).SwitchOn();
-  PLOG_INFO << "Switch on activity of Currency in repository";
+  database_manager_->SwitchOnCurrencyActivity(currency_name);
 }
 
 //  Class member function
 //  Switch off activity of currency from repository
-void FinanceRepository::SwitchOffCurrencyActivity(CurrencyRepositoryIterator currency)
+void FinanceRepository::SwitchOffCurrencyActivity(const std::string& currency_name)
 {
-  (**currency).SwitchOff();
-  PLOG_INFO << "Switch off activity of Currency in repository";
+  database_manager_->SwitchOffCurrencyActivity(currency_name);
 }
 
 //  Class member function
@@ -573,192 +455,56 @@ size_t FinanceRepository::GetTagsNumber() const
 //  Clear transaction repository
 void FinanceRepository::ClearTransactions()
 {
-  transaction_repository_.Clear();
-  PLOG_INFO << "Clear repository of Transactions";
+  database_manager_->ClearTableTransactionsInDatabase();
 }
 
 //  Class member function
 //  Clear account repository
 void FinanceRepository::ClearAccounts()
 {
-  account_repository_.Clear();
-  PLOG_INFO << "Clear repository of Accounts";
+  database_manager_->ClearTableAccountsInDatabase();
 }
 
 //  Class member function
 //  Clear category repository
 void FinanceRepository::ClearCategories()
 {
-  category_repository_.Clear();
-  PLOG_INFO << "Clear repository of Categories";
+  database_manager_->ClearTableCategoriesInDatabase();
 }
 
 //  Class member function
 //  Clear currency repository
 void FinanceRepository::ClearCurrencies()
 {
-  currency_repository_.Clear();
-  PLOG_INFO << "Clear repository of Currencies";
+  database_manager_->ClearTableCurrenciesInDatabase();
 }
 
 //  Class member function
 //  Clear description repository
 void FinanceRepository::ClearDescriptions()
 {
-  description_repository_.Clear();
-  PLOG_INFO << "Clear repository of Descriptions";
+  database_manager_->ClearTableDescriptionsInDatabase();
 }
 
 //  Class member function
 //  Clear payee repository
 void FinanceRepository::ClearPayees()
 {
-  payee_repository_.Clear();
-  PLOG_INFO << "Clear repository of Payees";
+  database_manager_->ClearTablePayeesInDatabase();
 }
 
 //  Class member function
 //  Clear comment repository
 void FinanceRepository::ClearComments()
 {
-  comment_repository_.Clear();
-  PLOG_INFO << "Clear repository of Comments";
+  database_manager_->ClearTableCommentsInDatabase();
 }
 
 //  Class member function
 //  Clear tag repository
 void FinanceRepository::ClearTags()
 {
-  tag_repository_.Clear();
-  PLOG_INFO << "Clear repository of Tags";
-}
-
-//  Class member function
-//  Print transaction repository
-void FinanceRepository::PrintTransactions(const std::string& delimeter, std::ostream& output_stream) const
-{
-  auto i = BeginTransactionRepository();
-  while (i != EndTransactionRepository())
-  {
-    output_stream << **i;
-    ++i;
-    if (i != EndTransactionRepository())
-    {
-      output_stream << delimeter;
-    }
-  }
-}
-
-//  Class member function
-//  Print account repository
-void FinanceRepository::PrintAccounts(const std::string& delimeter, std::ostream& output_stream) const
-{
-  auto i = BeginAccountRepository();
-  while (i != EndAccountRepository())
-  {
-    output_stream << **i;
-    ++i;
-    if (i != EndAccountRepository())
-    {
-      output_stream << delimeter;
-    }
-  }
-}
-
-//  Class member function
-//  Print category repository
-void FinanceRepository::PrintCategories(const std::string& delimeter, std::ostream& output_stream) const
-{
-  auto i = BeginCategoryRepository();
-  while (i != EndCategoryRepository())
-  {
-    output_stream << i->first;
-    ++i;
-    if (i != EndCategoryRepository())
-    {
-      output_stream << delimeter;
-    }
-  }
-}
-
-//  Class member function
-//  Print currency repository
-void FinanceRepository::PrintCurrencies(const std::string& delimeter, std::ostream& output_stream) const
-{
-  auto i = BeginCurrencyRepository();
-  while (i != EndCurrencyRepository())
-  {
-    output_stream << *i;
-    ++i;
-    if (i != EndCurrencyRepository())
-    {
-      output_stream << delimeter;
-    }
-  }
-}
-
-//  Class member function
-//  Print description repository
-void FinanceRepository::PrintDescriptions(const std::string& delimeter, std::ostream& output_stream) const
-{
-  auto i = BeginDescriptionRepository();
-  while (i != EndDescriptionRepository())
-  {
-    output_stream << i->first;
-    ++i;
-    if (i != EndDescriptionRepository())
-    {
-      output_stream << delimeter;
-    }
-  }
-}
-
-//  Class member function
-//  Print payee repository
-void FinanceRepository::PrintPayees(const std::string& delimeter, std::ostream& output_stream) const
-{
-  auto i = BeginPayeeRepository();
-  while (i != EndPayeeRepository())
-  {
-    output_stream << i->first;
-    ++i;
-    if (i != EndPayeeRepository())
-    {
-      output_stream << delimeter;
-    }
-  }
-}
-
-//  Class member function
-//  Print comment repository
-void FinanceRepository::PrintComments(const std::string& delimeter, std::ostream& output_stream) const
-{
-  auto i = BeginCommentRepository();
-  while (i != EndCommentRepository())
-  {
-    output_stream << i->first;
-    ++i;
-    if (i != EndCommentRepository())
-    {
-      output_stream << delimeter;
-    }
-  }
-}
-
-//  Class member function
-//  Print tag repository
-void FinanceRepository::PrintTags(const std::string& delimeter, std::ostream& output_stream) const
-{
-  auto i = BeginTagRepository();
-  while (i != EndTagRepository())
-  {
-    output_stream << i->first;
-    ++i;
-    if (i != EndTagRepository())
-    {
-      output_stream << delimeter;
-    }
-  }
+  database_manager_->ClearTableTagsInDatabase();
 }
 
 //  Class member function
@@ -818,180 +564,10 @@ std::tuple<bool, int, Tag, int> FinanceRepository::FindTag(const std::string& na
 }
 
 //  Class member function
-//  Update last amount of account in account repository with adding new transaction
-void FinanceRepository::UpdateAccountAmount(Transaction& transaction)
-{
-  if (transaction.GetType() == Type(kEnumType::Expense))
-  {
-    auto amount = transaction.GetAmountLastestAccountFrom() - transaction.GetAmount();
-    transaction.SetAmountLastestAccountFrom(amount);
-    PLOG_INFO << "Update Lastest Amount of Account From in repository";
-    transaction.SetAmountLastestAccountTo(amount);
-    PLOG_INFO << "Update Lastest Amount of Account To in repository";
-    transaction.SetAmountAccountFrom(amount);
-    PLOG_INFO << "Update Amount of Account From in repository";
-    transaction.SetAmountAccountTo(amount);
-    PLOG_INFO << "Update Amount of Account To in repository";
-  }
-  if (transaction.GetType() == Type(kEnumType::Income))
-  {
-    auto amount = transaction.GetAmountLastestAccountFrom() + transaction.GetAmount();
-    transaction.SetAmountLastestAccountFrom(amount);
-    PLOG_INFO << "Update Lastest Amount of Account From in repository";
-    transaction.SetAmountLastestAccountTo(amount);
-    PLOG_INFO << "Update Lastest Amount of Account To in repository";
-    transaction.SetAmountAccountFrom(amount);
-    PLOG_INFO << "Update Amount of Account From in repository";
-    transaction.SetAmountAccountTo(amount);
-    PLOG_INFO << "Update Amount of Account To in repository";
-  }
-  if (transaction.GetType() == Type(kEnumType::Transfer))
-  {
-    auto amount_from = transaction.GetAmountLastestAccountFrom() - transaction.GetAmount();
-    transaction.SetAmountLastestAccountFrom(amount_from);
-    PLOG_INFO << "Update Lastest Amount of Account From in repository";
-    transaction.SetAmountAccountFrom(amount_from);
-    PLOG_INFO << "Update Amount of Account From in repository";
-    auto amount_to = transaction.GetAmountLastestAccountTo() + transaction.GetAmount();
-    transaction.SetAmountLastestAccountTo(amount_to);
-    PLOG_INFO << "Update Lastest Amount of Account To in repository";
-    transaction.SetAmountAccountTo(amount_to);
-    PLOG_INFO << "Update Amount of Account To in repository";
-  }
-}
-
-//  Class member function
-//  Update account repository with adding new transaction
-void FinanceRepository::UpdateAccountRepository(Transaction& transaction)
-{
-  if (account_repository_.Size() == 0)
-  {
-    account_repository_.Add(transaction.GetAccountFromPtr());
-  }
-	else
-  {
-    bool keyFrom = false;
-    for (auto i = account_repository_.Begin(); i != account_repository_.End(); ++i)
-    {
-      if ((**i).GetName() == transaction.GetAccountFrom().GetName())
-      {
-        keyFrom = true;
-        transaction.SetAccountFromPtr(*i);
-        break;
-      }
-    }
-    if (!keyFrom)
-    {
-      account_repository_.Add(transaction.GetAccountFromPtr());
-    }
-    bool keyTo = false;
-    for (auto i = account_repository_.Begin(); i != account_repository_.End(); ++i)
-    {
-      if ((**i).GetName() == transaction.GetAccountTo().GetName())
-      {
-        keyTo = true;
-        transaction.SetAccountToPtr(*i);
-        break;
-      }
-    }
-    if (!keyTo)
-    {
-      account_repository_.Add(transaction.GetAccountToPtr());
-    }
-  }
-}
-
-//  Class member function
-//  Update category repository with adding new transaction
-void FinanceRepository::UpdateCategoryRepository(Transaction& transaction)
-{
-  category_repository_.Add(transaction.GetCategoryPtr());
-}
-
-//  Class member function
-//  Update currency repository with adding new transaction
-void FinanceRepository::UpdateCurrencyRepository(Transaction& transaction)
-{
-  if (currency_repository_.Size() == 0)
-  {
-    currency_repository_.Add(transaction.GetCurrencyPtr());
-  }
-  else
-  {
-    bool keyFrom = false;
-    for (auto i = currency_repository_.Begin(); i != currency_repository_.End(); ++i)
-    {
-      if ((**i).GetName() == transaction.GetCurrency().GetName())
-      {
-        keyFrom = true;
-        transaction.SetCurrencyPtr(*i);
-        break;
-      }
-    }
-    if (!keyFrom)
-    {
-      currency_repository_.Add(transaction.GetCurrency());
-    }
-    bool keyTo = false;
-    for (auto i = currency_repository_.Begin(); i != currency_repository_.End(); ++i)
-    {
-      if ((**i).GetName() == transaction.GetCurrency().GetName())
-      {
-        keyTo = true;
-        transaction.SetCurrencyPtr(*i);
-        break;
-      }
-    }
-    if (!keyTo)
-    {
-      currency_repository_.Add(transaction.GetCurrencyPtr());
-    }
-  }
-}
-
-//  Class member function
-//  Update description repository with adding new transaction
-void FinanceRepository::UpdateDescriptionRepository(Transaction& transaction)
-{
-  description_repository_.Add(transaction.GetDescriptionPtr());
-}
-
-//  Class member function
-//  Update payee repository with adding new transaction
-void FinanceRepository::UpdatePayeeRepository(Transaction& transaction)
-{
-  payee_repository_.Add(transaction.GetPayeePtr());
-}
-
-//  Class member function
-//  Update comment repository with adding new transaction
-void FinanceRepository::UpdateCommentRepository(Transaction& transaction)
-{
-  comment_repository_.Add(transaction.GetCommentPtr());
-}
-
-//  Class member function
-//  Update tag repository with adding new transaction
-void FinanceRepository::UpdateTagRepository(Transaction& transaction)
-{
-  tag_repository_.Add(transaction.GetTagPtr());
-}
-
-//  Class member function
 //  Calculate sum of today expenses
 NUM FinanceRepository::SumExpensesToday() const
 {
   NUM result = NUM(0.0);
-  for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
-  {
-    if ((**i).GetType().GetType() == kEnumType::Expense &&
-      (**i).GetTime().GetDay() == Time().GetDay() &&
-      (**i).GetTime().GetMonth() == Time().GetMonth() &&
-      (**i).GetTime().GetYear() == Time().GetYear())
-    {
-      result += (**i).GetAmount();
-    }
-  }
   return result;
 }
 
@@ -1000,15 +576,6 @@ NUM FinanceRepository::SumExpensesToday() const
 NUM FinanceRepository::SumExpensesThisMonth() const
 {
   NUM result = NUM(0.0);
-  for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
-  {
-    if ((**i).GetType().GetType() == kEnumType::Expense &&
-      (**i).GetTime().GetMonth() == Time().GetMonth() &&
-      (**i).GetTime().GetYear() == Time().GetYear())
-    {
-      result += (**i).GetAmount();
-    }
-  }
   return result;
 }
 
@@ -1017,13 +584,6 @@ NUM FinanceRepository::SumExpensesThisMonth() const
 NUM FinanceRepository::SumExpensesAllTime() const
 {
   NUM result = NUM(0.0);
-  for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
-  {
-    if ((**i).GetType().GetType() == kEnumType::Expense)
-    {
-      result += (**i).GetAmount();
-    }
-  }
   return result;
 }
 
@@ -1032,16 +592,6 @@ NUM FinanceRepository::SumExpensesAllTime() const
 NUM FinanceRepository::SumIncomesToday() const
 {
   NUM result = NUM(0.0);
-  for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
-  {
-    if ((**i).GetType().GetType() == kEnumType::Income &&
-      (**i).GetTime().GetDay() == Time().GetDay() &&
-      (**i).GetTime().GetMonth() == Time().GetMonth() &&
-      (**i).GetTime().GetYear() == Time().GetYear())
-    {
-      result += (**i).GetAmount();
-    }
-  }
   return result;
 }
 
@@ -1050,15 +600,6 @@ NUM FinanceRepository::SumIncomesToday() const
 NUM FinanceRepository::SumIncomesThisMonth() const
 {
   NUM result = NUM(0.0);
-  for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
-  {
-    if ((**i).GetType().GetType() == kEnumType::Income &&
-      (**i).GetTime().GetMonth() == Time().GetMonth() &&
-      (**i).GetTime().GetYear() == Time().GetYear())
-    {
-      result += (**i).GetAmount();
-    }
-  }
   return result;
 }
 
@@ -1067,13 +608,6 @@ NUM FinanceRepository::SumIncomesThisMonth() const
 NUM FinanceRepository::SumIncomesAllTime() const
 {
   NUM result = NUM(0.0);
-  for (auto i = BeginTransactionRepository(); i != EndTransactionRepository(); ++i)
-  {
-    if ((**i).GetType().GetType() == kEnumType::Income)
-    {
-      result += (**i).GetAmount();
-    }
-  }
   return result;
 }
 
