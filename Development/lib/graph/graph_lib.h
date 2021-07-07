@@ -1,7 +1,0 @@
-#include "home_bookkeeping/lib/graph/FLTK.h"
-#include "home_bookkeeping/lib/graph/Point.h"
-#include "home_bookkeeping/lib/graph/Graph.h"
-#include "home_bookkeeping/lib/graph/Graph_Additional.h"
-#include "home_bookkeeping/lib/graph/GUI.h"
-#include "home_bookkeeping/lib/graph/Simple_window.h"
-#include "home_bookkeeping/lib/graph/Window.h"

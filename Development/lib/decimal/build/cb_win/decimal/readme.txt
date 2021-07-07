@@ -1,1 +1,0 @@
-Project files for unit tests for Code::Blocks + MinGW compiler on Windows.
