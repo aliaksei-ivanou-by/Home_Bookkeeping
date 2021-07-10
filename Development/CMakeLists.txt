@@ -4,9 +4,24 @@ project ("Home_Bookkeeping")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++latest")
 
-SET(BASEPATH "${CMAKE_SOURCE_DIR}")
-INCLUDE_DIRECTORIES("${BASEPATH}")
+set(BASEPATH "${CMAKE_SOURCE_DIR}")
+include_directories("${BASEPATH}")
 
-add_subdirectory ("Home_Bookkeeping")
+add_subdirectory(include)
+add_subdirectory(test)
+add_subdirectory(lib)
 
-add_subdirectory ("Tests")
+set(MAIN_EXE main.cpp)
+
+add_executable(main ${MAIN_EXE})
+
+target_link_libraries(main constants)
+target_link_libraries(main sqlite)
+target_link_libraries(main logger)
+target_link_libraries(main enum)
+
+target_link_libraries(main Models)
+target_link_libraries(main DataAccess)
+target_link_libraries(main BusinessLogic)
+
+enable_testing()
