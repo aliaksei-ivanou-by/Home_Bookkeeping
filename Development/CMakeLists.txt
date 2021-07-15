@@ -11,9 +11,7 @@ add_subdirectory(include)
 add_subdirectory(test)
 add_subdirectory(lib)
 
-set(MAIN_EXE main.cpp)
-
-add_executable(main ${MAIN_EXE})
+add_executable(main main.cpp)
 
 target_link_libraries(main constants)
 target_link_libraries(main sqlite)
