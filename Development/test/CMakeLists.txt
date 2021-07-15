@@ -10,9 +10,13 @@ FetchContent_MakeAvailable(gtest)
 
 add_executable(
     tests
+    "test_Main.cpp"
     "test_Tag.cpp"
     "test_Payee.cpp"
-    "test_Description.cpp")
+    "test_Description.cpp"
+    "test_Comment.cpp"
+    "test_Category.cpp"
+      "test_Currency.cpp" "test_Account.cpp")
 
 target_link_libraries(tests
   PRIVATE

@@ -2,7 +2,7 @@
 
 #include "include/2_BusinessLogic/FinanceRepository.h"
 
-FinanceRepository repository;
+extern FinanceRepository repository;
 
 TEST(TagTest, TestDefault)
 {
