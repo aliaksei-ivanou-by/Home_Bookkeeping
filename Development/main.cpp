@@ -1,7 +1,8 @@
-﻿#include "include/2_BusinessLogic/FinanceRepository.h"
+﻿#include "include/3_GUI/Window_Main.h"
 
-int main(int argc, char** argv)
+int main()
 {
-  FinanceRepository repository;
-  return 0;
+  FinanceRepository a;
+  Window_Main win(Point(100, 100), 600, 600, "Finance System", std::make_shared<FinanceRepository>(a));
+  return gui_main();
 }
