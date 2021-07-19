@@ -1,96 +1,6 @@
 #ifndef HOMEBOOKKEEPING_0MODELS_TRANSACTION_H_
 #define HOMEBOOKKEEPING_0MODELS_TRANSACTION_H_
 
-//  Class Transaction
-//
-//  Constructors:
-//    With account from setting, category setting, amount setting, comment setting, currency setting, 
-//      description setting, payee setting, tag setting,
-//      transaction status setting, transaction type setting
-//      (income / expense)
-//    With account from setting, account to setting, category setting, amount setting, comment setting, 
-//      currency setting, description setting, payee setting, tag setting,
-//      transaction status setting, transaction type setting
-//      (transfer)
-//    With account from setting, category setting, amount setting
-//      (income / expense)
-//    With account from setting, account to setting, category setting, amount setting
-//      (transfer)
-//    Copy
-//
-//  Class member functions:
-//    Get time
-//    Get time in string format
-//    Get account from
-//    Get account to
-//    Get category
-//    Get amount
-//    Get amount of the account from
-//    Get amount of the account to
-//    Get lastest amount of the account from
-//    Get lastest amount of the account to
-//    Get comment
-//    Get currency
-//    Get description
-//    Get payee
-//    Get tag
-//    Get transaction status
-//    Get transaction type
-//    Get account from (shared pointer)
-//    Get account to (shared pointer)
-//    Get category (shared pointer)
-//    Get comment (shared pointer)
-//    Get currency (shared pointer)
-//    Get description (shared pointer)
-//    Get payee (shared pointer)
-//    Get tag (shared pointer)
-//    Get status (shared pointer)
-//    Get type (shared pointer)
-//    Set time
-//    Set account from
-//    Set account to
-//    Set category
-//    Set amount
-//    Set amount of the account from
-//    Set amount of the account to
-//    Set lastest amount of the account from
-//    Set lastest amount of the account to
-//    Set comment
-//    Set currency
-//    Set description
-//    Set payee
-//    Set tag
-//    Set status
-//    Set type
-//    Set account from (shared pointer)
-//    Set account to (shared pointer)
-//    Set category (shared pointer)
-//    Set comment (shared pointer)
-//    Set currency (shared pointer)
-//    Set description (shared pointer)
-//    Set payee (shared pointer)
-//    Set tag (shared pointer)
-//    Set status (shared pointer)
-//    Set type (shared pointer)
-//    Copy assignment operator
-//    Operator < for comparing models (by time)
-//    Output model (time \t account from \t category \t amount \t currency)
-//
-//  Variables:
-//    time
-//    account from (shared pointer)
-//    account to (shared pointer)
-//    category (shared pointer)
-//    amount
-//    amount for account from
-//    amount for account to
-//    comment (shared pointer)
-//    currency (shared pointer)
-//    desctiption (shared pointer)
-//    payee, tag (shared pointer)
-//    transaction status (shared pointer)
-//    transaction type (shared pointer)
-
 #include <iostream>
 #include <string>
 
@@ -215,4 +125,4 @@ private:
   std::shared_ptr<Type> type_;
 };
 
-#endif  //  HOMEBOOKKEEPING_0MODELS_TRANSACTION_H_
+#endif

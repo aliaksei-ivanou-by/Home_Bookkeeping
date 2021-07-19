@@ -1,36 +1,6 @@
 #ifndef HOMEBOOKKEEPING_1DATAACCESS_CURRENCYREPOSITORY_H_
 #define HOMEBOOKKEEPING_1DATAACCESS_CURRENCYREPOSITORY_H_
 
-//  Class CurrencyRepository
-//
-//  Constructors:
-//    Default
-//
-//  Class member functions:
-//    Add currency (default) to repository
-//    Add currency to repository
-//    Add currency (shared pointer) to repository
-//    Remove currency (shared pointer) from repository
-//    Get name of currency from repository
-//    Get code of currency from repository
-//    Get activity of currency from repository
-//    Set name of currency from repository
-//    Set code of currency from repository
-//    Set activity of currency from repository
-//    Switch activity of currency from repository
-//    Switch on activity of currency from repository
-//    Switch off activity of currency from repository
-//    Calculate size of repository
-//    Clear repository
-//    Find currency (shared pointer) in repository
-//    Find currency with definite name in repository
-//    Find currency with definite code in repository
-//    Find begin iterator of repository
-//    Find end iterator of repository
-//
-//  Variables:
-//    repository
-
 #include <iostream>
 #include <set>
 
@@ -66,4 +36,4 @@ private:
   std::set<std::shared_ptr<Currency>> repository_;
 };
 
-#endif  //  HOMEBOOKKEEPING_1DATAACCESS_CURRENCYREPOSITORY_H_
+#endif

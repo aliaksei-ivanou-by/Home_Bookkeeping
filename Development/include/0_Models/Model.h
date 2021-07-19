@@ -1,33 +1,13 @@
 #ifndef HOMEBOOKKEEPING_0MODELS_MODEL_H_
 #define HOMEBOOKKEEPING_0MODELS_MODEL_H_
 
-//  Class Model
-//
-//  Constructors:
-//    Default (name = "Unspecified")
-//    With name setting
-//
-//  Class member functions:
-//    Get name
-//    Set name
-//    Operator < for comparing models (by name)
-//    Operator == for comparing models (by name)
-//    Operator != for comparing models (by name)
-//    Output model (name)
-//    Input model (name)
-//
-//  Variables:
-//    name
-
 #include <iostream>
 #include <string>
 
 #include "lib/logger/Log.h"
 #include "lib/logger/Initializers/RollingFileInitializer.h"
-//#include "decimal/decimal.h"
 
 using NUM = double;
-// using NUM = dec::decimal<6>;
 
 class Model
 {
@@ -45,4 +25,4 @@ private:
   std::string name_;
 };
 
-#endif  //  HOMEBOOKKEEPING_0MODELS_MODEL_H_
+#endif

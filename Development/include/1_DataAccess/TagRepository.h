@@ -1,28 +1,6 @@
 #ifndef HOMEBOOKKEEPING_1DATAACCESS_TAGREPOSITORY_H_
 #define HOMEBOOKKEEPING_1DATAACCESS_TAGREPOSITORY_H_
 
-//  Class TagRepository
-//
-//  Constructors:
-//    Default
-//
-//  Class member functions:
-//    Add tag (default) to repository
-//    Add tag to repository
-//    Add tag (shared pointer) to repository
-//    Remove tag (shared pointer) from repository
-//    Get name of tag from repository
-//    Set name of tag from repository
-//    Calculate size of repository
-//    Clear repository
-//    Find tag (shared pointer) in repository
-//    Find tag with definite name in repository
-//    Find begin iterator of repository
-//    Find end iterator of repository
-//
-//  Variables:
-//    repository
-
 #include <iostream>
 #include <map>
 
@@ -52,4 +30,4 @@ private:
   std::map<std::shared_ptr<Tag>, int> repository_;
 };
 
-#endif  //  HOMEBOOKKEEPING_1DATAACCESS_TAGREPOSITORY_H_
+#endif

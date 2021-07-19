@@ -47,4 +47,4 @@ namespace Graph_lib
   };
 }
 
-#endif  //  HOMEBOOKKEEPING_3GUI_WINDOWADDTRANSACTIONINCOME_H_
+#endif

@@ -1,28 +1,6 @@
 #ifndef HOMEBOOKKEEPING_1DATAACCESS_DESCRIPTIONREPOSITORY_H_
 #define HOMEBOOKKEEPING_1DATAACCESS_DESCRIPTIONREPOSITORY_H_
 
-//  Class DescriptionRepository
-//
-//  Constructors:
-//    Default
-//
-//  Class member functions:
-//    Add description (default) to repository
-//    Add description to repository
-//    Add description (shared pointer) to repository
-//    Remove description (shared pointer) from repository
-//    Get name of description from repository
-//    Set name of description from repository
-//    Calculate size of repository
-//    Clear repository
-//    Find description (shared pointer) in repository
-//    Find description with definite name in repository
-//    Find begin iterator of repository
-//    Find end iterator of repository
-//
-//  Variables:
-//    repository
-
 #include <iostream>
 #include <map>
 
@@ -52,4 +30,4 @@ private:
   std::map<std::shared_ptr<Description>, int> repository_;
 };
 
-#endif  //  HOMEBOOKKEEPING_1DATAACCESS_DESCRIPTIONREPOSITORY_H_
+#endif

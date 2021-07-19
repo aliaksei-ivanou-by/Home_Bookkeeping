@@ -1,48 +1,6 @@
 #ifndef HOMEBOOKKEEPING_0MODELS_TIMEDATE_H_
 #define HOMEBOOKKEEPING_0MODELS_TIMEDATE_H_
 
-//  Class TimeDate
-//
-//  Constructors:
-//    Default (current time and current date)
-//
-//  Class member functions:
-//    Set current second
-//    Set current minute
-//    Set current hour
-//    Set current day
-//    Set current month
-//    Set current year
-//    Set surrent time and current date
-//    Get second
-//    Get minute
-//    Get hour
-//    Get day
-//    Get month
-//    Get year
-//    Set second
-//    Set minute
-//    Set hour
-//    Set day
-//    Set month
-//    Set year
-//    Set date (year, month, day, hour, minute, second)
-//    Check date for correctness
-//    Get current time in string format
-//    Operator < for comparing times (by day and time)
-//    Operator == for comparing times (by day and time)
-//    Operator != for comparing times (by day and time)
-//    Output time (year, month, day, hour, minute, second -> "YYYY-MM-DD HH:MM:SS")
-//    Input time (year, month, day, hour, minute, second -> "YYYY-MM-DD HH:MM:SS")
-//
-//  Variables:
-//    second
-//    minute
-//    hour
-//    day
-//    month
-//    year
-
 #include <iostream>
 #include <string>
 
@@ -90,4 +48,4 @@ private:
   int year_;
 };
 
-#endif  //  HOMEBOOKKEEPING_0MODELS_TIMEDATE_H_
+#endif

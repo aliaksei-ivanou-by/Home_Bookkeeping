@@ -1,7 +1,5 @@
 #include "include/2_BusinessLogic/DatabaseManager.h"
 
-//  Constructor
-//  Default
 DatabaseManager::DatabaseManager():
   database_error_{ 0 },
   database_status_{ 0 },
@@ -13,16 +11,12 @@ DatabaseManager::DatabaseManager():
   CreateAllTablesInDatabase();
 }
 
-//  Destructor
-//  Default
 DatabaseManager::~DatabaseManager()
 {
   sqlite3_close(database_);
   PLOG_INFO << "Close database";
 }
 
-//  Not class member function
-//  Additional function for calculate rows with data in table in database
 static int callback(void* count, int argc, char** argv, char** azColName)
 {
   int* c = (int*)count;
@@ -30,8 +24,6 @@ static int callback(void* count, int argc, char** argv, char** azColName)
   return 0;
 }
 
-//  Class member function
-//  Calculate rows with data in table in database
 int DatabaseManager::SizeOfTable(const std::string& table)
 {
   int table_rows = 0;
@@ -47,8 +39,6 @@ int DatabaseManager::SizeOfTable(const std::string& table)
   return table_rows;
 }
 
-//  Class member function
-//  Check table for existence in database
 bool DatabaseManager::CheckTableForExistenceInDatabase(const std::string& table)
 {
   std::string sql_request = std::string("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='") + 
@@ -62,8 +52,6 @@ bool DatabaseManager::CheckTableForExistenceInDatabase(const std::string& table)
   return table_availability;
 }
 
-//  Class member function
-//  Create table in database
 void DatabaseManager::CreateTableInDatabase(const std::string& table)
 {
   if (!CheckTableForExistenceInDatabase(table))
@@ -140,8 +128,6 @@ void DatabaseManager::CreateTableInDatabase(const std::string& table)
   }
 }
 
-//  Class member function
-//  Clear table in database
 void DatabaseManager::ClearTableInDatabase(const std::string& table)
 {
   if (CheckTableForExistenceInDatabase(table))
@@ -159,8 +145,6 @@ void DatabaseManager::ClearTableInDatabase(const std::string& table)
   }
 }
 
-//  Class member function
-//  Create all tables in database
 void DatabaseManager::CreateAllTablesInDatabase()
 {
   CreateTableAccountsInDatabase();
@@ -173,8 +157,6 @@ void DatabaseManager::CreateAllTablesInDatabase()
   CreateTableTransactionsInDatabase();
 }
 
-//  Class member function
-//  Clear all tables in database
 void DatabaseManager::ClearAllTablesInDatabase()
 {
   ClearTableAccountsInDatabase();
@@ -187,22 +169,16 @@ void DatabaseManager::ClearAllTablesInDatabase()
   ClearTableTransactionsInDatabase();
 }
 
-//  Class member function
-//  Create table 'Transactions' in database
 void DatabaseManager::CreateTableTransactionsInDatabase()
 {
   CreateTableInDatabase("Transactions");
 }
 
-//  Class member function
-//  Clear table 'Transactions' in database
 void DatabaseManager::ClearTableTransactionsInDatabase()
 {
   ClearTableInDatabase("Transactions");
 }
 
-//  Class member function
-//  Insert transaction to table 'Transactions' in database
 void DatabaseManager::InsertTransactionToTableTransactionsInDatabase(Transaction&& transaction)
 {
   // Check account_from
@@ -338,8 +314,6 @@ void DatabaseManager::InsertTransactionToTableTransactionsInDatabase(Transaction
   }
 }
 
-//  Class member function
-//  Insert transactions to table 'Transactions' in database
 void DatabaseManager::InsertTransactionsToTableTransactionsInDatabase(TransactionRepository&& repository)
 {
   for (auto i = repository.Begin(); i != repository.End(); ++i)
@@ -348,8 +322,6 @@ void DatabaseManager::InsertTransactionsToTableTransactionsInDatabase(Transactio
   }
 }
 
-//  Class member function
-//  Find transaction with definite id in table 'Transactions' in database
 std::tuple<bool, int, Transaction> DatabaseManager::FindTransactionInTableTransactionsInDatabase(const int id)
 {
   return std::make_tuple(false, 0, Transaction(Account(), Category(), 0));
@@ -386,8 +358,6 @@ std::tuple<bool, int, Transaction> DatabaseManager::FindTransactionInTableTransa
   */
 }
 
-//  Class member function
-//  Remove transaction with definite id from table 'Transactions' in database
 void DatabaseManager::RemoveTransactionFromTableTransactionsInDatabase(const int id)
 {
   bool transaction_is_in_table = false;
@@ -409,22 +379,16 @@ void DatabaseManager::RemoveTransactionFromTableTransactionsInDatabase(const int
   }
 }
 
-//  Class member function
-//  Create table 'Accounts' in database
 void DatabaseManager::CreateTableAccountsInDatabase()
 {
   CreateTableInDatabase("Accounts");
 }
 
-//  Class member function
-//  Clear table 'Accounts' in database
 void DatabaseManager::ClearTableAccountsInDatabase()
 {
   ClearTableInDatabase("Accounts");
 }
 
-//  Class member function
-//  Insert account to table 'Accounts' in database
 void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& model)
 {
   bool model_currency_in_database;
@@ -464,8 +428,6 @@ void DatabaseManager::InsertAccountToTableAccountsInDatabase(Account&& model)
   }
 }
 
-//  Class member function
-//  Insert accounts to table 'Accounts' in database
 void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&& repository)
 {
   for (auto i = repository.Begin(); i != repository.End(); ++i)
@@ -474,8 +436,6 @@ void DatabaseManager::InsertAccountsToTableAccountsInDatabase(AccountRepository&
   }
 }
 
-//  Class member function
-//  Find account with definite name in table 'Accounts' in database
 std::tuple<bool, int, Account> DatabaseManager::FindAccountInTableAccountsInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Accounts", -1, &database_stmt_, 0);
@@ -509,8 +469,6 @@ std::tuple<bool, int, Account> DatabaseManager::FindAccountInTableAccountsInData
   return std::make_tuple(false, 0, Account());
 }
 
-//  Class member function
-//  Set name of account in table 'Accounts' in database
 void DatabaseManager::SetAccountName(const std::string & model_name, const std::string & name)
 {
   bool model_is_in_table = false;
@@ -534,8 +492,6 @@ void DatabaseManager::SetAccountName(const std::string & model_name, const std::
   }
 }
 
-//  Class member function
-//  Set amount of account in table 'Accounts' in database
 void DatabaseManager::SetAccountAmount(const std::string& model_name, const NUM amount)
 {
   bool model_is_in_table = false;
@@ -559,8 +515,6 @@ void DatabaseManager::SetAccountAmount(const std::string& model_name, const NUM 
   }
 }
 
-//  Class member function
-//  Set currency of account in table 'Accounts' in database
 void DatabaseManager::SetAccountCurrency(const std::string& model_name, Currency&& currency)
 {
   bool currency_is_in_table = false;
@@ -593,8 +547,6 @@ void DatabaseManager::SetAccountCurrency(const std::string& model_name, Currency
   }
 }
 
-//  Class member function
-//  Get name of account from table 'Accounts' in database
 std::string DatabaseManager::GetAccountName(const std::string& model_name)
 {
   bool model_is_in_table = false;
@@ -606,8 +558,6 @@ std::string DatabaseManager::GetAccountName(const std::string& model_name)
   }
 }
 
-//  Class member function
-//  Get amount of account from table 'Accounts' in database
 NUM DatabaseManager::GetAccountAmount(const std::string& model_name)
 {
   bool model_is_in_table = false;
@@ -619,8 +569,6 @@ NUM DatabaseManager::GetAccountAmount(const std::string& model_name)
   }
 }
 
-//  Class member function
-//  Get currency of account from table 'Accounts' in database
 Currency DatabaseManager::GetAccountCurrency(const std::string& model_name)
 {
   bool model_is_in_table = false;
@@ -632,8 +580,6 @@ Currency DatabaseManager::GetAccountCurrency(const std::string& model_name)
   }
 }
 
-//  Class member function
-//  Remove one account from table 'Accounts' in database
 void DatabaseManager::RemoveAccountFromTableAccountsInDatabase(const std::string& account_name)
 {
   bool account_is_in_table = false;
@@ -656,22 +602,16 @@ void DatabaseManager::RemoveAccountFromTableAccountsInDatabase(const std::string
   }
 }
 
-//  Class member function
-//  Create table 'Categories' in database
 void DatabaseManager::CreateTableCategoriesInDatabase()
 {
   CreateTableInDatabase("Categories");
 }
 
-//  Class member function
-//  Remove table 'Categories' from database
 void DatabaseManager::ClearTableCategoriesInDatabase()
 {
   ClearTableInDatabase("Categories");
 }
 
-//  Class member function
-//  Insert one category to table 'Categories' in database
 void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& model)
 {
   int counter_start = 1;
@@ -711,8 +651,6 @@ void DatabaseManager::InsertCategoryToTableCategoriesInDatabase(Category&& model
   }
 }
 
-//  Class member function
-//  Insert categories to table 'Categories' in database
 void DatabaseManager::InsertCategoriesToTableCategoriesInDatabase(CategoryRepository&& repository)
 {
   for (auto i = repository.Begin(); i != repository.End(); ++i)
@@ -721,8 +659,6 @@ void DatabaseManager::InsertCategoriesToTableCategoriesInDatabase(CategoryReposi
   }
 }
 
-//  Class member function
-//  Find category with definite name in table 'Categories' in database
 std::tuple<bool, int, Category, int> DatabaseManager::FindCategoryInTableCategoriesInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Categories", -1, &database_stmt_, 0);
@@ -742,8 +678,6 @@ std::tuple<bool, int, Category, int> DatabaseManager::FindCategoryInTableCategor
   return std::make_tuple(false, 0, Category(), 0);
 }
 
-//  Class member function
-//  Find category with definite name in table 'Categories' in database and update name
 void DatabaseManager::SetCategoryName(const std::string& model_name, const std::string& name)
 {
   bool model_is_in_table = false;
@@ -768,8 +702,6 @@ void DatabaseManager::SetCategoryName(const std::string& model_name, const std::
   }
 }
 
-//  Class member function
-//  Get name of account from table 'Categories' in database
 std::string DatabaseManager::GetCategoryName(const std::string& model_name)
 {
   bool model_is_in_table = false;
@@ -781,8 +713,6 @@ std::string DatabaseManager::GetCategoryName(const std::string& model_name)
   }
 }
 
-//  Class member function
-//  Remove one category from table 'Categories' in database
 void DatabaseManager::RemoveCategoryFromTableCategoriesInDatabase(const std::string& category_name)
 {
   bool category_is_in_table = false;
@@ -804,22 +734,16 @@ void DatabaseManager::RemoveCategoryFromTableCategoriesInDatabase(const std::str
   }
 }
 
-//  Class member function
-//  Create table 'Currencies' in database
 void DatabaseManager::CreateTableCurrenciesInDatabase()
 {
   CreateTableInDatabase("Currencies");
 }
 
-//  Class member function
-//  Remove table 'Currencies' from database
 void DatabaseManager::ClearTableCurrenciesInDatabase()
 {
   ClearTableInDatabase("Currencies");
 }
 
-//  Class member function
-//  Insert one currency to table 'Currencies' in database
 void DatabaseManager::InsertCurrencyToTableCurrenciesInDatabase(Currency&& model)
 {
   int counter_start = 1;
@@ -847,8 +771,6 @@ void DatabaseManager::InsertCurrencyToTableCurrenciesInDatabase(Currency&& model
   }
 }
 
-//  Class member function
-//  Insert currencies to table 'Currencies' in database
 void DatabaseManager::InsertCurrenciesToTableCurrenciesInDatabase(CurrencyRepository&& repository)
 {
   for (auto i = repository.Begin(); i != repository.End(); ++i)
@@ -857,8 +779,6 @@ void DatabaseManager::InsertCurrenciesToTableCurrenciesInDatabase(CurrencyReposi
   }
 }
 
-//  Class member function
-//  Find currency with definite name in table 'Currencies' in database
 std::tuple<bool, int, Currency> DatabaseManager::FindCurrencyInTableCurrenciesInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Currencies", -1, &database_stmt_, 0);
@@ -879,8 +799,6 @@ std::tuple<bool, int, Currency> DatabaseManager::FindCurrencyInTableCurrenciesIn
   return std::make_tuple(false, 0, Currency());
 }
 
-//  Class member function
-//  Find currency with definite code in table 'Currencies' in database
 std::tuple<bool, int, Currency> DatabaseManager::FindCurrencyByCodeInTableCurrenciesInDatabase(const std::string& model_code)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Currencies", -1, &database_stmt_, 0);
@@ -901,8 +819,6 @@ std::tuple<bool, int, Currency> DatabaseManager::FindCurrencyByCodeInTableCurren
   return std::make_tuple(false, 0, Currency());
 }
 
-//  Class member function
-//  Find category with definite name in table 'Categories' in database and update name
 void DatabaseManager::SetCurrencyName(const std::string& model_name, const std::string& name)
 {
   bool model_is_in_table = false;
@@ -926,8 +842,6 @@ void DatabaseManager::SetCurrencyName(const std::string& model_name, const std::
   }
 }
 
-//  Class member function
-//  Find category with definite name in table 'Categories' in database and update name
 void DatabaseManager::SetCurrencyCode(const std::string& model_name, const std::string& code)
 {
   bool model_is_in_table = false;
@@ -951,8 +865,6 @@ void DatabaseManager::SetCurrencyCode(const std::string& model_name, const std::
   }
 }
 
-//  Class member function
-//  Find category with definite name in table 'Categories' in database and update name
 void DatabaseManager::SetCurrencyActivity(const std::string& model_name, const bool activity)
 {
   bool model_is_in_table = false;
@@ -976,8 +888,6 @@ void DatabaseManager::SetCurrencyActivity(const std::string& model_name, const b
   }
 }
 
-//  Class member function
-//  Get name of account from table 'Categories' in database
 std::string DatabaseManager::GetCurrencyName(const std::string& model_name)
 {
   bool model_is_in_table = false;
@@ -989,8 +899,6 @@ std::string DatabaseManager::GetCurrencyName(const std::string& model_name)
   }
 }
 
-//  Class member function
-//  Get name of account from table 'Categories' in database
 std::string DatabaseManager::GetCurrencyCode(const std::string& model_name)
 {
   bool model_is_in_table = false;
@@ -1002,8 +910,6 @@ std::string DatabaseManager::GetCurrencyCode(const std::string& model_name)
   }
 }
 
-//  Class member function
-//  Get name of account from table 'Categories' in database
 bool DatabaseManager::GetCurrencyActivity(const std::string& model_name)
 {
   bool model_is_in_table = false;
@@ -1015,30 +921,22 @@ bool DatabaseManager::GetCurrencyActivity(const std::string& model_name)
   }
 }
 
-//  Class member function
-//  Switch activity of currency from table 'Currencies' in database
 void DatabaseManager::SwitchCurrencyActivity(const std::string& model_name)
 {
   bool model_activity = GetCurrencyActivity(model_name);
   SetCurrencyActivity(model_name, !model_activity);
 }
 
-//  Class member function
-//  Switch on activity of currency from table 'Currencies' in database
 void DatabaseManager::SwitchOnCurrencyActivity(const std::string& model_name)
 {
   SetCurrencyActivity(model_name, true);
 }
 
-//  Class member function
-//  Switch off activity of currency from table 'Currencies' in database
 void DatabaseManager::SwitchOffCurrencyActivity(const std::string& model_name)
 {
   SetCurrencyActivity(model_name, false);
 }
 
-//  Class member function
-//  Remove currency from table 'Currencies' in database
 void DatabaseManager::RemoveCurrencyFromTableCurrenciesInDatabase(const std::string& currency_name)
 {
   bool currency_is_in_table = false;
@@ -1060,22 +958,16 @@ void DatabaseManager::RemoveCurrencyFromTableCurrenciesInDatabase(const std::str
   }
 }
 
-//  Class member function
-//  Create table 'Descriptions' in database
 void DatabaseManager::CreateTableDescriptionsInDatabase()
 {
   CreateTableInDatabase("Descriptions");
 }
 
-//  Class member function
-//  Remove table 'Descriptions' from database
 void DatabaseManager::ClearTableDescriptionsInDatabase()
 {
   ClearTableInDatabase("Descriptions");
 }
 
-//  Class member function
-//  Insert one description to table 'Descriptions' in database
 void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description&& model)
 {
   int counter_start = 1;
@@ -1115,8 +1007,6 @@ void DatabaseManager::InsertDescriptionToTableDescriptionsInDatabase(Description
   }
 }
 
-//  Class member function
-//  Insert descriptions to table 'Descriptions' in database
 void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository)
 {
   for (auto i = repository.Begin(); i != repository.End(); ++i)
@@ -1125,8 +1015,6 @@ void DatabaseManager::InsertDescriptionsToTableDescriptionsInDatabase(Descriptio
   }
 }
 
-//  Class member function
-//  Find description with definite name in table 'Descriptions' in database
 std::tuple<bool, int, Description, int> DatabaseManager::FindDescriptionInTableDescriptionsInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Descriptions", -1, &database_stmt_, 0);
@@ -1146,8 +1034,6 @@ std::tuple<bool, int, Description, int> DatabaseManager::FindDescriptionInTableD
   return std::make_tuple(false, 0, Description(), 0);
 }
 
-//  Class member function
-//  Find description with definite name in table 'Descriptions' in database and update name
 void DatabaseManager::SetDescriptionName(const std::string& model_name, const std::string& name)
 {
   bool model_is_in_table = false;
@@ -1173,8 +1059,6 @@ void DatabaseManager::SetDescriptionName(const std::string& model_name, const st
   }
 }
 
-//  Class member function
-//  Get name of account from table 'Categories' in database
 std::string DatabaseManager::GetDescriptionName(const std::string& model_name)
 {
   bool model_is_in_table = false;
@@ -1186,8 +1070,6 @@ std::string DatabaseManager::GetDescriptionName(const std::string& model_name)
   }
 }
 
-//  Class member function
-//  Remove one description from table 'Descriptions' in database
 void DatabaseManager::RemoveDescriptionFromTableDescriptionsInDatabase(const std::string& description_name)
 {
   bool description_is_in_table = false;
@@ -1209,22 +1091,16 @@ void DatabaseManager::RemoveDescriptionFromTableDescriptionsInDatabase(const std
   }
 }
 
-//  Class member function
-//  Create table 'Payees' in database
 void DatabaseManager::CreateTablePayeesInDatabase()
 {
   CreateTableInDatabase("Payees");
 }
 
-//  Class member function
-//  Remove table 'Payees' from database
 void DatabaseManager::ClearTablePayeesInDatabase()
 {
   ClearTableInDatabase("Payees");
 }
 
-//  Class member function
-//  Insert one payee to table 'Payees' in database
 void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& model)
 {
   int counter_start = 1;
@@ -1264,8 +1140,6 @@ void DatabaseManager::InsertPayeeToTablePayeesInDatabase(Payee&& model)
   }
 }
 
-//  Class member function
-//  Insert payees to table 'Payees' in database
 void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository)
 {
   for (auto i = repository.Begin(); i != repository.End(); ++i)
@@ -1274,8 +1148,6 @@ void DatabaseManager::InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repo
   }
 }
 
-//  Class member function
-//  Find payee with definite name in table 'Payees' in database
 std::tuple<bool, int, Payee, int> DatabaseManager::FindPayeeInTablePayeesInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Payees", -1, &database_stmt_, 0);
@@ -1295,8 +1167,6 @@ std::tuple<bool, int, Payee, int> DatabaseManager::FindPayeeInTablePayeesInDatab
   return std::make_tuple(false, 0, Payee(), 0);
 }
 
-//  Class member function
-//  Find payee with definite name in table 'Payees' in database and update name
 void DatabaseManager::SetPayeeName(const std::string& model_name, const std::string& name)
 {
   bool model_is_in_table = false;
@@ -1321,8 +1191,6 @@ void DatabaseManager::SetPayeeName(const std::string& model_name, const std::str
   }
 }
 
-//  Class member function
-//  Get name of account from table 'Categories' in database
 std::string DatabaseManager::GetPayeeName(const std::string& model_name)
 {
   bool model_is_in_table = false;
@@ -1334,8 +1202,6 @@ std::string DatabaseManager::GetPayeeName(const std::string& model_name)
   }
 }
 
-//  Class member function
-//  Remove payee from table 'Payees' in database
 void DatabaseManager::RemovePayeeFromTablePayeesInDatabase(const std::string& payee_name)
 {
   bool payee_is_in_table = false;
@@ -1357,22 +1223,16 @@ void DatabaseManager::RemovePayeeFromTablePayeesInDatabase(const std::string& pa
   }
 }
 
-//  Class member function
-//  Create table 'Comments' in database
 void DatabaseManager::CreateTableCommentsInDatabase()
 {
   CreateTableInDatabase("Comments");
 }
 
-//  Class member function
-//  Remove table 'Comments' from database
 void DatabaseManager::ClearTableCommentsInDatabase()
 {
   ClearTableInDatabase("Comments");
 }
 
-//  Class member function
-//  Insert one comment to table 'Comments' in database
 void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& model)
 {
   int counter_start = 1;
@@ -1412,8 +1272,6 @@ void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& model)
   }
 }
 
-//  Class member function
-//  Insert comments to table 'Comments' in database
 void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository)
 {
   for (auto i = repository.Begin(); i != repository.End(); ++i)
@@ -1422,8 +1280,6 @@ void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&
   }
 }
 
-//  Class member function
-//  Find comment with definite name in table 'Comments' in database
 std::tuple<bool, int, Comment, int> DatabaseManager::FindCommentInTableCommentsInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Comments", -1, &database_stmt_, 0);
@@ -1443,8 +1299,6 @@ std::tuple<bool, int, Comment, int> DatabaseManager::FindCommentInTableCommentsI
   return std::make_tuple(false, 0, Comment(), 0);
 }
 
-//  Class member function
-//  Find comment with definite name in table 'Comments' in database and update name
 void DatabaseManager::SetCommentName(const std::string& model_name, const std::string& name)
 {
   bool model_is_in_table = false;
@@ -1469,8 +1323,6 @@ void DatabaseManager::SetCommentName(const std::string& model_name, const std::s
   }
 }
 
-//  Class member function
-//  Get name of account from table 'Categories' in database
 std::string DatabaseManager::GetCommentName(const std::string& model_name)
 {
   bool model_is_in_table = false;
@@ -1482,8 +1334,6 @@ std::string DatabaseManager::GetCommentName(const std::string& model_name)
   }
 }
 
-//  Class member function
-//  Remove comment from table 'Comments' in database
 void DatabaseManager::RemoveCommentFromTableCommentsInDatabase(const std::string& comment_name)
 {
   bool comment_is_in_table = false;
@@ -1505,22 +1355,16 @@ void DatabaseManager::RemoveCommentFromTableCommentsInDatabase(const std::string
   }
 }
 
-//  Class member function
-//  Create table 'Tags' in database
 void DatabaseManager::CreateTableTagsInDatabase()
 {
   CreateTableInDatabase("Tags");
 }
 
-//  Class member function
-//  Remove table 'Tags' from database
 void DatabaseManager::ClearTableTagsInDatabase()
 {
   ClearTableInDatabase("Tags");
 }
 
-//  Class member function
-//  Insert one tag to table 'Tags' in database
 void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& model)
 {
   int counter_start = 1;
@@ -1560,8 +1404,6 @@ void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& model)
   }
 }
 
-//  Class member function
-//  Insert tags to table 'Tags' in database
 void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository)
 {
   for (auto i = repository.Begin(); i != repository.End(); ++i)
@@ -1570,8 +1412,6 @@ void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository
   }
 }
 
-//  Class member function
-//  Find tag with definite name in table 'Tags' in database
 std::tuple<bool, int, Tag, int> DatabaseManager::FindTagInTableTagsInDatabase(const std::string& model_name)
 {
   sqlite3_prepare_v2(database_, "SELECT * FROM Tags", -1, &database_stmt_, 0);
@@ -1591,8 +1431,6 @@ std::tuple<bool, int, Tag, int> DatabaseManager::FindTagInTableTagsInDatabase(co
   return std::make_tuple(false, 0, Tag(), 0);
 }
 
-//  Class member function
-//  Find tag with definite name in table 'Tags' in database and update name
 void DatabaseManager::SetTagName(const std::string& model_name, const std::string& name)
 {
   bool model_is_in_table = false;
@@ -1616,8 +1454,6 @@ void DatabaseManager::SetTagName(const std::string& model_name, const std::strin
   }
 }
 
-//  Class member function
-//  Get name of account from table 'Categories' in database
 std::string DatabaseManager::GetTagName(const std::string& model_name)
 {
   bool model_is_in_table = false;
@@ -1629,8 +1465,6 @@ std::string DatabaseManager::GetTagName(const std::string& model_name)
   }
 }
 
-//  Class member function
-//  Remove one tag from table 'Tags' in database
 void DatabaseManager::RemoveTagFromTableTagsInDatabase(const std::string& tag_name)
 {
   bool tag_is_in_table = false;

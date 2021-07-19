@@ -1,28 +1,6 @@
 #ifndef HOMEBOOKKEEPING_0MODELS_STATUS_H_
 #define HOMEBOOKKEEPING_0MODELS_STATUS_H_
 
-//  Class Status : public Model
-//
-//  Constructors:
-//    Default (status = "None", name = "None")
-//    With status setting
-//
-//  Class member functions:
-//    Get name
-//    Set name
-//    Get status
-//    Set status
-//    Operator < for comparing statuses (by status)
-//    Operator == for comparing statuses (by status)
-//    Operator != for comparing statuses (by status)
-//    Output model (name)
-//    Input model (name)
-//
-//  Variables:
-//    name
-//    enum class kEnumStatus
-//    status
-
 #include "lib/enum/magic_enum.hpp"
 
 #include "include/0_Models/Model.h"
@@ -51,4 +29,4 @@ private:
   kEnumStatus status_;
 };
 
-#endif  //  HOMEBOOKKEEPING_0MODELS_STATUS_H_
+#endif

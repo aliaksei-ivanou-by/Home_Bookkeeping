@@ -1,106 +1,6 @@
 #ifndef HOMEBOOKKEEPING_2BUSINESSLOGIC_FINANCENREPOSITORY_H_
 #define HOMEBOOKKEEPING_2BUSINESSLOGIC_FINANCENREPOSITORY_H_
 
-//  Class FinanceRepository
-//
-//  Constructors:
-//    Default
-//
-//  Destructors:
-//    Default
-//
-//  Class member functions:
-//    basic:
-//        add element:
-//          Add transaction to database
-//          Add account (default) to database
-//          Add account to database
-//          Add category (default) to database
-//          Add category to database
-//          Add currency to database
-//          Add description to database
-//          Add payee to database
-//          Add payees to database
-//          Add comment to database
-//          Add tag to database
-//        remove element:
-//          Remove transaction from database
-//          Remove account from database
-//          Remove category from database
-//          Remove currency from database
-//          Remove description from database
-//          Remove payee from database
-//          Remove comment from database
-//          Remove tag from database
-//        get value of model
-//          Get name of account from table 'Accounts' in database
-//          Get amount of account from table 'Accounts' in database
-//          Get name of category from table 'Categories' in database
-//          Get name of currency from table 'Currencies' in database
-//          Get code of currency from table 'Currencies' in database
-//          Get activity of currency from table 'Currencies' in database
-//          Get name of description from table 'Descriptions' in database
-//          Get name of payee from table 'Payees' in database
-//          Get name of comment from table 'Comments' in database
-//          Get name of tag from table 'Tags' in database
-//        set value of model
-//          Set name of account from database
-//          Set amount of account from database
-//          Set name of category from database
-//          Set name of currency from database
-//          Set code of currency from database
-//          Set activity of currency from database
-//          Switch activity of currency from database
-//          Switch on activity of currency from database
-//          Switch off activity of currency from database
-//          Set name of description from database
-//          Set name of payee from database
-//          Set name of comment from database
-//          Set name of tag from database
-//        number of elements
-//          Number of transactions in database
-//          Number of accounts in database
-//          Number of categories in database
-//          Number of currencies in database
-//          Number of descriptions in database
-//          Number of payees in database
-//          Number of comments in database
-//          Number of tags in database
-//        clear table
-//          Clear table 'Transactions' in database
-//          Clear table 'Accounts' in database
-//          Clear table 'Categories' in database
-//          Clear table 'Currencies' in database
-//          Clear table 'Descriptions' in database
-//          Clear table 'Payees' in database
-//          Clear table 'Comments' in database
-//          Clear table 'Tags' in database
-//        find:
-//          Find account with definite name in database
-//          Find category with definite name in database
-//          Find currency with definite name in database
-//          Find currency with definite code in database
-//          Find description with definite name in database
-//          Find payee with definite name in database
-//          Find comment with definite name in database
-//          Find tag with definite name in database
-//    sum:
-//      expenses:
-//        Calculate sum of today expenses
-//        Calculate sum of this month expenses
-//        Calculate sum of all time expenses
-//      incomes:
-//        Calculate sum of today incomes
-//        Calculate sum of this month incomes
-//        Calculate sum of all time incomes
-//    add default models to database:
-//      Add default accounts to table 'Accounts' in database
-//      Add default categories to table 'Categories' in database
-//      Add default currencies to table 'Currencies' in database
-//    clear tables in database
-//  Variables:
-//    Database Manager
-
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -229,4 +129,4 @@ private:
   DatabaseManager* database_manager_;
 };
 
-#endif  //  HOMEBOOKKEEPING_2BUSINESSLOGIC_FINANCENREPOSITORY_H_
+#endif

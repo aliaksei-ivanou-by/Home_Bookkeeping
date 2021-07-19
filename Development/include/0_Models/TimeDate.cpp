@@ -1,7 +1,5 @@
 #include "include/0_Models/TimeDate.h"
 
-//  Constructor
-//  Default (current time and current date)
 TimeDate::TimeDate():
   second_{ SetSecond() },
   minute_{ SetMinute() },
@@ -11,8 +9,6 @@ TimeDate::TimeDate():
   year_{ SetYear() }
 {}
 
-//  Friend class member function
-//  Check date for correctness
 bool CheckDate(int year, int month, int day, int hour, int minute, int second)
 {
   if (second > 60 || second < 1)
@@ -57,8 +53,6 @@ bool CheckDate(int year, int month, int day, int hour, int minute, int second)
   return true;
 }
 
-//  Class member function
-//  Set current second
 int TimeDate::SetSecond()
 {
   std::time_t result = std::time(nullptr);
@@ -69,8 +63,6 @@ int TimeDate::SetSecond()
   return seconds;
 }
 
-//  Class member function
-//  Set current minute
 int TimeDate::SetMinute()
 {
   struct tm time_new;
@@ -80,8 +72,6 @@ int TimeDate::SetMinute()
   return minute;
 }
 
-//  Class member function
-//  Set current hour
 int TimeDate::SetHour()
 {
   struct tm time_new;
@@ -91,8 +81,6 @@ int TimeDate::SetHour()
   return hours;
 }
 
-//  Class member function
-//  Set current day
 int TimeDate::SetDay()
 {
   struct tm time_new;
@@ -102,8 +90,6 @@ int TimeDate::SetDay()
   return days;
 }
 
-//  Class member function
-//  Set current month
 int TimeDate::SetMonth()
 {
   struct tm time_new;
@@ -113,8 +99,6 @@ int TimeDate::SetMonth()
   return month + 1;
 }
 
-//  Class member function
-//  Set current year
 int TimeDate::SetYear()
 {
   struct tm time_new;
@@ -124,8 +108,6 @@ int TimeDate::SetYear()
   return year;
 }
 
-//  Class member function
-//  Set surrent time and current date
 void TimeDate::SetTime()
 {
   TimeDate time;
@@ -133,50 +115,36 @@ void TimeDate::SetTime()
   PLOG_INFO << "Set new daytime";
 }
 
-//  Class member function
-//  Get second
 int TimeDate::GetSecond() const
 {
   return second_;
 }
 
-//  Class member function
-//  Get minute
 int TimeDate::GetMinute() const
 {
   return minute_;
 }
 
-//  Class member function
-//  Get hour
 int TimeDate::GetHour() const
 {
   return hour_;
 }
 
-//  Class member function
-//  Get day
 int TimeDate::GetDay() const
 {
   return day_;
 }
 
-//  Class member function
-//  Get month
 int TimeDate::GetMonth() const
 {
   return month_;
 }
 
-//  Class member function
-//  Get year
 int TimeDate::GetYear() const
 {
   return year_;
 }
 
-//  Class member function
-//  Set second
 void TimeDate::SetSecond(const int second)
 {
   if (CheckDate(year_, month_, day_, hour_, minute_, second))
@@ -186,8 +154,6 @@ void TimeDate::SetSecond(const int second)
   PLOG_INFO << "Set new second";
 }
 
-//  Class member function
-//  Set minute
 void TimeDate::SetMinute(const int minute)
 {
   if (CheckDate(year_, month_, day_, hour_, minute, second_))
@@ -196,8 +162,6 @@ void TimeDate::SetMinute(const int minute)
   }
 }
 
-//  Class member function
-//  Set hour
 void TimeDate::SetHour(const int hour)
 {
   if (CheckDate(year_, month_, day_, hour, minute_, second_))
@@ -207,8 +171,6 @@ void TimeDate::SetHour(const int hour)
   PLOG_INFO << "Set new hour";
 }
 
-//  Class member function
-//  Set day
 void TimeDate::SetDay(const int day)
 {
   if (CheckDate(year_, month_, day, hour_, minute_, second_))
@@ -218,8 +180,6 @@ void TimeDate::SetDay(const int day)
   PLOG_INFO << "Set new day";
 }
 
-//  Class member function
-//  Set month
 void TimeDate::SetMonth(const int month)
 {
   if (CheckDate(year_, month, day_, hour_, minute_, second_))
@@ -229,8 +189,6 @@ void TimeDate::SetMonth(const int month)
   PLOG_INFO << "Set new month";
 }
 
-//  Class member function
-//  Set year
 void TimeDate::SetYear(const int year)
 {
   if (CheckDate(year, month_, day_, hour_, minute_, second_))
@@ -240,8 +198,6 @@ void TimeDate::SetYear(const int year)
   PLOG_INFO << "Set new year";
 }
 
-//  Class member function
-//  Set date (year, month, day, hour, minute, second)
 void TimeDate::SetDate(const int year, const int month, const int day, const int hour, const int minute, const int second)
 {
   if (CheckDate(year, month, day, hour, minute, second))
@@ -256,8 +212,6 @@ void TimeDate::SetDate(const int year, const int month, const int day, const int
   PLOG_INFO << "Set new daytime";
 }
 
-//  Class member function
-//  Get current time in string format
 std::string TimeDate::GetStringTime() const
 {
   std::stringstream string_stream;
@@ -265,8 +219,6 @@ std::string TimeDate::GetStringTime() const
   return string_stream.str();
 }
 
-//  Friend class member function
-//  Operator < for comparing times (by day and time)
 bool operator<(const TimeDate& time_left, const TimeDate& time_right)
 {
   if (time_left.year_ < time_right.year_)
@@ -343,8 +295,6 @@ bool operator<(const TimeDate& time_left, const TimeDate& time_right)
   return false;
 }
 
-//  Friend class member function
-//  Operator == for comparing times (by day and time)
 bool operator==(const TimeDate& time_left, const TimeDate& time_right)
 {
   return ((time_left.year_ == time_right.year_) && 
@@ -355,17 +305,14 @@ bool operator==(const TimeDate& time_left, const TimeDate& time_right)
     (time_left.second_ == time_right.second_));
 }
 
-//  Friend class member function
-//  Operator != for comparing times (by day and time)
 bool operator!=(const TimeDate& time_left, const TimeDate& time_right)
 {
   return (!(time_left == time_right));
 }
 
-//  Friend class member function
-//  Output time (year, month, day, hour, minute, second -> "YYYY-MM-DD HH:MM:SS")
 std::ostream& operator<<(std::ostream& outputStream, const TimeDate& time)
 {
+  // "YYYY-MM-DD HH:MM:SS"
   return outputStream <<
     time.year_ <<
     '-' <<
@@ -380,10 +327,9 @@ std::ostream& operator<<(std::ostream& outputStream, const TimeDate& time)
     (time.second_ < 10 ? "0" : "") << time.second_;
 }
 
-//  Friend class member function
-//  Input time (year, month, day, hour, minute, second -> "YYYY-MM-DD HH:MM:SS")
 std::istream& operator>>(std::istream& input_stream, TimeDate& time)
 {
+  // "YYYY-MM-DD HH:MM:SS"
   int year;
   int month;
   int day;

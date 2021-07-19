@@ -47,4 +47,4 @@ namespace Graph_lib
   };
 }
 
-#endif  //  HOMEBOOKKEEPING_3GUI_WINDOWADDTRANSACTIONTRANSFER_H_
+#endif

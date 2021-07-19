@@ -1,31 +1,6 @@
 #ifndef HOMEBOOKKEEPING_0MODELS_ACCOUNT_H_
 #define HOMEBOOKKEEPING_0MODELS_ACCOUNT_H_
 
-//  Class Account : public Model
-//
-//  Constructors:
-//    Default (name = "Unspecified")
-//    With name setting
-//    With name setting and amount setting
-//
-//  Class member functions:
-//    Get name
-//    Get amount
-//    Get currency
-//    Set name
-//    Set amount
-//    Set currency
-//    Append amount
-//    Operator < for comparing models (by name (1), amount (2), currency (3))
-//    Operator == for comparing models (by name, amount, currency)
-//    Operator != for comparing models (by name, amount, currency)
-//    Output model (name, amount -> "name (amount)")
-//    Input model (name, amount -> "name, amount")
-//
-//  Variables:
-//    name
-//    amount
-
 #include <iostream>
 #include <string>
 
@@ -54,4 +29,4 @@ private:
   Currency currency_;
 };
 
-#endif  //  HOMEBOOKKEEPING_0MODELS_ACCOUNT_H_
+#endif

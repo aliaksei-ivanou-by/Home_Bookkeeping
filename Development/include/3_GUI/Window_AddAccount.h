@@ -41,4 +41,4 @@ namespace Graph_lib
   };
 }
 
-#endif  //  HOMEBOOKKEEPING_3GUI_WINDOWADDACCOUNT_H_
+#endif

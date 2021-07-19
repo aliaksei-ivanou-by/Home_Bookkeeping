@@ -13,4 +13,4 @@ add_library(
   "PayeeRepository.cpp" "PayeeRepository.h"
   "TagRepository.cpp" "TagRepository.h"
   "TransactionRepository.cpp" "TransactionRepository.h"
-)
+ )

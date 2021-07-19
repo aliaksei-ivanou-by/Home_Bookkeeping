@@ -1,28 +1,6 @@
 #ifndef HOMEBOOKKEEPING_1DATAACCESS_CATEGORYREPOSITORY_H_
 #define HOMEBOOKKEEPING_1DATAACCESS_CATEGORYREPOSITORY_H_
 
-//  Class CategoryRepository
-//
-//  Constructors:
-//    Default
-//
-//  Class member functions:
-//    Add category (default) to repository
-//    Add category to repository
-//    Add category (shared pointer) to repository
-//    Remove category (shared pointer) from repository
-//    Get name of category from repository
-//    Set name of category from repository
-//    Calculate size of repository
-//    Clear repository
-//    Find category (shared pointer) in repository
-//    Find category with definite name in repository
-//    Find begin iterator of repository
-//    Find end iterator of repository
-//
-//  Variables:
-//    repository
-
 #include <iostream>
 #include <map>
 
@@ -52,4 +30,4 @@ private:
   std::map<std::shared_ptr<Category>, int> repository_;
 };
 
-#endif  //  HOMEBOOKKEEPING_1DATAACCESS_CATEGORYREPOSITORY_H_
+#endif

@@ -102,4 +102,4 @@ namespace Graph_lib
   };
 }
 
-#endif  //  HOMEBOOKKEEPING_3GUI_WINDOWMAIN_H_
+#endif

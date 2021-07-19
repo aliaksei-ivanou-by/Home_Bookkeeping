@@ -1,28 +1,6 @@
 #ifndef HOMEBOOKKEEPING_0MODELS_TYPE_H_
 #define HOMEBOOKKEEPING_0MODELS_TYPE_H_
 
-//  Class Type : public Model
-//
-//  Constructors:
-//    Default (type = "Expense", name = "Expense")
-//    With type setting
-//
-//  Class member functions:
-//    Get name
-//    Set name
-//    Get type
-//    Set type
-//    Operator < for comparing types (by type)
-//    Operator == for comparing types (by type)
-//    Operator != for comparing types (by type)
-//    Output model (name)
-//    Input model (name)
-//
-//  Variables:
-//    name
-//    enum class kEnumType
-//    type
-
 #include "lib/enum/magic_enum.hpp"
 
 #include "include/0_Models/Model.h"
@@ -49,4 +27,4 @@ public:
 private:
   kEnumType type_;
 };
-#endif  //  HOMEBOOKKEEPING_0MODELS_TYPE_H_
+#endif
