@@ -17,7 +17,16 @@
 #include "include/1_DataAccess/TagRepository.h"
 #include "include/1_DataAccess/TransactionRepository.h"
 
-#include "include/2_BusinessLogic/DatabaseManager.h"
+#include "include/1_DataAccess/DatabaseManager.h"
+
+#include "include/1_DataAccess/AccountDatabase.h"
+#include "include/1_DataAccess/CategoryDatabase.h"
+#include "include/1_DataAccess/CommentDatabase.h"
+#include "include/1_DataAccess/CurrencyDatabase.h"
+#include "include/1_DataAccess/DescriptionDatabase.h"
+#include "include/1_DataAccess/PayeeDatabase.h"
+#include "include/1_DataAccess/TagDatabase.h"
+#include "include/1_DataAccess/TransactionDatabase.h"
 
 class FinanceRepository
 {
@@ -127,6 +136,14 @@ public:
   void ClearTablesInDatabase();
 private:
   DatabaseManager* database_manager_;
+  AccountDatabase* account_database_;
+  CategoryDatabase* category_database_;
+  CommentDatabase* comment_database_;
+  CurrencyDatabase* currency_database_;
+  DescriptionDatabase* description_database_;
+  PayeeDatabase* payee_database_;
+  TagDatabase* tag_database_;
+  TransactionDatabase* transaction_database_;
 };
 
 #endif

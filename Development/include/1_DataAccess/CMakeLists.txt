@@ -13,4 +13,9 @@ add_library(
   "PayeeRepository.cpp" "PayeeRepository.h"
   "TagRepository.cpp" "TagRepository.h"
   "TransactionRepository.cpp" "TransactionRepository.h"
- )
+  "DatabaseManager.cpp" "DatabaseManager.h"
+  "AccountDatabase.h" "AccountDatabase.cpp"
+  "CommentDatabase.cpp" "CommentDatabase.h"
+  "CurrencyDatabase.cpp" "CurrencyDatabase.h"
+  "DescriptionDatabase.cpp" "DescriptionDatabase.h"
+   "PayeeDatabase.cpp" "TagDatabase.cpp" "TagDatabase.h" "TransactionDatabase.cpp")

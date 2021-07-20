@@ -6,6 +6,7 @@ FinanceRepository::FinanceRepository()
   plog::init(plog::info, file.c_str());
   PLOG_INFO << "Logger init";
   database_manager_ = new DatabaseManager();
+  account_database_ = new AccountDatabase(database_manager_);
 }
 
 FinanceRepository::~FinanceRepository()
@@ -325,42 +326,42 @@ size_t FinanceRepository::GetTagsNumber() const
 
 void FinanceRepository::ClearTransactions()
 {
-  database_manager_->ClearTableTransactionsInDatabase();
+  transaction_database_->ClearTableTransactionsInDatabase();
 }
 
 void FinanceRepository::ClearAccounts()
 {
-  database_manager_->ClearTableAccountsInDatabase();
+  account_database_->ClearTableAccountsInDatabase();
 }
 
 void FinanceRepository::ClearCategories()
 {
-  database_manager_->ClearTableCategoriesInDatabase();
+  category_database_->ClearTableCategoriesInDatabase();
 }
 
 void FinanceRepository::ClearCurrencies()
 {
-  database_manager_->ClearTableCurrenciesInDatabase();
+  currency_database_->ClearTableCurrenciesInDatabase();
 }
 
 void FinanceRepository::ClearDescriptions()
 {
-  database_manager_->ClearTableDescriptionsInDatabase();
+  description_database_->ClearTableDescriptionsInDatabase();
 }
 
 void FinanceRepository::ClearPayees()
 {
-  database_manager_->ClearTablePayeesInDatabase();
+  payee_database_->ClearTablePayeesInDatabase();
 }
 
 void FinanceRepository::ClearComments()
 {
-  database_manager_->ClearTableCommentsInDatabase();
+  comment_database_->ClearTableCommentsInDatabase();
 }
 
 void FinanceRepository::ClearTags()
 {
-  database_manager_->ClearTableTagsInDatabase();
+  tag_database_->ClearTableTagsInDatabase();
 }
 
 std::tuple<bool, int, Account> FinanceRepository::FindAccount(const std::string& name) const

@@ -5,6 +5,5 @@ project(2_BusinessLogic)
 add_library(
   BusinessLogic
   STATIC
-  "DatabaseManager.cpp" "DatabaseManager.h"
   "FinanceRepository.cpp" "FinanceRepository.h"
 )
