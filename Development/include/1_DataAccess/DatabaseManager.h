@@ -6,7 +6,6 @@
 #include "lib/logger/Initializers/RollingFileInitializer.h"
 
 #include "AccountRepository.h"
-#include "CategoryRepository.h"
 #include "CommentRepository.h"
 #include "CurrencyRepository.h"
 #include "DescriptionRepository.h"
@@ -42,13 +41,6 @@ public:
   NUM GetAccountAmount(const std::string& model_name);
   Currency GetAccountCurrency(const std::string& model_name);
   void RemoveAccountFromTableAccountsInDatabase(const std::string& model_name);
-
-  void InsertCategoryToTableCategoriesInDatabase(Category&& category);
-  void InsertCategoriesToTableCategoriesInDatabase(CategoryRepository&& repository);
-  std::tuple<bool, int, Category, int> FindCategoryInTableCategoriesInDatabase(const std::string& model_name);
-  void SetCategoryName(const std::string& model_name, const std::string& name);
-  std::string GetCategoryName(const std::string& model_name);
-  void RemoveCategoryFromTableCategoriesInDatabase(const std::string& model_name);
 
   void InsertCurrencyToTableCurrenciesInDatabase(Currency&& currency);
   void InsertCurrenciesToTableCurrenciesInDatabase(CurrencyRepository&& repository);

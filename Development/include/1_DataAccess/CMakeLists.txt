@@ -16,6 +16,10 @@ add_library(
   "DatabaseManager.cpp" "DatabaseManager.h"
   "AccountDatabase.h" "AccountDatabase.cpp"
   "CommentDatabase.cpp" "CommentDatabase.h"
+  "CategoryDatabase.cpp" "CategoryDatabase.h"
   "CurrencyDatabase.cpp" "CurrencyDatabase.h"
   "DescriptionDatabase.cpp" "DescriptionDatabase.h"
-   "PayeeDatabase.cpp" "TagDatabase.cpp" "TagDatabase.h" "TransactionDatabase.cpp")
+  "PayeeDatabase.cpp" "PayeeDatabase.h"
+  "TagDatabase.cpp" "TagDatabase.h"
+  "TransactionDatabase.cpp" "TransactionDatabase.h"
+  )

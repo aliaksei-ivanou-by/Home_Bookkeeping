@@ -14,3 +14,4 @@ void AccountDatabase::ClearTableAccountsInDatabase()
 {
   database_manager_->ClearTableInDatabase("Accounts");
 }
+

@@ -7,6 +7,7 @@ FinanceRepository::FinanceRepository()
   PLOG_INFO << "Logger init";
   database_manager_ = new DatabaseManager();
   account_database_ = new AccountDatabase(database_manager_);
+  category_database_ = new CategoryDatabase(database_manager_);
 }
 
 FinanceRepository::~FinanceRepository()
@@ -36,17 +37,17 @@ void FinanceRepository::AddAccounts(AccountRepository&& accounts)
 
 void FinanceRepository::AddCategory()
 {
-  database_manager_->InsertCategoryToTableCategoriesInDatabase(Category());
+  category_database_->InsertCategoryToTableCategoriesInDatabase(Category());
 }
 
 void FinanceRepository::AddCategory(Category&& category)
 {
-  database_manager_->InsertCategoryToTableCategoriesInDatabase(std::move(category));
+  category_database_->InsertCategoryToTableCategoriesInDatabase(std::move(category));
 }
 
 void FinanceRepository::AddCategories(CategoryRepository&& categories)
 {
-  database_manager_->InsertCategoriesToTableCategoriesInDatabase(std::move(categories));
+  category_database_->InsertCategoriesToTableCategoriesInDatabase(std::move(categories));
 }
 
 void FinanceRepository::AddCurrency()
@@ -136,7 +137,7 @@ void FinanceRepository::RemoveAccount(const std::string& name)
 
 void FinanceRepository::RemoveCategory(const std::string& name)
 {
-  database_manager_->RemoveCategoryFromTableCategoriesInDatabase(name);
+  category_database_->RemoveCategoryFromTableCategoriesInDatabase(name);
 }
 
 void FinanceRepository::RemoveCurrency(const std::string& name)
@@ -176,7 +177,7 @@ NUM FinanceRepository::GetAccountAmount(const std::string& account_name)
 
 std::string FinanceRepository::GetCategoryName(const std::string& category_name)
 {
-  return database_manager_->GetCategoryName(category_name);
+  return category_database_->GetCategoryName(category_name);
 }
 
 std::string FinanceRepository::GetCurrencyName(const std::string& currency_name)
@@ -231,7 +232,7 @@ void FinanceRepository::SetAccountCurrency(const std::string& account_name, Curr
 
 void FinanceRepository::SetCategoryName(const std::string& category_name, const std::string& name)
 {
-  database_manager_->SetCategoryName(category_name, name);
+  category_database_->SetCategoryName(category_name, name);
 }
 
 void FinanceRepository::SetCurrencyName(const std::string& currency_name, const std::string& name)
@@ -371,7 +372,7 @@ std::tuple<bool, int, Account> FinanceRepository::FindAccount(const std::string&
 
 std::tuple<bool, int, Category, int> FinanceRepository::FindCategory(const std::string& name) const
 {
-  return database_manager_->FindCategoryInTableCategoriesInDatabase(name);
+  return category_database_->FindCategoryInTableCategoriesInDatabase(name);
 }
 
 std::tuple<bool, int, Currency> FinanceRepository::FindCurrency(const std::string& name) const
