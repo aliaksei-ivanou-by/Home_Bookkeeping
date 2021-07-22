@@ -8,6 +8,7 @@ FinanceRepository::FinanceRepository()
   database_manager_ = new DatabaseManager();
   account_database_ = new AccountDatabase(database_manager_);
   category_database_ = new CategoryDatabase(database_manager_);
+  description_database_ = new DescriptionDatabase(database_manager_);
 }
 
 FinanceRepository::~FinanceRepository()
@@ -67,17 +68,17 @@ void FinanceRepository::AddCurrencies(CurrencyRepository&& currencies)
 
 void FinanceRepository::AddDescription()
 {
-  database_manager_->InsertDescriptionToTableDescriptionsInDatabase(Description());
+  description_database_->InsertDescriptionToTableDescriptionsInDatabase(Description());
 }
 
 void FinanceRepository::AddDescription(Description&& description)
 {
-  database_manager_->InsertDescriptionToTableDescriptionsInDatabase(std::move(description));
+  description_database_->InsertDescriptionToTableDescriptionsInDatabase(std::move(description));
 }
 
 void FinanceRepository::AddDescriptions(DescriptionRepository&& descriptions)
 {
-  database_manager_->InsertDescriptionsToTableDescriptionsInDatabase(std::move(descriptions));
+  description_database_->InsertDescriptionsToTableDescriptionsInDatabase(std::move(descriptions));
 }
 
 void FinanceRepository::AddPayee()
@@ -147,7 +148,7 @@ void FinanceRepository::RemoveCurrency(const std::string& name)
 
 void FinanceRepository::RemoveDescription(const std::string& name)
 {
-  database_manager_->RemoveDescriptionFromTableDescriptionsInDatabase(name);
+  description_database_->RemoveDescriptionFromTableDescriptionsInDatabase(name);
 }
 
 void FinanceRepository::RemovePayee(const std::string& name)
@@ -197,7 +198,7 @@ bool FinanceRepository::GetCurrencyActivity(const std::string& currency_name)
 
 std::string FinanceRepository::GetDescriptionName(const std::string& description_name)
 {
-  return database_manager_->GetDescriptionName(description_name);
+  return description_database_->GetDescriptionName(description_name);
 }
 
 std::string FinanceRepository::GetPayeeName(const std::string& payee_name)
@@ -267,7 +268,7 @@ void FinanceRepository::SwitchOffCurrencyActivity(const std::string& currency_na
 
 void FinanceRepository::SetDescriptionName(const std::string& model_name, const std::string& name)
 {
-  database_manager_->SetDescriptionName(model_name, name);
+  description_database_->SetDescriptionName(model_name, name);
 }
 
 void FinanceRepository::SetPayeeName(const std::string& payee_name, const std::string& name)
@@ -387,7 +388,7 @@ std::tuple<bool, int, Currency> FinanceRepository::FindCurrencyByCode(const std:
 
 std::tuple<bool, int, Description, int> FinanceRepository::FindDescription(const std::string& name) const
 {
-  return database_manager_->FindDescriptionInTableDescriptionsInDatabase(name);
+  return description_database_->FindDescriptionInTableDescriptionsInDatabase(name);
 }
 
 std::tuple<bool, int, Payee, int> FinanceRepository::FindPayee(const std::string& name) const

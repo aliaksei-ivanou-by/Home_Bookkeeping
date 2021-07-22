@@ -57,13 +57,6 @@ public:
   void SwitchOffCurrencyActivity(const std::string& model_name);
   void RemoveCurrencyFromTableCurrenciesInDatabase(const std::string& model_name);
 
-  void InsertDescriptionToTableDescriptionsInDatabase(Description&& description);
-  void InsertDescriptionsToTableDescriptionsInDatabase(DescriptionRepository&& repository);
-  std::tuple<bool, int, Description, int> FindDescriptionInTableDescriptionsInDatabase(const std::string& model_name);
-  void SetDescriptionName(const std::string& model_name, const std::string& name);
-  std::string GetDescriptionName(const std::string& model_name);
-  void RemoveDescriptionFromTableDescriptionsInDatabase(const std::string& model_name);
-
   void InsertPayeeToTablePayeesInDatabase(Payee&& payee);
   void InsertPayeesToTablePayeesInDatabase(PayeeRepository&& repository);
   std::tuple<bool, int, Payee, int> FindPayeeInTablePayeesInDatabase(const std::string& model_name);
