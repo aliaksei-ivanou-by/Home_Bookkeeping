@@ -8,6 +8,7 @@ FinanceRepository::FinanceRepository()
   database_manager_ = new DatabaseManager();
   account_database_ = new AccountDatabase(database_manager_);
   category_database_ = new CategoryDatabase(database_manager_);
+  comment_database_ = new CommentDatabase(database_manager_);
   description_database_ = new DescriptionDatabase(database_manager_);
   payee_database_ = new PayeeDatabase(database_manager_);
   tag_database_ = new TagDatabase(database_manager_);
@@ -100,17 +101,17 @@ void FinanceRepository::AddPayees(PayeeRepository&& payees)
 
 void FinanceRepository::AddComment()
 {
-  database_manager_->InsertCommentToTableCommentsInDatabase(Comment());
+  comment_database_->InsertCommentToTableCommentsInDatabase(Comment());
 }
 
 void FinanceRepository::AddComment(Comment&& comment)
 {
-  database_manager_->InsertCommentToTableCommentsInDatabase(std::move(comment));
+  comment_database_->InsertCommentToTableCommentsInDatabase(std::move(comment));
 }
 
 void FinanceRepository::AddComments(CommentRepository&& comments)
 {
-  database_manager_->InsertCommentsToTableCommentsInDatabase(std::move(comments));
+  comment_database_->InsertCommentsToTableCommentsInDatabase(std::move(comments));
 }
 
 void FinanceRepository::AddTag()
@@ -160,7 +161,7 @@ void FinanceRepository::RemovePayee(const std::string& name)
 
 void FinanceRepository::RemoveComment(const std::string& name)
 {
-  database_manager_->RemoveCommentFromTableCommentsInDatabase(name);
+  comment_database_->RemoveCommentFromTableCommentsInDatabase(name);
 }
 
 void FinanceRepository::RemoveTag(const std::string& name)
@@ -210,7 +211,7 @@ std::string FinanceRepository::GetPayeeName(const std::string& payee_name)
 
 std::string FinanceRepository::GetCommentName(const std::string& comment_name)
 {
-  return database_manager_->GetCommentName(comment_name);
+  return comment_database_->GetCommentName(comment_name);
 }
 
 std::string FinanceRepository::GetTagName(const std::string& tag_name)
@@ -280,7 +281,7 @@ void FinanceRepository::SetPayeeName(const std::string& payee_name, const std::s
 
 void FinanceRepository::SetCommentName(const std::string& comment_name, const std::string& name)
 {
-  database_manager_->SetCommentName(comment_name, name);
+  comment_database_->SetCommentName(comment_name, name);
 }
 
 void FinanceRepository::SetTagName(const std::string& tag_name, const std::string& name)
@@ -400,7 +401,7 @@ std::tuple<bool, int, Payee, int> FinanceRepository::FindPayee(const std::string
 
 std::tuple<bool, int, Comment, int> FinanceRepository::FindComment(const std::string& name) const
 {
-  return database_manager_->FindCommentInTableCommentsInDatabase(name);
+  return comment_database_->FindCommentInTableCommentsInDatabase(name);
 }
 
 std::tuple<bool, int, Tag, int> FinanceRepository::FindTag(const std::string& name) const

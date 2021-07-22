@@ -202,11 +202,11 @@ void DatabaseManager::InsertTransactionToTableTransactionsInDatabase(Transaction
   // Check comment
   bool transaction_comment_in_database;
   int transaction_comment_id;
-  std::tie(transaction_comment_in_database, transaction_comment_id, std::ignore, std::ignore) = FindCommentInTableCommentsInDatabase(transaction.GetComment().GetName());
+  //std::tie(transaction_comment_in_database, transaction_comment_id, std::ignore, std::ignore) = FindCommentInTableCommentsInDatabase(transaction.GetComment().GetName());
   if (!transaction_category_in_database)
   {
-    InsertCommentToTableCommentsInDatabase(transaction.GetComment());
-    std::tie(transaction_comment_in_database, transaction_comment_id, std::ignore, std::ignore) = FindCommentInTableCommentsInDatabase(transaction.GetComment().GetName());
+    //InsertCommentToTableCommentsInDatabase(transaction.GetComment());
+    //std::tie(transaction_comment_in_database, transaction_comment_id, std::ignore, std::ignore) = FindCommentInTableCommentsInDatabase(transaction.GetComment().GetName());
   }
   // Check currency
   bool transaction_currency_in_database;
@@ -793,130 +793,6 @@ void DatabaseManager::RemoveCurrencyFromTableCurrenciesInDatabase(const std::str
     else
     {
       PLOG_INFO << "Remove currency '" << currency_name << "' from table 'Currencies' in database";
-    }
-  }
-}
-
-
-
-void DatabaseManager::InsertCommentToTableCommentsInDatabase(Comment&& model)
-{
-  int counter_start = 1;
-  bool model_in_database;
-  int model_id;
-  int model_counter;
-  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindCommentInTableCommentsInDatabase(model.GetName());
-  if (model_in_database)
-  {
-    std::string sql_request = std::string("UPDATE Comments SET counter = ") + std::to_string(model_counter + 1) +
-      " WHERE id = " + std::to_string(model_id) + ";";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Insert Error: " << database_error_;
-    }
-    else
-    {
-      PLOG_INFO << "Append counter for comment in table 'Comments' in database";
-    }
-    return;
-  }
-  else
-  {
-    std::string sql_request = std::string("INSERT INTO Comments VALUES(null, '") +
-      model.GetName() + "', " + std::to_string(counter_start) + ");";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Insert Error: " << database_error_;
-    }
-    else
-    {
-      PLOG_INFO << "Insert comment to table 'Comments' in database";
-    }
-    return;
-  }
-}
-
-void DatabaseManager::InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository)
-{
-  for (auto i = repository.Begin(); i != repository.End(); ++i)
-  {
-    InsertCommentToTableCommentsInDatabase(std::move(*i->first));
-  }
-}
-
-std::tuple<bool, int, Comment, int> DatabaseManager::FindCommentInTableCommentsInDatabase(const std::string& model_name)
-{
-  sqlite3_prepare_v2(database_, "SELECT * FROM Comments", -1, &database_stmt_, 0);
-  while (sqlite3_step(database_stmt_) != SQLITE_DONE)
-  {
-    int model_id = (sqlite3_column_int(database_stmt_, 0));
-    const unsigned char* model_name_char = (sqlite3_column_text(database_stmt_, 1));
-    int model_counter = (sqlite3_column_int(database_stmt_, 2));
-    if (reinterpret_cast<const char*>(model_name_char) == model_name)
-    {
-      Comment comment((reinterpret_cast<const char*>(model_name_char)));
-      PLOG_INFO << "Comment with name " << model_name << " is found in table 'Comments' in database";
-      return std::make_tuple(true, model_id, comment, model_counter);
-    }
-  }
-  PLOG_INFO << "Comment with name " << model_name << " isn't found in table 'Comments' in database";
-  return std::make_tuple(false, 0, Comment(), 0);
-}
-
-void DatabaseManager::SetCommentName(const std::string& model_name, const std::string& name)
-{
-  bool model_is_in_table = false;
-  int model_id;
-  Comment model;
-  int model_counter;
-  std::tie(model_is_in_table, model_id, model, model_counter) = FindCommentInTableCommentsInDatabase(model_name);
-  if (model_is_in_table)
-  {
-    const std::string sql_request = std::string("UPDATE Comments SET name = '") +
-      name +
-      "' WHERE id = " + std::to_string(model_id) + ";";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Insert Error: " << database_error_;
-    }
-    else
-    {
-      PLOG_INFO << "Set name ('" << model.GetName() << "' -> '" << name << "') of comment '" << model_name << "' in table 'Comments' in database";
-    }
-  }
-}
-
-std::string DatabaseManager::GetCommentName(const std::string& model_name)
-{
-  bool model_is_in_table = false;
-  Comment model;
-  std::tie(model_is_in_table, std::ignore, model, std::ignore) = FindCommentInTableCommentsInDatabase(model_name);
-  if (model_is_in_table)
-  {
-    return model.GetName();
-  }
-}
-
-void DatabaseManager::RemoveCommentFromTableCommentsInDatabase(const std::string& comment_name)
-{
-  bool comment_is_in_table = false;
-  int comment_id;
-  std::tie(comment_is_in_table, comment_id, std::ignore, std::ignore) = FindCommentInTableCommentsInDatabase(comment_name);
-  if (comment_is_in_table)
-  {
-    const std::string sql_request = std::string("DELETE FROM Comments WHERE id = ") +
-      std::to_string(comment_id) + ";";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Remove row Error: " << database_error_;
-    }
-    else
-    {
-      PLOG_INFO << "Remove comment '" << comment_name << "' from table 'Comments' in database";
     }
   }
 }

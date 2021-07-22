@@ -53,13 +53,6 @@ public:
   void SwitchOnCurrencyActivity(const std::string& model_name);
   void SwitchOffCurrencyActivity(const std::string& model_name);
   void RemoveCurrencyFromTableCurrenciesInDatabase(const std::string& model_name);
-
-  void InsertCommentToTableCommentsInDatabase(Comment&& comment);
-  void InsertCommentsToTableCommentsInDatabase(CommentRepository&& repository);
-  std::tuple<bool, int, Comment, int> FindCommentInTableCommentsInDatabase(const std::string& model_name);
-  void SetCommentName(const std::string& model_name, const std::string& name);
-  std::string GetCommentName(const std::string& model_name);
-  void RemoveCommentFromTableCommentsInDatabase(const std::string& model_name);
 private:
   char* database_error_;
   int database_status_;
