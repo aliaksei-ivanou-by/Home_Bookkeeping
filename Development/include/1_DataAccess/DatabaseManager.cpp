@@ -238,11 +238,11 @@ void DatabaseManager::InsertTransactionToTableTransactionsInDatabase(Transaction
   // Check tag
   bool transaction_tag_in_database;
   int transaction_tag_id;
-  std::tie(transaction_tag_in_database, transaction_tag_id, std::ignore, std::ignore) = FindTagInTableTagsInDatabase(transaction.GetTag().GetName());
+  //std::tie(transaction_tag_in_database, transaction_tag_id, std::ignore, std::ignore) = FindTagInTableTagsInDatabase(transaction.GetTag().GetName());
   if (!transaction_tag_in_database)
   {
-    InsertTagToTableTagsInDatabase(transaction.GetTag());
-    std::tie(transaction_tag_in_database, transaction_tag_id, std::ignore, std::ignore) = FindTagInTableTagsInDatabase(transaction.GetTag().GetName());
+    //InsertTagToTableTagsInDatabase(transaction.GetTag());
+    //std::tie(transaction_tag_in_database, transaction_tag_id, std::ignore, std::ignore) = FindTagInTableTagsInDatabase(transaction.GetTag().GetName());
   }
   // Check amount_account_from and amount_account_to
   NUM transaction_amount_account_from;
@@ -917,127 +917,6 @@ void DatabaseManager::RemoveCommentFromTableCommentsInDatabase(const std::string
     else
     {
       PLOG_INFO << "Remove comment '" << comment_name << "' from table 'Comments' in database";
-    }
-  }
-}
-
-void DatabaseManager::InsertTagToTableTagsInDatabase(Tag&& model)
-{
-  int counter_start = 1;
-  bool model_in_database;
-  int model_id;
-  int model_counter;
-  std::tie(model_in_database, model_id, std::ignore, model_counter) = FindTagInTableTagsInDatabase(model.GetName());
-  if (model_in_database)
-  {
-    std::string sql_request = std::string("UPDATE Tags SET counter = ") + std::to_string(model_counter + 1) +
-      " WHERE id = " + std::to_string(model_id) + ";";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Insert Error: " << database_error_;
-    }
-    else
-    {
-      PLOG_INFO << "Append counter for tag in table 'Tags' in database";
-    }
-    return;
-  }
-  else
-  {
-    std::string sql_request = std::string("INSERT INTO Tags VALUES(null, '") + 
-      model.GetName() + "', " + std::to_string(counter_start) + ");";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Insert Error: " << database_error_;
-    }
-    else
-    {
-      PLOG_INFO << "Insert tag to table 'Tags' in database";
-    }
-    return;
-  }
-}
-
-void DatabaseManager::InsertTagsToTableTagsInDatabase(TagRepository&& repository)
-{
-  for (auto i = repository.Begin(); i != repository.End(); ++i)
-  {
-    InsertTagToTableTagsInDatabase(std::move(*i->first));
-  }
-}
-
-std::tuple<bool, int, Tag, int> DatabaseManager::FindTagInTableTagsInDatabase(const std::string& model_name)
-{
-  sqlite3_prepare_v2(database_, "SELECT * FROM Tags", -1, &database_stmt_, 0);
-  while (sqlite3_step(database_stmt_) != SQLITE_DONE)
-  {
-    int model_id = (sqlite3_column_int(database_stmt_, 0));
-    const unsigned char* model_name_char = (sqlite3_column_text(database_stmt_, 1));
-    int model_counter = (sqlite3_column_int(database_stmt_, 2));
-    if (reinterpret_cast<const char*>(model_name_char) == model_name)
-    {
-      Tag tag((reinterpret_cast<const char*>(model_name_char)));
-      PLOG_INFO << "Tag with name " << model_name << " is found in table 'Tags' in database";
-      return std::make_tuple(true, model_id, tag, model_counter);
-    }
-  }
-  PLOG_INFO << "Tag with name " << model_name << " isn't found in table 'Tags' in database";
-  return std::make_tuple(false, 0, Tag(), 0);
-}
-
-void DatabaseManager::SetTagName(const std::string& model_name, const std::string& name)
-{
-  bool model_is_in_table = false;
-  int model_id;
-  Tag model;
-  int model_counter;
-  std::tie(model_is_in_table, model_id, model, model_counter) = FindTagInTableTagsInDatabase(model_name);
-  if (model_is_in_table)
-  {
-    const std::string sql_request = std::string("UPDATE Tags SET name = '") + name +
-      "' WHERE id = " + std::to_string(model_id) + ";";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Insert Error: " << database_error_;
-    }
-    else
-    {
-      PLOG_INFO << "Set name (old name - '" << model_name << "') of tag '" << name << "' in table 'Tags' in database";
-    }
-  }
-}
-
-std::string DatabaseManager::GetTagName(const std::string& model_name)
-{
-  bool model_is_in_table = false;
-  Tag model;
-  std::tie(model_is_in_table, std::ignore, model, std::ignore) = FindTagInTableTagsInDatabase(model_name);
-  if (model_is_in_table)
-  {
-    return model.GetName();
-  }
-}
-
-void DatabaseManager::RemoveTagFromTableTagsInDatabase(const std::string& tag_name)
-{
-  bool tag_is_in_table = false;
-  int tag_id;
-  std::tie(tag_is_in_table, tag_id, std::ignore, std::ignore) = FindTagInTableTagsInDatabase(tag_name);
-  if (tag_is_in_table)
-  {
-    const std::string sql_request = std::string("DELETE FROM Tags WHERE id = ") +
-      std::to_string(tag_id) + ";";
-    database_status_ = sqlite3_exec(database_, sql_request.c_str(), NULL, NULL, &database_error_);
-    if (database_status_ != SQLITE_OK)
-    {
-      PLOG_ERROR << "SQL Remove row Error: " << database_error_;
-    }
-    else
-    {
-      PLOG_INFO << "Remove tag '" << tag_name << "' from table 'Tags' in database";
     }
   }
 }

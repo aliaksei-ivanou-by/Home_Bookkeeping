@@ -8,9 +8,6 @@
 #include "AccountRepository.h"
 #include "CommentRepository.h"
 #include "CurrencyRepository.h"
-#include "DescriptionRepository.h"
-#include "PayeeRepository.h"
-#include "TagRepository.h"
 #include "TransactionRepository.h"
 
 class DatabaseManager
@@ -63,13 +60,6 @@ public:
   void SetCommentName(const std::string& model_name, const std::string& name);
   std::string GetCommentName(const std::string& model_name);
   void RemoveCommentFromTableCommentsInDatabase(const std::string& model_name);
-
-  void InsertTagToTableTagsInDatabase(Tag&& tag);
-  void InsertTagsToTableTagsInDatabase(TagRepository&& repository);
-  std::tuple<bool, int, Tag, int> FindTagInTableTagsInDatabase(const std::string& model_name);
-  void SetTagName(const std::string& model_name, const std::string& name);
-  std::string GetTagName(const std::string& model_name);
-  void RemoveTagFromTableTagsInDatabase(const std::string& model_name);
 private:
   char* database_error_;
   int database_status_;

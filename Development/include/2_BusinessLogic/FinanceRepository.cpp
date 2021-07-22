@@ -10,6 +10,7 @@ FinanceRepository::FinanceRepository()
   category_database_ = new CategoryDatabase(database_manager_);
   description_database_ = new DescriptionDatabase(database_manager_);
   payee_database_ = new PayeeDatabase(database_manager_);
+  tag_database_ = new TagDatabase(database_manager_);
 }
 
 FinanceRepository::~FinanceRepository()
@@ -114,17 +115,17 @@ void FinanceRepository::AddComments(CommentRepository&& comments)
 
 void FinanceRepository::AddTag()
 {
-  database_manager_->InsertTagToTableTagsInDatabase(Tag());
+  tag_database_->InsertTagToTableTagsInDatabase(Tag());
 }
 
 void FinanceRepository::AddTag(Tag&& tag)
 {
-  database_manager_->InsertTagToTableTagsInDatabase(std::move(tag));
+  tag_database_->InsertTagToTableTagsInDatabase(std::move(tag));
 }
 
 void FinanceRepository::AddTags(TagRepository&& tags)
 {
-  database_manager_->InsertTagsToTableTagsInDatabase(std::move(tags));
+  tag_database_->InsertTagsToTableTagsInDatabase(std::move(tags));
 }
 
 void FinanceRepository::RemoveTransaction(const int id)
@@ -164,7 +165,7 @@ void FinanceRepository::RemoveComment(const std::string& name)
 
 void FinanceRepository::RemoveTag(const std::string& name)
 {
-  database_manager_->RemoveTagFromTableTagsInDatabase(name);
+  tag_database_->RemoveTagFromTableTagsInDatabase(name);
 }
 
 std::string FinanceRepository::GetAccountName(const std::string& account_name)
@@ -214,7 +215,7 @@ std::string FinanceRepository::GetCommentName(const std::string& comment_name)
 
 std::string FinanceRepository::GetTagName(const std::string& tag_name)
 {
-  return database_manager_->GetTagName(tag_name);
+  return tag_database_->GetTagName(tag_name);
 }
 
 void FinanceRepository::SetAccountName(const std::string& account_name, const std::string& name)
@@ -284,7 +285,7 @@ void FinanceRepository::SetCommentName(const std::string& comment_name, const st
 
 void FinanceRepository::SetTagName(const std::string& tag_name, const std::string& name)
 {
-  database_manager_->SetTagName(tag_name, name);
+  tag_database_->SetTagName(tag_name, name);
 }
 
 size_t FinanceRepository::GetTransactionsNumber() const
@@ -404,7 +405,7 @@ std::tuple<bool, int, Comment, int> FinanceRepository::FindComment(const std::st
 
 std::tuple<bool, int, Tag, int> FinanceRepository::FindTag(const std::string& name) const
 {
-  return database_manager_->FindTagInTableTagsInDatabase(name);
+  return tag_database_->FindTagInTableTagsInDatabase(name);
 }
 
 NUM FinanceRepository::SumExpensesToday() const
