@@ -8,11 +8,6 @@
 	https://github.com/fnc12/sqlite_orm
 - add FIRST principles
 	https://medium.com/@tasdikrahman/f-i-r-s-t-principles-of-testing-1a497acda8d6
-- modify tests
-	1 test method - 1 reason for failed
-- add CMake
-- devide class FinanceRepository
-- devide class DatabaseManager and move some subclasses to DataAccess
 
 Long-term tasks:
 - create numeric type for financial math
