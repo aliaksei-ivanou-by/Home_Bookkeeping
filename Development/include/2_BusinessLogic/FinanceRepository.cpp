@@ -8,6 +8,7 @@ FinanceRepository::FinanceRepository()
   database_manager_ = new DatabaseManager();
   account_database_ = new AccountDatabase(database_manager_);
   category_database_ = new CategoryDatabase(database_manager_);
+  currency_database_ = new CurrencyDatabase(database_manager_);
   comment_database_ = new CommentDatabase(database_manager_);
   description_database_ = new DescriptionDatabase(database_manager_);
   payee_database_ = new PayeeDatabase(database_manager_);
@@ -17,6 +18,13 @@ FinanceRepository::FinanceRepository()
 FinanceRepository::~FinanceRepository()
 {
   delete database_manager_;
+  delete account_database_;
+  delete category_database_;
+  delete currency_database_;
+  delete comment_database_;
+  delete description_database_;
+  delete payee_database_;
+  delete tag_database_;
 }
 
 void FinanceRepository::AddTransaction(Transaction&& transaction)
@@ -56,17 +64,17 @@ void FinanceRepository::AddCategories(CategoryRepository&& categories)
 
 void FinanceRepository::AddCurrency()
 {
-  database_manager_->InsertCurrencyToTableCurrenciesInDatabase(Currency());
+  currency_database_->InsertCurrencyToTableCurrenciesInDatabase(Currency());
 }
 
 void FinanceRepository::AddCurrency(Currency&& currency)
 {
-  database_manager_->InsertCurrencyToTableCurrenciesInDatabase(std::move(currency));
+  currency_database_->InsertCurrencyToTableCurrenciesInDatabase(std::move(currency));
 }
 
 void FinanceRepository::AddCurrencies(CurrencyRepository&& currencies)
 {
-  database_manager_->InsertCurrenciesToTableCurrenciesInDatabase(std::move(currencies));
+  currency_database_->InsertCurrenciesToTableCurrenciesInDatabase(std::move(currencies));
 }
 
 void FinanceRepository::AddDescription()
@@ -146,7 +154,7 @@ void FinanceRepository::RemoveCategory(const std::string& name)
 
 void FinanceRepository::RemoveCurrency(const std::string& name)
 {
-  database_manager_->RemoveCurrencyFromTableCurrenciesInDatabase(name);
+  currency_database_->RemoveCurrencyFromTableCurrenciesInDatabase(name);
 }
 
 void FinanceRepository::RemoveDescription(const std::string& name)
@@ -186,17 +194,17 @@ std::string FinanceRepository::GetCategoryName(const std::string& category_name)
 
 std::string FinanceRepository::GetCurrencyName(const std::string& currency_name)
 {
-  return database_manager_->GetCurrencyName(currency_name);
+  return currency_database_->GetCurrencyName(currency_name);
 }
 
 std::string FinanceRepository::GetCurrencyCode(const std::string& currency_name)
 {
-  return database_manager_->GetCurrencyCode(currency_name);
+  return currency_database_->GetCurrencyCode(currency_name);
 }
 
 bool FinanceRepository::GetCurrencyActivity(const std::string& currency_name)
 {
-  return database_manager_->GetCurrencyActivity(currency_name);
+  return currency_database_->GetCurrencyActivity(currency_name);
 }
 
 std::string FinanceRepository::GetDescriptionName(const std::string& description_name)
@@ -241,32 +249,32 @@ void FinanceRepository::SetCategoryName(const std::string& category_name, const 
 
 void FinanceRepository::SetCurrencyName(const std::string& currency_name, const std::string& name)
 {
-  database_manager_->SetCurrencyName(currency_name, name);
+  currency_database_->SetCurrencyName(currency_name, name);
 }
 
 void FinanceRepository::SetCurrencyCode(const std::string& currency_name, const std::string& code)
 {
-  database_manager_->SetCurrencyCode(currency_name, code);
+  currency_database_->SetCurrencyCode(currency_name, code);
 }
 
 void FinanceRepository::SetCurrencyActivity(const std::string& currency_name, const bool activity)
 {
-  database_manager_->SetCurrencyActivity(currency_name, activity);
+  currency_database_->SetCurrencyActivity(currency_name, activity);
 }
 
 void FinanceRepository::SwitchCurrencyActivity(const std::string& currency_name)
 {
-  database_manager_->SwitchCurrencyActivity(currency_name);
+  currency_database_->SwitchCurrencyActivity(currency_name);
 }
 
 void FinanceRepository::SwitchOnCurrencyActivity(const std::string& currency_name)
 {
-  database_manager_->SwitchOnCurrencyActivity(currency_name);
+  currency_database_->SwitchOnCurrencyActivity(currency_name);
 }
 
 void FinanceRepository::SwitchOffCurrencyActivity(const std::string& currency_name)
 {
-  database_manager_->SwitchOffCurrencyActivity(currency_name);
+  currency_database_->SwitchOffCurrencyActivity(currency_name);
 }
 
 void FinanceRepository::SetDescriptionName(const std::string& model_name, const std::string& name)
@@ -381,12 +389,12 @@ std::tuple<bool, int, Category, int> FinanceRepository::FindCategory(const std::
 
 std::tuple<bool, int, Currency> FinanceRepository::FindCurrency(const std::string& name) const
 {
-  return database_manager_->FindCurrencyInTableCurrenciesInDatabase(name);
+  return currency_database_->FindCurrencyInTableCurrenciesInDatabase(name);
 }
 
 std::tuple<bool, int, Currency> FinanceRepository::FindCurrencyByCode(const std::string& code) const
 {
-  return database_manager_->FindCurrencyByCodeInTableCurrenciesInDatabase(code);
+  return currency_database_->FindCurrencyByCodeInTableCurrenciesInDatabase(code);
 }
 
 std::tuple<bool, int, Description, int> FinanceRepository::FindDescription(const std::string& name) const
