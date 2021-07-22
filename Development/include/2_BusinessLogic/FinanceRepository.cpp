@@ -6,9 +6,9 @@ FinanceRepository::FinanceRepository()
   plog::init(plog::info, file.c_str());
   PLOG_INFO << "Logger init";
   database_manager_ = new DatabaseManager();
-  account_database_ = new AccountDatabase(database_manager_);
-  category_database_ = new CategoryDatabase(database_manager_);
   currency_database_ = new CurrencyDatabase(database_manager_);
+  account_database_ = new AccountDatabase(database_manager_, currency_database_);
+  category_database_ = new CategoryDatabase(database_manager_);
   comment_database_ = new CommentDatabase(database_manager_);
   description_database_ = new DescriptionDatabase(database_manager_);
   payee_database_ = new PayeeDatabase(database_manager_);
@@ -34,17 +34,17 @@ void FinanceRepository::AddTransaction(Transaction&& transaction)
 
 void FinanceRepository::AddAccount()
 {
-  database_manager_->InsertAccountToTableAccountsInDatabase(Account());
+  account_database_->InsertAccountToTableAccountsInDatabase(Account());
 }
 
 void FinanceRepository::AddAccount(Account&& account)
 {
-  database_manager_->InsertAccountToTableAccountsInDatabase(std::move(account));
+  account_database_->InsertAccountToTableAccountsInDatabase(std::move(account));
 }
 
 void FinanceRepository::AddAccounts(AccountRepository&& accounts)
 {
-  database_manager_->InsertAccountsToTableAccountsInDatabase(std::move(accounts));
+  account_database_->InsertAccountsToTableAccountsInDatabase(std::move(accounts));
 }
 
 void FinanceRepository::AddCategory()
@@ -144,7 +144,7 @@ void FinanceRepository::RemoveTransaction(const int id)
 
 void FinanceRepository::RemoveAccount(const std::string& name)
 {
-  database_manager_->RemoveAccountFromTableAccountsInDatabase(name);
+  account_database_->RemoveAccountFromTableAccountsInDatabase(name);
 }
 
 void FinanceRepository::RemoveCategory(const std::string& name)
@@ -179,12 +179,12 @@ void FinanceRepository::RemoveTag(const std::string& name)
 
 std::string FinanceRepository::GetAccountName(const std::string& account_name)
 {
-  return database_manager_->GetAccountName(account_name);
+  return account_database_->GetAccountName(account_name);
 }
 
 NUM FinanceRepository::GetAccountAmount(const std::string& account_name)
 {
-  return database_manager_->GetAccountAmount(account_name);
+  return account_database_->GetAccountAmount(account_name);
 }
 
 std::string FinanceRepository::GetCategoryName(const std::string& category_name)
@@ -229,17 +229,17 @@ std::string FinanceRepository::GetTagName(const std::string& tag_name)
 
 void FinanceRepository::SetAccountName(const std::string& account_name, const std::string& name)
 {
-  database_manager_->SetAccountName(account_name, name);
+  account_database_->SetAccountName(account_name, name);
 }
 
 void FinanceRepository::SetAccountAmount(const std::string& account_name, const NUM amount)
 {
-  database_manager_->SetAccountAmount(account_name, amount);
+  account_database_->SetAccountAmount(account_name, amount);
 }
 
 void FinanceRepository::SetAccountCurrency(const std::string& account_name, Currency&& currency)
 {
-  database_manager_->SetAccountCurrency(account_name, std::move(currency));
+  account_database_->SetAccountCurrency(account_name, std::move(currency));
 }
 
 void FinanceRepository::SetCategoryName(const std::string& category_name, const std::string& name)
@@ -379,7 +379,7 @@ void FinanceRepository::ClearTags()
 
 std::tuple<bool, int, Account> FinanceRepository::FindAccount(const std::string& name) const
 {
-  return database_manager_->FindAccountInTableAccountsInDatabase(name);
+  return account_database_->FindAccountInTableAccountsInDatabase(name);
 }
 
 std::tuple<bool, int, Category, int> FinanceRepository::FindCategory(const std::string& name) const
