@@ -16,7 +16,9 @@ add_executable(
     "test_Description.cpp"
     "test_Comment.cpp"
     "test_Category.cpp"
-      "test_Currency.cpp" "test_Account.cpp")
+    "test_Currency.cpp"
+    "test_Account.cpp"
+    )
 
 target_link_libraries(tests
   PRIVATE
