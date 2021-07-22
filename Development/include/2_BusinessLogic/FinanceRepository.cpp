@@ -29,7 +29,7 @@ FinanceRepository::~FinanceRepository()
 
 void FinanceRepository::AddTransaction(Transaction&& transaction)
 {
-  database_manager_->InsertTransactionToTableTransactionsInDatabase(std::move(transaction));
+  transaction_database_->InsertTransactionToTableTransactionsInDatabase(std::move(transaction));
 }
 
 void FinanceRepository::AddAccount()
@@ -139,7 +139,7 @@ void FinanceRepository::AddTags(TagRepository&& tags)
 
 void FinanceRepository::RemoveTransaction(const int id)
 {
-  database_manager_->RemoveTransactionFromTableTransactionsInDatabase(id);
+  transaction_database_->RemoveTransactionFromTableTransactionsInDatabase(id);
 }
 
 void FinanceRepository::RemoveAccount(const std::string& name)

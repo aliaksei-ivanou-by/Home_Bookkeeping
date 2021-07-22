@@ -5,9 +5,6 @@
 #include "lib/logger/Log.h"
 #include "lib/logger/Initializers/RollingFileInitializer.h"
 
-#include "AccountRepository.h"
-#include "TransactionRepository.h"
-
 class DatabaseManager
 {
 public:
@@ -20,11 +17,6 @@ public:
   void ClearTableInDatabase(const std::string& table);
   void ClearAllTablesInDatabase();
   bool CheckTableForExistenceInDatabase(const std::string& table);
-
-  void InsertTransactionToTableTransactionsInDatabase(Transaction&& transaction);
-  void InsertTransactionsToTableTransactionsInDatabase(TransactionRepository&& repository);
-  std::tuple<bool, int, Transaction> FindTransactionInTableTransactionsInDatabase(const int id);
-  void RemoveTransactionFromTableTransactionsInDatabase(const int id);
 private:
   char* database_error_;
   int database_status_;
