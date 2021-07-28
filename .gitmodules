@@ -1,3 +1,6 @@
 [submodule "Development/lib/sqlite_orm"]
 	path = Development/lib/sqlite_orm
 	url = git@github.com:fnc12/sqlite_orm.git
+[submodule "Development/lib/magic_enum"]
+	path = Development/lib/magic_enum
+	url = git@github.com:Neargye/magic_enum.git
