@@ -4,3 +4,6 @@
 [submodule "Development/lib/magic_enum"]
 	path = Development/lib/magic_enum
 	url = git@github.com:Neargye/magic_enum.git
+[submodule "Development/lib/plog"]
+	path = Development/lib/plog
+	url = git@github.com:SergiusTheBest/plog.git
