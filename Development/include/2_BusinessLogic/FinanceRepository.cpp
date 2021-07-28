@@ -1,18 +1,26 @@
 #include "include/2_BusinessLogic/FinanceRepository.h"
 
-FinanceRepository::FinanceRepository()
+FinanceRepository::FinanceRepository():
+  database_manager_{ new DatabaseManager() },
+  currency_database_{ new CurrencyDatabase(database_manager_) },
+  account_database_{ new AccountDatabase(database_manager_, currency_database_) },
+  category_database_{ new CategoryDatabase(database_manager_) },
+  comment_database_{ new CommentDatabase(database_manager_) },
+  description_database_{ new DescriptionDatabase(database_manager_) },
+  payee_database_{ new PayeeDatabase(database_manager_) },
+  tag_database_{ new TagDatabase(database_manager_) }, 
+  transaction_database_{ new TransactionDatabase(database_manager_,
+                                                 currency_database_,
+                                                 account_database_,
+                                                 category_database_,
+                                                 comment_database_,
+                                                 description_database_,
+                                                 payee_database_,
+                                                 tag_database_) }
 {
   std::string file = "log_" + TimeDate().GetStringTime() + ".txt";
   plog::init(plog::info, file.c_str());
   PLOG_INFO << "Logger init";
-  database_manager_ = new DatabaseManager();
-  currency_database_ = new CurrencyDatabase(database_manager_);
-  account_database_ = new AccountDatabase(database_manager_, currency_database_);
-  category_database_ = new CategoryDatabase(database_manager_);
-  comment_database_ = new CommentDatabase(database_manager_);
-  description_database_ = new DescriptionDatabase(database_manager_);
-  payee_database_ = new PayeeDatabase(database_manager_);
-  tag_database_ = new TagDatabase(database_manager_);
 }
 
 FinanceRepository::~FinanceRepository()
@@ -25,6 +33,7 @@ FinanceRepository::~FinanceRepository()
   delete description_database_;
   delete payee_database_;
   delete tag_database_;
+  delete transaction_database_;
 }
 
 void FinanceRepository::AddTransaction(Transaction&& transaction)

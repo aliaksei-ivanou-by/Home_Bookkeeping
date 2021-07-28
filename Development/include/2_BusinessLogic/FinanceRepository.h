@@ -136,10 +136,10 @@ public:
   void ClearTablesInDatabase();
 private:
   DatabaseManager* database_manager_;
+  CurrencyDatabase* currency_database_;
   AccountDatabase* account_database_;
   CategoryDatabase* category_database_;
   CommentDatabase* comment_database_;
-  CurrencyDatabase* currency_database_;
   DescriptionDatabase* description_database_;
   PayeeDatabase* payee_database_;
   TagDatabase* tag_database_;
