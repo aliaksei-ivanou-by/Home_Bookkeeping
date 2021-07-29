@@ -4,8 +4,10 @@
 #include <iostream>
 #include <string>
 
-#include "lib/logger/Log.h"
-#include "lib/logger/Initializers/RollingFileInitializer.h"
+#include <plog/Log.h>
+//#include "lib/logger/Log.h"
+#include <plog/Initializers/RollingFileInitializer.h>
+//#include "lib/logger/Initializers/RollingFileInitializer.h"
 
 class TimeDate
 {

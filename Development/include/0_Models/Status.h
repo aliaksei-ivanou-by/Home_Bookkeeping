@@ -1,7 +1,7 @@
 #ifndef HOMEBOOKKEEPING_0MODELS_STATUS_H_
 #define HOMEBOOKKEEPING_0MODELS_STATUS_H_
 
-#include "lib/enum/magic_enum.hpp"
+#include <magic_enum.hpp>
 
 #include "include/0_Models/Model.h"
 

@@ -5,9 +5,6 @@
 #include <chrono>
 #include <thread>
 
-#include "lib/logger/Log.h"
-#include "lib/logger/Initializers/RollingFileInitializer.h"
-
 #include "include/1_DataAccess/AccountRepository.h"
 #include "include/1_DataAccess/CategoryRepository.h"
 #include "include/1_DataAccess/CommentRepository.h"

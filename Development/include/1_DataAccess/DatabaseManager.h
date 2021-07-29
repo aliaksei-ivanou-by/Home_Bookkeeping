@@ -2,8 +2,9 @@
 #define HOMEBOOKKEEPING_1DATAACCESS_DATABASEMANAGER_H_
 
 #include "lib/sqlite/sqlite3.h"
-#include "lib/logger/Log.h"
-#include "lib/logger/Initializers/RollingFileInitializer.h"
+
+#include <plog/Log.h>
+#include <plog/Initializers/RollingFileInitializer.h>
 
 class DatabaseManager
 {

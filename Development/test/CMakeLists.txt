@@ -22,7 +22,7 @@ add_executable(
 
 target_link_libraries(tests
   PRIVATE
-    constants enum logger sqlite
+    constants magic_enum plog sqlite
     Models DataAccess BusinessLogic
     gtest_main
   )
